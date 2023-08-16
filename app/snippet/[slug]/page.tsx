@@ -1,4 +1,4 @@
-import { Mdx } from "app/components/mdx";
+import { Mdx } from "@/components/mdx";
 import { allSnippets } from 'contentlayer/generated';
 import Balancer from 'react-wrap-balancer';
 import type { Metadata } from 'next';

@@ -26,10 +26,10 @@ interface HeadingType {
 const prettyCodeOptions: Partial<PrettyCodeOptions> = {
    theme : {
   dark: JSON.parse(
-    fs.readFileSync(`${process.cwd()}/app/lib/rehype/dark.json`, "utf8")
+    fs.readFileSync(`${process.cwd()}/lib/rehype/dark.json`, "utf8")
   ),
 light: JSON.parse(
-    fs.readFileSync(`${process.cwd()}/app/lib/rehype/light.json`, "utf8")
+    fs.readFileSync(`${process.cwd()}/lib/rehype/light.json`, "utf8")
   ),
 },
 }

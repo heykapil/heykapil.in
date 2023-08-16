@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
+import { Suspense } from 'react';
 import { allSnippets } from 'contentlayer/generated';
 export const metadata: Metadata = {
   title: 'Snippets',
@@ -15,6 +16,8 @@ export const metadata: Metadata = {
 export default async function SnippetPage() {
   return (
     <section>
+      <Suspense fallback={<p>Loading snippets...</p>}>
+    
       <h1 className="font-bold text-2xl mb-8 tracking-tighter">All snippets</h1>
       <div className='flex flex-col gap-6 w-full mt-4'>
       <div className='space-y-1 animated-list'>
@@ -41,6 +44,7 @@ export default async function SnippetPage() {
         ))}
       </div>
       </div>
+      </Suspense>
     </section>
   );
 }

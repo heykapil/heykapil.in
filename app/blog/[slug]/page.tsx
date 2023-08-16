@@ -1,8 +1,8 @@
-import { Mdx } from "app/components/mdx";
+import { Mdx } from "@/components/mdx";
 import { allPosts } from 'contentlayer/generated';
 import Balancer from 'react-wrap-balancer';
 import type { Metadata } from 'next';
-import { formatDate } from 'app/lib/posts/format-date'
+import { formatDate } from 'lib/posts/format-date'
 import { notFound } from 'next/navigation';
 export async function generateMetadata({
     params

@@ -2,7 +2,8 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Post, allPosts } from 'contentlayer/generated';
 import { format, parseISO } from 'date-fns';
-import  {categorizePostsByYear} from '../lib/posts/filter-by-year'
+import  {categorizePostsByYear} from 'lib/posts/filter-by-year'
+import { Suspense } from 'react';
 // import {motion} from 'framer-motion'
 export const metadata: Metadata = {
   title: 'Blog',
@@ -18,6 +19,7 @@ export default async function BlogPage() {
 const postbyyear = categorizePostsByYear(allPosts);
   return (
     <section>
+      <Suspense fallback={<p>Loading posts...</p>}>
       <h1 className="font-bold text-2xl mb-8 tracking-tighter">Blog posts</h1>
       {postbyyear.map((postsOfYear)=>(
         <div key={postsOfYear.year} className='flex flex-col gap-6 w-full mt-4'>
@@ -45,6 +47,7 @@ const postbyyear = categorizePostsByYear(allPosts);
             </div>
             </div>
       ))}
+      </Suspense>
     </section>
   );
 }
