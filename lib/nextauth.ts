@@ -5,8 +5,8 @@ export const authOptions: NextAuthOptions = ({
   secret: process.env.SECRET,
   providers: [
     GithubProvider({
-      clientId: process.env.GITHUB_ID || '',
-      clientSecret: process.env.GITHUB_SECRET || '',
+      clientId: process.env.GITHUB_ID as string,
+      clientSecret: process.env.GITHUB_SECRET as string,
       profile(profile) {
         return {
           id: profile.id,
@@ -18,6 +18,9 @@ export const authOptions: NextAuthOptions = ({
       },
     }),
   ],
+  // pages: {
+  //   signIn: '/sign-in',
+  // },
   callbacks: {
     jwt: async ({ token, account, user }) => {
       if (user) {
