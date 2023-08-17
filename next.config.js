@@ -4,11 +4,18 @@ const { withContentlayer } = require('next-contentlayer')
 const nextConfig = { 
     reactStrictMode: true, 
     swcMinify: true ,
+    experimental: {
+    serverActions: true,
+  },
     images: {
         remotePatterns: [
           {
             protocol: 'https',
             hostname: 'heykapil.in',
+          },
+          {
+            protocol: 'https',
+            hostname: 'tailwind.besoeasy.com',
           },
         ],
       },

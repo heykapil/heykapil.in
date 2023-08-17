@@ -17,7 +17,6 @@ export default async function SnippetPage() {
   return (
     <section>
       <Suspense fallback={<p>Loading snippets...</p>}>
-    
       <h1 className="font-bold text-2xl mb-8 tracking-tighter">All snippets</h1>
       <div className='flex flex-col gap-6 w-full mt-4'>
       <div className='space-y-1 animated-list'>

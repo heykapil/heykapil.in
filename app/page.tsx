@@ -1,11 +1,11 @@
 // import Image from 'next/image'
-import Gallery from '../components/gallery'
+// import Gallery from 'components/gallery'
+import Hero from 'components/Hero'
+// import Desc from 'components/Desc'
 export default function Home() {
   return (
-   <div className="flex flex-col gap-16 md:gap-24">
-        <div className="hidden sm:block">
-          <Gallery />
-        </div>
-      </div>
+    <>
+      <Hero />
+    </>
     )
 }

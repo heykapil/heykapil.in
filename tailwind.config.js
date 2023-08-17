@@ -20,6 +20,16 @@ module.exports = {
       animation: {
         in: "in .6s both",
       },
+      fontFamily: {
+    'iowan': ["Iowan Old Style","Iowan","Georgia", "serif"],
+    // 'calibre': ["CalibreWeb-Regular", "sans-serif"]
+  },
+  fontSize: {
+    '10xl': ['12rem', { lineHeight: '1' }],
+  },
+  letterSpacing: {
+    extra: '0.5em',
+  },
     },
   },
   plugins: [require("@tailwindcss/typography")],
