@@ -31,10 +31,10 @@
     scroll-behavior: smooth;
 
     @screen md {
-      font-size: 15px;
+      font-size: 14.5px;
     }
     @screen lg {
-      font-size: 16px;
+      font-size: 17px;
     }
   }
 
@@ -45,7 +45,7 @@
     font-family: "Iowan Old Style","Iowan","Georgia", serif;
     /* font-size: 14px; */
     font-weight: 400;
-    line-height: 1.5;
+    /* line-height: 1.5; */
   }
  }
 h1 , h2 , h3 {

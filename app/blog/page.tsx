@@ -5,10 +5,49 @@ import { format, parseISO } from 'date-fns';
 import  {categorizePostsByYear} from 'lib/posts/filter-by-year'
 import { Suspense } from 'react';
 // import {motion} from 'framer-motion'
-export const metadata: Metadata = {
-  title: 'Blog',
-  description: 'Read my thoughts on software development, design, and more.',
-};
+export async function generateMetadata({
+  params
+}:{ params: any}): Promise<Metadata | undefined> {
+  const post = allPosts.find((post) => post.slug === params?.slug);
+  if (!post) {
+    return;
+  }
+
+  const {
+    title,
+    publishedAt: publishedTime,
+    summary: description,
+    image,
+    slug,
+  } = post;
+  const ogImage = image
+    ? `https://heykapil.in${image}`
+    : `https://leerob.io/api/og?title=${title}`;
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      type: 'article',
+      publishedTime,
+      url: `https://heykapil.in/blog/${slug}`,
+      images: [
+        {
+          url: ogImage,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [ogImage],
+    },
+  };
+}
+
 function getSortedPosts(posts: Post[]) {
   return posts.sort(
     (a, b) => Number(new Date(b.publishedAt)) - Number(new Date(a.publishedAt))

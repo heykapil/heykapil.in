@@ -6,30 +6,23 @@ import { notFound } from 'next/navigation';
 export async function generateMetadata({
     params
   }: {params: any}): Promise<Metadata | undefined> {
-    const post = allSnippets.find((post) => post.slug === params.slug);
-    if (!post) {
+    const snippet = allSnippets.find((snippet) => snippet.slug === params.slug);
+    if (!snippet) {
       return;
     }
   
     const {
       title,
-    //    publishedAt: publishedTime,
-    //     summary: description,
-    //       image,
             slug,
-    } = post;
-    const ogImage = 
-       `https://leerob.io/og?title=${title}`;
+    } = snippet;
+    const ogImage = `https://heykapil.in/lib/og?title=${title}&path=snippet/${slug}`;
   
     return {
       title,
-    //   description,
       openGraph: {
         title,
-        // description,
         type: 'article',
-        // publishedTime,
-        url: `https://leerob.io/blog/${slug}`,
+        url: `https://heykapil.in/snippet/${slug}`,
         images: [
           {
             url: ogImage,
@@ -39,12 +32,10 @@ export async function generateMetadata({
       twitter: {
         card: 'summary_large_image',
         title,
-        // description,
         images: [ogImage],
       },
     };
   }
-  
   // function formatDate(date: string) {
   //   const currentDate = new Date();
   //   const targetDate = new Date(date);

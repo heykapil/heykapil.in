@@ -20,8 +20,8 @@ export async function generateMetadata({
             slug,
     } = post;
     const ogImage = image
-      ? `https://leerob.io${image}`
-      : `https://leerob.io/og?title=${title}`;
+      ? `https://heykapil.in/${image}`
+      : `https://heykapil.in/lib/og?title=${title}&path=blog/${slug}`;
   
     return {
       title,
@@ -31,7 +31,7 @@ export async function generateMetadata({
         description,
         type: 'article',
         publishedTime,
-        url: `https://leerob.io/blog/${slug}`,
+        url: `https://heykapil.in/blog/${slug}`,
         images: [
           {
             url: ogImage,
