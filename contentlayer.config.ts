@@ -10,9 +10,8 @@ import rehypePrettyCode, { type Options as PrettyCodeOptions } from 'rehype-pret
 import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import { visit } from 'unist-util-visit';
-// import { rehypePrettyCodeClasses } from "./app/lib/rehype/rehypeoptions";
 const slugger = new GitHubSlugger();
-const headers_regex = /(#{1,6})\s+(.+)/g;
+// const headers_regex = /(#{1,6})\s+(.+)/g;
 interface HeadingType {
   heading: number;
   text: string;
@@ -25,13 +24,12 @@ interface HeadingType {
 };
 const prettyCodeOptions: Partial<PrettyCodeOptions> = {
    theme : {
-  dark: JSON.parse(
-    fs.readFileSync(`${process.cwd()}/lib/rehype/dark.json`, "utf8")
-  ),
-light: JSON.parse(
+  dark: 'dracula',
+  light: JSON.parse(
     fs.readFileSync(`${process.cwd()}/lib/rehype/light.json`, "utf8")
   ),
 },
+
 }
 const computedFields: ComputedFields = {
   structuredData: {

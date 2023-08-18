@@ -12,10 +12,10 @@ const Hero = () => {
   };
       return (
         <section>
-          <header className=''>
+          <header className='mb-10'>
             <Header />
           </header>
-        <div className="container flex flex-col px-6 py-0 mx-auto space-y-6 lg:h-[32rem] lg:py-0 lg:flex-row lg:items-center">
+        <div className="container flex flex-col px-0 md:px-2 py-0 mx-auto space-y-6 lg:h-[32rem] lg:py-0 lg:flex-row lg:items-center">
         <div className="w-full lg:w-1/2">
             <motion.div className="lg:max-w-lg"
               initial="hidden"
