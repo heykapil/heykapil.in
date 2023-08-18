@@ -26,7 +26,7 @@ export async function GET(req: NextRequest) {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          background: "linear-gradient(to right, "+ color1 +" , "+ color2 + ")"
+          background: "linear-gradient(to right, "+ lightcolor1 +" , "+ lightcolor2 + ")"
           // backgroundImage: 'url(http://localhost:3000/og-bg.png)',
         }}
       >
