@@ -15,7 +15,7 @@ export async function generateMetadata({
       title,
             slug,
     } = snippet;
-    const ogImage = `https://heykapil.in/lib/og?title=${title}&path=snippet/${slug}`;
+    const ogImage = `https://heykapil.in/api/og?title=${title}&path=snippet/${slug}`;
   
     return {
       title,
