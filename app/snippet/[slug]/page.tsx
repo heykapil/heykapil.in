@@ -10,12 +10,13 @@ export async function generateMetadata({
     if (!snippet) {
       return;
     }
-  
+    const randomHex = Array.from({ length: 32 }, () => "0123456789ABCDEF".charAt(Math.floor(Math.random() * 16))).join('');
     const {
       title,
             slug,
     } = snippet;
-    const ogImage = `https://heykapil.in/api/og?title=${title}&path=snippet/${slug}`;
+    const ogImage = `https://heykapil.in/api/og?title=${title}&path=snippet/${slug}&hex=${randomHex}` ;
+    // || `https://heykapil.in/og-common.png` ;
   
     return {
       title,

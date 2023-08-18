@@ -11,7 +11,8 @@ export async function generateMetadata({
     if (!post) {
       return;
     }
-  
+     const randomHex = Array.from({ length: 32 }, () => "0123456789ABCDEF".charAt(Math.floor(Math.random() * 16))).join('');
+    console.log(randomHex);
     const {
       title,
        publishedAt: publishedTime,
@@ -21,7 +22,7 @@ export async function generateMetadata({
     } = post;
     const ogImage = image
       ? `https://heykapil.in/${image}`
-      : `https://heykapil.in/api/og?title=${title}&path=blog/${slug}`;
+      : `https://heykapil.in/api/og?title=${title}&path=blog/${slug}&hex=${randomHex}`;
   
     return {
       title,
