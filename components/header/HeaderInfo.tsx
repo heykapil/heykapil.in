@@ -92,6 +92,7 @@ const HeaderInfo = () => {
       <DropdownMenu.Trigger asChild>
         <button
           className="rounded-full w-[48px] h-[48px] inline-flex items-center justify-center outline-none"
+          id="question-icon"
           aria-label="Customise options"
         >
           <QuestionIcon className="w-4/5 h-4/5" />
@@ -220,7 +221,7 @@ const HeaderInfo = () => {
             <DropdownMenu.ItemIndicator className="absolute left-0 w-[25px] inline-flex items-center justify-center">
               <CheckIcon />
             </DropdownMenu.ItemIndicator>
-            <button className="" onClick={copy}>{isCopied ? "Copied!" : "Copy URL"}</button>
+            <button id="copy-button" className="" onClick={copy}>{isCopied ? "Copied!" : "Copy URL"}</button>
           </DropdownMenu.CheckboxItem>
           
           {/* <DropdownMenu.Separator className="h-[1px] bg-gray-300 dark:bg-gray-700 m-[5px]" />
