@@ -1,6 +1,7 @@
 import './globals.css'
 import type { Metadata } from 'next'
-import  { Providers } from '@/components/theme/provider'
+import  { Providers } from 'components/theme/provider'
+import  NextAuthProvider  from 'components/SessionProvider'
 import Dock from '../components/dock/Dock'
 export const metadata: Metadata = {
   title: 'Kapil Chaudhary',
@@ -14,14 +15,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      {/* <link href="https://fonts.googleapis.com" rel="preconnect" /> */}
-      {/* <link href="https://fonts.gstatic.com" rel="preconnect" /> */}
         <body className="antialiased max-w-[100%] mb-40 flex flex-col md:flex-row mx-4 mt-0 lg:mx-auto">
         <Providers>
+          <NextAuthProvider>
           <main className="flex-auto min-w-0 mt-0 flex flex-col px-2 md:px-0">
             {children}
           </main>
+
           <Dock />
+          </NextAuthProvider>
         </Providers>
        </body>
     </html>

@@ -4,7 +4,7 @@ import { DockContextType } from 'types'
 import { HomeIcon, BlogIcon, GalleryIcon, FileIcon} from '../Icons'
 import { MouseProvider } from '../context/MouseProvider'
 import DockItem from './DockItem'
-import KeyNav from './keynav' 
+// import KeyNav from './keynav' 
 import ThemeSwitch from '../theme/switch'
 import { usePathname } from 'next/navigation'
 import clsx from 'clsx'
@@ -107,7 +107,7 @@ const Dock = () => {
                 </a>
                 </DockItem>
               <li className="self-center" aria-hidden="true">
-                <hr className="!mx-2 block h-12 w-px border-none bg-[hsl(0,0%,50%)] hidden lg:block" />
+                <hr className="!mx-2 h-12 w-px border-none bg-[hsl(0,0%,50%)] hidden lg:block" />
               </li>
               {/* <DockItem>
                 <a
@@ -153,7 +153,7 @@ const Dock = () => {
             </ul>
           </nav>
         </DockContext.Provider>
-       <div className='flex justify-between fixed bottom-1 right-1 hidden lg:block'><KeyNav /></div>
+       {/* <div className='justify-between fixed bottom-1 right-1 hidden lg:flex'><KeyNav /></div> */}
       </footer>
     </MouseProvider>
       

@@ -17,6 +17,10 @@ const nextConfig = {
             protocol: 'https',
             hostname: 'tailwind.besoeasy.com',
           },
+          {
+            protocol: 'https',
+            hostname: 'avatars.githubusercontent.com'
+          }
         ],
       },
     eslint: {

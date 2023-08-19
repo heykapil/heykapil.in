@@ -12,7 +12,7 @@ export async function generateMetadata({
       return;
     }
      const randomHex = Array.from({ length: 32 }, () => "0123456789ABCDEF".charAt(Math.floor(Math.random() * 16))).join('');
-    console.log(randomHex);
+    // console.log(randomHex);
     const {
       title,
        publishedAt: publishedTime,

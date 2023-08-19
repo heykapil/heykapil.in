@@ -3,19 +3,18 @@ import React from 'react';
 import Gallery from './gallery';
 import { motion } from "framer-motion";
 import Link from 'next/link';
-import { GitHubIcon, MailIcon, TwitterIcon } from './Icons';
-import Header from './Header'
+// import { GitHubIcon, MailIcon, TwitterIcon } from './Icons';
+import Header from './header/Header'
 const Hero = () => {
-
   const FADE_DOWN_ANIMATION_VARIANTS = {
     hidden: { opacity: 0, y: 10 },
     show: { opacity: 1, y: 0, transition: { type: "spring" } },
   };
       return (
         <section>
-            <header className='mb-10'>
+          <header className='mb-10'>
               <Header />
-            </header>
+          </header>
               <div className="container flex flex-col px-0 md:px-2 py-0 mx-auto space-y-6 lg:h-fit lg:py-0 lg:flex-row lg:items-center">
                 <div className="w-full lg:w-1/2">
                 <motion.div className="lg:max-w-lg"
@@ -70,11 +69,11 @@ const Hero = () => {
                     </motion.p>
                 </motion.div>
             </div>
-            <div className="flex items-left justify-start w-full h-fit hidden lg:block lg:w-1/2">
+            <div className="items-left justify-start w-full h-fit hidden lg:flex lg:w-1/2">
               <Gallery />
             </div>
         </div>
-        <div className='container flex flex-row mx-auto w-full space-x-3'>
+        {/* <div className='container flex flex-row mx-auto w-full space-x-3'>
           <Link href="mailto:contact@heykapil.in">
             <MailIcon />
           </Link>
@@ -84,7 +83,7 @@ const Hero = () => {
           <Link href="https://x.com/kapiljch" className='' target='_blank'>
             <TwitterIcon />
           </Link>
-        </div>
+        </div> */}
 </section>
       );
     };
