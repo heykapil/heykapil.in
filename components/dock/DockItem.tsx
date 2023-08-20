@@ -11,7 +11,7 @@ import { DockContextType, DockItemProps, MouseType } from "types";
 import { useMouse } from "../context/MouseProvider";
 import { useDock } from "./Dock";
 const DockItem = ({ id, children, ...props }: DockItemProps) => {
-  const ref = useRef<HTMLButtonElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
   const mouse = useMouse() as MouseType;
   const dock = useDock() as DockContextType;
   const [elCenterX, setElCenterX] = useState<number>(0);
@@ -63,11 +63,12 @@ const DockItem = ({ id, children, ...props }: DockItemProps) => {
         }
       }}
     >
-      <motion.button
+      <motion.div
+        role='button'
         ref={ref}
         id={id}
         className='ui-box relative h-full w-full hover:bg-opacity-100 dark:hover:bg-opacity-30 hover:bg-gradient-to-r hover:from-rose-100 hover:via-pink-200 hover:to-orange-100 dark:hover:bg-gradient-to-r dark:hover:from-purple-500/30 dark:hover:via-fuchsia-500/30 dark:hover:to-pink-500/30 transition-all duration-0'
-        aria-describedby={id}
+        aria-labelledby={id}
         animate={controls}
         custom={spring}
         transition={{
@@ -99,7 +100,7 @@ const DockItem = ({ id, children, ...props }: DockItemProps) => {
         }}
       >
         {children}
-      </motion.button>
+      </motion.div>
       {opened ?? (
         <span
           className='absolute -bottom-2.5 left-1/2 h-2 w-1 -translate-x-1/2 rounded-full bg-green-500'

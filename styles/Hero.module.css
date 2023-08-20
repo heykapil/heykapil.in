@@ -1,5 +1,5 @@
 .wavecontainer {
-  height: 80vh;
+  height: 100vh;
   background-color: var(--offset);
   position: relative;
 }
@@ -24,5 +24,8 @@
 @media (max-width: 850px) {
   .wavecontainer::before {
     height: 65px;
+  }
+  .wavecontainer {
+    height: 55vh;
   }
 }

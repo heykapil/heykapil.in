@@ -99,6 +99,7 @@ function Photo({
             height={height}
             className='absolute inset-0 object-cover w-full h-full bg-gray-400 text-black pointer-events-none rounded-2xl'
             priority
+            // loading='lazy'
           />
           {children}
         </div>

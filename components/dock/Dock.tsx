@@ -37,10 +37,9 @@ const Dock = () => {
               <DockItem>
                 <a
                   className='relative flex h-full w-full items-center justify-center'
-                  aria-label=''
+                  aria-label='home'
                   href='/'
                   rel='internal'
-                  target=''
                 >
                   <HomeIcon
                     className='relative h-3/5 w-3/5'
@@ -62,10 +61,9 @@ const Dock = () => {
               <DockItem>
                 <a
                   className='relative flex h-full w-full items-center justify-center'
-                  aria-label=''
+                  aria-label='blog'
                   href='/blog'
                   rel='internal'
-                  target=''
                 >
                   <BlogIcon
                     className='relative h-3/5 w-3/5'
@@ -87,10 +85,9 @@ const Dock = () => {
               <DockItem>
                 <a
                   className='relative flex h-full w-full items-center justify-center'
-                  aria-label=''
+                  aria-label='snippet'
                   href='/snippet'
                   rel='internal'
-                  target=''
                 >
                   <FileIcon
                     className='relative h-4/5 w-4/5'
@@ -112,7 +109,7 @@ const Dock = () => {
               <DockItem>
                 <a
                   className='relative flex h-full w-full items-center justify-center'
-                  aria-label=''
+                  aria-label='gallery'
                   href='https://gallery.heykapil.in'
                   rel='external'
                   target='_blank'
