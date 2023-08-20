@@ -1,34 +1,34 @@
-const { withContentlayer } = require('next-contentlayer')
+const { withContentlayer } = require("next-contentlayer");
 
 /** @type {import('next').NextConfig} */
-const nextConfig = { 
-    reactStrictMode: true, 
-    swcMinify: true ,
-    experimental: {
+const nextConfig = {
+  reactStrictMode: true,
+  swcMinify: true,
+  experimental: {
     serverActions: true,
   },
-    images: {
-        remotePatterns: [
-          {
-            protocol: 'https',
-            hostname: 'heykapil.in',
-          },
-          {
-            protocol: 'https',
-            hostname: 'tailwind.besoeasy.com',
-          },
-          {
-            protocol: 'https',
-            hostname: 'avatars.githubusercontent.com'
-          }
-        ],
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "heykapil.in",
       },
-    eslint: {
-        // ignoreDuringBuilds: true,
-    },
-    typescript: {
-        ignoreBuildErrors: true,
+      {
+        protocol: "https",
+        hostname: "tailwind.besoeasy.com",
       },
-}
+      {
+        protocol: "https",
+        hostname: "avatars.githubusercontent.com",
+      },
+    ],
+  },
+  eslint: {
+    // ignoreDuringBuilds: true,
+  },
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+};
 
-module.exports = withContentlayer(nextConfig)
+module.exports = withContentlayer(nextConfig);

@@ -1,6 +1,6 @@
-'use client'
+"use client";
 import React, { ReactNode } from "react";
-import useMousePosition from "lib/hooks/useMousePosition"
+import useMousePosition from "lib/hooks/useMousePosition";
 import { motion } from "framer-motion";
 import cn from "clsx";
 
@@ -27,7 +27,7 @@ export default function Halo({
     <motion.div
       ref={ref}
       className={cn("relative w-full h-full overflow-hidden", className)}
-      whileHover="hover"
+      whileHover='hover'
     >
       <motion.div
         style={

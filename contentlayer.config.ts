@@ -1,15 +1,17 @@
 import * as fs from "fs";
 import * as path from "path";
-import { ComputedFields, defineDocumentType } from 'contentlayer/source-files'
-import { spawn } from 'node:child_process'
-import { makeSource } from 'contentlayer/source-remote-files'
-import readingTime from 'reading-time';
-import  GitHubSlugger  from 'github-slugger';
-import remarkGfm from 'remark-gfm';
-import rehypePrettyCode, { type Options as PrettyCodeOptions } from 'rehype-pretty-code';
-import rehypeSlug from 'rehype-slug';
-import rehypeAutolinkHeadings from 'rehype-autolink-headings';
-import { visit } from 'unist-util-visit';
+import { ComputedFields, defineDocumentType } from "contentlayer/source-files";
+import { spawn } from "node:child_process";
+import { makeSource } from "contentlayer/source-remote-files";
+import readingTime from "reading-time";
+import GitHubSlugger from "github-slugger";
+import remarkGfm from "remark-gfm";
+import rehypePrettyCode, {
+  type Options as PrettyCodeOptions,
+} from "rehype-pretty-code";
+import rehypeSlug from "rehype-slug";
+import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import { visit } from "unist-util-visit";
 const slugger = new GitHubSlugger();
 // const headers_regex = /(#{1,6})\s+(.+)/g;
 interface HeadingType {
@@ -21,23 +23,23 @@ interface HeadingType {
     text: string;
     slug: string;
   }[];
-};
+}
 const prettyCodeOptions: Partial<PrettyCodeOptions> = {
   keepBackground: false,
-   theme : {
-  dark: 'dracula',
-  light: JSON.parse(
-    fs.readFileSync(`${process.cwd()}/lib/rehype/light.json`, "utf8")
-  ),
-},
-}
+  theme: {
+    dark: "dracula",
+    light: JSON.parse(
+      fs.readFileSync(`${process.cwd()}/lib/rehype/light.json`, "utf8")
+    ),
+  },
+};
 
 const computedFields: ComputedFields = {
   structuredData: {
-    type: 'nested',
+    type: "nested",
     resolve: (doc) => ({
-      '@context': 'https://schema.org',
-      '@type': 'BlogPosting',
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
       headline: doc.title,
       datePublished: doc.publishedAt,
       dateModified: doc.publishedAt,
@@ -47,26 +49,26 @@ const computedFields: ComputedFields = {
         : `https://leerob.io/og?title=${doc.title}`,
       url: `https://leerob.io/blog/${doc._raw.flattenedPath}`,
       author: {
-        '@type': 'Person',
-        name: 'Kapil Chaudhary',
-        },
-      }),
-    },
+        "@type": "Person",
+        name: "Kapil Chaudhary",
+      },
+    }),
+  },
   slug: {
-    type: 'string',
-    resolve: (doc) => doc._raw.sourceFileName.replace(/\.mdx$/, '')
+    type: "string",
+    resolve: (doc) => doc._raw.sourceFileName.replace(/\.mdx$/, ""),
   },
   readingTime: {
-    type: 'string',
-    resolve: (doc) => readingTime(doc.body.raw).text
+    type: "string",
+    resolve: (doc) => readingTime(doc.body.raw).text,
   },
   wordCount: {
-    type: 'number',
-    resolve: (doc) => doc.body.raw.split(/\s+/gu).length
+    type: "number",
+    resolve: (doc) => doc.body.raw.split(/\s+/gu).length,
   },
   headings: {
-    type: 'json',
-    resolve: async doc => {
+    type: "json",
+    resolve: async (doc) => {
       const regXHeader = /\n\n(?<flag>#{1,6})\s+(?<content>.+)/g;
       const headings = Array.from(doc.body.raw.matchAll(regXHeader)) as {
         groups: {
@@ -88,7 +90,7 @@ const computedFields: ComputedFields = {
           parentHeading = {
             heading: flag.length,
             text: content,
-            slug: content ? slugger.slug(content) : '',
+            slug: content ? slugger.slug(content) : "",
             child: [],
           };
           enrichedHeadings.push(parentHeading);
@@ -97,7 +99,7 @@ const computedFields: ComputedFields = {
           parentHeading.child.push({
             heading: flag?.length,
             text: content,
-            slug: content ? slugger.slug(content) : '',
+            slug: content ? slugger.slug(content) : "",
           });
         }
       });
@@ -107,8 +109,8 @@ const computedFields: ComputedFields = {
     },
   },
   externalLinks: {
-    type: 'json',
-    resolve: async doc => {
+    type: "json",
+    resolve: async (doc) => {
       // https://morioh.com/p/2f455138edf8
       const regXExternalLink =
         /\[(.+)\]\((https?:\/\/[^\s]+)(?: "(.+)")?\)|(https?:\/\/[^\s]+)/gi;
@@ -120,7 +122,7 @@ const computedFields: ComputedFields = {
         const url = value[2];
         if (!url) return;
         // Replacing all the / with @ to avoid folder structure
-        const name = (url as string).replace(/[\/#]/g, '@');
+        const name = (url as string).replace(/[\/#]/g, "@");
 
         return {
           text,
@@ -132,48 +134,48 @@ const computedFields: ComputedFields = {
       return externalLinks;
     },
   },
-}
+};
 const Post = defineDocumentType(() => ({
-  name: 'Post',
+  name: "Post",
   filePathPattern: `posts/*.mdx`,
-  contentType: 'mdx',
+  contentType: "mdx",
   fields: {
     title: {
-      type: 'string',
+      type: "string",
       required: true,
     },
-    image : {
-      type: 'string',
+    image: {
+      type: "string",
       required: false,
     },
     publishedAt: {
-      type: 'string',
+      type: "string",
       required: true,
     },
     summary: {
-      type: 'string',
+      type: "string",
       required: false,
-    }
+    },
   },
-  computedFields
-}))
+  computedFields,
+}));
 
 const Snippet = defineDocumentType(() => ({
-  name: 'Snippet',
-  filePathPattern: 'snippets/*.mdx',
-  contentType: 'mdx',
+  name: "Snippet",
+  filePathPattern: "snippets/*.mdx",
+  contentType: "mdx",
   fields: {
-    title: { type: 'string', required: true },
-    description: { type: 'string', required: true },
-    tag: { type: 'string', required: false },
-    logo: { type: 'string', required: false }
+    title: { type: "string", required: true },
+    description: { type: "string", required: true },
+    tag: { type: "string", required: false },
+    logo: { type: "string", required: false },
   },
-  computedFields
-}))
+  computedFields,
+}));
 
 const syncContentFromGit = async (contentDir: string) => {
   const syncRun = async () => {
-    const gitUrl = 'https://github.com/heykapil/data-website.git'
+    const gitUrl = "https://github.com/heykapil/data-website.git";
     await runBashCommand(`
       if [ -d  "${contentDir}" ];
         then
@@ -181,67 +183,67 @@ const syncContentFromGit = async (contentDir: string) => {
         else
           git clone --depth 1 --single-branch ${gitUrl} ${contentDir};
       fi
-    `)
-  }
+    `);
+  };
 
-  let wasCancelled = false
-  let syncInterval: string | number | NodeJS.Timeout | undefined
+  let wasCancelled = false;
+  let syncInterval: string | number | NodeJS.Timeout | undefined;
 
   const syncLoop = async () => {
-    console.log('Syncing content files from git')
+    console.log("Syncing content files from git");
 
-    await syncRun()
+    await syncRun();
 
-    if (wasCancelled) return
+    if (wasCancelled) return;
 
-    syncInterval = setTimeout(syncLoop, 1000 * 60)
-  }
+    syncInterval = setTimeout(syncLoop, 1000 * 60);
+  };
 
   // Block until the first sync is done
-  await syncLoop()
+  await syncLoop();
 
   return () => {
-    wasCancelled = true
-    clearTimeout(syncInterval)
-  }
-}
+    wasCancelled = true;
+    clearTimeout(syncInterval);
+  };
+};
 
 const runBashCommand = (command: string) =>
   new Promise((resolve, reject) => {
-    const child = spawn(command, [], { shell: true })
+    const child = spawn(command, [], { shell: true });
 
-    child.stdout.setEncoding('utf8')
-    child.stdout.on('data', (data) => process.stdout.write(data))
+    child.stdout.setEncoding("utf8");
+    child.stdout.on("data", (data) => process.stdout.write(data));
 
-    child.stderr.setEncoding('utf8')
-    child.stderr.on('data', (data) => process.stderr.write(data))
+    child.stderr.setEncoding("utf8");
+    child.stderr.on("data", (data) => process.stderr.write(data));
 
-    child.on('close', function (code) {
+    child.on("close", function (code) {
       if (code === 0) {
-        resolve(void 0)
+        resolve(void 0);
       } else {
-        reject(new Error(`Command failed with exit code ${code}`))
+        reject(new Error(`Command failed with exit code ${code}`));
       }
-    })
-  })
+    });
+  });
 
 export default makeSource({
   syncFiles: syncContentFromGit,
-  contentDirPath: 'content',
-  contentDirInclude: ['posts', 'snippets'],
+  contentDirPath: "content",
+  contentDirInclude: ["posts", "snippets"],
   documentTypes: [Post, Snippet],
   disableImportAliasWarning: true,
   mdx: {
     remarkPlugins: [remarkGfm],
-    rehypePlugins: [ 
+    rehypePlugins: [
       [rehypeSlug],
       () => (tree) => {
         visit(tree, (node) => {
           if (node?.type === "element" && node?.tagName === "pre") {
             const [codeEl] = node.children;
-   
+
             if (codeEl.tagName !== "code") return;
-   
+
             node.raw = codeEl.children?.[0].value;
           }
         });
@@ -253,7 +255,7 @@ export default makeSource({
             if (!("data-rehype-pretty-code-fragment" in node.properties)) {
               return;
             }
-   
+
             for (const child of node.children) {
               if (child.tagName === "pre") {
                 child.properties["raw"] = node.raw;
@@ -267,10 +269,10 @@ export default makeSource({
         {
           behaviour: "wrap",
           properties: {
-            className: ['anchor'],
+            className: ["anchor"],
           },
         },
       ],
     ],
   },
-})
+});

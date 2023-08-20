@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import Image, { StaticImageData } from "next/image";
 import { motion } from "framer-motion";
 import cn from "clsx";
@@ -77,10 +77,10 @@ function Photo({
       animate={{ width, height, rotate, y: 0, opacity: 1, x: 0 }}
       whileTap={{ scale: 1.1, cursor: "grabbing" }}
       whileDrag={{ scale: 1.1, cursor: "grabbing" }}
-      whileHover="flipped"
+      whileHover='flipped'
     >
       <motion.div
-        className="relative w-full h-full shadow-md rounded-2xl will-change-transform"
+        className='relative w-full h-full shadow-md rounded-2xl will-change-transform'
         style={{ transformStyle: "preserve-3d" }}
         transition={{ type: "spring", duration: 0.4 }}
         variants={{
@@ -97,7 +97,7 @@ function Photo({
             alt={alt}
             width={width}
             height={height}
-            className="absolute inset-0 object-cover w-full h-full bg-gray-400 text-black pointer-events-none rounded-2xl"
+            className='absolute inset-0 object-cover w-full h-full bg-gray-400 text-black pointer-events-none rounded-2xl'
             priority
           />
           {children}
@@ -112,17 +112,23 @@ function Photo({
             transform: "rotateY(180deg)",
           }}
         >
-          <Halo strength={50} className="flex items-center">
-            <span className="absolute w-[500px] h-[500px] rotate-[-20deg] bg-repeat bg-[length:280px] bg-[url('/photopaper.png')]" />
-            <div className="z-[1] px-6">
+          <Halo strength={50} className='flex items-center'>
+            <span className='absolute w-[500px] h-[500px] rotate-[-20deg] bg-repeat bg-[length:280px]  dark:bg-[url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mPk5OKrBwAA5wCiiUcgmgAAAABJRU5ErkJggg==")] bg-[url("/photopaper.png")]' />
+            <div className='z-[1] px-6'>
               <div
                 className={cn(
                   ticketingFont.className,
                   "flex flex-col gap-1 uppercase"
                 )}
               >
-                <p className="text-sm text-secondary text-black dark:text-white">{fileName}</p>
-                {meta && <p className="text-sm text-secondary text-black dark:text-white">{meta}</p>}
+                <p className='text-sm text-secondary text-black dark:text-white'>
+                  {fileName}
+                </p>
+                {meta && (
+                  <p className='text-sm text-secondary text-black dark:text-white'>
+                    {meta}
+                  </p>
+                )}
               </div>
             </div>
           </Halo>
@@ -132,44 +138,42 @@ function Photo({
   );
 }
 
-export default function Gallery(
-//     {lastActivity,
-// }: {
-//   lastActivity: ActivityType;}
-  )
-   {
+export default function Gallery() {
+  //     {lastActivity,
+  // }: {
+  //   lastActivity: ActivityType;}
   return (
     <>
-      <section className="flex gap-4 h-[268px] relative">
+      <section className='flex gap-4 h-[268px]  relative'>
         <Photo
           src={imageGotland}
-          meta="2021-07-12"
-          alt="Samuel Kraft in Gotland"
+          meta='2021-07-12'
+          alt='Samuel Kraft in Gotland'
           width={314}
           height={229}
           rotate={-6}
-          left={-86}
+          left={0}
           index={1}
         />
         <Photo
           src={imageSkate}
-          meta="2017-07-04"
-          alt="Samuel skateboarding"
+          meta='2017-07-04'
+          alt='kss'
           width={180}
           height={240}
           rotate={6.3}
-          left={198}
+          left={284}
           index={2}
-          flipDirection="left"
+          flipDirection='left'
         />
         <Photo
           src={imageRun}
-          meta="2021-05-20"
-          alt="Samuel running in the sunset"
+          meta='2021-05-20'
+          alt='Samuel running in the sunset'
           width={270}
           height={225}
           rotate={-5.4}
-          left={343}
+          left={429}
           index={3}
         />
         {/* {lastActivity.photos ? (
@@ -209,7 +213,7 @@ export default function Gallery(
             flipDirection="left"
           />
         )}*/}
-      </section> 
+      </section>
     </>
   );
 }
