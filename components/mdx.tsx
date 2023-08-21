@@ -1,12 +1,13 @@
-import * as React from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
-import { useMDXComponent } from 'next-contentlayer/hooks';
-import { Pre } from './blog/Pre';
-const CustomLink = (props : any) => {
+import * as React from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { useMDXComponent } from "next-contentlayer/hooks";
+import { Pre } from "./blog/Pre";
+// import { Code } from "./code/Code";
+const CustomLink = (props: any) => {
   const href = props.href;
 
-  if (href.startsWith('/')) {
+  if (href.startsWith("/")) {
     return (
       <Link href={href} {...props}>
         {props.children}
@@ -14,16 +15,16 @@ const CustomLink = (props : any) => {
     );
   }
 
-  if (href.startsWith('#')) {
+  if (href.startsWith("#")) {
     return <a {...props} />;
   }
 
-  return <a target="_blank" rel="noopener noreferrer" {...props} />;
+  return <a target='_blank' rel='noopener noreferrer' {...props} />;
 };
 
- function RoundedImage(props: any) {
-   return <Image alt={props.alt} className="rounded-lg" {...props} />;
- }
+function RoundedImage(props: any) {
+  return <Image alt={props.alt} className='rounded-lg' {...props} />;
+}
 
 // function Callout(props) {
 //   return (
@@ -92,24 +93,26 @@ const components = {
   Image: RoundedImage,
   a: CustomLink,
   pre: Pre,
-//   Callout,
-//   ProsCard,
-//   ConsCard,
-//  pre: Pre,
+  // Code,
+  //   Callout,
+  //   ProsCard,
+  //   ConsCard,
+  //  pre: Pre,
 };
 
 interface MdxProps {
   code: string;
-//   tweets: Record<string, any>;
+  //   tweets: Record<string, any>;
 }
 
-export function Mdx({code
-    // tweets
-     }: MdxProps) {
+export function Mdx({
+  code,
+} // tweets
+: MdxProps) {
   const Component = useMDXComponent(code);
 
   return (
-    <article className="prose prose-quoteless prose-neutral dark:prose-invert">
+    <article className='prose prose-quoteless prose-neutral dark:prose-invert'>
       <Component components={{ ...components }} />
     </article>
   );

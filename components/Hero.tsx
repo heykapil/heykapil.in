@@ -3,7 +3,6 @@ import React from "react";
 import Gallery from "./gallery";
 import { motion } from "framer-motion";
 import Link from "next/link";
-// import { GitHubIcon, MailIcon, TwitterIcon } from './Icons';
 import Header from "./header/Header";
 import styles from "styles/Hero.module.css";
 const Hero = () => {

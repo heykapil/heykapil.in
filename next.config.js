@@ -8,19 +8,11 @@ const nextConfig = {
     serverActions: true,
   },
   images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "heykapil.in",
-      },
-      {
-        protocol: "https",
-        hostname: "tailwind.besoeasy.com",
-      },
-      {
-        protocol: "https",
-        hostname: "avatars.githubusercontent.com",
-      },
+    domains: [
+      "heykapil.in",
+      "avatars.githubusercontent.com",
+      "images.unsplash.com",
+      "source.unsplash.com",
     ],
   },
   eslint: {
