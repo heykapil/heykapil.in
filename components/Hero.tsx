@@ -3,6 +3,7 @@ import React from "react";
 import Gallery from "./gallery";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import Header from "./header/Header";
 import styles from "styles/Hero.module.css";
 const Hero = () => {
@@ -32,13 +33,25 @@ const Hero = () => {
                 },
               }}
             >
+              <motion.div
+                className='block lg:hidden mb-8'
+                variants={FADE_DOWN_ANIMATION_VARIANTS}
+              >
+                <Image
+                  alt='Kapil Chaudhary'
+                  height={100}
+                  width={100}
+                  src='https://raw.githubusercontent.com/heykapil/new-blog/57d8a9d29a6441315316942d5abccbc1810ea876/public/avatar.jpg'
+                  priority
+                  className='rounded-full'
+                />
+              </motion.div>
               <motion.h1
                 className='text-3xl font-semibold tracking-wide lg:text-4xl'
                 variants={FADE_DOWN_ANIMATION_VARIANTS}
               >
                 Kapil Chaudhary
               </motion.h1>
-
               <motion.p
                 className='mt-4'
                 variants={FADE_DOWN_ANIMATION_VARIANTS}
@@ -59,15 +72,15 @@ const Hero = () => {
                 </svg>
               </motion.p>
               <motion.p variants={FADE_DOWN_ANIMATION_VARIANTS}>
-                Currently working as Junior Research Fellow in the area of
+                I am currently working as Junior Research Fellow in the area of
                 fractional-order dynamical systems under{" "}
-                <span className='underline'>Prof. Nita H. Shah.</span>
+                <span className='italic'>Prof Nita H Shah.</span>
               </motion.p>
               <motion.p
                 className='mt-2 mb-2'
                 variants={FADE_DOWN_ANIMATION_VARIANTS}
               >
-                Being funded by{" "}
+                I am being funded by{" "}
                 <Link
                   className='animate-text-shimmer bg-[linear-gradient(110deg,#f43f5e,45%,#ec4899,55%,#d946ef)] bg-[length:250%_100%] dark:bg-[linear-gradient(110deg,#F6A6A6,45%,#171717,55%,#F6A6A6)] inline-block cursor-ne-resize bg-clip-text text-transparent transition-transform duration-200 ease-in-out hover:scale-105'
                   href='https://csirhrdg.res.in/'
@@ -77,6 +90,7 @@ const Hero = () => {
                   CSIR-HRDG, India.
                 </Link>
               </motion.p>
+
               <motion.p
                 className='mt-2 mb-2'
                 variants={FADE_DOWN_ANIMATION_VARIANTS}

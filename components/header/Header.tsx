@@ -1,15 +1,31 @@
+"use client";
 import format from "date-fns/format";
 import Link from "next/link";
 import LoginButton from "../user/LoginButton";
-import DropdownMenuDemo from "./HeaderInfo";
+import HeaderInfo from "./HeaderInfo";
+import { useEffect, useState } from "react";
+function getDisplayTime() {
+  return format(new Date(), "MMM dd, hh:mm:ss b");
+}
 export default function Header() {
+  const [clockText, setClockText] = useState(getDisplayTime());
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setClockText(getDisplayTime());
+    }, 1000);
+    // If useEffect hook return a function - it will be called
+    // when something in depsArray changed or when unmounting
+    return () => clearInterval(intervalId);
+  }, []);
+
   return (
     <header className='mt-0 mx-auto rounded-lg w-full flex-row mb-1 justify-between  hidden lg:flex'>
       <div className='flex'>
-        <DropdownMenuDemo />
+        <HeaderInfo />
       </div>
       <div className='flex flex-row justify-center items-center'>
-        <span suppressHydrationWarning={true} className='text-sm'>
+        <span className='text-sm' suppressHydrationWarning>
           <Link
             href='https://en.wikipedia.org/wiki/Mathura'
             aria-label='mathura'
@@ -18,7 +34,7 @@ export default function Header() {
           >
             Mathura, UP
           </Link>{" "}
-          • {format(new Date(), "MMM dd, h:mm:ss b")}
+          • {clockText}
         </span>
       </div>
       <div className='flex'>

@@ -35,7 +35,9 @@ export function PaperSection() {
         whileInView='visible'
         viewport={{ once: true, margin: "-64px" }}
       >
-        <h1 className='text-lg'>Papers</h1>
+        <h1 className='font-bold text-2xl mb-8 tracking-tighter'>
+          Research Articles
+        </h1>
         <ul className='grid gap-8 mt-6 sm:grid-cols-2 lg:grid-cols-3'>
           <LayoutGroup>
             {papers.map((paper, index) => (
@@ -56,7 +58,7 @@ export function PaperSection() {
                     <Dialog.Trigger aria-controls='radix-:R16jcr6cq:' asChild>
                       <Link
                         href={`#${paper.slug}`}
-                        className='flex flex-col p-4 transition bg-[var(--offset)] rounded-xl hover:bg-[var(--offset2)]'
+                        className='flex flex-col p-4 transition bg-[var(--background)] border border-[var(--offset2)] hover:border-none rounded-xl hover:bg-[var(--offset2)]'
                       >
                         <motion.div className='relative grid grid-cols-1 xl:grid-cols-[480px,400px] gap-10'>
                           <Image
@@ -78,14 +80,14 @@ export function PaperSection() {
                         </div>
                       </Link>
                     </Dialog.Trigger>
-                    <Dialog.Portal>
+                    <Dialog.Portal id={`#${paper.slug}`}>
                       <Dialog.Overlay className='bg-[var(--background)] text-[var(--foreground)] data-[state=open]:animate-overlayShow fixed inset-0 bg-opacity-50 backdrop-blur-lg backdrop-filter' />
-                      <Dialog.Content className='overflow-scroll data-[state=open]:animate-contentShow fixed top-1/2 left-1/2 max-h-[85vh] lg:h-[40vw] w-[90vw] lg:w-[70vw] max-w-[450px] lg:max-w-[90vw] translate-x-[-50%] translate-y-[-50%] rounded-[6px] p-[25px] shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] focus:outline-none'>
-                        <Dialog.Title className='m-0 text-lg font-serif font-medium'>
+                      <Dialog.Content className='overflow-scroll data-[state=open]:animate-contentShow fixed top-1/2 left-1/2 max-h-[85vh] lg:h-[40vw] w-[90vw] lg:w-[70vw] max-w-[450px] lg:max-w-[90vw] translate-x-[-50%] translate-y-[-50%] rounded-[6px] p-[25px] shadow-[var(--foreground)_0px_10px_38px_-10px] focus:outline-none'>
+                        <Dialog.Title className='m-0 text-lg font-serif font-semibold'>
                           {paper.title}
                         </Dialog.Title>
                         <div className='w-full flex gap-2'>
-                          <aside className='text-sm font-bold'>
+                          <aside className='text-sm italic font-normal'>
                             Nita Shah, Kapil Chaudhary
                             {paper?.authors ? <>, {paper.authors}</> : ""}
                           </aside>
@@ -100,7 +102,7 @@ export function PaperSection() {
                         ></script>
                         <div className='flex cursor-pointer gap-2'>
                           <div className='w-full lg:w-7/12 flex flex-col justify-center'>
-                            <p className='text-xs lg:text-sm my-2 font-base'>
+                            <p className='text-base lg:text-sm my-2 font-base'>
                               {paper.abstract}
                             </p>
                             <div className='flex text-xs'>

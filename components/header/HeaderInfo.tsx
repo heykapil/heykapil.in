@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { useTheme } from "next-themes";
 import {
-  // DotFilledIcon,
   CheckIcon,
   ChevronRightIcon,
   GitHubLogoIcon,
@@ -15,7 +14,6 @@ import {
 } from "@radix-ui/react-icons";
 import { QuestionIcon, TwitterIcon } from "../Icons";
 import Link from "next/link";
-// import Link from "../Link";
 
 const HeaderInfo = () => {
   const [bookmarksChecked, setBookmarksChecked] = React.useState(true);
@@ -94,7 +92,6 @@ const HeaderInfo = () => {
           <QuestionIcon className='w-4/5 h-4/5' />
         </button>
       </DropdownMenu.Trigger>
-
       <DropdownMenu.Portal>
         <DropdownMenu.Content
           className='min-w-[220px] bg-[var(--offset)] bg-opacity-50 dark:bg-opacity-50 inset-0 z-50 backdrop-blur-lg backdrop-filter rounded-md p-[5px] will-change-[opacity,transform] data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade'
