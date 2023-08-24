@@ -8,7 +8,7 @@ function getDisplayTime() {
   return format(new Date(), "MMM dd, hh:mm:ss b");
 }
 export default function Header() {
-  const [clockText, setClockText] = useState(getDisplayTime());
+  const [clockText, setClockText] = useState(null);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
