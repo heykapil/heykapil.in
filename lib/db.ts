@@ -1,4 +1,4 @@
-import { Kysely } from "Kysely";
+import { Kysely } from "kysely";
 import { PlanetScaleDialect } from "kysely-planetscale";
 import { DB } from "types/db-types";
 
