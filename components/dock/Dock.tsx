@@ -52,7 +52,7 @@ const Dock = () => {
                         ["bg-none"]: "/" !== pathname,
                       },
                       {
-                        [""]: "/" === pathname,
+                        ["bg-green-500"]: "/" === pathname,
                       }
                     )}
                   ></span>
@@ -76,7 +76,7 @@ const Dock = () => {
                         ["bg-none"]: "blog" !== activepath,
                       },
                       {
-                        [""]: "blog" === activepath,
+                        ["bg-green-500"]: "blog" === activepath,
                       }
                     )}
                   ></span>
@@ -100,7 +100,7 @@ const Dock = () => {
                         ["bg-none"]: "snippet" !== activepath,
                       },
                       {
-                        [""]: "snippet" === activepath,
+                        ["bg-green-500"]: "snippet" === activepath,
                       }
                     )}
                   ></span>

@@ -1,14 +1,15 @@
 "use client";
 import format from "date-fns/format";
-import Link from "next/link";
 import LoginButton from "../user/LoginButton";
 import HeaderInfo from "./HeaderInfo";
 import { useEffect, useState } from "react";
+// const currentTime = new Date();
+
 function getDisplayTime() {
   return format(new Date(), "MMM dd, hh:mm:ss b");
 }
 export default function Header() {
-  const [clockText, setClockText] = useState(null);
+  const [clockText, setClockText] = useState("");
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -26,7 +27,7 @@ export default function Header() {
       </div>
       <div className='flex flex-row justify-center items-center'>
         <span className='text-sm' suppressHydrationWarning>
-          <Link
+          {/* <Link
             href='https://en.wikipedia.org/wiki/Mathura'
             aria-label='mathura'
             className='hover:underline cursor-pointer'
@@ -34,7 +35,8 @@ export default function Header() {
           >
             Mathura, UP
           </Link>{" "}
-          • {clockText}
+          •  */}
+          {clockText}
         </span>
       </div>
       <div className='flex'>

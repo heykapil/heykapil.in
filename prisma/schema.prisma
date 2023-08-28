@@ -1,0 +1,38 @@
+datasource db {
+    provider     = "mysql"
+    url          = env("DURL")
+    relationMode = "prisma"
+}
+
+generator kysely {
+    provider = "prisma-kysely"
+    output   = "../types"
+    fileName = "db-types.ts"
+}
+
+model views {
+    slug  String @id @db.VarChar(128)
+    count Int    @default(1) @db.UnsignedInt
+}
+
+model guestbook {
+  id         BigInt   @id @default(autoincrement())
+  email      String  
+  username   String?
+  body       String
+  image      String?
+  created_by String   
+  created_at DateTime @default(now()) @db.DateTime(6)
+  updated_at DateTime @default(now()) @db.DateTime(6)
+}
+
+model likes {
+    slug  String @id @db.VarChar(128)
+    count Int    @default(1) @db.UnsignedInt
+}
+
+model comments {
+    slug  String @id @db.VarChar(128)
+    username String @db.VarChar(50)
+    body String @db.VarChar(700)
+}

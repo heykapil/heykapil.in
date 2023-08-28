@@ -12,11 +12,12 @@ export async function generateMetadata({
   if (!snippet) {
     return;
   }
-  const randomHex = Array.from({ length: 32 }, () =>
-    "0123456789ABCDEF".charAt(Math.floor(Math.random() * 16))
-  ).join("");
+  // const randomHex = Array.from({ length: 32 }, () =>
+  //   "0123456789ABCDEF".charAt(Math.floor(Math.random() * 16))
+  // ).join("");
+
   const { title, slug } = snippet;
-  const ogImage = `https://heykapil.in/api/og?title=${title}&path=snippet/${slug}&hex=${randomHex}`;
+  const ogImage = `https://heykapil.in/og?title=${title}&path=snippet/${slug}`;
   // || `https://heykapil.in/og-common.png` ;
 
   return {

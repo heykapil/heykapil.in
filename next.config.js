@@ -11,9 +11,8 @@ const nextConfig = {
     domains: [
       "heykapil.in",
       "avatars.githubusercontent.com",
-      "images.unsplash.com",
-      "source.unsplash.com",
       "raw.githubusercontent.com",
+      "lh3.googleusercontent.com",
     ],
   },
   eslint: {

@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Providers } from "components/theme/provider";
 import NextAuthProvider from "components/SessionProvider";
 import Dock from "../components/dock/Dock";
+
 export const metadata: Metadata = {
   title: "Kapil Chaudhary",
   description: "heykapil.in",
