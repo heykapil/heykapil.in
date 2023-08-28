@@ -22,7 +22,7 @@ export const metadata: Metadata = {
 };
 
 export const dynamic = "force-dynamic";
-// export const runtime = "edge";
+export const runtime = "edge";
 
 export default async function GuestbookPage() {
   let entries;
