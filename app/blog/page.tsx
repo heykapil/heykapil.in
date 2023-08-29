@@ -24,7 +24,7 @@ export async function generateMetadata({
   } = post;
   const ogImage = image
     ? `https://heykapil.in${image}`
-    : `https://leerob.io/og?title=${title}`;
+    : `https://heykapil.in/og?title=${title}`;
 
   return {
     title,
