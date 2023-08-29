@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
-import { authOptions } from "app/api/auth/[...nextauth]/route";
+import { auth } from "lib/auth";
 import { queryBuilder } from "lib/db";
 import { SignIn, SignOut } from "./buttons";
 import Form from "./form";
-import { getServerSession } from "next-auth";
 import Image from "next/image";
 async function getGuestbook() {
   const data = await queryBuilder
@@ -31,7 +30,7 @@ export default async function GuestbookPage() {
   try {
     const [guestbookRes, sessionRes] = await Promise.allSettled([
       getGuestbook(),
-      getServerSession(authOptions),
+      auth(),
     ]);
 
     if (guestbookRes.status === "fulfilled" && guestbookRes.value[0]) {

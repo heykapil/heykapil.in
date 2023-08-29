@@ -1,7 +1,7 @@
 "use server";
 
-import { authOptions } from "app/api/auth/[...nextauth]/route";
-import { getServerSession, type Session } from "next-auth";
+import { auth } from "lib/auth";
+import { type Session } from "next-auth";
 import { queryBuilder } from "lib/db";
 import { revalidatePath } from "next/cache";
 // export async function increment(slug: string) {
@@ -22,7 +22,7 @@ import { revalidatePath } from "next/cache";
 // }
 
 async function getSession(): Promise<Session> {
-  const session = await getServerSession(authOptions);
+  const session = await auth();
   if (!session || !session.user) {
     throw new Error("Unauthorized");
   }
