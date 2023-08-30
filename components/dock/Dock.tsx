@@ -1,7 +1,13 @@
 "use client";
 import { createContext, useContext, useEffect, useRef, useState } from "react";
 import { DockContextType } from "types";
-import { HomeIcon, BlogIcon, GalleryIcon, FileIcon } from "../Icons";
+import {
+  HomeIcon,
+  BlogIcon,
+  GalleryIcon,
+  FileIcon,
+  GuestbookIcon,
+} from "../Icons";
 import { MouseProvider } from "../context/MouseProvider";
 import DockItem from "./DockItem";
 import ThemeSwitch from "../theme/switch";
@@ -28,7 +34,7 @@ const Dock = () => {
         <DockContext.Provider value={{ hovered, width }}>
           <nav
             ref={ref}
-            className='border-b border-gray-300 dark:border-gray-700 rounded-full flex justify-center p-2 bg-white dark:bg-zinc-900 backdrop-filter backdrop-blur-lg bg-opacity-30 dark:bg-opacity-30 dark:backdrop-blur dark:drop-shadow-lg drop-shadow-lg'
+            className='border-b border-gray-300 dark:border-gray-700 rounded-full justify-center p-2 bg-white dark:bg-zinc-900 backdrop-filter backdrop-blur-lg bg-opacity-30 dark:bg-opacity-30 dark:backdrop-blur dark:drop-shadow-lg drop-shadow-lg'
             // "visible md:invisible" --- add these classname to hide dock on mobile
             onMouseOver={() => setHovered(true)}
             onMouseOut={() => setHovered(false)}
@@ -101,6 +107,27 @@ const Dock = () => {
                       },
                       {
                         ["bg-green-500"]: "snippet" === activepath,
+                      }
+                    )}
+                  ></span>
+                </a>
+              </DockItem>
+              <DockItem>
+                <a
+                  className='relative flex h-full w-full items-center justify-center'
+                  aria-label='guestbook'
+                  href='/guestbook'
+                  rel='internal'
+                >
+                  <GuestbookIcon className='relative' aria-hidden='true' />
+                  <span
+                    className={clsx(
+                      "absolute -bottom-1 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full",
+                      {
+                        ["bg-none"]: "guestbook" !== activepath,
+                      },
+                      {
+                        ["bg-green-500"]: "guestbook" === activepath,
                       }
                     )}
                   ></span>

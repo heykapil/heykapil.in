@@ -43,6 +43,11 @@ const HeaderInfo = () => {
     // play()
     router.push("/snippet");
   };
+
+  const guestbook = () => {
+    router.push("/guestbook");
+  };
+
   const gallery = () => {
     // play()
     window.open("https://gallery.heykapil.in", "_blank");
@@ -63,7 +68,8 @@ const HeaderInfo = () => {
   useKey("1", home);
   useKey("2", blog);
   useKey("3", snippet);
-  useKey("4", gallery);
+  useKey("4", guestbook);
+  useKey("5", gallery);
   useKey("m", mail);
   useKey("g", github);
   useKey("x", twitter);
@@ -118,16 +124,23 @@ const HeaderInfo = () => {
           </DropdownMenu.Item>
           <DropdownMenu.Item className='group text-[13px] leading-none text-violet-600 dark:text-fuchsia-100 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 dark:data-[highlighted]:bg-rose-50 data-[highlighted]:text-violet1 dark:data-[highlighted]:text-stone-800'>
             {/* <div className="absolute left-0 w-[25px] inline-flex items-center justify-center"> <FileIcon className="relative w-3/5 h-3/5" /></div> */}
-            Snippets{" "}
+            Snippet{" "}
             <div className='ml-auto pl-[20px] text-mauve11 dark:text-mauve2 dark:group-data-[highlighted]:text-black group-data-[highlighted]:text-white group-data-[disabled]:text-mauve8'>
               3
+            </div>
+          </DropdownMenu.Item>
+          <DropdownMenu.Item className='group text-[13px] leading-none text-violet-600 dark:text-fuchsia-100 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 dark:data-[highlighted]:bg-rose-50 data-[highlighted]:text-violet1 dark:data-[highlighted]:text-stone-800'>
+            {/* <div className="absolute left-0 w-[25px] inline-flex items-center justify-center"> <FileIcon className="relative w-3/5 h-3/5" /></div> */}
+            Guestbook{" "}
+            <div className='ml-auto pl-[20px] text-mauve11 dark:text-mauve2 dark:group-data-[highlighted]:text-black group-data-[highlighted]:text-white group-data-[disabled]:text-mauve8'>
+              4
             </div>
           </DropdownMenu.Item>
           <DropdownMenu.Item className='group text-[13px] leading-none text-violet-600 dark:text-fuchsia-100 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 dark:data-[highlighted]:bg-rose-50 data-[highlighted]:text-violet1 dark:data-[highlighted]:text-stone-800'>
             {/* <div className="absolute left-0 w-[25px] inline-flex items-center justify-center"> <GalleryIcon className="relative w-3/5 h-3/5" /></div> */}
             Gallery{" "}
             <div className='ml-auto pl-[20px] text-mauve11 dark:text-mauve2 dark:group-data-[highlighted]:text-black group-data-[highlighted]:text-white group-data-[disabled]:text-mauve8'>
-              4
+              5
             </div>
           </DropdownMenu.Item>
           {/* <DropdownMenu.Item

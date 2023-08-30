@@ -5,7 +5,7 @@ import { Suspense } from "react";
 import { allSnippets } from "contentlayer/generated";
 import { getViewsCount } from "@/lib/metrics";
 import ViewCounter from "@/components/ViewCounter";
-import style from "styles/blogpageanimation.module.css";
+import style from "styles/ViewsAnimaion.module.css";
 import { EyeOpenIcon } from "@radix-ui/react-icons";
 export const metadata: Metadata = {
   title: "Snippets",

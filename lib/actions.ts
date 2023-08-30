@@ -4,7 +4,7 @@ import { auth } from "lib/auth";
 import { type Session } from "next-auth";
 import { queryBuilder } from "lib/db";
 import { revalidatePath } from "next/cache";
-export async function increment(slug: string) {
+export async function incrementview(slug: string) {
   const data = await queryBuilder
     .selectFrom("views")
     .where("slug", "=", slug)
@@ -17,6 +17,23 @@ export async function increment(slug: string) {
     .insertInto("views")
     .values({ slug, count: 1 })
     .onDuplicateKeyUpdate({ count: views + 1 })
+    .execute();
+  return;
+}
+
+export async function incrementlike(slug: string) {
+  const data = await queryBuilder
+    .selectFrom("likes")
+    .where("slug", "=", slug)
+    .select(["count"])
+    .execute();
+
+  const likes = !data.length ? 0 : Number(data[0].count);
+
+  await queryBuilder
+    .insertInto("likes")
+    .values({ slug, count: 1 })
+    .onDuplicateKeyUpdate({ count: likes + 1 })
     .execute();
   return;
 }

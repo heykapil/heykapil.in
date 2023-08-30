@@ -33,6 +33,10 @@ export const getViewsCount = cache(async () => {
   return queryBuilder.selectFrom("views").select(["slug", "count"]).execute();
 });
 
+export const getLikesCount = cache(async () => {
+  return queryBuilder.selectFrom("likes").select(["slug", "count"]).execute();
+});
+
 // export const getLeeYouTubeSubs = cache(async () => {
 //   const response = await youtube.channels.list({
 //     id: ["UCZMli3czZnd1uoc1ShTouQw"],

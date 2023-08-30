@@ -6,7 +6,7 @@ import { categorizePostsByYear } from "lib/posts/filter-by-year";
 import { Suspense } from "react";
 import ViewCounter from "components/ViewCounter";
 import { getViewsCount } from "lib/metrics";
-import style from "styles/blogpageanimation.module.css";
+import style from "styles/ViewsAnimaion.module.css";
 export async function generateMetadata({
   params,
 }: {

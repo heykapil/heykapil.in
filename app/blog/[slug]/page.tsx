@@ -5,7 +5,9 @@ import type { Metadata } from "next";
 import { formatDate } from "lib/posts/format-date";
 import { notFound } from "next/navigation";
 import ViewCounter from "@/components/ViewCounter";
-import { getViewsCount } from "@/lib/metrics";
+import { getLikesCount, getViewsCount } from "@/lib/metrics";
+import LikeButton from "@/components/LikeButton";
+import { revalidatePath } from "next/cache";
 export async function generateMetadata({
   params,
 }: {
@@ -58,6 +60,8 @@ export default async function Blog({ params }: { params: any }) {
   const post = allPosts.find((post) => post.slug === params.slug);
 
   const allViews = await getViewsCount();
+  const allLikes = await getLikesCount();
+  revalidatePath("/blog/${post.slug}");
   if (!post) {
     notFound();
   }
@@ -81,9 +85,11 @@ export default async function Blog({ params }: { params: any }) {
           allViews={allViews}
           slug={`blog/${post.slug}`}
           trackView={true}
-        />
+        />{" "}
+        views
       </div>
       <Mdx code={post.body.code} />
+      <LikeButton allLikes={allLikes} slug={`blog/${post.slug}`} />
     </section>
   );
 }

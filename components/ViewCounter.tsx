@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { increment } from "lib/actions";
+import { incrementview } from "lib/actions";
 export default function ViewCounter({
   slug,
   allViews,
@@ -19,7 +19,7 @@ export default function ViewCounter({
 
   useEffect(() => {
     if (trackView) {
-      increment(slug);
+      incrementview(slug);
     }
   }, []);
 

@@ -4,7 +4,9 @@ import Balancer from "react-wrap-balancer";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import ViewCounter from "@/components/ViewCounter";
-import { getViewsCount } from "@/lib/metrics";
+import { getViewsCount, getLikesCount } from "@/lib/metrics";
+import LikeButton from "@/components/LikeButton";
+// import { revalidatePath } from "next/cache";
 export async function generateMetadata({
   params,
 }: {
@@ -74,6 +76,8 @@ export async function generateMetadata({
 export default async function Blog({ params }: { params: any }) {
   const snippet = allSnippets.find((snippet) => snippet.slug === params.slug);
   const allViews = await getViewsCount();
+  const allLikes = await getLikesCount();
+  // revalidatePath("/snippet/${snippet.slug}");
   if (!snippet) {
     notFound();
   }
@@ -103,12 +107,14 @@ export default async function Blog({ params }: { params: any }) {
           allViews={allViews}
           slug={`snippet/${snippet.slug}`}
           trackView={true}
-        />
+        />{" "}
+        views
       </div>
       <Mdx
         code={snippet.body.code}
         // tweets={tweets}
       />
+      <LikeButton allLikes={allLikes} slug={`snippet/${snippet.slug}`} />
     </section>
   );
 }
