@@ -13,6 +13,9 @@ export const {
       clientSecret: process.env.GITHUB_SECRET as string,
     }),
   ],
+  pages: {
+    signIn: "/sign-in",
+  },
   callbacks: {
     session: async ({ session, token }) => {
       token.image = token.picture;
