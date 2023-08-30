@@ -3,6 +3,8 @@ import { allSnippets } from "contentlayer/generated";
 import Balancer from "react-wrap-balancer";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import ViewCounter from "@/components/ViewCounter";
+import { getViewsCount } from "@/lib/metrics";
 export async function generateMetadata({
   params,
 }: {
@@ -12,6 +14,7 @@ export async function generateMetadata({
   if (!snippet) {
     return;
   }
+
   // const randomHex = Array.from({ length: 32 }, () =>
   //   "0123456789ABCDEF".charAt(Math.floor(Math.random() * 16))
   // ).join("");
@@ -70,7 +73,7 @@ export async function generateMetadata({
 
 export default async function Blog({ params }: { params: any }) {
   const snippet = allSnippets.find((snippet) => snippet.slug === params.slug);
-
+  const allViews = await getViewsCount();
   if (!snippet) {
     notFound();
   }
@@ -96,7 +99,11 @@ export default async function Blog({ params }: { params: any }) {
         <p className='text-sm text-neutral-600 dark:text-neutral-400'>
           {/* {formatDate(post.publishedAt)} */}
         </p>
-        {/* <ViewCounter allViews={allViews} slug={post.slug} trackView /> */}
+        <ViewCounter
+          allViews={allViews}
+          slug={`snippet/${snippet.slug}`}
+          trackView={true}
+        />
       </div>
       <Mdx
         code={snippet.body.code}

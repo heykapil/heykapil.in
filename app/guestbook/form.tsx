@@ -18,15 +18,15 @@ export default function Form() {
       }}
     >
       <input
-        aria-label='Your message'
-        placeholder='Your message...'
+        aria-label=' Your message'
+        placeholder=' Your message...'
         disabled={pending}
         name='entry'
         required
-        className='py-2 mt-1 block w-full max-w-full outline  outline-offset-2	outline-gray-500  rounded-md bg-black/5 dark:bg-white/5 text-gray-900 dark:text-gray-100'
+        className='py-2 mt-1 block w-full max-w-full outline-none focus:outline focus:outline-offset-2	hover:outline-gray-500 hover:outline hover:outline-offset-2	focus:outline-gray-500 rounded-md bg-black/5 dark:bg-white/5 text-gray-900 dark:text-gray-100'
       />
       <button
-        className='items-center text-xs text-smborder justify-center absolute -right-0 -bottom-7 inline-flex  px-2 py-1  text-gray-800  dark:text-gray-200'
+        className='items-center text-sm hover:outline hover:outline-offset-2 hover:outline-gray-500 rounded-lg outline-none absolute justify-center z-10 bg-black/5 dark:bg-white/5 -right-20 top-0 px-6 py-[11.5px]  text-gray-800  dark:text-gray-200'
         disabled={pending}
         type='submit'
       >

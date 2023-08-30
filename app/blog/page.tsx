@@ -4,7 +4,9 @@ import { Post, allPosts } from "contentlayer/generated";
 import { format, parseISO } from "date-fns";
 import { categorizePostsByYear } from "lib/posts/filter-by-year";
 import { Suspense } from "react";
-// import {motion} from 'framer-motion'
+import ViewCounter from "components/ViewCounter";
+import { getViewsCount } from "lib/metrics";
+import style from "styles/blogpageanimation.module.css";
 export async function generateMetadata({
   params,
 }: {
@@ -58,6 +60,7 @@ function getSortedPosts(posts: Post[]) {
 
 export default async function BlogPage() {
   const postbyyear = categorizePostsByYear(allPosts);
+  const allViews = await getViewsCount();
   return (
     <section>
       <Suspense fallback={<p>Loading posts...</p>}>
@@ -75,18 +78,54 @@ export default async function BlogPage() {
             </div>
             <div className='space-y-2 animated-list'>
               {getSortedPosts(postsOfYear.posts).map((post, key) => (
-                <Link
-                  className='flex flex-row justify-between py-2 px-2 rounded-md hover:bg-opacity-10 dark:hover:bg-opacity-30 hover:bg-gradient-to-r hover:from-rose-100/50 hover:via-pink-200/50 hover:to-orange-100/50 dark:hover:bg-gradient-to-r dark:hover:from-purple-500/30 dark:hover:via-fuchsia-500/30 dark:hover:to-pink-500/30 transition-all duration-200'
-                  href={`/blog/${post.slug}`}
-                  key={post.slug}
-                >
-                  <span className='flex-grow truncate text-secondary' key={key}>
-                    ✤ {post.title}
-                  </span>
-                  <span className='text-tertiary flex-shrink-0'>
-                    {format(parseISO(post.publishedAt), "MMM dd")}
-                  </span>
-                </Link>
+                <>
+                  <Link
+                    className='flex flex-row justify-between py-2 px-2 rounded-md hover:bg-opacity-10 dark:hover:bg-opacity-30 hover:bg-gradient-to-r hover:from-rose-100/50 hover:via-pink-200/50 hover:to-orange-100/50 dark:hover:bg-gradient-to-r dark:hover:from-purple-500/30 dark:hover:via-fuchsia-500/30 dark:hover:to-pink-500/30 transition-all duration-200'
+                    href={`/blog/${post.slug}`}
+                    key={post.slug}
+                  >
+                    <div
+                      className='flex-grow truncate text-secondary'
+                      key={key}
+                    >
+                      ✤ {post.title}
+                    </div>
+                    {/* <span className='text-tertiary flex-shrink-0'>
+                      {format(parseISO(post.publishedAt), "MMM dd")}
+                    </span>
+                    <ViewCounter
+                      allViews={allViews}
+                      slug={`blog/${post.slug}`}
+                      trackView={false}
+                    /> */}
+                    <span className='text-tertiary flex-shrink-0'></span>
+                    <div className={style.animation}>
+                      <div className=''>
+                        <span>
+                          {format(parseISO(post.publishedAt), "MMM dd")}
+                        </span>
+                      </div>
+                      <div className=''>
+                        <span className=''>
+                          <ViewCounter
+                            allViews={allViews}
+                            slug={`blog/${post.slug}`}
+                            trackView={false}
+                          />{" "}
+                          views
+                        </span>
+                      </div>
+                      {/* 
+                      Reserved for like counter 
+                      
+                      <div className=''>
+                        <span>
+                          {format(parseISO(post.publishedAt), "MMM dd")}
+                        </span>
+                      </div> */}
+                    </div>
+                  </Link>
+                </>
               ))}
             </div>
           </div>

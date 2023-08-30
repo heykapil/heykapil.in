@@ -1,0 +1,48 @@
+.animation {
+  height: 30px;
+  overflow: hidden;
+  /* margin-left: 1rem; */
+}
+
+.animation > div > span {
+  height: 2rem;
+  margin-bottom: 2rem;
+  display: inline-flex;
+}
+
+.animation div:first-child {
+  animation: text-animation 8s infinite;
+}
+
+@keyframes text-animation {
+  0% {
+    margin-top: 0;
+  }
+  10% {
+    margin-top: 0;
+  }
+  20% {
+    margin-top: -4rem;
+  }
+  30% {
+    margin-top: -4rem;
+  }
+  40% {
+    margin-top: -8rem;
+  }
+  60% {
+    margin-top: -8rem;
+  }
+  70% {
+    margin-top: -4rem;
+  }
+  80% {
+    margin-top: -4rem;
+  }
+  90% {
+    margin-top: 0;
+  }
+  100% {
+    margin-top: 0;
+  }
+}

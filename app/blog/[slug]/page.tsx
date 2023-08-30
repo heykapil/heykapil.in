@@ -4,6 +4,8 @@ import Balancer from "react-wrap-balancer";
 import type { Metadata } from "next";
 import { formatDate } from "lib/posts/format-date";
 import { notFound } from "next/navigation";
+import ViewCounter from "@/components/ViewCounter";
+import { getViewsCount } from "@/lib/metrics";
 export async function generateMetadata({
   params,
 }: {
@@ -54,6 +56,8 @@ export async function generateMetadata({
 
 export default async function Blog({ params }: { params: any }) {
   const post = allPosts.find((post) => post.slug === params.slug);
+
+  const allViews = await getViewsCount();
   if (!post) {
     notFound();
   }
@@ -73,6 +77,11 @@ export default async function Blog({ params }: { params: any }) {
         <p className='text-sm text-neutral-600 dark:text-neutral-400'>
           {formatDate(post.publishedAt)}
         </p>
+        <ViewCounter
+          allViews={allViews}
+          slug={`blog/${post.slug}`}
+          trackView={true}
+        />
       </div>
       <Mdx code={post.body.code} />
     </section>

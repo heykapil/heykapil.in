@@ -3,6 +3,10 @@ import Link from "next/link";
 import Image from "next/image";
 import { Suspense } from "react";
 import { allSnippets } from "contentlayer/generated";
+import { getViewsCount } from "@/lib/metrics";
+import ViewCounter from "@/components/ViewCounter";
+import style from "styles/blogpageanimation.module.css";
+import { EyeOpenIcon } from "@radix-ui/react-icons";
 export const metadata: Metadata = {
   title: "Snippets",
   description: "Read my thoughts on software development, design, and more.",
@@ -14,6 +18,7 @@ export const metadata: Metadata = {
 //     .filter(Boolean)
 // }
 export default async function SnippetPage() {
+  const allViews = await getViewsCount();
   return (
     <section>
       <Suspense fallback={<p>Loading snippets...</p>}>
@@ -35,17 +40,42 @@ export default async function SnippetPage() {
                   className='flex relative flex-row justify-between py-2 px-2 rounded-md hover:bg-gradient-to-r hover:from-rose-100/50 hover:via-pink-200/50 hover:to-orange-100/50 dark:hover:bg-gradient-to-r dark:hover:from-purple-500/30 dark:hover:via-fuchsia-500/30 dark:hover:to-pink-500/30 transition-all duration-200'
                   href={`/snippet/${snippet.slug}`}
                 >
-                  <span className='flex-grow truncate text-secondary'>
+                  <div className='flex-grow truncate text-secondary'>
                     ✤ {snippet.title}
-                  </span>
+                  </div>
                   <span className='text-tertiary flex-shrink-0'></span>
-                  <Image
-                    alt={snippet.title}
-                    className='flex items-end'
-                    src={`/logos/${snippet.logo}`}
-                    width={25}
-                    height={25}
-                  />
+                  <div className={style.animation}>
+                    <div className='text-tertiary flex-shrink-0'>
+                      <span className=''>
+                        <Image
+                          alt={snippet.title}
+                          className='flex items-end'
+                          src={`/logos/${snippet.logo}`}
+                          width={25}
+                          height={25}
+                        />
+                      </span>
+                    </div>
+
+                    <div className=''>
+                      <span className='items-center gap-1'>
+                        <ViewCounter
+                          allViews={allViews}
+                          slug={`snippet/${snippet.slug}`}
+                          trackView={false}
+                        />{" "}
+                        <EyeOpenIcon />
+                      </span>
+                    </div>
+                    {/* 
+                      Reserved for like counter 
+                      
+                      <div className=''>
+                        <span>
+                          {format(parseISO(post.publishedAt), "MMM dd")}
+                        </span>
+                      </div> */}
+                  </div>
                 </Link>
               ))}
           </div>
