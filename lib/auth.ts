@@ -21,7 +21,4 @@ export const {
       return session;
     },
   },
-  pages: {
-    signIn: "/sign-in",
-  },
 });
