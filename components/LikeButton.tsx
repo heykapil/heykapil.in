@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { safeLocalStorage as localStorage } from "lib/localstorage";
 import { incrementlike } from "@/lib/actions";
 import { HeartFilledIcon, HeartIcon } from "@radix-ui/react-icons";
-
+import Halo from "./Halo";
 export default function LikeButton({
   slug,
   allLikes, //   track,
@@ -21,6 +21,7 @@ export default function LikeButton({
 
   const liked = localStorage.getItem(slug) === "true";
   const onLike = async () => {
+    localStorage.setItem(slug, "true");
     await incrementlike(slug);
   };
 
@@ -37,27 +38,26 @@ export default function LikeButton({
   if (!mounted) return null;
 
   return (
-    <div className='flex justify-center'>
+    <>
       <button
         disabled={liked}
-        onClick={(e) => {
-          localStorage.setItem(slug, "true");
-          onLike();
-          e.preventDefault();
-          history.go(0);
-        }}
+        onClick={onLike}
         type='button'
-        className='flex items-center justify-center h-10 gap-2 overflow-hidden p-2 text-white transition-transform bg-[var(--offset2)] rounded-full like-button hover:cursor-pointer w-40 bg-rose-500 shadow-2xl cursor-pointer absolute transform hover:scale-x-110 hover:scale-y-105 duration-300 ease-out'
+        className='flex items-center justify-center h-fit gap-2 overflow-hidden transition-transform bg-[var(--offset2)] rounded-lg like-button hover:cursor-pointer w-fit cursor-pointer absolute transform hover:scale-x-110 hover:scale-y-105 duration-200 ease-out'
       >
-        {/* <Halo
-          className='flex items-center justify-center gap-2 px-4'
+        <Halo
+          className='flex items-center justify-between gap-2 px-4 py-2'
           size={120}
           strength={30}
-        > */}
-        {liked ? <HeartFilledIcon /> : <HeartIcon />}{" "}
-        {`${number.toLocaleString()}`} likes
-        {/* </Halo> */}
+        >
+          {liked ? <HeartFilledIcon /> : <HeartIcon />}
+          <span className=''>
+            {" "}
+            {`${number.toLocaleString()}`}{" "}
+            {Number(number) > 1 ? "likes" : "like"}
+          </span>
+        </Halo>
       </button>
-    </div>
+    </>
   );
 }

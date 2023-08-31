@@ -45,9 +45,9 @@ const computedFields: ComputedFields = {
       dateModified: doc.publishedAt,
       description: doc.summary,
       image: doc.image
-        ? `https://leerob.io${doc.image}`
-        : `https://leerob.io/og?title=${doc.title}`,
-      url: `https://leerob.io/blog/${doc._raw.flattenedPath}`,
+        ? `https://heykapil.in${doc.image}`
+        : `https://heykapil.in/og?title=${doc.title}`,
+      url: `https://heykapil.in/blog/${doc._raw.flattenedPath}`,
       author: {
         "@type": "Person",
         name: "Kapil Chaudhary",

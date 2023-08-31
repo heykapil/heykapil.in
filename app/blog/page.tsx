@@ -115,14 +115,11 @@ export default async function BlogPage() {
                           views
                         </span>
                       </div>
-                      {/* 
-                      Reserved for like counter 
-                      
                       <div className=''>
-                        <span>
+                        <span className=''>
                           {format(parseISO(post.publishedAt), "MMM dd")}
                         </span>
-                      </div> */}
+                      </div>
                     </div>
                   </Link>
                 </>

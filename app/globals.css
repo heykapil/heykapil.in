@@ -37,15 +37,15 @@
     -webkit-tap-highlight-color: transparent;
   }
   html {
-    font-size: 16px;
+    font-size: clamp(14px, 2vw, 18px);
     scroll-behavior: smooth;
-
+    /* 
     @screen md {
       font-size: 17px;
     }
     @screen lg {
       font-size: 18px;
-    }
+    } */
   }
 
   body {
@@ -55,6 +55,8 @@
     font-family: "Iowan Old Style", "Iowan", "Georgia", serif;
     /* font-size: 14px; */
     font-weight: 400;
+    text-rendering: optimizeLegibility;
+    -webkit-text-size-adjust: 100%;
     /* line-height: 1.5; */
   }
 }
@@ -63,6 +65,7 @@ h2,
 h3 {
   font-family: "Newsreader", serif;
   font-family: cursive;
+  font-weight: 500;
   letter-spacing: 0.05em !important;
 }
 
@@ -121,7 +124,6 @@ input:-webkit-autofill:focus {
   );
 }
 
-
 .radial-fade {
   background: radial-gradient(
     100% 100% at 100% 100%,
@@ -129,8 +131,6 @@ input:-webkit-autofill:focus {
     rgba(0, 0, 0, 0) 100%
   );
 }
-
-
 
 @media (hover: hover) {
   .animated-list:hover a {

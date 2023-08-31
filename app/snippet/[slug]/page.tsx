@@ -6,7 +6,6 @@ import { notFound } from "next/navigation";
 import ViewCounter from "@/components/ViewCounter";
 import { getViewsCount, getLikesCount } from "@/lib/metrics";
 import LikeButton from "@/components/LikeButton";
-// import { revalidatePath } from "next/cache";
 export async function generateMetadata({
   params,
 }: {
@@ -77,7 +76,6 @@ export default async function Blog({ params }: { params: any }) {
   const snippet = allSnippets.find((snippet) => snippet.slug === params.slug);
   const allViews = await getViewsCount();
   const allLikes = await getLikesCount();
-  // revalidatePath("/snippet/${snippet.slug}");
   if (!snippet) {
     notFound();
   }

@@ -119,7 +119,10 @@ const Dock = () => {
                   href='/guestbook'
                   rel='internal'
                 >
-                  <GuestbookIcon className='relative' aria-hidden='true' />
+                  <GuestbookIcon
+                    className='relative h-4/5 w-4/5'
+                    aria-hidden='true'
+                  />
                   <span
                     className={clsx(
                       "absolute -bottom-1 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full",

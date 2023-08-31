@@ -18,6 +18,7 @@ export async function incrementview(slug: string) {
     .values({ slug, count: 1 })
     .onDuplicateKeyUpdate({ count: views + 1 })
     .execute();
+  revalidatePath("/${slug}");
   return;
 }
 
@@ -35,6 +36,7 @@ export async function incrementlike(slug: string) {
     .values({ slug, count: 1 })
     .onDuplicateKeyUpdate({ count: likes + 1 })
     .execute();
+  revalidatePath("/${slug}");
   return;
 }
 
