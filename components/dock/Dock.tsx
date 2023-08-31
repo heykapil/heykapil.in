@@ -36,10 +36,11 @@ const Dock = () => {
             ref={ref}
             className='border-b border-gray-300 dark:border-gray-700 rounded-full justify-center p-2 bg-white dark:bg-zinc-900 backdrop-filter backdrop-blur-lg bg-opacity-30 dark:bg-opacity-30 dark:backdrop-blur dark:drop-shadow-lg drop-shadow-lg'
             // "visible md:invisible" --- add these classname to hide dock on mobile
-            onMouseOver={() => setHovered(true)}
+            // onMouseOver={() => setHovered(true)}
             onMouseOut={() => setHovered(false)}
+            // Hover animation disabled as bug with mobile devices
           >
-            <ul className='flex h-10 items-end justify-center space-x-2'>
+            <ul className='flex items-end h-8 justify-center space-x-2'>
               <DockItem>
                 <a
                   className='relative flex h-full w-full items-center justify-center'
@@ -151,7 +152,7 @@ const Dock = () => {
                 </a>
               </DockItem>
               <li className='self-center' aria-hidden='true'>
-                <hr className='!mx-2 h-12 w-px border-none bg-[hsl(0,0%,50%)] hidden lg:block' />
+                <hr className='!mx-2 h-12 w-px border-none bg-[var(--offset2)] opacity-40 hidden lg:block' />
               </li>
               {/* <DockItem>
                 <a

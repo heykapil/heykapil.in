@@ -7,6 +7,7 @@ import { getViewsCount } from "@/lib/metrics";
 import ViewCounter from "@/components/ViewCounter";
 import style from "styles/ViewsAnimaion.module.css";
 import { EyeOpenIcon } from "@radix-ui/react-icons";
+import { cn } from "@/lib/utils";
 export const metadata: Metadata = {
   title: "Snippets",
   description: "Read my thoughts on software development, design, and more.",
@@ -37,19 +38,26 @@ export default async function SnippetPage() {
               .map((snippet) => (
                 <Link
                   key={snippet.slug}
-                  className='flex relative flex-row justify-between py-2 px-2 rounded-md hover:bg-gradient-to-r hover:from-rose-100/50 hover:via-pink-200/50 hover:to-orange-100/50 dark:hover:bg-gradient-to-r dark:hover:from-purple-500/30 dark:hover:via-fuchsia-500/30 dark:hover:to-pink-500/30 transition-all duration-200'
+                  className='flex group relative flex-row justify-between py-2 px-2 rounded-md hover:bg-gradient-to-r hover:from-rose-100/50 hover:via-pink-200/50 hover:to-orange-100/50 dark:hover:bg-gradient-to-r dark:hover:from-purple-500/30 dark:hover:via-fuchsia-500/30 dark:hover:to-pink-500/30 transition-all duration-200'
                   href={`/snippet/${snippet.slug}`}
                 >
-                  <div className='flex-grow truncate text-secondary'>
-                    ✤ {snippet.title}
+                  <div className='w-full flex gap-2'>
+                    <aside className='text-base font-normal'>
+                      ✤ {snippet.title}
+                    </aside>
+                    <span className='flex-shrind border-b border-dotted border-[var(--primary)] opacity-25 hidden md:flex flex-grow group-hover:hidden h-3 mx-0' />
                   </div>
-                  <span className='text-tertiary flex-shrink-0'></span>
-                  <div className={style.animation}>
-                    <div className='text-tertiary flex-shrink-0'>
-                      <span className=''>
+                  <div
+                    className={cn(
+                      style.animation,
+                      "w-fit pl-2 max-w-[10%] flex-col flex"
+                    )}
+                  >
+                    <div className='flex flex-row-reverse'>
+                      <span className='flex'>
                         <Image
                           alt={snippet.title}
-                          className='flex items-end'
+                          className='self-center rounded-full ml-auto'
                           src={`/logos/${snippet.logo}`}
                           width={25}
                           height={25}
@@ -57,16 +65,29 @@ export default async function SnippetPage() {
                       </span>
                     </div>
 
-                    <div className=''>
-                      <span className='items-center gap-1'>
+                    <div className='flex justify-end flex-row'>
+                      <span className='inline-flex items-center'>
                         <ViewCounter
                           allViews={allViews}
                           slug={`snippet/${snippet.slug}`}
                           trackView={false}
                         />{" "}
-                        <EyeOpenIcon />
+                        <EyeOpenIcon className='self-center rounded-full mx-1' />
                       </span>
                     </div>
+
+                    <div className='flex flex-row-reverse'>
+                      <span className='flex'>
+                        <Image
+                          alt={snippet.title}
+                          className='self-center rounded-full ml-auto'
+                          src={`/logos/${snippet.logo}`}
+                          width={25}
+                          height={25}
+                        />
+                      </span>
+                    </div>
+
                     {/* 
                       Reserved for like counter 
                       

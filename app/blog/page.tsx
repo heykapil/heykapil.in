@@ -6,6 +6,7 @@ import { categorizePostsByYear } from "lib/posts/filter-by-year";
 import { Suspense } from "react";
 import ViewCounter from "components/ViewCounter";
 import { getViewsCount } from "lib/metrics";
+// import { cn } from "@/lib/utils";
 import style from "styles/ViewsAnimaion.module.css";
 export async function generateMetadata({
   params,
@@ -84,11 +85,10 @@ export default async function BlogPage() {
                     href={`/blog/${post.slug}`}
                     key={post.slug}
                   >
-                    <div
-                      className='flex-grow truncate text-secondary'
-                      key={key}
-                    >
-                      ✤ {post.title}
+                    <div className='flex-grow text-secondary' key={key}>
+                      <aside className='text-base font-normal'>
+                        ✤ {post.title}
+                      </aside>
                     </div>
                     {/* <span className='text-tertiary flex-shrink-0'>
                       {format(parseISO(post.publishedAt), "MMM dd")}
@@ -101,12 +101,12 @@ export default async function BlogPage() {
                     <span className='text-tertiary flex-shrink-0'></span>
                     <div className={style.animation}>
                       <div className=''>
-                        <span>
+                        <span className='flex justify-end flex-row'>
                           {format(parseISO(post.publishedAt), "MMM dd")}
                         </span>
                       </div>
                       <div className=''>
-                        <span className=''>
+                        <span className='flex justify-end flex-row'>
                           <ViewCounter
                             allViews={allViews}
                             slug={`blog/${post.slug}`}
@@ -116,7 +116,7 @@ export default async function BlogPage() {
                         </span>
                       </div>
                       <div className=''>
-                        <span className=''>
+                        <span className='flex justify-end flex-row'>
                           {format(parseISO(post.publishedAt), "MMM dd")}
                         </span>
                       </div>
