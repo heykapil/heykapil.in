@@ -58,7 +58,7 @@ export async function saveCommentEntry(formData: FormData, slug: string) {
   const body = entry.slice(0, 500);
 
   await queryBuilder
-    .insertInto("comments")
+    .insertInto("comment")
     .values({ email, body, name, image, slug })
     .execute();
 

@@ -61,7 +61,7 @@ export default function CommentForm({ slug }: { slug: string }) {
             disabled={pending}
             type='submit'
           >
-            Sign
+            Submit{" "}
           </button>
         </div>
       </form>

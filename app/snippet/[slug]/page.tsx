@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import ViewCounter from "@/components/ViewCounter";
 import { getViewsCount, getLikesCount } from "@/lib/metrics";
 import LikeButton from "@/components/LikeButton";
+import CommentPage from "@/components/comment/Page";
 import style from "styles/LikeContainer.module.css";
 export async function generateMetadata({
   params,
@@ -115,6 +116,9 @@ export default async function Blog({ params }: { params: any }) {
       />
       <div className={style.container}>
         <LikeButton allLikes={allLikes} slug={`snippet/${snippet.slug}`} />
+      </div>
+      <div className='mt-10'>
+        <CommentPage slug={`snippet/${snippet.slug}`} />
       </div>
     </section>
   );
