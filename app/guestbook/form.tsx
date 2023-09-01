@@ -26,7 +26,7 @@ export default function Form() {
         className='py-2 mt-1 block w-full max-w-full outline-none focus:outline focus:outline-offset-2	hover:outline-gray-500 hover:outline hover:outline-offset-2	focus:outline-gray-500 rounded-md bg-black/5 dark:bg-white/5 text-gray-900 dark:text-gray-100'
       />
       <button
-        className='items-center text-sm hover:outline hover:outline-offset-2 hover:outline-gray-500 rounded-lg outline-none block mt-2 md:mt-0 md:absolute justify-center z-10 bg-black/5 dark:bg-white/5 -right-20 top-0 px-6 py-[11.5px]  text-gray-800  dark:text-gray-200'
+        className='items-center text-sm hover:outline hover:outline-offset-2 hover:outline-gray-500 rounded-lg outline-none mt-2  justify-center z-10 bg-black/5 dark:bg-white/5 right-0 top-0 px-6 py-2  text-gray-800  dark:text-gray-200'
         disabled={pending}
         type='submit'
       >

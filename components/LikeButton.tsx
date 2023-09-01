@@ -4,6 +4,7 @@ import { safeLocalStorage as localStorage } from "lib/localstorage";
 import { incrementlike } from "@/lib/actions";
 import { HeartFilledIcon, HeartIcon } from "@radix-ui/react-icons";
 import Halo from "./Halo";
+import toast, { Toaster } from "react-hot-toast";
 export default function LikeButton({
   slug,
   allLikes, //   track,
@@ -18,13 +19,17 @@ export default function LikeButton({
   const number = new Number(likesForSlug?.count || 0);
 
   const [mounted, setMounted] = useState(false);
-
   const liked = localStorage.getItem(slug) === "true";
   const onLike = async () => {
     localStorage.setItem(slug, "true");
     await incrementlike(slug);
-  };
+    toast.success(`You liked this!`, {
+      // duration: 2000,
+      icon: "❤️",
+    });
 
+    // toast.success("You liked!");
+  };
   //   const onLike = useEffect(() => {
   //     async () => {
   //       await incrementlike(slug);
@@ -39,6 +44,7 @@ export default function LikeButton({
 
   return (
     <>
+      <Toaster />
       <button
         disabled={liked}
         onClick={onLike}

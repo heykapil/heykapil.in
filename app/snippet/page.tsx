@@ -45,12 +45,12 @@ export default async function SnippetPage() {
                     <aside className='text-base font-normal'>
                       ✤ {snippet.title}
                     </aside>
-                    <span className='flex-shrind border-b border-dotted border-[var(--primary)] opacity-25 hidden md:flex flex-grow group-hover:hidden h-3 mx-0' />
+                    <span className='flex-shrind border-b border-dotted border-[var(--primary)] opacity-25 invisible lg:visible flex-grow group-hover:hidden h-3 mx-0' />
                   </div>
                   <div
                     className={cn(
                       style.animation,
-                      "w-fit pl-2 max-w-[10%] flex-col flex"
+                      "w-1/6 max-w-1/5 flex-col flex"
                     )}
                   >
                     <div className='flex flex-row-reverse'>
