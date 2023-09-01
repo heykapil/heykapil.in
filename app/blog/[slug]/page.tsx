@@ -92,7 +92,7 @@ export default async function Blog({ params }: { params: any }) {
       <div className={style.container}>
         <LikeButton allLikes={allLikes} slug={`blog/${post.slug}`} />
       </div>
-      <div className='comment_container'>
+      <div className='mt-10'>
         <CommentPage slug={`blog/${post.slug}`} />
       </div>
     </section>

@@ -4,7 +4,7 @@ import { useRef } from "react";
 import { saveCommentEntry } from "lib/actions";
 import { experimental_useFormStatus as useFormStatus } from "react-dom";
 import { SignOut } from "app/guestbook/buttons";
-export default function CommentForm({slug}: {slug: string}) {
+export default function CommentForm({ slug }: { slug: string }) {
   const formRef = useRef<HTMLFormElement>(null);
   const { pending } = useFormStatus();
   return (
@@ -19,12 +19,12 @@ export default function CommentForm({slug}: {slug: string}) {
         }}
       >
         <div>
-          <label className='sr-only'>Enter your message...</label>
+          <label className='sr-only'>Enter your comment...</label>
           <div className='relative'>
             <input
               type='text'
-              placeholder='Enter your message...'
-              aria-label='Enter your message...'
+              placeholder='Enter your comment'
+              aria-label='Enter your comment...'
               disabled={pending}
               name='entry'
               required
