@@ -56,7 +56,7 @@ export default function CommentForm({ slug }: { slug: string }) {
         </div>
         <div className='flex items-center justify-between'>
           <button
-            className='inline-block text-sm cursor-pointer'
+            className='inline-block px-2 py-1 bg-[var(--offset3)] text-sm cursor-pointer'
             disabled={pending}
             type='submit'
           >

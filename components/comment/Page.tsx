@@ -53,9 +53,7 @@ export default async function CommentPage({ slug }: { slug: string }) {
           <>
             <div className='flex flex-row justify-between'>
               <div>
-                <span className='mx-1'>
-                  You need to login first to add comments.
-                </span>
+                <span className=''>Sign in to add comment!</span>
               </div>
               <SignIn />
             </div>
@@ -64,9 +62,7 @@ export default async function CommentPage({ slug }: { slug: string }) {
       </Suspense>
       <Suspense fallback={<div>Loading...</div>}>
         {entries === undefined ? (
-          <p className='my-2'>
-            No comments. Be the first one to add the comment.
-          </p>
+          <p className='my-2'>No comments. Be the first one to comment.</p>
         ) : (
           entries.map((entry) => (
             <div key={entry.id} className='flex flex-col space-y-0 mb-4'>

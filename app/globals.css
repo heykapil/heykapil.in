@@ -36,7 +36,7 @@
     --offset: #f6f6f6;
     --offsetcode: #f6f5f1;
     --offset2: #cccccc;
-    --offsetpeach: #ffd2b0;
+    --offset3: #ffd2b0;
   }
   .dark,
   [data-theme="dark"] {
@@ -58,6 +58,7 @@
     --offset: #212121;
     --offsetcode: #0c0a09;
     --offset2: #333333;
+    --offset3: #002d4f;
   }
 
   .main-header {
