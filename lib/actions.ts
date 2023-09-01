@@ -56,10 +56,13 @@ export async function saveCommentEntry(formData: FormData, slug: string) {
   const image = session.user?.image as string;
   const entry = formData.get("entry")?.toString() || "";
   const body = entry.slice(0, 500);
+  const id = Array.from({ length: 32 }, () =>
+    "0123456789ABCDEF".charAt(Math.floor(Math.random() * 16))
+  ).join("");
 
   await queryBuilder
-    .insertInto("comment")
-    .values({ email, body, name, image, slug })
+    .insertInto("comments")
+    .values({ email, body, name, image, slug, id })
     .execute();
 
   revalidatePath(`/${slug}`);

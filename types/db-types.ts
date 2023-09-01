@@ -4,8 +4,8 @@ export type Generated<T> = T extends ColumnType<infer S, infer I, infer U>
   : ColumnType<T, T | undefined, T>;
 export type Timestamp = ColumnType<Date, Date | string, Date | string>;
 
-export type comment = {
-  id: Generated<number>;
+export type comments = {
+  id: string;
   slug: string;
   name: string;
   body: string;
@@ -32,7 +32,7 @@ export type views = {
   count: Generated<number>;
 };
 export type DB = {
-  comment: comment;
+  comments: comments;
   guestbook: guestbook;
   likes: likes;
   views: views;

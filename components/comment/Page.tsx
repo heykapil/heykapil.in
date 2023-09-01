@@ -1,14 +1,15 @@
 import { auth } from "lib/auth";
 import { queryBuilder } from "lib/db";
-// import { SignIn } from "app/guestbook/buttons";
+import { SignIn } from "app/guestbook/buttons";
 import { Suspense } from "react";
-import Link from "next/link";
 import Image from "next/image";
 import CommentForm from "./Form";
-async function getComment() {
+async function getComment(slug: string) {
   const data = await queryBuilder
-    .selectFrom("comment")
-    .select(["body", "name", "image", "email", "id"])
+    .selectFrom("comments")
+    .selectAll()
+    .where("slug", "=", `${slug}`)
+    .select(["body", "name", "image", "email", "id", "slug"])
     .orderBy("created_at", "desc")
     .limit(100)
     .execute();
@@ -24,7 +25,7 @@ export default async function CommentPage({ slug }: { slug: string }) {
   let session;
   try {
     const [commentRes, sessionRes] = await Promise.allSettled([
-      getComment(),
+      getComment(slug),
       auth(),
     ]);
 
@@ -42,7 +43,6 @@ export default async function CommentPage({ slug }: { slug: string }) {
   } catch (error) {
     console.error(error);
   }
-  console.log(entries);
   return (
     <>
       <Suspense fallback={<div>Loading...</div>}>
@@ -52,13 +52,8 @@ export default async function CommentPage({ slug }: { slug: string }) {
           </>
         ) : (
           <>
-            <p>
-              You need to be logged in to comment here. Kindly{" "}
-              <Link className='underline' href='/api/auth/signin/github'>
-                login
-              </Link>{" "}
-              below using Github.
-            </p>
+            <p className='m-1'>Kindly login to add comments.</p>
+            <SignIn />
           </>
         )}
       </Suspense>
