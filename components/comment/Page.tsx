@@ -6,14 +6,13 @@ import Image from "next/image";
 import CommentForm from "./Form";
 async function getComment(slug: string) {
   const data = await queryBuilder
-    .selectFrom("comments")
+    .selectFrom("comment")
     .selectAll()
     .where("slug", "=", `${slug}`)
-    .select(["body", "name", "image", "email", "id", "slug"])
+    .select(["body", "name", "image", "email", "id"])
     .orderBy("created_at", "desc")
     .limit(100)
     .execute();
-
   return data;
 }
 

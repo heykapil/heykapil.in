@@ -31,9 +31,9 @@ model likes {
     count Int    @default(1) @db.UnsignedInt
 }
 
-model comments {
-    id    String @default(cuid())
-    slug  String @id @db.VarChar(128)
+model comment {
+    id    BigInt @id @default(autoincrement())
+    slug  String @db.VarChar(128)
     name String @db.VarChar(50)
     body String @db.VarChar(700)
     email String
