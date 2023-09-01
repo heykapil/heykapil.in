@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
 import { auth } from "lib/auth";
 import { queryBuilder } from "lib/db";
-import { SignIn, SignOut } from "./buttons";
+import { SignIn } from "./buttons";
 import { Suspense } from "react";
 import Form from "./form";
 import Image from "next/image";
-import { Toaster } from "react-hot-toast";
 async function getGuestbook() {
   const data = await queryBuilder
     .selectFrom("guestbook")
@@ -51,7 +50,6 @@ export default async function GuestbookPage() {
   }
   return (
     <section>
-      <Toaster />
       <h1 className='font-bold text-2xl mb-4 tracking-tighter'>Guestbook</h1>
       <p className='mb-12 text-sm'>
         Leave a comment below. It could be anything – appreciation, information,
@@ -61,7 +59,6 @@ export default async function GuestbookPage() {
         {session?.user ? (
           <>
             <Form />
-            <SignOut />
           </>
         ) : (
           <SignIn />

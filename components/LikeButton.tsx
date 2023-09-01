@@ -49,7 +49,7 @@ export default function LikeButton({
         disabled={liked}
         onClick={onLike}
         type='button'
-        className='flex items-center justify-center h-fit gap-2 overflow-hidden transition-transform bg-[var(--offset2)] rounded-lg like-button hover:cursor-pointer w-fit cursor-pointer absolute transform hover:scale-x-110 hover:scale-y-105 duration-200 ease-out'
+        className='flex items-center justify-center h-fit gap-2 overflow-hidden transition-transform bg-[var(--brand)] text-[var(--brandforeground)] disabled:bg-[var(--muted)] disabled:text-[var(--primary)] rounded-lg hover:cursor-pointer w-fit cursor-pointer absolute transform hover:scale-x-110 hover:scale-y-105 duration-200 ease-out'
       >
         <Halo
           className='flex items-center justify-between gap-2 px-4 py-2'

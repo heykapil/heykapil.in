@@ -4,7 +4,7 @@ import { auth } from "lib/auth";
 import { type Session } from "next-auth";
 import { queryBuilder } from "lib/db";
 import { revalidatePath } from "next/cache";
-import toast from "react-hot-toast";
+// import toast from "react-hot-toast";
 export async function incrementview(slug: string) {
   const data = await queryBuilder
     .selectFrom("views")
@@ -78,10 +78,10 @@ export async function saveGuestbookEntry(formData: FormData) {
     }),
   });
   const response = await data.json();
-  toast.promise(response, {
-    loading: "Loading...",
-    success: "Email sent",
-    error: "Error occured",
-  });
-  // console.log("Email Sent", response);
+  // toast.promise(response, {
+  //   loading: "Loading...",
+  //   success: "Email sent",
+  //   error: "Error occured",
+  // });
+  console.log("Email Sent", response);
 }
