@@ -51,8 +51,14 @@ export default async function CommentPage({ slug }: { slug: string }) {
           </>
         ) : (
           <>
-            <p className='m-1'>Kindly login to add comments.</p>
-            <SignIn />
+            <div className='flex flex-row justify-between'>
+              <div>
+                <span className='mx-1'>
+                  You need to login first to add comments.
+                </span>
+              </div>
+              <SignIn />
+            </div>
           </>
         )}
       </Suspense>
@@ -63,14 +69,14 @@ export default async function CommentPage({ slug }: { slug: string }) {
           </p>
         ) : (
           entries.map((entry) => (
-            <div key={entry.id} className='flex flex-col space-y-1 mb-4'>
+            <div key={entry.id} className='flex flex-col space-y-0 mb-4'>
               <div className='flex items-center space-x-2'>
                 {entry.image ? (
                   <Image
                     src={entry.image}
                     alt={entry.name}
-                    width={18}
-                    height={18}
+                    width={20}
+                    height={20}
                     className='rounded-full'
                   />
                 ) : (
@@ -79,7 +85,7 @@ export default async function CommentPage({ slug }: { slug: string }) {
                     viewBox='0 0 24 24'
                     strokeWidth={1.5}
                     stroke='currentColor'
-                    className='w-2 h-2'
+                    className='w-2 h-2 self-start'
                   >
                     <path
                       strokeLinecap='round'
@@ -89,10 +95,10 @@ export default async function CommentPage({ slug }: { slug: string }) {
                   </svg>
                 )}
                 <p className='break-words'>
-                  <span className='text-xs capitalize	opacity-50'>
+                  <span className='text-sm capitalize	opacity-50'>
                     {entry.name}:{" "}
                   </span>
-                  <span className='text-sm opacity-100'>{entry.body}</span>
+                  <span className='text-base opacity-100'>{entry.body}</span>
                 </p>
               </div>
             </div>

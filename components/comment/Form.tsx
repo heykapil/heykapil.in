@@ -11,7 +11,7 @@ export default function CommentForm({ slug }: { slug: string }) {
     <>
       <form
         style={{ opacity: !pending ? 1 : 0.5 }}
-        className='w-md md:max-w-md lg:w-lg lg:max-w-lg mb-8 space-y-1'
+        className='w-md md:max-w-md lg:w-lg lg:max-w-lg xl:w-full xl-max-w-full mb-8 space-y-1'
         ref={formRef}
         action={async (formData) => {
           await saveCommentEntry(formData, slug);
@@ -55,7 +55,6 @@ export default function CommentForm({ slug }: { slug: string }) {
           </div>
         </div>
         <div className='flex items-center justify-between'>
-          <SignOut />
           <button
             className='inline-block text-sm cursor-pointer'
             disabled={pending}
@@ -63,6 +62,7 @@ export default function CommentForm({ slug }: { slug: string }) {
           >
             Submit{" "}
           </button>
+          <SignOut />
         </div>
       </form>
     </>

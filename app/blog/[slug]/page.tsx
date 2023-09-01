@@ -18,7 +18,7 @@ export async function generateMetadata({
   if (!post) {
     return;
   }
- 
+
   // console.log(randomHex);
   const {
     title,
@@ -90,7 +90,7 @@ export default async function Blog({ params }: { params: any }) {
       <div className={style.container}>
         <LikeButton allLikes={allLikes} slug={`blog/${post.slug}`} />
       </div>
-      <div className='mt-10'>
+      <div className='mt-6 container border-y border-[var(--muted)] rounded-lg py-2'>
         <CommentPage slug={`blog/${post.slug}`} />
       </div>
     </section>

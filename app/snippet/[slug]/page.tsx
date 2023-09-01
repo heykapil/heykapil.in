@@ -117,7 +117,7 @@ export default async function Blog({ params }: { params: any }) {
       <div className={style.container}>
         <LikeButton allLikes={allLikes} slug={`snippet/${snippet.slug}`} />
       </div>
-      <div className='mt-10'>
+      <div className='mt-6 container border-y border-[var(--muted)] rounded-lg py-2'>
         <CommentPage slug={`snippet/${snippet.slug}`} />
       </div>
     </section>
