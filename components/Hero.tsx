@@ -74,7 +74,7 @@ const Hero = () => {
               <motion.p variants={FADE_DOWN_ANIMATION_VARIANTS}>
                 I am currently working as Junior Research Fellow in the area of
                 fractional-order dynamical systems under{" "}
-                <span className='italic'>Prof Nita H Shah.</span>
+                <span className='italic'>Prof. Nita H. Shah.</span>
               </motion.p>
               <motion.p
                 className='mt-2 mb-2'

@@ -6,8 +6,12 @@ export type Timestamp = ColumnType<Date, Date | string, Date | string>;
 
 export type comments = {
   slug: string;
-  username: string;
+  name: string;
   body: string;
+  email: string;
+  image: string | null;
+  created_at: Generated<Timestamp>;
+  count: Generated<number>;
 };
 export type guestbook = {
   id: Generated<number>;

@@ -10,7 +10,7 @@ export default function Form() {
   return (
     <form
       style={{ opacity: !pending ? 1 : 0.5 }}
-      className='max-w-md my-4 space-y-2'
+      className='w-md md:max-w-md lg:w-lg lg:max-w-lg mb-8 space-y-1'
       ref={formRef}
       action={async (formData) => {
         await saveGuestbookEntry(formData);
@@ -27,7 +27,7 @@ export default function Form() {
             disabled={pending}
             name='entry'
             required
-            className='py-2 px-2 w-full border	border-[var(--border)] outline-[var(--border)] rounded-md bg-[var(--primaryforeground)] text-[var(--primary)]'
+            className='p-2 w-full border border-[var(--border)] outline-[var(--border)] rounded-md bg-[var(--primaryforeground)] text-[var(--primary)]'
           />
           {/* <span class='absolute inset-y-0 end-0 grid place-content-center px-4'>
               <svg
