@@ -1,6 +1,7 @@
 "use client";
 
 import { signIn, signOut } from "next-auth/react";
+import Halo from "components/Halo";
 import toast, { Toaster } from "react-hot-toast";
 function GitHubIcon() {
   return (
@@ -45,13 +46,19 @@ export function SignOut() {
     <>
       <Toaster />
       <button
-        className='px-3 py-2 border w-fit border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 rounded-md p-1 text-sm inline-flex items-center leading-4 text-neutral-900 dark:text-neutral-100 mb-3'
+        className='border w-fit border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 rounded-md text-sm inline-flex items-center leading-4 text-neutral-900 dark:text-neutral-100 mb-3 cursor-pointer hover:scale-x-110 hover:scale-y-105 duration-200 ease-out'
         onClick={() => {
           signOut();
           toast.success(`You have been signed out.`);
         }}
       >
-        Sign out
+        <Halo
+          className='flex items-center justify-between gap-2 px-4 py-2'
+          size={120}
+          strength={30}
+        >
+          Sign out
+        </Halo>
       </button>
     </>
   );
@@ -63,7 +70,7 @@ export function SignIn() {
       <div className='flex gap-2'>
         <Toaster />
         <button
-          className='px-3 py-2 border border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 rounded p-1 text-sm inline-flex items-center leading-4 text-neutral-900 dark:text-neutral-100 mb-8'
+          className='border border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 rounded text-sm inline-flex items-center leading-4 text-neutral-900 dark:text-neutral-100 mb-8 cursor-pointer hover:scale-x-110 hover:scale-y-105 duration-200 ease-out'
           onClick={() => {
             signIn("github");
             toast.loading(`Authenticating with Github`, {
@@ -71,15 +78,21 @@ export function SignIn() {
             });
           }}
         >
-          <GitHubIcon />
-          <div className='ml-3'>
-            <span className='text-sm'>Sign in</span>
-          </div>
+          <Halo
+            className='flex items-center justify-between gap-2 px-4 py-2'
+            size={120}
+            strength={30}
+          >
+            <GitHubIcon />
+            <div className='ml-3'>
+              <span className='text-sm'>Sign in</span>
+            </div>
+          </Halo>
         </button>
 
         <Toaster />
         <button
-          className='px-3 py-2 border border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 rounded p-1 text-sm inline-flex items-center leading-4 text-neutral-900 dark:text-neutral-100 mb-8'
+          className='border border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 rounded text-sm inline-flex items-center leading-4 text-neutral-900 dark:text-neutral-100 mb-8 cursor-pointer hover:scale-x-110 hover:scale-y-105 duration-200 ease-out'
           onClick={() => {
             signIn("google");
             toast.loading(`Authenticating with Google`, {
@@ -87,10 +100,16 @@ export function SignIn() {
             });
           }}
         >
-          <GoogleIcon />
-          <div className='ml-3'>
-            <span className='text-sm'>Sign in</span>
-          </div>
+          <Halo
+            className='flex items-center justify-between gap-2 px-4 py-2'
+            size={120}
+            strength={30}
+          >
+            <GoogleIcon />
+            <div className='ml-3'>
+              <span className='text-sm'>Sign in</span>
+            </div>
+          </Halo>
         </button>
       </div>
     </>

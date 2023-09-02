@@ -1,13 +1,13 @@
 .bg-grid {
-    @apply rounded-md bg-fixed bg-repeat;
-    /* background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScyMCcgaGVpZ2h0PScyMCcgdHJhbnNmb3JtPSdzY2FsZSgzKSc+PHJlY3QgeD0nMCcgeT0nMCcgd2lkdGg9JzEwMCUnIGhlaWdodD0nMTAwJScgZmlsbD0naHNsYSgwLCAwJSwgOTMlLCAxKScvPjxwYXRoIGQ9J00gMTAsLTIuNTVlLTcgViAyMCBaIE0gLTEuMTY3NzM2MmUtOCwxMCBIIDIwIFonICBzdHJva2Utd2lkdGg9JzAuMicgc3Ryb2tlPSdoc2xhKDAsIDAlLCA4OSUsIDEpJyBmaWxsPSdub25lJy8+PC9zdmc+'); */
-    background-size: 30px 30px;
-    /* background-color: rgba(109, 109, 109, 0.25) */
-     /* border: 1px solid hsla(0, 8%, 78%, 0.905); */
+  @apply rounded-md bg-fixed bg-repeat;
+  /* background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScyMCcgaGVpZ2h0PScyMCcgdHJhbnNmb3JtPSdzY2FsZSgzKSc+PHJlY3QgeD0nMCcgeT0nMCcgd2lkdGg9JzEwMCUnIGhlaWdodD0nMTAwJScgZmlsbD0naHNsYSgwLCAwJSwgOTMlLCAxKScvPjxwYXRoIGQ9J00gMTAsLTIuNTVlLTcgViAyMCBaIE0gLTEuMTY3NzM2MmUtOCwxMCBIIDIwIFonICBzdHJva2Utd2lkdGg9JzAuMicgc3Ryb2tlPSdoc2xhKDAsIDAlLCA4OSUsIDEpJyBmaWxsPSdub25lJy8+PC9zdmc+'); */
+  background-size: 30px 30px;
+  /* background-color: rgba(109, 109, 109, 0.25) */
+  /* border: 1px solid hsla(0, 8%, 78%, 0.905); */
 }
 
 .ui-box {
-    @apply flex flex-none select-none items-center justify-center;
-    @apply rounded-md outline-none;
-    /* background-color: hsl(0, 4%, 10%); */
+  @apply flex flex-none select-none items-center justify-center;
+  @apply rounded-md outline-none;
+  /* background-color: hsl(0, 4%, 10%); */
 }

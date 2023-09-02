@@ -16,7 +16,12 @@ const CustomLink = (props: any) => {
   }
 
   if (href.startsWith("#")) {
-    return <a {...props} />;
+    return (
+      <a
+        {...props}
+        className="no-underline hover:opacity-80 hover:before:content-['#'] transition-all duration-200 ease-in-out"
+      ></a>
+    );
   }
 
   return <a target='_blank' rel='noopener noreferrer' {...props} />;
@@ -26,14 +31,14 @@ function RoundedImage(props: any) {
   return <Image alt={props.alt} className='rounded-lg' {...props} />;
 }
 
-// function Callout(props) {
-//   return (
-//     <div className="px-4 py-3 border border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 rounded p-1 text-sm flex items-center text-neutral-900 dark:text-neutral-100 mb-8">
-//       <div className="flex items-center w-4 mr-4">{props.emoji}</div>
-//       <div className="w-full callout">{props.children}</div>
-//     </div>
-//   );
-// }
+function Callout(props: any) {
+  return (
+    <div className='px-4 py-3 border border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 rounded p-1 text-sm flex items-center text-neutral-900 dark:text-neutral-100 mb-8'>
+      <div className='flex items-center w-4 mr-4'>{props.emoji}</div>
+      <div className='w-full callout'>{props.children}</div>
+    </div>
+  );
+}
 
 // function ProsCard({ title, pros }) {
 //   return (
@@ -94,7 +99,7 @@ const components = {
   a: CustomLink,
   pre: Pre,
   // Code,
-  //   Callout,
+  Callout,
   //   ProsCard,
   //   ConsCard,
   //  pre: Pre,
@@ -106,9 +111,8 @@ interface MdxProps {
 }
 
 export function Mdx({
-  code,
-} // tweets
-: MdxProps) {
+  code, // tweets
+}: MdxProps) {
   const Component = useMDXComponent(code);
 
   return (

@@ -67,7 +67,7 @@ export default async function CommentPage({ slug }: { slug: string }) {
           entries.map((entry) => (
             <div
               key={entry.id}
-              className='border-b border-[var(--border)] my-4 prose dark:prose-invert'
+              className='border-b border-[var(--border)] my-4'
             >
               <div className='grid grid-cols-12 w-full'>
                 <div className='flex rounded-xl col-span-12'>
@@ -104,9 +104,9 @@ export default async function CommentPage({ slug }: { slug: string }) {
                         "MMM d, yy 'at' h:mm aa"
                       )}
                     </div>
-                    <div className='mt-1'>
+                    <article className='mt-1 prose prose-quoteless prose-neutral dark:prose-invert'>
                       <MDXRemote source={entry.body} />
-                    </div>
+                    </article>
                   </div>
                 </div>
               </div>

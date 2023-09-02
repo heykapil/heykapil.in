@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { saveCommentEntry } from "lib/actions";
 import { experimental_useFormStatus as useFormStatus } from "react-dom";
 import { SignOut } from "app/guestbook/buttons";
+import Halo from "../Halo";
 export default function CommentForm({ slug }: { slug: string }) {
   const formRef = useRef<HTMLFormElement>(null);
   const { pending } = useFormStatus();
@@ -55,13 +56,19 @@ export default function CommentForm({ slug }: { slug: string }) {
             </span> */}
           </div>
         </div>
-        <div className='flex items-center mt-2 justify-between'>
+        <div className='flex items-center justify-between'>
           <button
-            className='inline-block px-2 py-1 bg-[var(--offset2)] bg-opacity-60	 rounded-lg text-sm cursor-pointer'
+            className='border w-fit border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 rounded-md text-sm inline-flex items-center leading-4 text-neutral-900 dark:text-neutral-100 mb-3 cursor-pointer hover:scale-x-110 hover:scale-y-105 duration-200 ease-out'
             disabled={pending}
             type='submit'
           >
-            Submit{" "}
+            <Halo
+              className='flex items-center justify-between gap-2 px-4 py-2'
+              size={120}
+              strength={30}
+            >
+              Submit
+            </Halo>
           </button>
           <span className='text-sm text-[var(--secondaryforeground)] opacity-70'>
             Markdown is supported.
