@@ -3,7 +3,6 @@ import { queryBuilder } from "lib/db";
 import { SignIn } from "app/guestbook/buttons";
 import { Suspense } from "react";
 import Image from "next/image";
-import { formatDate } from "@/lib/posts/format-date";
 import CommentForm from "./Form";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { format } from "date-fns";
