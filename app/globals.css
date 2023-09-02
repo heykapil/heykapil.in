@@ -80,12 +80,16 @@
     background-color: var(--background);
     color: var(--foreground);
     -webkit-font-smoothing: antialiased;
-    font-family: "Iowan Old Style", "Iowan", "Georgia", serif;
+    /* font-family: "Iowan Old Style", "Iowan", "Georgia", serif; */
     /* font-size: 14px; */
     font-weight: 400;
     text-rendering: optimizeLegibility;
     -webkit-text-size-adjust: 100%;
     /* line-height: 1.5; */
+
+    @screen md {
+      font-family: "Iowan Old Style", "Iowan", "Georgia", serif;
+    }
   }
 }
 h1,

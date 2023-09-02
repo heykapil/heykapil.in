@@ -117,11 +117,11 @@ export default async function Blog({ params }: { params: any }) {
       <div className={style.container}>
         <LikeButton allLikes={allLikes} slug={`snippet/${snippet.slug}`} />
       </div>
-      <div className='mt-6 w-full flex flex-col border-b border-[var(--offset3)] rounded-lg py-2'>
+      <div className='mt-6 w-full flex flex-col border-b border-[var(--border)] rounded-lg py-2'>
         <div className='flex align-center justify-center items-center'>
-          <span className='flex flex-grow border-t border-[var(--offset3)] h-1'></span>{" "}
+          <span className='flex flex-grow border-t border-[var(--border)] h-1'></span>{" "}
           <h3 className='text-xl font-semibold mb-6'>Thoughts? 🤔</h3>
-          <span className='flex flex-grow border-t border-[var(--offset3)] h-1'></span>
+          <span className='flex flex-grow border-t border-[var(--border)] h-1'></span>
         </div>
         <CommentPage slug={`snippet/${snippet.slug}`} />
       </div>

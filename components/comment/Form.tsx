@@ -9,6 +9,7 @@ export default function CommentForm({ slug }: { slug: string }) {
   const { pending } = useFormStatus();
   return (
     <>
+      <SignOut />
       <form
         style={{ opacity: !pending ? 1 : 0.5 }}
         className='w-md md:max-w-md lg:w-lg lg:max-w-lg xl:w-full xl-max-w-full mb-8 space-y-1'
@@ -21,8 +22,8 @@ export default function CommentForm({ slug }: { slug: string }) {
         <div>
           <label className='sr-only'>Enter your comment...</label>
           <div className='relative'>
-            <input
-              type='text'
+            <textarea
+              rows={3}
               placeholder='Enter your comment'
               aria-label='Enter your comment...'
               disabled={pending}
@@ -54,15 +55,14 @@ export default function CommentForm({ slug }: { slug: string }) {
             </span> */}
           </div>
         </div>
-        <div className='flex items-center justify-between'>
+        <div className='flex items-center mt-2'>
           <button
-            className='inline-block px-2 py-1 bg-[var(--offset3)] text-sm cursor-pointer'
+            className='inline-block px-2 py-1 bg-[var(--offset2)] rounded-lg text-sm cursor-pointer'
             disabled={pending}
             type='submit'
           >
             Submit{" "}
           </button>
-          <SignOut />
         </div>
       </form>
     </>

@@ -55,15 +55,13 @@ export default async function GuestbookPage() {
         Leave a comment below. It could be anything – appreciation, information,
         wisdom, or even humor.
       </p>
-      <Suspense fallback={<div>Loading...</div>}>
-        {session?.user ? (
-          <>
-            <Form />
-          </>
-        ) : (
-          <SignIn />
-        )}
-      </Suspense>
+      {session?.user ? (
+        <>
+          <Form />
+        </>
+      ) : (
+        <SignIn />
+      )}
       <Suspense fallback={<div>Loading...</div>}>
         {entries === undefined ? (
           <p className='text-sm'>Nothing here...</p>
