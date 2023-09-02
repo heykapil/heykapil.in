@@ -12,7 +12,7 @@ export default function CommentForm({ slug }: { slug: string }) {
       <SignOut />
       <form
         style={{ opacity: !pending ? 1 : 0.5 }}
-        className='w-md md:max-w-md lg:w-lg lg:max-w-lg xl:w-full xl-max-w-full mb-8 space-y-1'
+        className='w-full max-w-full mb-8 space-y-1'
         ref={formRef}
         action={async (formData) => {
           await saveCommentEntry(formData, slug);
@@ -55,14 +55,17 @@ export default function CommentForm({ slug }: { slug: string }) {
             </span> */}
           </div>
         </div>
-        <div className='flex items-center mt-2'>
+        <div className='flex items-center mt-2 justify-between'>
           <button
-            className='inline-block px-2 py-1 bg-[var(--offset2)] rounded-lg text-sm cursor-pointer'
+            className='inline-block px-2 py-1 bg-[var(--offset2)] bg-opacity-60	 rounded-lg text-sm cursor-pointer'
             disabled={pending}
             type='submit'
           >
             Submit{" "}
           </button>
+          <span className='text-sm text-[var(--secondaryforeground)] opacity-70'>
+            MDX is supported.
+          </span>
         </div>
       </form>
     </>
