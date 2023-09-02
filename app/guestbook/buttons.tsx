@@ -25,6 +25,21 @@ function GitHubIcon() {
     </svg>
   );
 }
+
+function GoogleIcon() {
+  return (
+    <svg
+      xmlns='http://www.w3.org/2000/svg'
+      width='20'
+      height='20'
+      fill='currentColor'
+      viewBox='0 0 16 16'
+    >
+      <path d='M15.545 6.558a9.42 9.42 0 0 1 .139 1.626c0 2.434-.87 4.492-2.384 5.885h.002C11.978 15.292 10.158 16 8 16A8 8 0 1 1 8 0a7.689 7.689 0 0 1 5.352 2.082l-2.284 2.284A4.347 4.347 0 0 0 8 3.166c-2.087 0-3.86 1.408-4.492 3.304a4.792 4.792 0 0 0 0 3.063h.003c.635 1.893 2.405 3.301 4.492 3.301 1.078 0 2.004-.276 2.722-.764h-.003a3.702 3.702 0 0 0 1.599-2.431H8v-3.08h7.545z' />{" "}
+    </svg>
+  );
+}
+
 export function SignOut() {
   return (
     <>
@@ -45,21 +60,39 @@ export function SignOut() {
 export function SignIn() {
   return (
     <>
-      <Toaster />
-      <button
-        className='px-3 py-2 border border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 rounded p-1 text-sm inline-flex items-center leading-4 text-neutral-900 dark:text-neutral-100 mb-8'
-        onClick={() => {
-          signIn("github");
-          toast.loading(`Authenticating with Github`, {
-            duration: 2000,
-          });
-        }}
-      >
-        <GitHubIcon />
-        <div className='ml-3'>
-          <span className='text-sm'>Sign in with GitHub</span>
-        </div>
-      </button>
+      <div className='flex gap-2'>
+        <Toaster />
+        <button
+          className='px-3 py-2 border border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 rounded p-1 text-sm inline-flex items-center leading-4 text-neutral-900 dark:text-neutral-100 mb-8'
+          onClick={() => {
+            signIn("github");
+            toast.loading(`Authenticating with Github`, {
+              duration: 2000,
+            });
+          }}
+        >
+          <GitHubIcon />
+          <div className='ml-3'>
+            <span className='text-sm'>Sign in</span>
+          </div>
+        </button>
+
+        <Toaster />
+        <button
+          className='px-3 py-2 border border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 rounded p-1 text-sm inline-flex items-center leading-4 text-neutral-900 dark:text-neutral-100 mb-8'
+          onClick={() => {
+            signIn("google");
+            toast.loading(`Authenticating with Google`, {
+              duration: 2000,
+            });
+          }}
+        >
+          <GoogleIcon />
+          <div className='ml-3'>
+            <span className='text-sm'>Sign in</span>
+          </div>
+        </button>
+      </div>
     </>
   );
 }

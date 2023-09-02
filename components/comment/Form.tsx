@@ -64,7 +64,7 @@ export default function CommentForm({ slug }: { slug: string }) {
             Submit{" "}
           </button>
           <span className='text-sm text-[var(--secondaryforeground)] opacity-70'>
-            MDX is supported.
+            Markdown is supported.
           </span>
         </div>
       </form>

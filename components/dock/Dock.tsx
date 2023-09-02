@@ -40,7 +40,7 @@ const Dock = () => {
             onMouseOut={() => setHovered(false)}
             // Hover animation disabled as bug with mobile devices
           >
-            <ul className='flex items-end h-8 justify-center space-x-2'>
+            <ul className='flex items-end h-10 justify-center space-x-2'>
               <DockItem>
                 <a
                   className='relative flex h-full w-full items-center justify-center'

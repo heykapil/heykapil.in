@@ -33,7 +33,7 @@ export default function RootLayout({
           media='(prefers-color-scheme: light)'
         />
       </Head>
-      <body className='antialiased max-w-[100%] mb-40 flex flex-col md:flex-row mt-0 lg:mx-auto'>
+      <body className='max-w-[100%] mb-40 flex flex-col md:flex-row mt-0 lg:mx-auto'>
         <Providers>
           <NextAuthProvider>
             <main className='flex-auto min-w-0 mt-0 flex flex-col md:px-0'>

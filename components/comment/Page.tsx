@@ -46,38 +46,39 @@ export default async function CommentPage({ slug }: { slug: string }) {
   }
   return (
     <>
-      <Suspense fallback={<div>Loading...</div>}>
-        {session?.user ? (
-          <>
-            <CommentForm slug={slug} />
-          </>
-        ) : (
-          <>
-            <div className='flex flex-row justify-between'>
-              <div>
-                <span className=''>Sign in to add comment!</span>
-              </div>
-              <SignIn />
+      {session?.user ? (
+        <>
+          <CommentForm slug={slug} />
+        </>
+      ) : (
+        <>
+          <div className='flex flex-row justify-between'>
+            <div>
+              <span className=''>Sign in to comment!</span>
             </div>
-          </>
-        )}
-      </Suspense>
-      <Suspense fallback={<div>Loading...</div>}>
+            <SignIn />
+          </div>
+        </>
+      )}
+      <Suspense fallback={<div>Loading comments...</div>}>
         {entries === undefined ? (
           <p className='my-2'>No comments. Be the first one to comment.</p>
         ) : (
           entries.map((entry) => (
-            <div key={entry.id} className='flex flex-col space-y-0 mb-4'>
-              <div className='grid grid-cols-12'>
-                <div className='flex rounded-xl  p-2 col-span-12'>
-                  <div className='mx-1 flex h-fit w-fit items-center justify-center overflow-hidden rounded-full flex-shrink-0'>
+            <div
+              key={entry.id}
+              className='border-b border-[var(--border)] my-4 prose dark:prose-invert'
+            >
+              <div className='grid grid-cols-12 w-full'>
+                <div className='flex rounded-xl col-span-12'>
+                  <div className='flex h-8 w-8 bg-[var(--offset)] items-center justify-center overflow-hidden rounded-full flex-shrink-0'>
                     {entry.image ? (
                       <Image
                         src={entry.image}
                         alt={entry.name}
-                        width={25}
-                        height={25}
-                        className='rounded-full self-start'
+                        width={28}
+                        height={28}
+                        className='rounded-full self-centered'
                       />
                     ) : (
                       <svg
@@ -85,7 +86,7 @@ export default async function CommentPage({ slug }: { slug: string }) {
                         viewBox='0 0 24 24'
                         strokeWidth={1.5}
                         stroke='currentColor'
-                        className='w-[25px] h-[25px] self-start'
+                        className='w-[24px] h-[24px] self-centered'
                       >
                         <path
                           strokeLinecap='round'
@@ -95,31 +96,16 @@ export default async function CommentPage({ slug }: { slug: string }) {
                       </svg>
                     )}
                   </div>
-
-                  <div className='ml-4 w-full'>
-                    <div className='flex w-full items-center justify-between'>
-                      <p className='font-semibold'>{entry.name}</p>
+                  <div className='ml-2 w-full'>
+                    <div className='flex w-full items-start justify-between'>
+                      <span className='font-semibold'>{entry.name}</span>
                       {format(
                         new Date(entry.created_at),
                         "MMM d, yy 'at' h:mm aa"
                       )}
                     </div>
-                    <div className='mt-4'>
+                    <div className='mt-1'>
                       <MDXRemote source={entry.body} />
-                      {/* 
-                      <div className='mt-4 space-x-2'>
-                        <button className='px-4 py-2 rounded-xl bg-zinc-400 text-white font-medium'>
-                          Reply
-                        </button>
-
-                        <button className='px-4 py-2 rounded-xl bg-sky-400 text-white font-medium'>
-                          Edit
-                        </button>
-
-                        <button className='px-4 py-2 rounded-xl bg-red-400 text-white font-delete'>
-                          Edit
-                        </button>
-                      </div> */}
                     </div>
                   </div>
                 </div>
