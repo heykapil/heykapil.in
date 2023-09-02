@@ -5,7 +5,7 @@ import { Suspense } from "react";
 import Image from "next/image";
 import CommentForm from "./Form";
 import { MDXRemote } from "next-mdx-remote/rsc";
-import { format } from "date-fns";
+import { formatDate } from "lib/posts/format-date";
 async function getComment(slug: string) {
   const data = await queryBuilder
     .selectFrom("comment")
@@ -65,10 +65,7 @@ export default async function CommentPage({ slug }: { slug: string }) {
           <p className='my-2'>No comments. Be the first one to comment.</p>
         ) : (
           entries.map((entry) => (
-            <div
-              key={entry.id}
-              className='border-b border-[var(--border)] my-4'
-            >
+            <div key={entry.id} className='my-2 divide-y rounded-md'>
               <div className='grid grid-cols-12 w-full'>
                 <div className='flex rounded-xl col-span-12'>
                   <div className='flex h-8 w-8 bg-[var(--offset)] items-center justify-center overflow-hidden rounded-full flex-shrink-0'>
@@ -99,10 +96,10 @@ export default async function CommentPage({ slug }: { slug: string }) {
                   <div className='ml-2 w-full'>
                     <div className='flex w-full items-start justify-between'>
                       <span className='font-semibold'>{entry.name}</span>
-                      {format(
-                        new Date(entry.created_at),
-                        "MMM d, yy 'at' h:mm aa"
-                      )}
+                      <span className='truncate'>
+                        {" "}
+                        {formatDate(entry.created_at?.toISOString())}
+                      </span>
                     </div>
                     <article className='mt-1 prose prose-quoteless prose-neutral dark:prose-invert'>
                       <MDXRemote source={entry.body} />

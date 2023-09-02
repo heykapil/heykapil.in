@@ -2,6 +2,7 @@ import { Mdx } from "@/components/mdx";
 import { allSnippets } from "contentlayer/generated";
 import Balancer from "react-wrap-balancer";
 import type { Metadata } from "next";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import ViewCounter from "@/components/ViewCounter";
 import { getViewsCount, getLikesCount } from "@/lib/metrics";
@@ -74,7 +75,7 @@ export async function generateMetadata({
 //   return `${fullDate} (${formattedDate})`;
 // }
 
-export default async function Blog({ params }: { params: any }) {
+export default async function Snippet({ params }: { params: any }) {
   const snippet = allSnippets.find((snippet) => snippet.slug === params.slug);
   const allViews = await getViewsCount();
   const allLikes = await getLikesCount();
@@ -88,7 +89,7 @@ export default async function Blog({ params }: { params: any }) {
   // ]);
 
   return (
-    <section>
+    <section className='pattern'>
       <script
         type='application/ld+json'
         suppressHydrationWarning
@@ -101,14 +102,22 @@ export default async function Blog({ params }: { params: any }) {
       </h1>
       <div className='flex justify-between items-center mt-2 mb-8 text-sm max-w-[650px]'>
         <p className='text-sm text-neutral-600 dark:text-neutral-400'>
-          {/* {formatDate(post.publishedAt)} */}
+          <ViewCounter
+            allViews={allViews}
+            slug={`snippet/${snippet.slug}`}
+            trackView={true}
+          />{" "}
+          views
         </p>
-        <ViewCounter
-          allViews={allViews}
-          slug={`snippet/${snippet.slug}`}
-          trackView={true}
-        />{" "}
-        views
+        <div className='mt-2 sm:mt-0'>
+          <Image
+            alt={snippet.title}
+            height={48}
+            width={48}
+            src={`/logos/${snippet.logo}`}
+            className='rounded-full'
+          />
+        </div>
       </div>
       <Mdx
         code={snippet.body.code}
