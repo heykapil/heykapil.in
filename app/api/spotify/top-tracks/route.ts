@@ -8,11 +8,11 @@ export type Artist = {
   href: string;
 };
 
-type Track = {
-  artists: Artist[];
-  external_urls: { spotify: string };
-  name: string;
-};
+// type Track = {
+//   artists: Artist[];
+//   external_urls: { spotify: string };
+//   name: string;
+// };
 
 export async function GET() {
   const response = await getTopTracks();
