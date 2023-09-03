@@ -10,7 +10,7 @@ import { ReactNode } from "react";
 import Halo from "../Halo";
 
 const ticketingFont = localFont({
-  src: "../public/fonts/ticketing.woff2",
+  src: "../../public/fonts/ticketing.woff2",
   display: "swap",
 });
 
