@@ -7,7 +7,7 @@ import imageGotland from "public/gallery/kapiljch19.webp";
 import imageRun from "public/gallery/kapiljch20.webp";
 import imageSkate from "public/gallery/kapiljch21.webp";
 import { ReactNode } from "react";
-import Halo from "./Halo";
+import Halo from "../Halo";
 
 const ticketingFont = localFont({
   src: "../public/fonts/ticketing.woff2",

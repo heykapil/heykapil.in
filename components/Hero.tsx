@@ -1,17 +1,16 @@
 "use client";
 import React from "react";
-import Gallery from "./gallery";
 import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import Image from "next/image";
 import styles from "styles/Hero.module.css";
 import HeaderSkelton from "./header/HeaderSkelton";
-import GallerySkelton from "./gallerySkelton";
+import GallerySkelton from "./gallery/gallerySkelton";
 const DynamicHeader = dynamic(() => import("./header/Header"), {
   loading: () => <HeaderSkelton />,
 });
-const DynamicGallery = dynamic(() => import("./gallery"), {
+const DynamicGallery = dynamic(() => import("./gallery/gallery"), {
   loading: () => <GallerySkelton />,
 });
 const Hero = () => {
