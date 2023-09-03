@@ -21,7 +21,7 @@ export default function Header() {
   }, []);
 
   return (
-    <header className='mt-0 mx-auto rounded-lg w-full flex-row mb-1 justify-between  hidden lg:flex'>
+    <header className='mt-0 mb-10 z-1 mx-auto rounded-lg w-full flex-row justify-between  hidden lg:flex'>
       <div className='flex'>
         <HeaderInfo />
       </div>

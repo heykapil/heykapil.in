@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useMDXComponent } from "next-contentlayer/hooks";
 import { Pre } from "./blog/Pre";
+import { TweetComponent } from "./Tweet/Tweet";
 // import { Code } from "./code/Code";
 const CustomLink = (props: any) => {
   const href = props.href;
@@ -100,24 +101,18 @@ const components = {
   pre: Pre,
   // Code,
   Callout,
+  StaticTweet: TweetComponent,
   //   ProsCard,
   //   ConsCard,
   //  pre: Pre,
 };
 
-interface MdxProps {
-  code: string;
-  //   tweets: Record<string, any>;
-}
-
-export function Mdx({
-  code, // tweets
-}: MdxProps) {
+export function Mdx({ code }: { code: string }) {
   const Component = useMDXComponent(code);
 
   return (
     <article className='prose prose-quoteless prose-neutral dark:prose-invert'>
-      <Component components={{ ...components }} />
+      <Component components={components} />
     </article>
   );
 }

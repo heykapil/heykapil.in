@@ -2,10 +2,18 @@
 import React from "react";
 import Gallery from "./gallery";
 import { motion } from "framer-motion";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import Image from "next/image";
-import Header from "./header/Header";
 import styles from "styles/Hero.module.css";
+import HeaderSkelton from "./header/HeaderSkelton";
+import GallerySkelton from "./gallerySkelton";
+const DynamicHeader = dynamic(() => import("./header/Header"), {
+  loading: () => <HeaderSkelton />,
+});
+const DynamicGallery = dynamic(() => import("./gallery"), {
+  loading: () => <GallerySkelton />,
+});
 const Hero = () => {
   const FADE_DOWN_ANIMATION_VARIANTS = {
     hidden: { opacity: 0, y: 10 },
@@ -14,11 +22,9 @@ const Hero = () => {
   return (
     <>
       <section className={styles.wavecontainer}>
-        <header className='mb-10 z-1'>
-          <Header />
-        </header>
-        <div className='container flex flex-col px-4 py-0 mx-auto space-y-6 lg:py-0 lg:flex-row lg:items-center h-[60vh] z-1'>
-          <div className='w-full relative z-1 lg:w-1/2'>
+        <DynamicHeader />
+        <div className='flex flex-col px-4 py-0 mx-auto space-y-6 lg:py-0 lg:flex-row lg:justify-center lg:items-center h-[60vh] z-1'>
+          <div className='w-full relative z-1 lg:w-[40%]'>
             <motion.div
               className='lg:max-w-lg'
               initial='hidden'
@@ -107,6 +113,28 @@ const Hero = () => {
                 </Link>
                 .
               </motion.p>
+              {/* <motion.div className='flex items-center justify-start mt-2'>
+                <motion.p
+                  className='font-bold'
+                  variants={FADE_DOWN_ANIMATION_VARIANTS}
+                >
+                  Current Stack -{" "}
+                </motion.p>
+                <motion.img
+                  src='https://skillicons.dev/icons?i=typescript,nextjs,tailwind,vscode,prisma&theme=light'
+                  alt='tech'
+                  className='hidden dark:block w-24 md:w-32 ml-3'
+                  loading='lazy'
+                  variants={FADE_DOWN_ANIMATION_VARIANTS}
+                />
+                <motion.img
+                  src='https://skillicons.dev/icons?i=typescript,nextjs,tailwind,vscode,prisma&theme=dark'
+                  alt='tech'
+                  className='block dark:hidden w-24 md:w-32 ml-3'
+                  loading='lazy'
+                  variants={FADE_DOWN_ANIMATION_VARIANTS}
+                />
+              </motion.div> */}
             </motion.div>
             {/*             
             <div className='mt-10 flex flex-col sm:flex-row items-center'>
@@ -140,7 +168,7 @@ const Hero = () => {
             </div>*/}
           </div>
           <div className='items-center justify-normal w-full h-fit hidden lg:flex lg:w-1/2'>
-            <Gallery />
+            <DynamicGallery />
           </div>
         </div>
         {/* <div className='container flex flex-row mx-auto w-full space-x-3'>

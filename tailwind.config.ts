@@ -18,6 +18,13 @@ module.exports = {
         ...mauve,
         ...violet,
       },
+      screens: {
+        xs: "580px",
+        sm: "620px",
+        md: "768px",
+        lg: "1024px",
+        xl: "1280px",
+      },
       keyframes: {
         in: {
           "0%": { transform: "translateY(18px)", opacity: 0 },
