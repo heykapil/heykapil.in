@@ -4,9 +4,15 @@ import { useRef } from "react";
 import { saveCommentEntry } from "lib/actions";
 import { experimental_useFormStatus as useFormStatus } from "react-dom";
 import { SignOut } from "app/guestbook/buttons";
+import { useState, Suspense, lazy } from "react";
 import Halo from "../Halo";
+
+const MarkdownPreview = lazy(() => import("./Preview"));
 export default function CommentForm({ slug }: { slug: string }) {
   const formRef = useRef<HTMLFormElement>(null);
+  const [showPreview, setShowPreview] = useState(false);
+  const [entry, setEntry] = useState("");
+
   const { pending } = useFormStatus();
   return (
     <>
@@ -29,9 +35,35 @@ export default function CommentForm({ slug }: { slug: string }) {
               aria-label='Enter your comment...'
               disabled={pending}
               name='entry'
+              value={entry}
+              onChange={(e) => setEntry(e.target.value)}
               required
               className='p-2 w-full border border-[var(--border)] outline-[var(--border)] rounded-md bg-[var(--primaryforeground)] text-[var(--primary)]'
             />
+            <div className='flex justify-between'>
+              <label>
+                <input
+                  type='checkbox'
+                  className='ml-1'
+                  checked={showPreview}
+                  onChange={(e) => setShowPreview(e.target.checked)}
+                />{" "}
+                <span className='text-sm '>Show preview</span>
+              </label>
+              <span className='text-sm text-[var(--secondaryforeground)] opacity-70'>
+                Markdown is supported.
+              </span>
+            </div>
+            {showPreview && (
+              <Suspense
+                fallback={<span className='text-sm italic'>Loading...</span>}
+              >
+                <div className='preview'>
+                  <MarkdownPreview markdown={entry} />
+                </div>
+              </Suspense>
+            )}
+
             {/* <span class='absolute inset-y-0 end-0 grid place-content-center px-4'>
               <svg
                 xmlns='http://www.w3.org/2000/svg'
@@ -70,9 +102,6 @@ export default function CommentForm({ slug }: { slug: string }) {
               Submit
             </Halo>
           </button>
-          <span className='text-sm text-[var(--secondaryforeground)] opacity-70'>
-            Markdown is supported.
-          </span>
         </div>
       </form>
     </>

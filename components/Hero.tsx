@@ -39,7 +39,7 @@ const Hero = () => {
               }}
             >
               <motion.div
-                className='block lg:hidden mb-8'
+                className='block lg:hidden my-8'
                 variants={FADE_DOWN_ANIMATION_VARIANTS}
               >
                 <Image

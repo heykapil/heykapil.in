@@ -4,11 +4,14 @@ import Balancer from "react-wrap-balancer";
 import type { Metadata } from "next";
 import { formatDate } from "lib/posts/format-date";
 import { notFound } from "next/navigation";
-import ViewCounter from "@/components/ViewCounter";
 import { getLikesCount, getViewsCount } from "@/lib/metrics";
-import LikeButton from "@/components/LikeButton";
-import CommentPage from "@/components/comment/Page";
+import { Suspense } from "react";
 import style from "styles/LikeContainer.module.css";
+import LikeButton from "@/components/LikeButton/LikeButton";
+import LikeButtonSkelton from "@/components/LikeButton/Skelton";
+import CommentPage from "components/comment/Page";
+import ViewCounter from "components/ViewCounter";
+
 export async function generateMetadata({
   params,
 }: {
@@ -19,7 +22,6 @@ export async function generateMetadata({
     return;
   }
 
-  // console.log(randomHex);
   const {
     title,
     publishedAt: publishedTime,
@@ -57,7 +59,6 @@ export async function generateMetadata({
 
 export default async function Blog({ params }: { params: any }) {
   const post = allPosts.find((post) => post.slug === params.slug);
-
   const allViews = await getViewsCount();
   const allLikes = await getLikesCount();
   if (!post) {
@@ -79,16 +80,20 @@ export default async function Blog({ params }: { params: any }) {
         <p className='text-sm text-neutral-600 dark:text-neutral-400'>
           {formatDate(post.publishedAt)}
         </p>
-        <ViewCounter
-          allViews={allViews}
-          slug={`blog/${post.slug}`}
-          trackView={true}
-        />{" "}
+        <Suspense>
+          <ViewCounter
+            allViews={allViews}
+            slug={`blog/${post.slug}`}
+            trackView={true}
+          />
+        </Suspense>{" "}
         views
       </div>
       <Mdx code={post.body.code} />
       <div className={style.container}>
-        <LikeButton allLikes={allLikes} slug={`blog/${post.slug}`} />
+        <Suspense fallback={<LikeButtonSkelton />}>
+          <LikeButton allLikes={allLikes} slug={`blog/${post.slug}`} />
+        </Suspense>
       </div>
       <div className='mt-6 w-full flex flex-col border-b border-[var(--border)] rounded-lg py-2'>
         <div className='flex align-center justify-center items-center'>
@@ -96,7 +101,9 @@ export default async function Blog({ params }: { params: any }) {
           <h3 className='text-xl font-semibold mb-6'>Thoughts? 🤔</h3>
           <span className='flex flex-grow border-t border-[var(--border)] h-1'></span>
         </div>
-        <CommentPage slug={`blog/${post.slug}`} />
+        <Suspense>
+          <CommentPage slug={`blog/${post.slug}`} />
+        </Suspense>
       </div>
     </section>
   );
