@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "@next/bundle-analyzer": "^13.4.19",
+    "@planetscale/database": "^1.11.0",
     "@prisma/client": "5.2.0",
     "@radix-ui/colors": "^2.0.1",
     "@radix-ui/react-dialog": "^1.0.4",
