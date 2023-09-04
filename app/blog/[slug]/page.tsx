@@ -5,19 +5,13 @@ import type { Metadata } from "next";
 import { formatDate } from "lib/posts/format-date";
 import { notFound } from "next/navigation";
 import { getLikesCount, getViewsCount } from "@/lib/metrics";
-import { Suspense } from "react";
-import dynamic from "next/dynamic";
+import { Suspense, lazy } from "react";
 import style from "styles/LikeContainer.module.css";
-const LikeButton = dynamic(() => import("@/components/LikeButton/LikeButton"), {
-  loading: () => <span>...</span>,
-});
-const ViewCounter = dynamic(() => import("components/ViewCounter"), {
-  loading: () => <span>...</span>,
-});
-const CommentPage = dynamic(() => import("components/comment/Page"), {
-  loading: () => <p>Loading comments...</p>,
-});
+const LikeButton = lazy(() => import("@/components/LikeButton/LikeButton"));
+const ViewCounter = lazy(() => import("components/ViewCounter"));
+const CommentPage = lazy(() => import("components/comment/Page"));
 export const runtimePage = "edge";
+export const dynamic = "force-dynamic";
 export async function generateMetadata({
   params,
 }: {
@@ -91,9 +85,9 @@ export default async function Blog({ params }: { params: any }) {
             allViews={allViews}
             slug={`blog/${post.slug}`}
             trackView={true}
-          />
-        </Suspense>{" "}
-        views
+          />{" "}
+          views
+        </Suspense>
       </div>
       <Mdx code={post.body.code} />
       <div className={style.container}>

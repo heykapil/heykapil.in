@@ -1,6 +1,6 @@
 "use client";
 import { Remarkable } from "remarkable";
-import { linkify } from "remarkable/linkify";
+// import { linkify } from "remarkable/linkify";
 
 const md = new Remarkable("full", {
   html: true,
@@ -21,7 +21,8 @@ const md = new Remarkable("full", {
 
   //   return "";
   // },
-}).use(linkify);
+});
+// .use(linkify);
 
 export default function MarkdownPreview({ markdown }) {
   return (
