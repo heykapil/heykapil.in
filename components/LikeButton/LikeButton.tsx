@@ -4,6 +4,7 @@ import { safeLocalStorage as localStorage } from "lib/localstorage";
 import { incrementlike } from "@/lib/actions";
 import { HeartFilledIcon, HeartIcon } from "@radix-ui/react-icons";
 import Halo from "../Halo";
+import Spinner from "../Spinner";
 import toast, { Toaster } from "react-hot-toast";
 export default function LikeButton({
   slug,
@@ -15,15 +16,15 @@ export default function LikeButton({
     count: number;
   }[];
 }) {
-  const likesForSlug = allLikes && allLikes.find((like) => like.slug === slug);
+  const likesForSlug =
+    allLikes && allLikes.find((param) => param.slug === slug);
   const number = new Number(likesForSlug?.count || 0);
   const [like, setLike] = useState(Number(number));
   const [isLoading, setisLoading] = useState(false);
-  const [emoji, setEmoji] = useState(false);
+  // const [emoji, setEmoji] = useState(false);
   const [mounted, setMounted] = useState(false);
   const liked = localStorage.getItem(slug) === "true";
   const onLike = async () => {
-    // setEmoji(true);
     setisLoading(true);
     await incrementlike(slug);
     setLike(Number(like) + 1);
@@ -33,7 +34,7 @@ export default function LikeButton({
       icon: "❤️",
     });
     setisLoading(false);
-    setEmoji(true);
+    // setEmoji(true);
   };
 
   useEffect(() => setMounted(true), []);
@@ -44,8 +45,8 @@ export default function LikeButton({
     <>
       <Toaster />
       <div className='relative'>
-        <div className='absolute w-full items-center justify-center -right-10 animate-[emoji_1s_ease-out] text-center opacity-0'>
-          {emoji ? "🔥" : "❤️"}
+        <div className='absolute w-full items-center justify-center -right-5 animate-[emoji_2s_ease-out_infinite] text-center opacity-0'>
+          {liked ? "🙏" : "💕"}
         </div>
         <button
           disabled={liked}
@@ -59,33 +60,14 @@ export default function LikeButton({
             strength={30}
           >
             {isLoading ? (
-              <>
-                <svg
-                  className='animate-spin h-5 w-5'
-                  xmlns='http://www.w3.org/2000/svg'
-                  viewBox='0 0 24 24'
-                >
-                  <circle
-                    className='opacity-0'
-                    cx='12'
-                    cy='12'
-                    r='10'
-                    stroke='currentColor'
-                    strokeWidth='4'
-                  />
-                  <path
-                    className='opacity-70'
-                    d='M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z'
-                  />
-                </svg>
-              </>
+              <Spinner />
             ) : (
               <>
                 <span className='flex items-center flex-row justify-between space-x-1'>
                   {liked ? (
-                    <HeartFilledIcon className='' />
+                    <HeartFilledIcon className='text-red-500 w-4 h-5' />
                   ) : (
-                    <HeartIcon className='' />
+                    <HeartIcon className='w-4 h-5' />
                   )}
                   <span> {Number(like)}</span>
                   <span> {Number(like) > 1 ? "likes" : "like"}</span>

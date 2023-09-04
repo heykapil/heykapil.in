@@ -3,13 +3,14 @@ import format from "date-fns/format";
 import dynamic from "next/dynamic";
 const HeaderInfo = dynamic(() => import("./HeaderInfo"));
 import { Suspense, useEffect, useState } from "react";
+import { useOnlineStatus } from "lib/hooks/useOnlineStatus";
 
 function getDisplayTime() {
   return format(new Date(), "MMM dd, hh:mm:ss b");
 }
 export default function Header() {
   const [clockText, setClockText] = useState("");
-
+  let onlineStatus = useOnlineStatus();
   useEffect(() => {
     const intervalId = setInterval(() => {
       setClockText(getDisplayTime());
@@ -40,7 +41,13 @@ export default function Header() {
           {clockText}
         </span>
       </div>
-      <div className='flex'>.</div>
+      <div className='flex p-2'>
+        {onlineStatus ? (
+          <div className='bg-green-500 w-4 h-4 rounded-full' />
+        ) : (
+          <div className='bg-red-500 w-4 h-4 rounded-full' />
+        )}
+      </div>
     </header>
   );
 }

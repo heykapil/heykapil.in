@@ -36,7 +36,7 @@ export async function incrementlike(slug: string) {
     .values({ slug, count: 1 })
     .onDuplicateKeyUpdate({ count: likes + 1 })
     .execute();
-  revalidatePath("/${slug}");
+  // revalidatePath("/${slug}");
   return;
 }
 

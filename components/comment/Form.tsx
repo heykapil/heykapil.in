@@ -6,12 +6,14 @@ import { experimental_useFormStatus as useFormStatus } from "react-dom";
 import { SignOut } from "app/guestbook/buttons";
 import { useState, Suspense, lazy } from "react";
 import Halo from "../Halo";
+import Spinner from "../Spinner";
 
 const MarkdownPreview = lazy(() => import("./Preview"));
 export default function CommentForm({ slug }: { slug: string }) {
   const formRef = useRef<HTMLFormElement>(null);
   const [showPreview, setShowPreview] = useState(false);
   const [entry, setEntry] = useState("");
+  // const [loading, setLoading] = useState(false);
 
   const { pending } = useFormStatus();
   return (
@@ -22,9 +24,11 @@ export default function CommentForm({ slug }: { slug: string }) {
         style={{ opacity: !pending ? 1 : 0.5 }}
         className='w-full max-w-full mb-8 space-y-1'
         ref={formRef}
-        action={async (formData) => {
+        action={async (formData: FormData) => {
+          // setLoading(true);
           await saveCommentEntry(formData, slug);
           formRef.current?.reset();
+          // setLoading(false);
         }}
       >
         <div>
@@ -41,12 +45,12 @@ export default function CommentForm({ slug }: { slug: string }) {
               className='p-2 w-full border border-[var(--border)] outline-[var(--border)] rounded-md bg-[var(--primaryforeground)] text-[var(--primary)]'
             />
             <div className='flex justify-between'>
-              <div className='inline-flex items-center gap-2 my-2'>
+              <div className='inline-flex items-center gap-2 mb-2'>
                 <label className='relative flex cursor-pointer items-center rounded-full'>
                   <input
                     id='default-checkbox'
                     type='checkbox'
-                    className="before:content[''] peer relative h-4 w-4 cursor-pointer appearance-none rounded-md border border-[var(--foreground)] transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-500 before:opacity-0 before:transition-opacity checked:border-blue-500 checked:bg-blue-500 checked:before:bg-blue-500 hover:before:opacity-10"
+                    className="before:content[''] peer relative h-4 w-4 cursor-pointer appearance-none rounded-none checked:rounded-full border border-[var(--foreground)] transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-pink-500 before:opacity-0 before:transition-opacity checked:border-pink-500 checked:bg-pink-500 checked:before:bg-pink-500 hover:before:opacity-10"
                     checked={showPreview}
                     onChange={(e) => setShowPreview(e.target.checked)}
                   />
@@ -57,17 +61,17 @@ export default function CommentForm({ slug }: { slug: string }) {
                       viewBox='0 0 20 20'
                       fill='currentColor'
                       stroke='currentColor'
-                      stroke-width='1'
+                      strokeWidth='1'
                     >
                       <path
-                        fill-rule='evenodd'
+                        fillRule='evenodd'
                         d='M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z'
-                        clip-rule='evenodd'
+                        clipRule='evenodd'
                       ></path>
                     </svg>
                   </div>
                 </label>
-                <span className='mt-px cursor-pointer opacity-80'>Preview</span>
+                <span className='cursor-pointer opacity-80'>Preview</span>
               </div>
 
               <span className='flex justify-end text-xs text-[var(--secondaryforeground)] opacity-70 break-words'>
@@ -119,7 +123,7 @@ export default function CommentForm({ slug }: { slug: string }) {
               size={120}
               strength={30}
             >
-              Submit
+              {pending ? <Spinner /> : "Submit"}
             </Halo>
           </button>
         </div>

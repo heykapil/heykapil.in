@@ -4,7 +4,7 @@ import { useTheme } from "next-themes";
 import { MoonIcon, SunIcon } from "../Icons";
 const ThemeSwitch = () => {
   const [mounted, setMounted] = useState(false);
-  const { theme, setTheme, resolvedTheme } = useTheme();
+  const { theme, setTheme } = useTheme();
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -20,7 +20,7 @@ const ThemeSwitch = () => {
     >
       {mounted && (
         <>
-          {resolvedTheme === "dark" ? (
+          {theme === "dark" ? (
             <SunIcon className='relative h-4/5 w-4/5' />
           ) : (
             <MoonIcon className='relative h-4/5 w-4/5' />

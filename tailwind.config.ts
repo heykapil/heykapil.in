@@ -57,7 +57,7 @@ module.exports = {
           },
           to: {
             opacity: "0",
-            transform: "translateY(-60px) scale(1.5)",
+            transform: "translateY(-60px) scale(1.4)",
           },
         },
       },
