@@ -28,11 +28,10 @@ export default function CommentForm({ slug }: { slug: string }) {
         }}
       >
         <div>
-          <label className='sr-only'>Enter your comment...</label>
           <div className='relative'>
             <textarea
               rows={3}
-              placeholder='Enter your comment'
+              placeholder='Enter your comment...'
               aria-label='Enter your comment...'
               disabled={pending}
               name='entry'
@@ -42,12 +41,12 @@ export default function CommentForm({ slug }: { slug: string }) {
               className='p-2 w-full border border-[var(--border)] outline-[var(--border)] rounded-md bg-[var(--primaryforeground)] text-[var(--primary)]'
             />
             <div className='flex justify-between'>
-              <div className='inline-flex items-center -ml-3'>
-                <label className='relative flex cursor-pointer items-center rounded-full p-3'>
+              <div className='inline-flex items-center gap-2 my-2'>
+                <label className='relative flex cursor-pointer items-center rounded-full'>
                   <input
                     id='default-checkbox'
                     type='checkbox'
-                    className="before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-md border border-blue-gray-200 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-blue-500 checked:bg-blue-500 checked:before:bg-blue-500 hover:before:opacity-10"
+                    className="before:content[''] peer relative h-4 w-4 cursor-pointer appearance-none rounded-md border border-[var(--foreground)] transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-500 before:opacity-0 before:transition-opacity checked:border-blue-500 checked:bg-blue-500 checked:before:bg-blue-500 hover:before:opacity-10"
                     checked={showPreview}
                     onChange={(e) => setShowPreview(e.target.checked)}
                   />
@@ -68,11 +67,10 @@ export default function CommentForm({ slug }: { slug: string }) {
                     </svg>
                   </div>
                 </label>
-                <label className='mt-px cursor-pointer select-none font-light text-gray-700'>
-                  Preview
-                </label>
+                <span className='mt-px cursor-pointer opacity-80'>Preview</span>
               </div>
-              <span className='text-xs text-[var(--secondaryforeground)] opacity-70 break-words'>
+
+              <span className='flex justify-end text-xs text-[var(--secondaryforeground)] opacity-70 break-words'>
                 Markdown and html tags are supported.
               </span>
             </div>
@@ -80,7 +78,7 @@ export default function CommentForm({ slug }: { slug: string }) {
               <Suspense
                 fallback={<span className='text-sm italic'>Loading...</span>}
               >
-                <div className='preview'>
+                <div className='preview bg-[var(--offset)] p-2 rounded-md mb-2 text-[var(--foreground)]'>
                   <MarkdownPreview markdown={entry} />
                 </div>
               </Suspense>
