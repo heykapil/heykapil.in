@@ -17,26 +17,18 @@ export default function LikeButton({
 }) {
   const likesForSlug = allLikes && allLikes.find((like) => like.slug === slug);
   const number = new Number(likesForSlug?.count || 0);
-
+  const [like, setLike] = useState(Number(number));
   const [mounted, setMounted] = useState(false);
   const liked = localStorage.getItem(slug) === "true";
   const onLike = async () => {
+    setLike(Number(like) + 1);
     localStorage.setItem(slug, "true");
-    await incrementlike(slug);
     toast.success(`You liked this!`, {
-      // duration: 2000,
+      duration: 2000,
       icon: "❤️",
     });
-
-    // toast.success("You liked!");
+    await incrementlike(slug);
   };
-  //   const onLike = useEffect(() => {
-  //     async () => {
-  //       await incrementlike(slug);
-  //     };
-  //     setMounted(true);
-  //     localStorage.setItem(slug, "true");
-  //   }, []);
 
   useEffect(() => setMounted(true), []);
 
@@ -59,8 +51,7 @@ export default function LikeButton({
           {liked ? <HeartFilledIcon /> : <HeartIcon />}
           <span className=''>
             {" "}
-            {`${number.toLocaleString()}`}{" "}
-            {Number(number) > 1 ? "likes" : "like"}
+            {Number(like)} {Number(like) > 1 ? "likes" : "like"}
           </span>
         </Halo>
       </button>
