@@ -64,7 +64,7 @@ export function SignOut() {
   );
 }
 
-export function SignIn() {
+export default function SignIn() {
   return (
     <>
       <div className='flex gap-2'>

@@ -18,6 +18,7 @@ export default function CommentForm({ slug }: { slug: string }) {
     <>
       <SignOut />
       <form
+        id='comment-forn'
         style={{ opacity: !pending ? 1 : 0.5 }}
         className='w-full max-w-full mb-8 space-y-1'
         ref={formRef}
@@ -48,10 +49,10 @@ export default function CommentForm({ slug }: { slug: string }) {
                   checked={showPreview}
                   onChange={(e) => setShowPreview(e.target.checked)}
                 />{" "}
-                <span className='text-sm '>Show preview</span>
+                <span className='opacity-70'>Preview comment</span>
               </label>
               <span className='text-sm text-[var(--secondaryforeground)] opacity-70'>
-                Markdown is supported.
+                Markdown and html tags are supported.
               </span>
             </div>
             {showPreview && (

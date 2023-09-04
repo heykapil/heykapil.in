@@ -4,7 +4,6 @@ import Image from "next/image";
 import { useMDXComponent } from "next-contentlayer/hooks";
 import { Pre } from "./blog/Pre";
 import { TweetComponent } from "./Tweet/Tweet";
-// import { Code } from "./code/Code";
 const CustomLink = (props: any) => {
   const href = props.href;
 
@@ -99,7 +98,6 @@ const components = {
   Image: RoundedImage,
   a: CustomLink,
   pre: Pre,
-  // Code,
   Callout,
   StaticTweet: TweetComponent,
   //   ProsCard,

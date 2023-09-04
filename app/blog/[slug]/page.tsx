@@ -6,12 +6,18 @@ import { formatDate } from "lib/posts/format-date";
 import { notFound } from "next/navigation";
 import { getLikesCount, getViewsCount } from "@/lib/metrics";
 import { Suspense } from "react";
+import dynamic from "next/dynamic";
 import style from "styles/LikeContainer.module.css";
-import LikeButton from "@/components/LikeButton/LikeButton";
-import LikeButtonSkelton from "@/components/LikeButton/Skelton";
-import CommentPage from "components/comment/Page";
-import ViewCounter from "components/ViewCounter";
-
+const LikeButton = dynamic(() => import("@/components/LikeButton/LikeButton"), {
+  loading: () => <span>...</span>,
+});
+const ViewCounter = dynamic(() => import("components/ViewCounter"), {
+  loading: () => <span>...</span>,
+});
+const CommentPage = dynamic(() => import("components/comment/Page"), {
+  loading: () => <p>Loading comments...</p>,
+});
+export const runtimePage = "edge";
 export async function generateMetadata({
   params,
 }: {
@@ -91,7 +97,7 @@ export default async function Blog({ params }: { params: any }) {
       </div>
       <Mdx code={post.body.code} />
       <div className={style.container}>
-        <Suspense fallback={<LikeButtonSkelton />}>
+        <Suspense fallback={<span>Loading...</span>}>
           <LikeButton allLikes={allLikes} slug={`blog/${post.slug}`} />
         </Suspense>
       </div>

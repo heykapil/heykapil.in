@@ -4,21 +4,18 @@ import Balancer from "react-wrap-balancer";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 import { getViewsCount, getLikesCount } from "@/lib/metrics";
 import style from "styles/LikeContainer.module.css";
 import dynamic from "next/dynamic";
-import LikeButtonSkelton from "@/components/LikeButton/Skelton";
-const DynamicLikeButton = dynamic(
-  () => import("components/LikeButton/LikeButton"),
-  {
-    loading: () => <LikeButtonSkelton />,
-  }
-);
-const DynamicCommentPage = dynamic(() => import("components/comment/Page"), {
-  loading: () => <p>Loading comments...</p>,
+const LikeButton = dynamic(() => import("@/components/LikeButton/LikeButton"), {
+  loading: () => <span>...</span>,
 });
-const DynamicViewCounter = dynamic(() => import("components/ViewCounter"), {
-  loading: () => <p>...</p>,
+const ViewCounter = dynamic(() => import("components/ViewCounter"), {
+  loading: () => <span>...</span>,
+});
+const CommentPage = dynamic(() => import("components/comment/Page"), {
+  loading: () => <p>Loading comments...</p>,
 });
 export async function generateMetadata({
   params,
@@ -113,12 +110,14 @@ export default async function Snippet({ params }: { params: any }) {
       </h1>
       <div className='flex justify-between items-center mt-2 mb-8 text-sm max-w-[650px]'>
         <p className='text-sm text-neutral-600 dark:text-neutral-400'>
-          <DynamicViewCounter
-            allViews={allViews}
-            slug={`snippet/${snippet.slug}`}
-            trackView={true}
-          />{" "}
-          views
+          <Suspense>
+            <ViewCounter
+              allViews={allViews}
+              slug={`snippet/${snippet.slug}`}
+              trackView={true}
+            />{" "}
+            views
+          </Suspense>
         </p>
         <div className='mt-2 sm:mt-0'>
           <Image
@@ -135,10 +134,9 @@ export default async function Snippet({ params }: { params: any }) {
         // tweets={tweets}
       />
       <div className={style.container}>
-        <DynamicLikeButton
-          allLikes={allLikes}
-          slug={`snippet/${snippet.slug}`}
-        />
+        <Suspense>
+          <LikeButton allLikes={allLikes} slug={`snippet/${snippet.slug}`} />
+        </Suspense>
       </div>
       <div className='mt-6 w-full flex flex-col border-b border-[var(--border)] rounded-lg py-2'>
         <div className='flex align-center justify-center items-center'>
@@ -146,7 +144,7 @@ export default async function Snippet({ params }: { params: any }) {
           <h3 className='text-xl font-semibold mb-6'>Thoughts? 🤔</h3>
           <span className='flex flex-grow border-t border-[var(--border)] h-1'></span>
         </div>
-        <DynamicCommentPage slug={`snippet/${snippet.slug}`} />
+        <CommentPage slug={`snippet/${snippet.slug}`} />
       </div>
     </section>
   );

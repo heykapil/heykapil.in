@@ -1,11 +1,11 @@
 import { auth } from "lib/auth";
 import { queryBuilder } from "lib/db";
-import { SignIn } from "app/guestbook/buttons";
-import { Suspense } from "react";
-import Image from "next/image";
-import CommentForm from "./Form";
+import { Suspense, lazy } from "react";
 import { formatDate } from "lib/posts/format-date";
-import MarkdownPreview from "./Preview";
+import Image from "next/image";
+const CommentForm = lazy(() => import("./Form"));
+const MarkdownPreview = lazy(() => import("./Preview"));
+const SignIn = lazy(() => import("@/app/guestbook/buttons"));
 async function getComment(slug: string) {
   const data = await queryBuilder
     .selectFrom("comment")
@@ -48,15 +48,23 @@ export default async function CommentPage({ slug }: { slug: string }) {
     <>
       {session?.user ? (
         <>
-          <CommentForm slug={slug} />
+          <Suspense
+            fallback={<span className='text-sm italic'>Loading...</span>}
+          >
+            <CommentForm slug={slug} />
+          </Suspense>
         </>
       ) : (
         <>
           <div className='flex flex-row justify-between'>
-            <div>
+            <div className='w-1/4 break-words'>
               <span className=''>Sign in to comment!</span>
             </div>
-            <SignIn />
+            <Suspense
+              fallback={<span className='text-sm italic'>Loading...</span>}
+            >
+              <SignIn />
+            </Suspense>
           </div>
         </>
       )}
@@ -67,7 +75,7 @@ export default async function CommentPage({ slug }: { slug: string }) {
           entries.map((entry) => (
             <div
               key={entry.id}
-              className='py-6 border-b border-[var(--border)] rounded-md'
+              className='py-4 border-b border-[var(--border)] rounded-md'
             >
               <div className='grid grid-cols-12 w-full'>
                 <div className='flex rounded-xl col-span-12'>
@@ -98,8 +106,10 @@ export default async function CommentPage({ slug }: { slug: string }) {
                   </div>
                   <div className='ml-2 w-full'>
                     <div className='flex w-full items-start justify-between'>
-                      <span className='font-semibold'>{entry.name}</span>
-                      <span className='truncate'>
+                      <span className='font-semibold opacity-70 text-sm capitalize'>
+                        {entry.name}
+                      </span>
+                      <span className='truncate opacity-70 text-sm'>
                         {" "}
                         {formatDate(entry.created_at?.toISOString())}
                       </span>
