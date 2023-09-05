@@ -6,7 +6,7 @@ import { experimental_useFormStatus as useFormStatus } from "react-dom";
 import { SignOut } from "app/guestbook/buttons";
 import { useState, Suspense, lazy } from "react";
 import Halo from "../Halo";
-import Spinner from "../Spinner";
+import { Spinner } from "../Spinner";
 
 const MarkdownPreview = lazy(() => import("./Preview"));
 export default function CommentForm({ slug }: { slug: string }) {

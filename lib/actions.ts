@@ -81,12 +81,23 @@ export async function saveCommentEntry(formData: FormData, slug: string) {
     }),
   });
   const response = await data.json();
-  // toast.promise(response, {
-  //   loading: "Loading...",
-  //   success: "Email sent",
-  //   error: "Error occured",
-  // });
   console.log("Email Sent", response);
+}
+
+export async function updateComment(id: number, slug: string, body: string) {
+  await queryBuilder
+    .updateTable("comment")
+    .set({
+      body: body,
+    })
+    .where("id", "=", id)
+    .execute();
+  revalidatePath(`/${slug}`);
+}
+
+export async function deleteComment(id: number, slug: string) {
+  await queryBuilder.deleteFrom("comment").where("id", "=", id).execute();
+  revalidatePath(`/${slug}`);
 }
 
 export async function saveGuestbookEntry(formData: FormData) {
@@ -120,10 +131,5 @@ export async function saveGuestbookEntry(formData: FormData) {
     }),
   });
   const response = await data.json();
-  // toast.promise(response, {
-  //   loading: "Loading...",
-  //   success: "Email sent",
-  //   error: "Error occured",
-  // });
   console.log("Email Sent", response);
 }

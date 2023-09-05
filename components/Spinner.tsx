@@ -1,4 +1,4 @@
-export default function Spinner() {
+export const Spinner = () => {
   return (
     <svg
       className='animate-spin h-5 w-5'
@@ -19,4 +19,4 @@ export default function Spinner() {
       />
     </svg>
   );
-}
+};

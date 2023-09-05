@@ -4,7 +4,7 @@ import { safeLocalStorage as localStorage } from "lib/localstorage";
 import { incrementlike } from "@/lib/actions";
 import { HeartFilledIcon, HeartIcon } from "@radix-ui/react-icons";
 import Halo from "../Halo";
-import Spinner from "../Spinner";
+import { Spinner } from "../Spinner";
 import toast, { Toaster } from "react-hot-toast";
 export default function LikeButton({
   slug,
