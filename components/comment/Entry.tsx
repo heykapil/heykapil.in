@@ -85,10 +85,9 @@ export default function CommentEntry({
               <MarkdownPreview markdown={body} />
             </Suspense>
           </div>
-          {(session?.user &&
-            session?.user?.email === email &&
-            session.user.name === name) ||
-          session?.user?.email ===  process.env.EMAIL ? (
+          {
+           ( session?.user?.email === email &&
+            session.user.name === name ) ?  (
             <div className='flex justify-end'>
               <button
                 type='button'
