@@ -1,5 +1,13 @@
 "use client";
-import { createContext, useContext, useEffect, useRef, useState } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+  lazy,
+  Suspense,
+} from "react";
 import { DockContextType } from "types";
 import {
   HomeIcon,
@@ -9,8 +17,8 @@ import {
   GuestbookIcon,
 } from "../Icons";
 import { MouseProvider } from "../context/MouseProvider";
-import DockItem from "./DockItem";
-import ThemeSwitch from "../theme/switch";
+const DockItem = lazy(() => import("./DockItem"));
+const ThemeSwitch = lazy(() => import("../theme/switch"));
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
 const DockContext = createContext<DockContextType | null>(null);
@@ -36,125 +44,126 @@ const Dock = () => {
             ref={ref}
             className='border-b border-gray-300 dark:border-gray-700 rounded-full justify-center p-2 bg-white dark:bg-zinc-900 backdrop-filter backdrop-blur-lg bg-opacity-30 dark:bg-opacity-30 dark:backdrop-blur dark:drop-shadow-lg drop-shadow-lg'
             // "visible md:invisible" --- add these classname to hide dock on mobile
-            // onMouseOver={() => setHovered(true)}
+            onMouseOver={() => setHovered(true)}
             onMouseOut={() => setHovered(false)}
             // Hover animation disabled as bug with mobile devices
           >
             <ul className='flex items-end h-10 justify-center space-x-2'>
-              <DockItem>
-                <a
-                  className='relative flex h-full w-full items-center justify-center'
-                  aria-label='home'
-                  href='/'
-                  rel='internal'
-                >
-                  <HomeIcon
-                    className='relative h-3/5 w-3/5'
-                    aria-hidden='true'
-                  />
-                  <span
-                    className={clsx(
-                      "absolute -bottom-1 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full",
-                      {
-                        ["bg-none"]: "/" !== pathname,
-                      },
-                      {
-                        ["bg-green-500"]: "/" === pathname,
-                      }
-                    )}
-                  ></span>
-                </a>
-              </DockItem>
-              <DockItem>
-                <a
-                  className='relative flex h-full w-full items-center justify-center'
-                  aria-label='blog'
-                  href='/blog'
-                  rel='internal'
-                >
-                  <BlogIcon
-                    className='relative h-3/5 w-3/5'
-                    aria-hidden='true'
-                  />
-                  <span
-                    className={clsx(
-                      "absolute -bottom-1 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full",
-                      {
-                        ["bg-none"]: "blog" !== activepath,
-                      },
-                      {
-                        ["bg-green-500"]: "blog" === activepath,
-                      }
-                    )}
-                  ></span>
-                </a>
-              </DockItem>
-              <DockItem>
-                <a
-                  className='relative flex h-full w-full items-center justify-center'
-                  aria-label='snippet'
-                  href='/snippet'
-                  rel='internal'
-                >
-                  <FileIcon
-                    className='relative h-4/5 w-4/5'
-                    aria-hidden='true'
-                  />
-                  <span
-                    className={clsx(
-                      "absolute -bottom-1 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full",
-                      {
-                        ["bg-none"]: "snippet" !== activepath,
-                      },
-                      {
-                        ["bg-green-500"]: "snippet" === activepath,
-                      }
-                    )}
-                  ></span>
-                </a>
-              </DockItem>
-              <DockItem>
-                <a
-                  className='relative flex h-full w-full items-center justify-center'
-                  aria-label='guestbook'
-                  href='/guestbook'
-                  rel='internal'
-                >
-                  <GuestbookIcon
-                    className='relative h-4/5 w-4/5'
-                    aria-hidden='true'
-                  />
-                  <span
-                    className={clsx(
-                      "absolute -bottom-1 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full",
-                      {
-                        ["bg-none"]: "guestbook" !== activepath,
-                      },
-                      {
-                        ["bg-green-500"]: "guestbook" === activepath,
-                      }
-                    )}
-                  ></span>
-                </a>
-              </DockItem>
-              <DockItem>
-                <a
-                  className='relative flex h-full w-full items-center justify-center'
-                  aria-label='gallery'
-                  href='https://gallery.heykapil.in'
-                  rel='external'
-                  target='_blank'
-                >
-                  <GalleryIcon
-                    className='relative h-4/5 w-4/5'
-                    aria-hidden='true'
-                  />
-                </a>
-              </DockItem>
-              <li className='self-center' aria-hidden='true'>
-                <hr className='!mx-2 h-12 w-px border-none bg-[var(--offset2)] opacity-40 hidden lg:block' />
-              </li>
-              {/* <DockItem>
+              <Suspense>
+                <DockItem>
+                  <a
+                    className='relative flex h-full w-full items-center justify-center'
+                    aria-label='home'
+                    href='/'
+                    rel='internal'
+                  >
+                    <HomeIcon
+                      className='relative h-3/5 w-3/5'
+                      aria-hidden='true'
+                    />
+                    <span
+                      className={clsx(
+                        "absolute -bottom-1 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full",
+                        {
+                          ["bg-none"]: "/" !== pathname,
+                        },
+                        {
+                          ["bg-green-500"]: "/" === pathname,
+                        }
+                      )}
+                    ></span>
+                  </a>
+                </DockItem>
+                <DockItem>
+                  <a
+                    className='relative flex h-full w-full items-center justify-center'
+                    aria-label='blog'
+                    href='/blog'
+                    rel='internal'
+                  >
+                    <BlogIcon
+                      className='relative h-3/5 w-3/5'
+                      aria-hidden='true'
+                    />
+                    <span
+                      className={clsx(
+                        "absolute -bottom-1 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full",
+                        {
+                          ["bg-none"]: "blog" !== activepath,
+                        },
+                        {
+                          ["bg-green-500"]: "blog" === activepath,
+                        }
+                      )}
+                    ></span>
+                  </a>
+                </DockItem>
+                <DockItem>
+                  <a
+                    className='relative flex h-full w-full items-center justify-center'
+                    aria-label='snippet'
+                    href='/snippet'
+                    rel='internal'
+                  >
+                    <FileIcon
+                      className='relative h-4/5 w-4/5'
+                      aria-hidden='true'
+                    />
+                    <span
+                      className={clsx(
+                        "absolute -bottom-1 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full",
+                        {
+                          ["bg-none"]: "snippet" !== activepath,
+                        },
+                        {
+                          ["bg-green-500"]: "snippet" === activepath,
+                        }
+                      )}
+                    ></span>
+                  </a>
+                </DockItem>
+                <DockItem>
+                  <a
+                    className='relative flex h-full w-full items-center justify-center'
+                    aria-label='guestbook'
+                    href='/guestbook'
+                    rel='internal'
+                  >
+                    <GuestbookIcon
+                      className='relative h-4/5 w-4/5'
+                      aria-hidden='true'
+                    />
+                    <span
+                      className={clsx(
+                        "absolute -bottom-1 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full",
+                        {
+                          ["bg-none"]: "guestbook" !== activepath,
+                        },
+                        {
+                          ["bg-green-500"]: "guestbook" === activepath,
+                        }
+                      )}
+                    ></span>
+                  </a>
+                </DockItem>
+                <DockItem>
+                  <a
+                    className='relative flex h-full w-full items-center justify-center'
+                    aria-label='gallery'
+                    href='https://gallery.heykapil.in'
+                    rel='external'
+                    target='_blank'
+                  >
+                    <GalleryIcon
+                      className='relative h-4/5 w-4/5'
+                      aria-hidden='true'
+                    />
+                  </a>
+                </DockItem>
+                <li className='self-center' aria-hidden='true'>
+                  <hr className='!mx-2 h-12 w-px border-none bg-[var(--offset2)] opacity-40 hidden lg:block' />
+                </li>
+                {/* <DockItem>
                 <a
                   className="relative flex h-full w-full items-center justify-center"
                   aria-label="Email me"
@@ -187,14 +196,17 @@ const Dock = () => {
                   <TwitterIcon className="relative h-3/5 w-3/5" aria-hidden="true" />
                 </a>
               </DockItem>  */}
-              <DockItem>
-                <ThemeSwitch />
-              </DockItem>
-              {/* <div className='hidden lg:block'>
+                <DockItem>
+                  <Suspense>
+                    <ThemeSwitch />
+                  </Suspense>
+                </DockItem>
+                {/* <div className='hidden lg:block'>
               <DockItem>
                 <KeyNav />
               </DockItem> 
               </div> */}
+              </Suspense>
             </ul>
           </nav>
         </DockContext.Provider>

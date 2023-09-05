@@ -26,6 +26,11 @@ module.exports = {
         xl: "1280px",
       },
       keyframes: {
+        shimmer: {
+          "100%": {
+            transform: "translateX(100%)",
+          },
+        },
         in: {
           "0%": { transform: "translateY(18px)", opacity: 0 },
           "100%": { transform: "translateY(0)", opacity: 1 },

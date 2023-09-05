@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { auth } from "lib/auth";
 import { queryBuilder } from "lib/db";
-import SignIn from "./buttons";
 import React, { Suspense, lazy } from "react";
 const Form = lazy(() => import("./form"));
 const Entry = lazy(() => import("./Entry"));
+const SignIn = lazy(() => import("./buttons"));
 async function getGuestbook() {
   const data = await queryBuilder
     .selectFrom("guestbook")
@@ -57,12 +57,49 @@ export default async function GuestbookPage() {
       </p>
       {session?.user ? (
         <>
-          <Form />
+          <Suspense
+            fallback={
+              <div className='relative isolate w-20 space-y-5 overflow-hidden rounded-2xl border border-[var(--offset)] p-4 shadow-xl shadow-black/5 before:absolute before:inset-0 before:-translate-x-full before:animate-[shimmer_2s_infinite] before:border-t before:border-rose-100/10 before:bg-gradient-to-r before:from-transparent before:via-[var(--offset3)] before:opacity-50 before:to-transparent'>
+                <div className='h-5 rounded-lg bg-[var(--primary)] opacity-25'></div>
+                <div className='space-y-3'>
+                  <div className='h-3 w-3/5 rounded-lg bg-[var(--primary)] opacity-20'></div>
+                  <div className='h-3 w-4/5 rounded-lg bg-[var(--primary)] opacity-25'></div>
+                  <div className='h-3 w-2/5 rounded-lg bg-[var(--primary)] opacity-30'></div>
+                </div>
+              </div>
+            }
+          >
+            <Form />
+          </Suspense>
         </>
       ) : (
-        <SignIn />
+        <Suspense
+          fallback={
+            <div className='relative isolate space-y-5 overflow-hidden rounded-2xl border border-[var(--offset)] p-4 shadow-xl shadow-black/5 before:absolute before:inset-0 before:-translate-x-full before:animate-[shimmer_2s_infinite] before:border-t before:border-rose-100/10 before:bg-gradient-to-r before:from-transparent before:via-[var(--offset3)] before:opacity-50 before:to-transparent'>
+              <div className='h-4 w-20 rounded-lg bg-[var(--primary)] opacity-25'></div>
+              {/* <div className='space-y-3'>
+                <div className='h-3 w-3/5 rounded-lg bg-[var(--primary)] opacity-20'></div>
+                <div className='h-3 w-4/5 rounded-lg bg-[var(--primary)] opacity-25'></div>
+                <div className='h-3 w-2/5 rounded-lg bg-[var(--primary)] opacity-30'></div>
+              </div> */}
+            </div>
+          }
+        >
+          <SignIn />
+        </Suspense>
       )}
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense
+        fallback={
+          <div className='relative isolate w-20 space-y-5 overflow-hidden rounded-2xl border border-[var(--offset)] p-4 shadow-xl shadow-black/5 before:absolute before:inset-0 before:-translate-x-full before:animate-[shimmer_2s_infinite] before:border-t before:border-rose-100/10 before:bg-gradient-to-r before:from-transparent before:via-[var(--offset3)] before:opacity-50 before:to-transparent'>
+            <div className='h-5 rounded-lg bg-[var(--primary)] opacity-25'></div>
+            <div className='space-y-3'>
+              <div className='h-3 w-3/5 rounded-lg bg-[var(--primary)] opacity-20'></div>
+              <div className='h-3 w-4/5 rounded-lg bg-[var(--primary)] opacity-25'></div>
+              <div className='h-3 w-2/5 rounded-lg bg-[var(--primary)] opacity-30'></div>
+            </div>
+          </div>
+        }
+      >
         {entries === undefined ? (
           <p className='my-2'>No entry. Be the first one to add an entry.</p>
         ) : (
@@ -71,16 +108,14 @@ export default async function GuestbookPage() {
               key={entry.id}
               className='py-4 border-b border-[var(--border)] rounded-md'
             >
-              <Suspense fallback={<div>Loading...</div>}>
-                <Entry
-                  id={entry.id}
-                  created_at={entry.updated_at}
-                  name={entry.created_by}
-                  image={entry.image || ""}
-                  email={entry.email}
-                  body={entry.body}
-                />
-              </Suspense>
+              <Entry
+                id={entry.id}
+                created_at={entry.updated_at}
+                name={entry.created_by}
+                image={entry.image || ""}
+                email={entry.email}
+                body={entry.body}
+              />
             </div>
           ))
         )}
