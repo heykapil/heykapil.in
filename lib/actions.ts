@@ -100,6 +100,11 @@ export async function deleteComment(id: number, slug: string) {
   revalidatePath(`/${slug}`);
 }
 
+export async function deleteGuestbookEntry(id: number) {
+  await queryBuilder.deleteFrom("guestbook").where("id", "=", id).execute();
+  revalidatePath("/guestbook");
+}
+
 export async function saveGuestbookEntry(formData: FormData) {
   const session = await getSession();
   const email = session.user?.email as string;
