@@ -57,40 +57,18 @@ export default async function GuestbookPage() {
       </p>
       {session?.user ? (
         <>
-          <Suspense
-            fallback={
-              <div className='relative isolate w-20 space-y-5 overflow-hidden rounded-2xl border border-[var(--offset)] p-4 shadow-xl shadow-black/5 before:absolute before:inset-0 before:-translate-x-full before:animate-[shimmer_2s_infinite] before:border-t before:border-rose-100/10 before:bg-gradient-to-r before:from-transparent before:via-[var(--offset3)] before:opacity-50 before:to-transparent'>
-                <div className='h-5 rounded-lg bg-[var(--primary)] opacity-25'></div>
-                <div className='space-y-3'>
-                  <div className='h-3 w-3/5 rounded-lg bg-[var(--primary)] opacity-20'></div>
-                  <div className='h-3 w-4/5 rounded-lg bg-[var(--primary)] opacity-25'></div>
-                  <div className='h-3 w-2/5 rounded-lg bg-[var(--primary)] opacity-30'></div>
-                </div>
-              </div>
-            }
-          >
+          <Suspense>
             <Form />
           </Suspense>
         </>
       ) : (
-        <Suspense
-          fallback={
-            <div className='relative isolate space-y-5 overflow-hidden rounded-2xl border border-[var(--offset)] p-4 shadow-xl shadow-black/5 before:absolute before:inset-0 before:-translate-x-full before:animate-[shimmer_2s_infinite] before:border-t before:border-rose-100/10 before:bg-gradient-to-r before:from-transparent before:via-[var(--offset3)] before:opacity-50 before:to-transparent'>
-              <div className='h-4 w-20 rounded-lg bg-[var(--primary)] opacity-25'></div>
-              {/* <div className='space-y-3'>
-                <div className='h-3 w-3/5 rounded-lg bg-[var(--primary)] opacity-20'></div>
-                <div className='h-3 w-4/5 rounded-lg bg-[var(--primary)] opacity-25'></div>
-                <div className='h-3 w-2/5 rounded-lg bg-[var(--primary)] opacity-30'></div>
-              </div> */}
-            </div>
-          }
-        >
+        <Suspense>
           <SignIn />
         </Suspense>
       )}
       <Suspense
         fallback={
-          <div className='relative isolate w-20 space-y-5 overflow-hidden rounded-2xl border border-[var(--offset)] p-4 shadow-xl shadow-black/5 before:absolute before:inset-0 before:-translate-x-full before:animate-[shimmer_2s_infinite] before:border-t before:border-rose-100/10 before:bg-gradient-to-r before:from-transparent before:via-[var(--offset3)] before:opacity-50 before:to-transparent'>
+          <div className='relative isolate w-full space-y-5 overflow-hidden rounded-2xl border border-[var(--offset)] p-4 shadow-xl shadow-black/5 before:absolute before:inset-0 before:-translate-x-full before:animate-[shimmer_2s_infinite] before:border-t before:border-rose-100/10 before:bg-gradient-to-r before:from-transparent before:via-[var(--offset3)] before:opacity-50 before:to-transparent'>
             <div className='h-5 rounded-lg bg-[var(--primary)] opacity-25'></div>
             <div className='space-y-3'>
               <div className='h-3 w-3/5 rounded-lg bg-[var(--primary)] opacity-20'></div>
@@ -106,7 +84,7 @@ export default async function GuestbookPage() {
           entries.map((entry) => (
             <div
               key={entry.id}
-              className='py-4 border-b border-[var(--border)] rounded-md'
+              className='py-4 space-y-2 flex flex-col gap-2 border-b border-[var(--border)] rounded-md'
             >
               <Entry
                 id={entry.id}

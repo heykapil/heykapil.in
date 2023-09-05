@@ -32,7 +32,8 @@
 }
 
 /* Dark theme */
-@media (prefers-color-scheme: dark) {
+[data-theme="dark"],
+.dark {
   .tweet .react-tweet-theme {
     /* Dark theme colors */
     --tweet-bg-color: #222;
@@ -56,7 +57,8 @@
 }
 
 /* Dark theme link styles */
-@media (prefers-color-scheme: dark) {
+[data-theme="dark"],
+.dark {
   .tweet .react-tweet-theme p a {
     @apply text-white border-gray-500 hover:border-white;
   }
