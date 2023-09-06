@@ -1,9 +1,7 @@
 // Credit of styles of music bars to  https://harshsingh.xyz/ and main idea of https://leerob.io/
 import styles from "styles/Music.module.css";
 import clsx from "clsx";
-import { revalidatePath } from "next/cache";
 async function getNowPlaying() {
-  revalidatePath("/api/now-playing");
   const res = await fetch(process.env.NEXTAUTH_URL + "/api/now-playing", {
     next: { revalidate: 180 },
   });
@@ -14,7 +12,6 @@ async function getNowPlaying() {
     // This will activate the closest `error.js` Error Boundary
     throw new Error("Failed to fetch data");
   }
-  revalidatePath("/api/now-playing");
 
   return res.json();
 }
