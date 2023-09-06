@@ -63,7 +63,7 @@ export default async function BlogPage() {
   const postbyyear = categorizePostsByYear(allPosts);
   const allViews = await getViewsCount();
   return (
-    <section>
+    <section className=''>
       <h1 className='font-bold text-2xl mb-8 tracking-tighter'>Blog posts</h1>
       {postbyyear.map((postsOfYear) => (
         <div key={postsOfYear.year} className='flex flex-col gap-6 w-full mt-4'>

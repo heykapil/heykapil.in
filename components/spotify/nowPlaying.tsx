@@ -1,23 +1,15 @@
+"use client";
+
 // Credit of styles of music bars to  https://harshsingh.xyz/ and main idea of https://leerob.io/
-import styles from "styles/Music.module.css";
+
+import fetcher from "lib/fetcher";
+import useSWR from "swr";
+import { NowPlayingSong } from "types";
 import clsx from "clsx";
-async function getNowPlaying() {
-  const res = await fetch("https://heykapil.in/api/now-playing", {
-    next: { revalidate: 180 },
-  });
-  // The return value is *not* serialized
-  // You can return Date, Map, Set, etc.
+import styles from "styles/Music.module.css";
+export default function NowPlaying() {
+  const { data } = useSWR<NowPlayingSong>("/api/now-playing", fetcher);
 
-  if (!res.ok) {
-    // This will activate the closest `error.js` Error Boundary
-    throw new Error("Failed to fetch data");
-  }
-
-  return res.json();
-}
-
-export default async function NowPlaying() {
-  const data = await getNowPlaying();
   // console.log(data);
   return (
     <div className={styles.music}>
@@ -49,7 +41,7 @@ export default async function NowPlaying() {
           <span className='bg-[var(--primary)] opacity-50 w-2 h-2 rounded-full inline-block mr-3'></span>
         )}
         <a href={data?.songUrl} target='_blank' rel='noreferrer'>
-          <span className='inline-block w-30 items-center'>
+          <span className='inline-block items-center'>
             <span>
               {data?.title ? (
                 data?.title
