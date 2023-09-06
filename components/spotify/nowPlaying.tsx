@@ -2,7 +2,7 @@
 import styles from "styles/Music.module.css";
 import clsx from "clsx";
 async function getNowPlaying() {
-  const res = await fetch(process.env.NEXTAUTH_URL + "/api/now-playing", {
+  const res = await fetch("https://heykapil.in/api/now-playing", {
     next: { revalidate: 180 },
   });
   // The return value is *not* serialized
@@ -18,7 +18,7 @@ async function getNowPlaying() {
 
 export default async function NowPlaying() {
   const data = await getNowPlaying();
-  console.log(data);
+  // console.log(data);
   return (
     <div className={styles.music}>
       <div
