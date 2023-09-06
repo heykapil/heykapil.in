@@ -18,8 +18,6 @@ async function getNowPlaying() {
 
   return res.json();
 }
-export const runtimes = "edge";
-export const dynamic = "force-dynamic";
 
 export default async function NowPlaying() {
   const data = await getNowPlaying();
