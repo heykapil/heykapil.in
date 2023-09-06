@@ -3,10 +3,53 @@ import type { Metadata } from "next";
 import { Providers } from "components/theme/provider";
 import NextAuthProvider from "components/SessionProvider";
 import Dock from "../components/dock/Dock";
-import Head from "next/head";
+import Header from "@/components/header/Header";
+import styles from "styles/Hero.module.css";
 export const metadata: Metadata = {
   title: "Kapil Chaudhary",
   description: "heykapil.in",
+  openGraph: {
+    title: "HeyKapil.in",
+    description: "Kapil Chaudhary",
+    url: "https://heykapil.in",
+    siteName: "HeyKapil.in",
+    images: [
+      {
+        url: "https://heykapil.in/og?title=Kapil Chaudhary",
+        width: 800,
+        height: 600,
+      },
+      {
+        url: "https://heykapil.in/og?title=Kapil Chaudhary",
+        width: 1800,
+        height: 1600,
+        alt: "",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ccc" },
+    { media: "(prefers-color-scheme: dark)", color: "#333" },
+  ],
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 1,
+  },
+  icons: {
+    other: [
+      {
+        rel: "webmention",
+        url: "https://webmention.io/heykapil.in/webmention",
+      },
+      {
+        rel: "pingback",
+        url: "https://webmention.io/heykapil.in/xmlrpc",
+      },
+    ],
+  },
 };
 
 export default function RootLayout({
@@ -16,28 +59,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en' suppressHydrationWarning>
-      <Head>
-        <link
-          rel='webmention'
-          href='https://webmention.io/heykapil.in/webmention'
-        />
-        <link rel='pingback' href='https://webmention.io/heykapil.in/xmlrpc' />
-        <meta
-          name='theme-color'
-          content='#333333'
-          media='(prefers-color-scheme: dark)'
-        />
-        <meta
-          name='theme-color'
-          content='#cccccc'
-          media='(prefers-color-scheme: light)'
-        />
-      </Head>
       <body className='max-w-[100%] mb-40 flex flex-col md:flex-row mt-0 lg:mx-auto'>
         <Providers>
           <NextAuthProvider>
             <main className='flex-auto min-w-0 mt-0 flex flex-col md:px-0'>
-              {children}
+              <section className={styles.wavecontainer}>
+                <Header />
+                {children}
+              </section>
             </main>
             <Dock />
           </NextAuthProvider>

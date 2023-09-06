@@ -38,7 +38,7 @@ export default function CommentEntry({
   //     await updateComment(id, slug, body);
   //   };
   return (
-    <div className='grid grid-cols-12 w-full'>
+    <div className='grid relative z-99 grid-cols-12 w-full'>
       <Toaster />
       <div className='flex rounded-xl col-span-12'>
         <div className='flex h-8 w-8 bg-[var(--offset)] items-center justify-center overflow-hidden rounded-full flex-shrink-0'>
