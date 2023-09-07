@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { Providers } from "components/theme/provider";
 import NextAuthProvider from "components/SessionProvider";
 import Dock from "../components/dock/Dock";
-import Link from "next/link";
+// import Link from "next/link";
 import Header from "@/components/header/Header";
 import styles from "styles/Hero.module.css";
 import { cn } from "@/lib/utils";
