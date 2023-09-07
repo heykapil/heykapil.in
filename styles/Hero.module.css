@@ -1,5 +1,5 @@
 .wavecontainer {
-  height: 100vh;
+  height: 60vh;
   background-color: var(--offset);
   position: relative;
 }
@@ -26,6 +26,6 @@
     height: 65px;
   }
   .wavecontainer {
-    height: 55vh;
+    height: 60vh;
   }
 }

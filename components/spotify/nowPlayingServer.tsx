@@ -1,16 +1,29 @@
-"use client";
-
-// Credit of styles of music bars to  https://harshsingh.xyz/ and main idea of https://leerob.io/
-
-import fetcher from "lib/fetcher";
-import useSWR from "swr";
-import { NowPlayingSong } from "types";
+"use server";
 import clsx from "clsx";
+import { revalidatePath } from "next/cache";
 import styles from "styles/Music.module.css";
-export default function NowPlaying() {
-  const { data } = useSWR<NowPlayingSong>("/api/now-playing", fetcher);
+async function getNowPlaying() {
+  const res = await fetch("https://heykapil.in/api/now-playing", {
+    next: { revalidate: 10 },
+    // cache: "no-store",
+  });
+  // The return value is *not* serialized
+  // You can return Date, Map, Set, etc.
 
-  // console.log(data);
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch data");
+  }
+  return res.json();
+}
+
+// export const revalidate = 30; // revalidate at 30s
+// export const dynamic = "force-dynamic";
+// export const runtime = "edge";
+
+export default async function NowPlayingServer() {
+  const data = await getNowPlaying();
+  revalidatePath("/api/now-playing");
   return (
     <div className={styles.music}>
       <div
@@ -31,7 +44,7 @@ export default function NowPlaying() {
         className={clsx(
           styles.line,
           styles.line3,
-          data?.songUrl && styles.offline
+          data?.isPlaying === false && styles.offline
         )}
       />
       <p>
