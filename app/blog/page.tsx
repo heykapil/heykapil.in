@@ -86,14 +86,6 @@ export default async function BlogPage() {
                       ✤ {post.title}
                     </aside>
                   </div>
-                  {/* <span className='text-tertiary flex-shrink-0'>
-                      {format(parseISO(post.publishedAt), "MMM dd")}
-                    </span>
-                    <ViewCounter
-                      allViews={allViews}
-                      slug={`blog/${post.slug}`}
-                      trackView={false}
-                    /> */}
                   <span className='text-tertiary flex-shrink-0'></span>
                   <div className={style.animation}>
                     <div className=''>

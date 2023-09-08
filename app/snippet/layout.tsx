@@ -1,7 +1,7 @@
 import React from "react";
 const SnippetLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className='mx-auto mt-10 px-4 lg:px-0 w-full max-w-2xl relative z-999'>
+    <div className='relative mx-auto max-w-screen-2xl px-4 py-10 md:flex md:flex-row md:py-10'>
       {children}
     </div>
   );

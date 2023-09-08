@@ -106,3 +106,8 @@ code[data-line-numbers-max-digits="3"] > [data-line]::before {
 .prose :not(pre) > code {
   @apply border border-gray-200 dark:border-gray-700 font-mono text-sm font-normal align-middle py-0.5 px-1 rounded;
 }
+
+/* .prose {
+  max-width: max-content !important;
+  min-width: 65ch !important;
+} */

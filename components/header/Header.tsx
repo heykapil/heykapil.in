@@ -9,7 +9,7 @@ export default async function Header() {
   return (
     <>
       <header className='sticky top-0 backdrop-blur supports-backdrop-blur:bg-[var(--offset)]'>
-        <div className='mt-0 mb-10 border-b border-[var(--border)] z-1 mx-auto rounded-lg w-full flex-row justify-between z-999999999 flex'>
+        <div className='mt-0 border-b border-[var(--border)] z-1 mx-auto rounded-lg w-full flex-row justify-between z-999999999 flex'>
           <Suspense>
             <HeaderClient />
           </Suspense>

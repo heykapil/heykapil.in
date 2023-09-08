@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 export default async function SnippetPage() {
   const allViews = await getViewsCount();
   return (
-    <section>
+    <section className='max-w-2xl w-full mx-auto'>
       <Suspense fallback={<p>Loading snippets...</p>}>
         <h1 className='font-bold text-2xl mb-8 tracking-tighter'>
           All snippets
