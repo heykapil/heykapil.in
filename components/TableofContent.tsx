@@ -20,9 +20,9 @@ const useIntersectionObserver = (
   setActiveId: Dispatch<SetStateAction<string | undefined>>
 ) => {
   const headingElementsRef: any = useRef({});
-  const headingElements = Array.from(document.querySelectorAll("h2,h3,h4"));
 
   useEffect(() => {
+    const headingElements = Array.from(document.querySelectorAll("h2,h3,h4"));
     const callback = (headings: IntersectionObserverEntry[]) => {
       headingElementsRef.current = headings.reduce(
         (

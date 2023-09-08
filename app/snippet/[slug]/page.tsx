@@ -3,6 +3,8 @@ import { allSnippets } from "contentlayer/generated";
 import Balancer from "react-wrap-balancer";
 import type { Metadata } from "next";
 import Image from "next/image";
+import clsx from "clsx";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense, lazy } from "react";
 import { getViewsCount, getLikesCount } from "@/lib/metrics";
@@ -91,15 +93,32 @@ export default async function Snippet({ params }: { params: any }) {
   if (!snippet) {
     notFound();
   }
-
-  // const [allViews, tweets] = await Promise.all([
-  //   getViewsCount(),
-  //   getTweets(post.tweetIds),
-  // ]);
-
   return (
     <>
-      <div className='sticky top-[70px] hidden h-[calc(100vh-70px)] w-[284px] md:flex md:shrink-0 md:flex-col md:justify-between border-r border-[var(--muted)]'></div>
+      <div className='sticky top-[70px] hidden h-[calc(100vh-70px)] w-[284px] md:flex md:shrink-0 md:flex-col md:justify-between border-none'>
+        <ul className='space-y-4'>
+          {allSnippets
+            .sort((a: any, b: any) => {
+              if (new Date(a.publishedAt) > new Date(b.publishedAt)) {
+                return -1;
+              }
+              return 1;
+            })
+            .map((s) => (
+              <li key={s.slug}>
+                <Link
+                  className={clsx(
+                    "rounded-md animated-list",
+                    s.slug === snippet.slug ? "font-bold text-blue-500" : ""
+                  )}
+                  href={`/snippet/${s.slug}`}
+                >
+                  {s.title}
+                </Link>
+              </li>
+            ))}
+        </ul>
+      </div>
       <Suspense>
         <nav className='order-last hidden w-56 shrink-0 lg:block'>
           <div className='sticky top-[126px] h-[calc(100vh-121px)]'>
