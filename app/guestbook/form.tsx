@@ -1,11 +1,11 @@
 "use client";
 
-import { Suspense, useRef, useState } from "react";
+import { Suspense, useRef, useState, lazy } from "react";
 import { saveGuestbookEntry } from "lib/actions";
 import { experimental_useFormStatus as useFormStatus } from "react-dom";
 import { SignOut } from "./buttons";
-import Halo from "@/components/Halo";
-import MarkdownPreview from "@/components/comment/Preview";
+const Halo = lazy(() => import("@/components/Halo"));
+const MarkdownPreview = lazy(() => import("@/components/comment/Preview"));
 export default function Form() {
   const formRef = useRef<HTMLFormElement>(null);
   const { pending } = useFormStatus();
@@ -50,7 +50,7 @@ export default function Form() {
                 <span className='opacity-70'>Preview</span>
               </label>
               <span className='text-sm text-[var(--secondaryforeground)] opacity-70'>
-                Markdown and html tags are supported.
+                Markdown, html, and mathjax are acceptable.
               </span>
             </div>
             {showPreview && (
@@ -87,21 +87,23 @@ export default function Form() {
             </span> */}
           </div>
         </div>
-        <div className='flex items-center justify-between'>
-          <button
-            className='border w-fit border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 rounded-md text-sm inline-flex items-center leading-4 text-neutral-900 dark:text-neutral-100 mb-3 cursor-pointer hover:scale-x-110 hover:scale-y-105 duration-200 ease-out'
-            disabled={pending}
-            type='submit'
-          >
-            <Halo
-              className='flex items-center justify-between gap-2 px-4 py-2'
-              size={120}
-              strength={30}
+        <Suspense>
+          <div className='flex items-center justify-between'>
+            <button
+              className='border w-fit border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 rounded-md text-sm inline-flex items-center leading-4 text-neutral-900 dark:text-neutral-100 mb-3 cursor-pointer hover:scale-x-110 hover:scale-y-105 duration-200 ease-out'
+              disabled={pending}
+              type='submit'
             >
-              Submit
-            </Halo>
-          </button>
-        </div>
+              <Halo
+                className='flex items-center justify-between gap-2 px-4 py-2'
+                size={120}
+                strength={30}
+              >
+                Submit
+              </Halo>
+            </button>
+          </div>
+        </Suspense>
       </form>
     </>
   );

@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Providers } from "components/theme/provider";
 import NextAuthProvider from "components/SessionProvider";
 import Dock from "../components/dock/Dock";
+import Head from "next/head";
 // import Link from "next/link";
 import Header from "@/components/header/Header";
 // import styles from "styles/Hero.module.css";
@@ -61,6 +62,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en' suppressHydrationWarning>
+      <Head>
+        {/* <link
+          rel='stylesheet'
+          href='https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css'
+          integrity='sha384-GvrOXuhMATgEsSwCs4smul74iXGOixntILdUW9XmUC6+HX0sLNAK3q71HotJqlAn'
+          // crossorigin='anonymous'
+        ></link> */}
+      </Head>
       <body className='max-w-[100%] mb-20 flex flex-col md:flex-row mt-0 lg:mx-auto'>
         <Providers>
           <NextAuthProvider>

@@ -6,18 +6,23 @@ import Image from "next/image";
 import clsx from "clsx";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Suspense, lazy } from "react";
+import { Suspense } from "react";
 import { getViewsCount, getLikesCount } from "@/lib/metrics";
 import style from "styles/LikeContainer.module.css";
 import dynamic from "next/dynamic";
-const TableOfContents = lazy(() => import("@/components/TableofContent"));
+const TableOfContents = dynamic(() => import("@/components/TableofContent"), {
+  ssr: false,
+});
 const LikeButton = dynamic(() => import("@/components/LikeButton/LikeButton"), {
+  ssr: false,
   loading: () => <span>...</span>,
 });
 const ViewCounter = dynamic(() => import("components/ViewCounter"), {
+  ssr: false,
   loading: () => <span>...</span>,
 });
 const CommentPage = dynamic(() => import("components/comment/Page"), {
+  ssr: false,
   loading: () => <p>Loading comments...</p>,
 });
 export async function generateMetadata({
@@ -95,21 +100,32 @@ export default async function Snippet({ params }: { params: any }) {
   }
   return (
     <>
-      <div className='sticky top-[70px] hidden h-[calc(100vh-70px)] w-[284px] md:flex md:shrink-0 md:flex-col md:justify-between border-none'>
-        <ul className='space-y-4'>
+      <div className='sticky top-[70px] hidden h-[calc(100vh-70px)] w-[284px] md:flex md:shrink-0 md:flex-col border-r border-[var(--offset)]'>
+        <div className='text-[var(--primary)] font-semibold text-lg underline font-newsreader'>
+          All snippets
+        </div>
+        <ul className='mt-2 text-sm'>
           {allSnippets
-            .sort((a: any, b: any) => {
-              if (new Date(a.publishedAt) > new Date(b.publishedAt)) {
-                return -1;
-              }
-              return 1;
-            })
+            // .sort((a: Snippet, b: Snippet) => {
+            //   if (new Date(a.publishedAt) > new Date(b.publishedAt)) {
+            //     return -1;
+            //   }
+            //   return 1;
+            // })
             .map((s) => (
-              <li key={s.slug}>
+              <li
+                key={s.slug}
+                className={clsx(
+                  "rounder-lg hover:bg-[var(--offset)] py-2 px-1 border-l pl-2",
+                  s.slug === snippet.slug
+                    ? "border-blue-500 bg-[var(--offset)]"
+                    : "border-[var(--muted)]"
+                )}
+              >
                 <Link
                   className={clsx(
                     "rounded-md animated-list",
-                    s.slug === snippet.slug ? "font-bold text-blue-500" : ""
+                    s.slug === snippet.slug ? "font-semibold text-blue-500" : ""
                   )}
                   href={`/snippet/${s.slug}`}
                 >
@@ -124,7 +140,7 @@ export default async function Snippet({ params }: { params: any }) {
           <div className='sticky top-[126px] h-[calc(100vh-121px)]'>
             {snippet?.toc !== false ? (
               <>
-                <div className='text-purple-500 mb-1 mt-[7px] text-sm font-bold'>
+                <div className='mb-1 mt-[7px] text-sm font-bold'>
                   On this page
                 </div>
                 <div className='relative' data-docs-table-of-contents=''>

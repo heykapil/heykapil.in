@@ -75,7 +75,7 @@ export default function CommentForm({ slug }: { slug: string }) {
               </div>
 
               <span className='flex justify-end text-xs text-[var(--secondaryforeground)] opacity-70 break-words'>
-                Markdown and html tags are supported.
+                Markdown, mathjax, and some HTML is acceptable.
               </span>
             </div>
             {showPreview && (

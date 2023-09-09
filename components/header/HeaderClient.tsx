@@ -1,7 +1,7 @@
 "use client";
 import format from "date-fns/format";
-import dynamic from "next/dynamic";
-const HeaderInfo = dynamic(() => import("./HeaderInfo"));
+// import dynamic from "next/dynamic";
+// const HeaderInfo = dynamic(() => import("./HeaderInfo"));
 import { Fragment, Suspense, useEffect, useState } from "react";
 // import { useOnlineStatus } from "lib/hooks/useOnlineStatus";
 
@@ -23,9 +23,7 @@ export default function HeaderClient() {
   return (
     <Fragment>
       <div className='hidden lg:flex'>
-        <Suspense>
-          <HeaderInfo />
-        </Suspense>
+        <Suspense>{/* <HeaderInfo /> */}</Suspense>
       </div>
       <div className='flex lg:hidden'></div>
 

@@ -1,9 +1,9 @@
 "use client";
 import { marked } from "marked";
-// import markedKatex from "marked-katex-extension";
-// const optionsKatex = {
-//   throwOnError: false,
-// };
+import markedKatex from "marked-katex-extension";
+const optionsKatex = {
+  throwOnError: false,
+};
 marked.use({
   async: false,
   breaks: false,
@@ -14,7 +14,7 @@ marked.use({
   tokenizer: null,
   walkTokens: null,
 });
-// marked.use(markedKatex(optionsKatex));
+marked.use(markedKatex(optionsKatex));
 export default function MarkdownPreview({ markdown }) {
   return (
     <>
