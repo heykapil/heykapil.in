@@ -110,6 +110,7 @@ export function Mdx({ code }: { code: string }) {
 
   return (
     <article className='prose prose-quoteless prose-neutral dark:prose-invert'>
+      {/* @ts-ignore */}
       <Component components={components} />
     </article>
   );

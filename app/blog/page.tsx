@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import { Post, allPosts } from "contentlayer/generated";
 import { format, parseISO } from "date-fns";
@@ -8,47 +7,27 @@ import { getViewsCount } from "lib/metrics";
 import style from "styles/ViewsAnimaion.module.css";
 import dynamic from "next/dynamic";
 const ViewCounter = dynamic(() => import("@/components/ViewCounter"));
-export async function generateMetadata({
-  params,
-}: {
-  params: any;
-}): Promise<Metadata | undefined> {
-  const post = allPosts.find((post) => post.slug === params?.slug);
-  if (!post) {
-    return;
-  }
-
-  const {
-    title,
-    publishedAt: publishedTime,
-    summary: description,
-    image,
-    slug,
-  } = post;
-  const ogImage = image
-    ? `https://heykapil.in${image}`
-    : `https://heykapil.in/og?title=${title}`;
+export async function generateMetadata() {
+  const ogImage = `https://heykapil.in/og?title=Blog Posts&path=blog`;
 
   return {
-    title,
-    description,
     openGraph: {
-      title,
-      description,
-      type: "article",
-      publishedTime,
-      url: `https://heykapil.in/blog/${slug}`,
+      title: "Blog Posts",
+      description: "available at https://heykapil.in/blog",
+      url: `https://heykapil.in/blog`,
       images: [
         {
           url: ogImage,
+          width: 1920,
+          height: 1080,
         },
       ],
     },
     twitter: {
       card: "summary_large_image",
-      title,
-      description,
-      images: [ogImage],
+      title: "Blog Posts",
+      description: "available at https://heykapil.in/blog",
+      // images: [ogImage],
     },
   };
 }

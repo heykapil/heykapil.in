@@ -45,6 +45,8 @@ export async function generateMetadata({
       images: [
         {
           url: ogImage,
+          width: 1920,
+          height: 1080,
         },
       ],
     },
@@ -52,7 +54,7 @@ export async function generateMetadata({
       card: "summary_large_image",
       title,
       description,
-      images: [ogImage],
+      // images: [ogImage],
     },
   };
 }

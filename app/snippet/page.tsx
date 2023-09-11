@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { Suspense } from "react";
@@ -8,16 +7,30 @@ import ViewCounter from "@/components/ViewCounter";
 import style from "styles/ViewsAnimaion.module.css";
 import { EyeOpenIcon } from "@radix-ui/react-icons";
 import { cn } from "@/lib/utils";
-export const metadata: Metadata = {
-  title: "Snippets",
-  description: "Read my thoughts on software development, design, and more.",
-};
-// function getSortedSnippets(snippets: Snippet[]) {
-//   return snippets.map(
-//     (s) => s.tag)
-//     .flat()
-//     .filter(Boolean)
-// }
+export async function generateMetadata() {
+  const ogImage = `https://heykapil.in/og?title=All snippets&path=snippet`;
+
+  return {
+    openGraph: {
+      title: "All snippets",
+      description: "available at https://heykapil.in/snippet",
+      url: `https://heykapil.in/snippet`,
+      images: [
+        {
+          url: ogImage,
+          width: 1920,
+          height: 1080,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: "All snippets",
+      description: "available at https://heykapil.in/snippet",
+      // images: [ogImage],
+    },
+  };
+}
 export default async function SnippetPage() {
   const allViews = await getViewsCount();
   return (

@@ -40,7 +40,7 @@ export async function generateMetadata({
   //   "0123456789ABCDEF".charAt(Math.floor(Math.random() * 16))
   // ).join("");
 
-  const { title, slug } = snippet;
+  const { title, slug, description } = snippet;
   const ogImage = `https://heykapil.in/og?title=${title}&path=snippet/${slug}`;
   // || `https://heykapil.in/og-common.png` ;
 
@@ -48,18 +48,22 @@ export async function generateMetadata({
     title,
     openGraph: {
       title,
+      description,
       type: "article",
       url: `https://heykapil.in/snippet/${slug}`,
       images: [
         {
           url: ogImage,
+          width: 1920,
+          height: 1080,
         },
       ],
     },
     twitter: {
       card: "summary_large_image",
       title,
-      images: [ogImage],
+      description,
+      // images: [ogImage],
     },
   };
 }
