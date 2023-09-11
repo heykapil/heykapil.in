@@ -46,54 +46,93 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
+  twitter: {
+    title: "Kapil Chaudhary",
+    card: "summary_large_image",
+  },
   icons: {
     apple: [
       {
-        url: "/favicons/apple-touch-icon-180x180.png",
+        url: "/favicons/favicon180x180.png",
         sizes: "180x180",
         type: "image/png",
       },
       {
-        url: "/favicons/apple-touch-icon-152x152.png",
+        url: "/favicons/favicon152x152.png",
         sizes: "152x152",
         type: "image/png",
       },
       {
-        url: "/favicons/apple-touch-icon-144x144.png",
+        url: "/favicons/favicon144x144.png",
         sizes: "144x144",
         type: "image/png",
       },
       {
-        url: "/favicons/apple-touch-icon-120x120.png",
+        url: "/favicons/favicon120x120.png",
         sizes: "120x120",
         type: "image/png",
       },
       {
-        url: "/favicons/apple-touch-icon-114x114.png",
+        url: "/favicons/favicon114x114.png",
         sizes: "114x114",
         type: "image/png",
       },
       {
-        url: "/favicons/apple-touch-icon-76x76.png",
-        sizes: "76x76",
+        url: "/favicons/favicon60x60.png",
+        sizes: "60x60",
         type: "image/png",
       },
       {
-        url: "/favicons/apple-touch-icon-72x72.png",
+        url: "/favicons/favicon72x72.png",
         sizes: "72x72",
+        type: "image/png",
+      },
+      {
+        url: "/favicons/favicon96x96.png",
+        sizes: "96x96",
         type: "image/png",
       },
     ],
     other: [
       {
-        rel: "webmention",
-        url: "https://webmention.io/heykapil.in/webmention",
+        rel: "icon",
+        url: "/favicons/favicon.svg",
+        type: "image/svg+xml",
       },
       {
         rel: "icon",
-        url: "/favicon.ico",
-        type: "image/x-icon",
-        sizes: "16x16",
+        url: "/favicons/favicon.ico",
+      },
+      // {
+      //   rel: "icon",
+      //   url: "/favicon.png",
+      //   type: "image/png",
+      // },
+      // {
+      //   rel: "icon",
+      //   url: "/favicons/ms-icon-310x310.png",
+      //   type: "image/png",
+      //   sizes: "310x310",
+      // },
+      {
+        rel: "icon",
+        url: "/favicons/android-chrome-192x192.png",
+        type: "image/png",
+        sizes: "192x192",
+      },
+      {
+        rel: "icon",
+        url: "/favicons/android-chrome-512x512.png",
+        type: "image/png",
+        sizes: "512x512",
+      },
+      {
+        rel: "manifest",
+        url: "/favicons/site.webmanifest",
+      },
+      {
+        rel: "webmention",
+        url: "https://webmention.io/heykapil.in/webmention",
       },
       {
         rel: "pingback",
