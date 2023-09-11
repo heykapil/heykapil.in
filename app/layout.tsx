@@ -3,29 +3,21 @@ import type { Metadata } from "next";
 import { Providers } from "components/theme/provider";
 import NextAuthProvider from "components/SessionProvider";
 import Dock from "../components/dock/Dock";
-import Head from "next/head";
-// import Link from "next/link";
 import Header from "@/components/header/Header";
-// import styles from "styles/Hero.module.css";
-// import { cn } from "@/lib/utils";
 export const metadata: Metadata = {
   title: "Kapil Chaudhary",
   description: "heykapil.in",
+  referrer: "origin-when-cross-origin",
   openGraph: {
-    title: "HeyKapil.in",
+    title: "heykapil.in",
     description: "Kapil Chaudhary",
     url: "https://heykapil.in",
-    siteName: "HeyKapil.in",
+    siteName: "heykapil.in",
     images: [
       {
         url: "https://heykapil.in/og?title=Kapil Chaudhary",
-        width: 800,
-        height: 600,
-      },
-      {
-        url: "https://heykapil.in/og?title=Kapil Chaudhary",
-        width: 1800,
-        height: 1600,
+        width: 1920,
+        height: 1080,
         alt: "",
       },
     ],
@@ -41,11 +33,67 @@ export const metadata: Metadata = {
     initialScale: 1,
     maximumScale: 1,
   },
+  robots: {
+    index: false,
+    follow: true,
+    nocache: true,
+    googleBot: {
+      index: true,
+      follow: false,
+      noimageindex: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
   icons: {
+    apple: [
+      {
+        url: "/favicons/apple-touch-icon-180x180.png",
+        sizes: "180x180",
+        type: "image/png",
+      },
+      {
+        url: "/favicons/apple-touch-icon-152x152.png",
+        sizes: "152x152",
+        type: "image/png",
+      },
+      {
+        url: "/favicons/apple-touch-icon-144x144.png",
+        sizes: "144x144",
+        type: "image/png",
+      },
+      {
+        url: "/favicons/apple-touch-icon-120x120.png",
+        sizes: "120x120",
+        type: "image/png",
+      },
+      {
+        url: "/favicons/apple-touch-icon-114x114.png",
+        sizes: "114x114",
+        type: "image/png",
+      },
+      {
+        url: "/favicons/apple-touch-icon-76x76.png",
+        sizes: "76x76",
+        type: "image/png",
+      },
+      {
+        url: "/favicons/apple-touch-icon-72x72.png",
+        sizes: "72x72",
+        type: "image/png",
+      },
+    ],
     other: [
       {
         rel: "webmention",
         url: "https://webmention.io/heykapil.in/webmention",
+      },
+      {
+        rel: "icon",
+        url: "/favicon.ico",
+        type: "image/x-icon",
+        sizes: "16x16",
       },
       {
         rel: "pingback",
@@ -62,14 +110,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en' suppressHydrationWarning>
-      <Head>
-        {/* <link
-          rel='stylesheet'
-          href='https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css'
-          integrity='sha384-GvrOXuhMATgEsSwCs4smul74iXGOixntILdUW9XmUC6+HX0sLNAK3q71HotJqlAn'
-          // crossorigin='anonymous'
-        ></link> */}
-      </Head>
+      {/* <script
+        src='https://uptime.betterstack.com/widgets/announcement.js'
+        data-id='169384'
+        async
+        type='text/javascript'
+      ></script> */}
       <body className='max-w-[100%] mb-20 flex flex-col md:flex-row mt-0 lg:mx-auto'>
         <Providers>
           <NextAuthProvider>

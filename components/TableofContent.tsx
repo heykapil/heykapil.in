@@ -92,14 +92,18 @@ const TableOfContents = ({ source }: TOCProps) => {
     <>
       {headings.map((heading, index) => {
         return (
-          <li key={index}>
+          <li
+            key={index}
+            className={clsx(
+              heading.id === activeId
+                ? "font-bold text-blue-500 border-l border-blue-500 bg-[var(--offset)]"
+                : "font-normal",
+              heading.level === 2 ? "pl-3" : "pl-6",
+              "hover:underline hover:text-blue-500 py-2 border-l border-[var(--muted)]"
+            )}
+          >
             <a
               href={`#${heading.id}`}
-              className={clsx(
-                heading.id === activeId ? "font-bold" : "font-normal",
-                heading.level === 2 ? "pl-2" : "pl-6",
-                "hover:underline"
-              )}
               onClick={(e) => {
                 e.preventDefault();
                 document.querySelector<any>(`#${heading.id}`).scrollIntoView({

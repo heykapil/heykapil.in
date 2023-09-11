@@ -10,6 +10,7 @@ import { Suspense } from "react";
 import { getViewsCount, getLikesCount } from "@/lib/metrics";
 import style from "styles/LikeContainer.module.css";
 import dynamic from "next/dynamic";
+const ScrolltoTop = dynamic(() => import("@/components/blog/ScrolltoTop"));
 const TableOfContents = dynamic(() => import("@/components/TableofContent"), {
   ssr: false,
 });
@@ -95,6 +96,7 @@ export default async function Snippet({ params }: { params: any }) {
   const snippet = allSnippets.find((snippet) => snippet.slug === params.slug);
   const allViews = await getViewsCount();
   const allLikes = await getLikesCount();
+
   if (!snippet) {
     notFound();
   }
@@ -152,7 +154,7 @@ export default async function Snippet({ params }: { params: any }) {
                     aria-hidden='true'
                     className='from-gray-0 absolute bottom-0 left-0 z-10 h-3 w-full bg-gradient-to-t'
                   ></div>
-                  <ul className='styled-scrollbar max-h-[70vh] space-y-2.5 overflow-y-auto py-2 text-sm'>
+                  <ul className='styled-scrollbar max-h-[70vh] overflow-y-auto text-sm'>
                     <TableOfContents source={snippet.body.raw} />
                   </ul>
                 </div>
@@ -178,33 +180,13 @@ export default async function Snippet({ params }: { params: any }) {
                     <path d='M7 7h10v10'></path>
                   </svg>
                 </a>
-                {/* <button
-            className='hover:text-gray-1000 flex items-center gap-x-1.5 text-sm text-gray-900 transition-opacity opacity-100'
-            type='button'
-          >
-            Scroll to top{" "}
-            <svg
-              className='with-icon_icon__MHUeb'
-              data-testid='geist-icon'
-              fill='none'
-              height='24'
-              shapeRendering='geometricPrecision'
-              stroke='currentColor'
-              strokeLinecap='round'
-              strokeLinejoin='round'
-              strokeWidth='1.5'
-              viewBox='0 0 24 24'
-              width='24'
-            >
-              <circle cx='12' cy='12' r='10'></circle>
-              <path d='M16 12l-4-4-4 4'></path>
-              <path d='M12 16V8'></path>
-            </svg>
-          </button> */}
               </>
             ) : (
               ""
             )}
+            <Suspense>
+              <ScrolltoTop />
+            </Suspense>
           </div>
         </nav>
       </Suspense>
