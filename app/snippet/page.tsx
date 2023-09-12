@@ -2,9 +2,7 @@ import { Suspense } from "react";
 import { allSnippets } from "contentlayer/generated";
 import { getViewsCount } from "@/lib/metrics";
 import dynamic from "next/dynamic";
-const SnippetList = dynamic(() => import("components/blog/SnippetList"), {
-  loading: () => <span>Loading...</span>,
-});
+const SnippetList = dynamic(() => import("components/blog/SnippetList"));
 export async function generateMetadata() {
   const ogImage = `https://heykapil.in/og?title=All snippets&path=snippet`;
 
@@ -39,7 +37,7 @@ export default async function SnippetPage() {
         </h1>
         <div className='flex flex-col gap-6 w-full mt-4'>
           <div className='space-y-1 animated-list'>
-            <Suspense>
+            <Suspense fallback={<span>Loading snippets...</span>}>
               {allSnippets
                 .sort((a: any, b: any) =>
                   `${a.logo}`.localeCompare(`${b.logo}`)
