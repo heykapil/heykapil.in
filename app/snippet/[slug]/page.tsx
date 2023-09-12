@@ -241,7 +241,9 @@ export default async function Snippet({ params }: { params: any }) {
             <h3 className='text-xl font-semibold mb-6'>Thoughts? 🤔</h3>
             <span className='flex flex-grow border-t border-[var(--border)] h-1'></span>
           </div>
-          <CommentPage slug={`snippet/${snippet.slug}`} />
+          <Suspense>
+            <CommentPage slug={`snippet/${snippet.slug}`} />
+          </Suspense>
         </div>
       </section>
     </>

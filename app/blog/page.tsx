@@ -86,7 +86,7 @@ export default async function BlogPage() {
                     </div>
                     <div className=''>
                       <span className='flex justify-end flex-row'>
-                        {format(parseISO(post.publishedAt), "MMM dd")}
+                        {post.tags}
                       </span>
                     </div>
                   </div>

@@ -1,7 +1,7 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Providers } from "components/theme/provider";
-import NextAuthProvider from "components/SessionProvider";
+// import NextAuthProvider from "components/SessionProvider";
 import Dock from "../components/dock/Dock";
 import Header from "@/components/header/Header";
 export const metadata: Metadata = {
@@ -157,15 +157,15 @@ export default function RootLayout({
       ></script> */}
       <body className='max-w-[100%] mb-20 flex flex-col md:flex-row mt-0 lg:mx-auto'>
         <Providers>
-          <NextAuthProvider>
-            <main className='flex-auto min-w-0 flex flex-col md:px-0'>
-              <section className=''>
-                <Header />
-                {children}
-              </section>
-            </main>
-            <Dock />
-          </NextAuthProvider>
+          {/* <NextAuthProvider> */}
+          <main className='flex-auto min-w-0 flex flex-col md:px-0'>
+            <section className=''>
+              <Header />
+              {children}
+            </section>
+          </main>
+          <Dock />
+          {/* </NextAuthProvider> */}
         </Providers>
       </body>
     </html>

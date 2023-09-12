@@ -152,9 +152,18 @@ const Post = defineDocumentType(() => ({
       type: "string",
       required: true,
     },
+    tags: {
+      type: "string",
+      required: false,
+    },
     summary: {
       type: "string",
       required: false,
+    },
+    status: {
+      type: "enum",
+      options: ["published", "draft", "planned"],
+      default: "draft",
     },
   },
   computedFields,
