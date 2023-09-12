@@ -11,7 +11,7 @@ export default async function handler(
   }
 
   const song = await response.json();
-
+  // console.log(song);
   if (song.item === null) {
     return res.status(200).json({ isPlaying: false });
   }
@@ -24,6 +24,7 @@ export default async function handler(
   const album = song.item.album.name;
   const albumImageUrl = song.item.album.images[0].url;
   const songUrl = song.item.external_urls.spotify;
+  const preview_url = song.item.preview_url;
   // revalidatePath("/api/now-playing");
   res.setHeader(
     "Cache-Control",
@@ -37,5 +38,6 @@ export default async function handler(
     isPlaying,
     songUrl,
     title,
+    preview_url,
   });
 }
