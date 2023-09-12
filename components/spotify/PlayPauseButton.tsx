@@ -40,9 +40,11 @@ export default function PlayPauseButton({ audioUrl }: { audioUrl?: string }) {
               //   <Spinner />
               ""
             ) : isPlaying ? (
-              <PauseIcon className='w-5 h-5 text-red-400' />
+              <PauseIcon className='w-5 h-5 text-red-500' />
             ) : (
-              <PlayIcon className='w-5 h-5 text-green-500' />
+              <>
+                <PlayIcon className='w-5 h-5 text-green-500' />
+              </>
             )}
           </button>
         </>

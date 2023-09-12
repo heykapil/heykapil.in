@@ -12,9 +12,9 @@ export default function Track(track: any) {
     <>
       {/* <div className='group mt-8 flex w-full max-w-3xl transform flex-row items-baseline border-b border-gray-200 transition-all hover:scale-[1.03] dark:border-gray-800'> */}
       <div className=''>
-        <div className='container mx-auto px-6'>
-          <div className='mx-auto sm:w-6/12 lg:w-5/12 py-2 '>
-            <div className='border-b border-[var(--muted)]'>
+        <div className='container px-6'>
+          <div className='sm:w-6/12 lg:w-5/12 py-2 '>
+            <div className='border-b rounded-lg border-[var(--muted)]'>
               <div className='relative flex flex-col justify-end overflow-hidden rounded-b-xl'>
                 <div className='group relative flex cursor-pointer justify-between rounded-xl before:absolute before:inset-y-0 before:right-0 before:w-1/2 before:rounded-r-xl before:bg-gradient-to-r before:from-transparent before:to-[var(--offset3)] before:opacity-0 before:transition before:duration-500 hover:before:opacity-100'>
                   <div className='relative  space-y-1 p-4'>

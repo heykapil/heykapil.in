@@ -1,11 +1,11 @@
 "use client";
-import React from "react";
+import React, { Suspense } from "react";
 import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import Image from "next/image";
 import GallerySkelton from "./gallery/gallerySkelton";
-import TopTracksClient from "./spotify/TopTracksClient";
+const TopTracksClient = dynamic(() => import("./spotify/TopTracksClient"));
 const DynamicGallery = dynamic(() => import("./gallery/gallery"), {
   loading: () => <GallerySkelton />,
 });
@@ -16,7 +16,7 @@ const Hero = () => {
   };
   return (
     <>
-      <div className='flex flex-col px-4 py-0 mx-auto space-y-6 lg:py-0 lg:flex-row lg:justify-center lg:items-center h-[60vh] z-1'>
+      <div className='flex flex-col px-4 py-0 mx-auto space-y-2 lg:py-0 lg:flex-row lg:justify-center lg:items-center h-[60vh] z-1'>
         <div className='w-full relative z-1 lg:w-[40%]'>
           <motion.div
             className='lg:max-w-lg'
@@ -158,9 +158,15 @@ const Hero = () => {
             </div>*/}
         </div>
         <div className='items-center justify-normal w-full h-fit hidden lg:flex lg:w-1/2'>
-          <DynamicGallery />
+          <Suspense>
+            <DynamicGallery />
+          </Suspense>
         </div>
       </div>
+
+      <Suspense>
+        <TopTracksClient />
+      </Suspense>
       {/* <div className='container flex flex-row mx-auto w-full space-x-3'>
           <Link href="mailto:contact@heykapil.in">
             <MailIcon />
@@ -187,8 +193,6 @@ const Hero = () => {
           </p>
         </div>
       </section> */}
-
-      <TopTracksClient />
     </>
   );
 };

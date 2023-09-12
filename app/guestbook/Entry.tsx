@@ -78,7 +78,7 @@ export default function CommentEntry({
           </div>
           <div className='mt-1 prose prose-quoteless prose-neutral dark:prose-invert'>
             <Suspense
-              fallback={<span className='text-sm italic'>Loading...</span>}
+            // fallback={<span className='text-sm italic'>Loading...</span>}
             >
               <MarkdownPreview markdown={body} />
             </Suspense>
