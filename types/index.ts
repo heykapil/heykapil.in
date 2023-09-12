@@ -36,4 +36,32 @@ export type NowPlayingSong = {
   isPlaying: boolean;
   songUrl: string;
   title: string;
+  preview_url: string;
+};
+
+export type Song = {
+  songUrl: string;
+  audioUrl: string;
+  artist: string;
+  title: string;
+  isPlaying: boolean;
+};
+
+export type TopTracks = {
+  tracks: Song[];
+};
+
+export type Artist = {
+  id: string;
+  name: string;
+  type: string;
+  href: string;
+};
+
+export type Track = {
+  artists: Artist[];
+  external_urls: { spotify: string };
+  name: string;
+  preview_url: string;
+  album: { images: any };
 };

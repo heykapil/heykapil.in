@@ -3,7 +3,7 @@ import clsx from "clsx";
 import { revalidatePath } from "next/cache";
 import styles from "styles/Music.module.css";
 async function getNowPlaying() {
-  const res = await fetch("https://heykapil.in/api/now-playing", {
+  const res = await fetch(process.env.NEXTAUTH_URL + "/api/now-playing", {
     next: { revalidate: 10 },
     // cache: "no-store",
   });
@@ -25,50 +25,53 @@ export default async function NowPlayingServer() {
   const data = await getNowPlaying();
   revalidatePath("/api/now-playing");
   return (
-    <div className={styles.music}>
-      <div
-        className={clsx(
-          styles.line,
-          styles.line1,
-          data?.isPlaying === false && styles.offline
-        )}
-      />
-      <div
-        className={clsx(
-          styles.line,
-          styles.line2,
-          data?.isPlaying === false && styles.offline
-        )}
-      />
-      <div
-        className={clsx(
-          styles.line,
-          styles.line3,
-          data?.isPlaying === false && styles.offline
-        )}
-      />
-      <p>
-        {data?.songUrl ? (
-          <span className='bg-green-500 w-2 h-2 rounded-full inline-block mr-2'></span>
-        ) : (
-          <span className='bg-[var(--primary)] opacity-50 w-2 h-2 rounded-full inline-block mr-3'></span>
-        )}
-        <a href={data?.songUrl} target='_blank' rel='noreferrer'>
-          <span className='inline-block items-center'>
-            <span>
-              {data?.title ? (
-                data?.title
-              ) : (
-                <span className='text-[var(--primary)] opacity-50 font-semibold'>
-                  Offline
-                </span>
-              )}{" "}
+    <>
+      {/* <PlayPauseButton audioUrl={data.audioUrl} /> */}
+      <div className={styles.music}>
+        <div
+          className={clsx(
+            styles.line,
+            styles.line1,
+            data?.isPlaying === false && styles.offline
+          )}
+        />
+        <div
+          className={clsx(
+            styles.line,
+            styles.line2,
+            data?.isPlaying === false && styles.offline
+          )}
+        />
+        <div
+          className={clsx(
+            styles.line,
+            styles.line3,
+            data?.isPlaying === false && styles.offline
+          )}
+        />
+        <p>
+          {data?.songUrl ? (
+            <span className='bg-green-500 w-2 h-2 rounded-full inline-block mr-2'></span>
+          ) : (
+            <span className='bg-[var(--primary)] opacity-50 w-2 h-2 rounded-full inline-block mr-3'></span>
+          )}
+          <a href={data?.songUrl} target='_blank' rel='noreferrer'>
+            <span className='inline-block items-center'>
+              <span>
+                {data?.title ? (
+                  data?.title
+                ) : (
+                  <span className='text-[var(--primary)] opacity-50 font-semibold'>
+                    Offline
+                  </span>
+                )}{" "}
+              </span>
+              {/* <img className='w-4 h-4' src={data?.albumImageUrl} /> */}
+              {/* <span className='truncate'>{data?.artist}</span> */}
             </span>
-            {/* <img className='w-4 h-4' src={data?.albumImageUrl} /> */}
-            {/* <span className='truncate'>{data?.artist}</span> */}
-          </span>
-        </a>
-      </p>
-    </div>
+          </a>
+        </p>
+      </div>
+    </>
   );
 }

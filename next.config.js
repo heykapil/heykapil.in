@@ -6,7 +6,6 @@ const { withContentlayer } = require("next-contentlayer");
 
 // You might need to insert additional domains in script-src if you are using external services
 
-
 /**
  * @type {import('next/dist/next-server/server/config').NextConfig}
  **/
@@ -27,6 +26,7 @@ module.exports = () => {
         "avatars.githubusercontent.com",
         "raw.githubusercontent.com",
         "lh3.googleusercontent.com",
+        "i.scdn.co",
       ],
     },
     eslint: {

@@ -5,7 +5,7 @@ import dynamic from "next/dynamic";
 import Link from "next/link";
 import Image from "next/image";
 import GallerySkelton from "./gallery/gallerySkelton";
-
+import TopTracksClient from "./spotify/TopTracksClient";
 const DynamicGallery = dynamic(() => import("./gallery/gallery"), {
   loading: () => <GallerySkelton />,
 });
@@ -187,6 +187,8 @@ const Hero = () => {
           </p>
         </div>
       </section> */}
+
+      <TopTracksClient />
     </>
   );
 };
