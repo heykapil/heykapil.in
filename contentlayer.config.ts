@@ -179,6 +179,11 @@ const Snippet = defineDocumentType(() => ({
     tag: { type: "string", required: false },
     logo: { type: "string", required: false },
     toc: { type: "boolean", required: false },
+    status: {
+      type: "enum",
+      options: ["published", "draft", "planned"],
+      default: "published",
+    },
   },
   computedFields,
 }));
