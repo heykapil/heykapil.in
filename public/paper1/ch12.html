@@ -1,0 +1,1150 @@
+<!DOCTYPE html> 
+<html lang="en" xml:lang="en" > 
+<head><title>A fractional-order SVIR-model with two infection classes for COVID-19 in
+India</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (https://tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="ch12.css" /> 
+<link rel="stylesheet" href="https://cdn1.netlify.app/resources.css" />
+<script>window.MathJax = { tex: {
+      tags: 'ams'  // should be 'ams', 'none', or 'all'
+    } }; </script> 
+ <script type="text/javascript" async="async" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"></script>  
+</head><body 
+>
+   <div class="maketitle"></div>
+                                                                  
+
+                                                                  
+                                                                  
+
+                                                                  
+
+<h2 class="titleHead">A fractional-order SVIR-model with two infection
+classes for COVID-19 in India</h2>
+ <div class="author">Nita H. Shah, Kapil Chaudhary, Ekta Jayswal</div><br />
+<div class="date"></div>
+   </div><section role="doc-abstract" class="abstract"> 
+<h3 class="abstracttitle">
+Abstract
+</h3>
+     <!--l. 101--><p class="noindent" ><span 
+class="cmr-9">This paper describes the fractional-order transmission dynamics of the</span>
+     <span 
+class="cmr-9">two variant of SARS-CoV-2, for delta and omicron variants are chosen.</span>
+     <span 
+class="cmr-9">An </span><span 
+class="cmti-9">SVIR</span><span 
+class="cmr-9">-model is proposed with two infection classes corresponding to</span>
+     <span 
+class="cmr-9">Delta  and  Omicron  variant.  The  equilibrium  points  of  the  model  are</span>
+     <span 
+class="cmr-9">determined and next-generation matrix method is used to calculate the</span>
+     <span 
+class="cmr-9">corresponding basic reproduction number (</span>\(\mathsf {R_0}\)<span 
+class="cmr-9">). The local stability conditions</span>
+     <span 
+class="cmr-9">of the proposed model is investigated around the equilibrium points using</span>
+     <span 
+class="cmr-9">eigenvalue method. The result shows the model is locally stable if</span> \(\mathsf {R_0} &lt; 1\) <span 
+class="cmr-9">and</span>
+     <span 
+class="cmr-9">unstable otherwise. Numerical L1 scheme is used to study the memory</span>
+     <span 
+class="cmr-9">effect of the virus variants in the suggested model. Further, numerical</span>
+     <span 
+class="cmr-9">simulations are provided for a better insight of the proposed model and</span>
+     <span 
+class="cmr-9">relevant findings are displayed graphically. The memory effect graph shows</span>
+     <span 
+class="cmr-9">as memory increases, there is relatively decline in infection cases of each</span>
+     <span 
+class="cmr-9">virus variant. The result also shows early recovery in case of latter variant</span>
+     <span 
+class="cmr-9">and intensity of the recovery relatively increases as the number of cases</span>
+     <span 
+class="cmr-9">increases. </span><br 
+class="newline" /><span 
+class="cmbx-9">Keywords:</span><span 
+class="cmr-9"> Caputo  fractional-order  derivative,  COVID-19,  Omicron,</span>
+     <span 
+class="cmr-9">Next-generation matrix method, L1 scheme, Memory effect.</span>
+</p>
+</section>
+<!--l. 105--><p class="noindent" ><span 
+class="cmbx-10">MSC: </span>37Nxx, 37M05, 26A33
+</p>
+   <h3 class="sectionHead"><span class="titlemark">1   </span> <a 
+ id="x1-10001"></a>Introduction</h3>
+                                                                  
+
+                                                                  
+<!--l. 107--><p class="noindent" >Infectious illnesses with pandemic potential have emerged and spread on a regular
+basis throughout the history. In the past, the world faced serious infectious diseases,
+like Spanish Flu, Smallpox, Tuberculosis and many more. In recent times, the
+world is facing novel corona-virus disease known as COVID-19. The disease
+appeared first in Wuhan city of China and subsequently elsewhere. The causing
+virus SARS-CoV-2 like other viruses changes its behavior over time due to
+mutations and combination of mutations. World Health Organization named new
+variant B.1.1.529 of virus SARS-CoV-2 as Omicron and designated it as
+Variant of Concern (VoC)<span class="cite">[<a 
+href="#Xwho-1">19</a>]</span><a 
+ id="x1-1001"></a>. The first case of this variant was reported in
+last week of November 2021 from South Africa <span class="cite">[<a 
+href="#Xwho-1">19</a>]</span>. Dr Angelique Coetzee
+described the variant infection symptoms as very mild compared to Delta
+variants. Further, the first case of Omicron variant in India was reported
+to union health ministry of India from Karnataka state on December 2,
+2021.
+</p><!--l. 109--><p class="noindent" >One of the most important things in epidemic research is predicting future patterns,
+such as how many people will be infected every day, when epidemics turn endemic,
+and so on. Further, in particular case of COVID-19, the additional questions about
+the omicron or any new variant are as follows <span class="cite">[<a 
+href="#Xaljazeera">20</a>]</span><a 
+ id="x1-1002"></a>: </p>
+     <ul class="itemize1">
+     <li class="itemize">
+     <!--l. 110--><p class="noindent" >To  what  extent  does  Omicron  or  any  new  variant  bypass  vaccination
+     induced  immunity  and  natural  immunity  induced  from  recovery  /  the
+     either variant.
+     </p></li>
+     <li class="itemize">
+     <!--l. 111--><p class="noindent" >Several questions related to which of the two variant are more infectious
+     and severe.</p></li></ul>
+<!--l. 113--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">1.1   </span> <a 
+ id="x1-20001.1"></a>Background</h4>
+<!--l. 113--><p class="noindent" >In the literature, various dynamical methods are used to forecast epidemic patterns
+and to make government policies to limit the spread. Basic compartmental SIR
+model has been widely used to describe the pattern of disease. From then, there are
+numerous integer-order models obtained by varying basic SIR model <span class="cite">[<a 
+href="#XYang2021">1</a>]</span><a 
+ id="x1-2001"></a>.
+However, corona-virus, like all viruses, evolves throughout time. The majority
+of alterations have little or no impact on the virus’s properties <span class="cite">[<a 
+href="#XFatma">2</a>]</span><a 
+ id="x1-2002"></a>. This
+kind of real phenomena are better represented by system of fractional-order
+equations due to its hereditary properties. Further, the fractional-order improves
+the consistency of the model with real data and observations as it has a
+degree of freedom to fit the real data as compared to integer-order models
+<span class="cite">[<a 
+href="#XRajagopal2020">3</a>, <a 
+href="#XKhajehsaeid2019">4</a>]</span><a 
+ id="x1-2003"></a>.
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">1.2   </span> <a 
+ id="x1-30001.2"></a>Literature Survey</h4>
+                                                                  
+
+                                                                  
+<!--l. 114--><p class="noindent" >Many scholars from various fields have contributed to the prediction, study, and
+creation of crucial epidemic-fighting strategies. Grassly and Fraser discussed the
+importance of developing models that can capture key features of the spread of an
+infection <span class="cite">[<a 
+href="#XGrassly2008">5</a>]</span><a 
+ id="x1-3001"></a>. Yang <span 
+class="cmti-10">et al. </span><span class="cite">[<a 
+href="#XYang2021">1</a>]</span> discussed many integer-order models obtained by
+varying basic SIR model.It is found that the fractional-order models are very
+effective to study the dynamics of diseases like COVID-19 as fractional-order
+derivatives depend not only on local conditions but also on the past and
+the history of the phenomenon studied <span class="cite">[<a 
+href="#XBalatif2020">6</a>]</span><a 
+ id="x1-3002"></a>. Koziol <span 
+class="cmti-10">et al. </span><span class="cite">[<a 
+href="#XKoziol2020">7</a>]</span><a 
+ id="x1-3003"></a> presented the
+fractional-order generalization of the susceptible-infected-recovered (SIR) epidemic
+model for predicting the spread of the COVID-19 disease. The time-domain
+model implementation was based on the fixed-step method using the nabla
+fractional-order difference defined by Grünwald-Letnikov formula. Özköse
+<span 
+class="cmti-10">et al. </span><span class="cite">[<a 
+href="#XFatma">2</a>]</span> proposed a fractional-order model of COVID-19 Omicron variant
+containing heart attack effect with real data from the United Kingdom.
+Niak <span class="cite">[<a 
+href="#XNaik2020">8</a>]</span><a 
+ id="x1-3004"></a> investigated a non-linear fractional-order SIR epidemic model and
+applied L1 scheme in fractional-order disease model. Teka <span 
+class="cmti-10">et al. </span><span class="cite">[<a 
+href="#XTeka2018">9</a>]</span><a 
+ id="x1-3005"></a> suggested a
+fractional-order model based on spiking activities of transmitting information in
+brain through neurons and used L1 scheme for its memory trace effects emerged
+from the past activities of neuro. Otunuga <span class="cite">[<a 
+href="#XOtunuga2021">10</a>]</span><a 
+ id="x1-3006"></a> in his paper proposed an
+epidemic SEIRS model with vital dynamics for COVID-19 and estimated its
+epidemiological parameters. Shah <span 
+class="cmti-10">et al. </span><span class="cite">[<a 
+href="#XShah2020">11</a>]</span><a 
+ id="x1-3007"></a> applied the optimal control theory in the
+COVID-19 fractional-order model to pretend the impact of various intervention
+strategies.
+</p><!--l. 116--><p class="noindent" >This paper is arranged in the following manner, section <a 
+href="#x1-40002">2<!--tex4ht:ref: secpreliminaries --></a> introduces preliminaries
+definitions and results to be used in the paper. In section <a 
+href="#x1-50003">3<!--tex4ht:ref: secmodel --></a>, model is formulated and
+its equilibrium points are calculated. In section <a 
+href="#x1-80004">4<!--tex4ht:ref: secr0 --></a>, next-generation matrix method is
+used to calculate the basic reproduction number. Local stability around
+the equilibrium points is discussed in section <a 
+href="#x1-90005">5<!--tex4ht:ref: secstability --></a>. Memory trace and heredity
+trait is discussed in section <a 
+href="#x1-120006">6<!--tex4ht:ref: secmemory --></a> and numerical simulation is done in section
+<a 
+href="#x1-130007">7<!--tex4ht:ref: secsimulation --></a>.
+</p>
+   <h3 class="sectionHead"><span class="titlemark">2   </span> <a 
+ id="x1-40002"></a>Preliminaries</h3>
+   <div class="newtheorem">
+<!--l. 118--><p class="noindent" ><span class="head">
+<a 
+ id="x1-4001r1"></a>
+<span 
+class="cmbx-10">Definition 1.</span>  </span><span 
+class="cmti-10">Caputo’s definition of fractional-order</span> \(\phi \)<span 
+class="cmti-10">-derivative of the function</span>
+\(f\) <span 
+class="cmti-10">on the interval</span> \((0 ,t )\) <span 
+class="cmti-10">is defined by</span><span class="footnote-mark"><a 
+href="ch122.html#fn1x0"><sup class="textsuperscript">1</sup></a></span><a 
+ id="x1-4002f1"></a> 
+\[{}_{0 }^{C} D_{t}^{\phi }f(t) =\frac {1}{\Gamma (n-\phi )} \int \limits _{0 }^{t } (t-s)^{n-\phi -1} f^{(n)} (s)ds\] <span 
+class="cmti-10">where</span> \(n=\left \lceil \phi \right \rceil \) <span 
+class="cmti-10">is the least integer greater than or equals to</span> \(\phi \) <span 
+class="cmti-10">and</span> \(\Gamma (x)\) <span 
+class="cmti-10">denotes the gamma</span>
+<span 
+class="cmti-10">function.</span>
+</p>
+   </div>
+<!--l. 122--><p class="indent" >
+As \(\phi \in (0,1]\), in Caputo’s sense , \(\phi \)-derivative of function \(f\) can be written as: \[{}_{0}^{C} D_{t}^{\phi } f(t) =\frac {1}{\Gamma (1-\phi )} \int \limits _{0}^{t} \frac {f'(s)}{(t-s)^\phi } ds\]
+</p>
+                                                                  
+
+                                                                  
+   <div class="newtheorem">
+<!--l. 125--><p class="noindent" ><span class="head">
+<a 
+ id="x1-4003r2"></a>
+<span 
+class="cmbx-10">Definition 2.</span>  </span><span 
+class="cmti-10">The Laplace transform of the function</span> \(f\) <span 
+class="cmti-10">is defined as </span>\[ {\mathcal {L}}\{f(t)\}(s)= F(s) = \int _0^\infty f(t) e^{-s t} dt \]
+</p>
+   </div>
+<!--l. 128--><p class="indent" >
+The Laplace transform of the Caputo fractional \(\phi \)-derivative of the function \(f\) is defined
+as: \[ {\mathcal {L}} \{{}_{0}^{C} D_{t}^{\phi } f(t)\}(s) = s^\phi {L}(f(t))(s) -\sum _{k=0}^{n-1} s^{\phi - k-1} f^{(k)}(0) \]
+</p>
+   <div class="newtheorem">
+<!--l. 131--><p class="noindent" ><span class="head">
+<a 
+ id="x1-4004r3"></a>
+<span 
+class="cmbx-10">Definition 3.</span>  </span><span 
+class="cmti-10">Mittag-Leffler function</span> \(E_{\phi ,\eta }\) <span 
+class="cmti-10">is a complex function depending upon</span>
+<span 
+class="cmti-10">two parameters</span> \(\phi \) <span 
+class="cmti-10">and</span> \(\eta \) <span 
+class="cmti-10">is defined as, </span>\[E_{\phi ,\eta }(z) = \sum \limits _{k=0}^\infty \frac {z^k}{\Gamma (\phi k + \eta )}\]
+</p>
+   </div>
+<!--l. 134--><p class="indent" >
+For particular case of \(\eta = 1\), Mittag-Leffler function \(E_\phi \) in one parameter \(\phi \) can be described
+as, \begin {equation}  E_{\phi }(z) = E_{\phi , 1}(z) = \sum \limits _{k=0}^\infty \frac {z^k}{\Gamma (\phi k + 1)} \label {eqnmittag0}  \end {equation}
+Some well known results based on Mittag-Leffler function and their Laplace
+transform are given below that will be used further in this paper. \begin {equation}  \mathcal {L} \{t^{\eta -1}E_{\phi ,\eta } (-\lambda t^\phi )\}(s) =\frac {s^{\phi -\eta }}{s^\phi +\lambda } \label {eqnmittag1}  \end {equation}
+where \(\text {res}(s)&gt;\lvert \lambda \rvert ^{\frac {1}{\phi }}\) and \begin {align}  \mathcal {L}^{-1} \left \{\frac {1}{s(s^\phi +\lambda )}\right \}(t) &amp;= t^\phi E_{\phi , \phi +1}(-\lambda t^\phi ) \notag \\ &amp;=\frac {1}{\lambda }\left [1-E_\phi (-\lambda t^\phi )\right ] &amp;&amp; \label {eqnmitaag2}  \end {align}
+</p><!--l. 150--><p class="noindent" >where \(\text {res}(s)&gt;\lvert \lambda \rvert ^{\frac {1}{\phi }}\).
+</p>
+   <h3 class="sectionHead"><span class="titlemark">3   </span> <a 
+ id="x1-50003"></a>Formulation of Model</h3>
+<!--l. 152--><p class="noindent" >In this epidemic model, the total population denoted by \(n(t)\) is divided into five
+compartments \(s,v,i_{0} ,i_{\delta } ,r\) where each compartment denotes the specific stage of the disease
+transmission. \(\ni \) To understand the system and to reduce the number of variables, the
+new variables \(S,V,I_{0} ,I_{\delta } ,R\) are introduced by dividing each compartment by total population \(n(t)\)
+(see Table <a 
+href="#x1-5003r1">1<!--tex4ht:ref: tab:compartments --></a>). The flow diagram of the proposed model is given in Figure <a 
+href="#x1-5001r1">1<!--tex4ht:ref: figimage --></a>.
+</p>
+
+
+
+                                                                  
+                                                                  
+
+                                                                  
+<!--l. 155--><p class="noindent" ><img 
+src="figures//image.svg" alt="PIC"  
+width="276" height="276"  /> <a 
+ id="x1-5001r1"></a>
+<a 
+ id="x1-5002"></a>
+                                                                  
+
+                                                                  
+   <div class="table">
+                                                                  
+
+                                                                  
+<!--l. 159--><p class="indent" >   </p><div class="float" 
+>
+                                                                  
+
+                                                                  
+<a 
+ id="x1-5003r1"></a>
+<a 
+ id="x1-5004"></a>
+<div class="tabular">
+ <table id="TBL-2" class="tabular" 
+ 
+><colgroup id="TBL-2-1g"><col 
+id="TBL-2-1" /><col 
+id="TBL-2-2" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-2-1-"><td  style="white-space:nowrap; text-align:center;" id="TBL-2-1-1"  
+class="td11"> Notation  </td><td  style="white-space:normal; text-align:left;" id="TBL-2-1-2"  
+class="td11"> <!--l. 164--><p class="noindent" >Meaning                                                           </p></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-2-2-"><td  style="white-space:nowrap; text-align:center;" id="TBL-2-2-1"  
+class="td11">     \(S\)     </td><td  style="white-space:normal; text-align:left;" id="TBL-2-2-2"  
+class="td11"> <!--l. 166--><p class="noindent" >Fraction of individuals which are vulnerable to get
+  infection and are not vaccinated.                           </p></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-2-3-"><td  style="white-space:nowrap; text-align:center;" id="TBL-2-3-1"  
+class="td11">     \(V\)     </td><td  style="white-space:normal; text-align:left;" id="TBL-2-3-2"  
+class="td11"> <!--l. 167--><p class="noindent" >Fraction of individuals which are vulnerable to get
+  infection and are vaccinated.                                </p></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-2-4-"><td  style="white-space:nowrap; text-align:center;" id="TBL-2-4-1"  
+class="td11">     \(I_0\)     </td><td  style="white-space:normal; text-align:left;" id="TBL-2-4-2"  
+class="td11"> <!--l. 168--><p class="noindent" >Fraction  of  individuals  that  are  responsible  for
+  spreading Omicron variant among population.         </p></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-2-5-"><td  style="white-space:nowrap; text-align:center;" id="TBL-2-5-1"  
+class="td11">     \( I_{\delta }\)     </td><td  style="white-space:normal; text-align:left;" id="TBL-2-5-2"  
+class="td11"> <!--l. 169--><p class="noindent" >Fraction  of  individuals  that  are  responsible  for
+  spreading Delta variant among population.              </p></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-2-6-"><td  style="white-space:nowrap; text-align:center;" id="TBL-2-6-1"  
+class="td11">     \(R\)     </td><td  style="white-space:normal; text-align:left;" id="TBL-2-6-2"  
+class="td11"> <!--l. 170--><p class="noindent" >Fraction of individuals which have been recovered.    </p></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-2-7-"><td  style="white-space:nowrap; text-align:center;" id="TBL-2-7-1"  
+class="td11">          </td></tr></table></div>
+                                                                  
+
+                                                                  
+   </div>
+   </div>
+<div class="center" 
+>
+<!--l. 174--><p class="noindent" >
+</p>
+<div class="table">
+<!--l. 175--><p class="noindent" ></p><div class="float" 
+> <a 
+ id="x1-5005r2"></a>
+<a 
+ id="x1-5006"></a>
+<div class="tabular">
+ <table id="TBL-3" class="tabular" 
+ 
+><colgroup id="TBL-3-1g"><col 
+id="TBL-3-1" /><col 
+id="TBL-3-2" /><col 
+id="TBL-3-3" /><col 
+id="TBL-3-4" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-3-1-"><td  style="white-space:nowrap; text-align:center;" id="TBL-3-1-1"  
+class="td11"> Parameter  </td><td  style="white-space:normal; text-align:left;" id="TBL-3-1-2"  
+class="td11"> <!--l. 181--><p class="noindent" >Meaning                                  </p></td><td  style="white-space:nowrap; text-align:center;" id="TBL-3-1-3"  
+class="td11">    Value      </td><td  style="white-space:nowrap; text-align:center;" id="TBL-3-1-4"  
+class="td11">  Reference  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-3-2-"><td  style="white-space:nowrap; text-align:center;" id="TBL-3-2-1"  
+class="td11">      \(B\)      </td><td  style="white-space:normal; text-align:left;" id="TBL-3-2-2"  
+class="td11"> <!--l. 183--><p class="noindent" >Birth rate of population              </p></td><td  style="white-space:nowrap; text-align:center;" id="TBL-3-2-3"  
+class="td11"> 0.000052705  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-3-2-4"  
+class="td11"> Calculated  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-3-3-"><td  style="white-space:nowrap; text-align:center;" id="TBL-3-3-1"  
+class="td11">      \(\alpha \)      </td><td  style="white-space:normal; text-align:left;" id="TBL-3-3-2"  
+class="td11"> <!--l. 184--><p class="noindent" >Vaccination rate                        </p></td><td  style="white-space:nowrap; text-align:center;" id="TBL-3-3-3"  
+class="td11">   0.060925    </td><td  style="white-space:nowrap; text-align:center;" id="TBL-3-3-4"  
+class="td11"> Estimated  </td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-3-4-"><td  style="white-space:nowrap; text-align:center;" id="TBL-3-4-1"  
+class="td11">  \(\beta _{0}\) </td><td  style="white-space:normal; text-align:left;" id="TBL-3-4-2"  
+class="td11"> <!--l. 185--><p class="noindent" >Transmission Rate of
+  Non-Vaccinated getting Omicron  </p></td><td  style="white-space:nowrap; text-align:center;" id="TBL-3-4-3"  
+class="td11">    0.35       </td><td  style="white-space:nowrap; text-align:center;" id="TBL-3-4-4"  
+class="td11"> Estimated  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-3-5-"><td  style="white-space:nowrap; text-align:center;" id="TBL-3-5-1"  
+class="td11">      \(\beta _{\delta }\)      </td><td  style="white-space:normal; text-align:left;" id="TBL-3-5-2"  
+class="td11"> <!--l. 186--><p class="noindent" >Transmission                     rate
+  of Non-Vaccinated getting Delta
+  Variant                                    </p></td><td  style="white-space:nowrap; text-align:center;" id="TBL-3-5-3"  
+class="td11">    0.35       </td><td  style="white-space:nowrap; text-align:center;" id="TBL-3-5-4"  
+class="td11"> Estimated  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-3-6-"><td  style="white-space:nowrap; text-align:center;" id="TBL-3-6-1"  
+class="td11">      \(\alpha _{0}\)      </td><td  style="white-space:normal; text-align:left;" id="TBL-3-6-2"  
+class="td11"> <!--l. 187--><p class="noindent" >Transmission rate of Vaccinated
+  getting Omicron Variant             </p></td><td  style="white-space:nowrap; text-align:center;" id="TBL-3-6-3"  
+class="td11">    0.25       </td><td  style="white-space:nowrap; text-align:center;" id="TBL-3-6-4"  
+class="td11"> Estimated  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-3-7-"><td  style="white-space:nowrap; text-align:center;" id="TBL-3-7-1"  
+class="td11">      \(\alpha _{\delta }\)      </td><td  style="white-space:normal; text-align:left;" id="TBL-3-7-2"  
+class="td11"> <!--l. 188--><p class="noindent" >Transmission rate of Vaccinated
+  getting Delta Variant                 </p></td><td  style="white-space:nowrap; text-align:center;" id="TBL-3-7-3"  
+class="td11">    0.25       </td><td  style="white-space:nowrap; text-align:center;" id="TBL-3-7-4"  
+class="td11"> Estimated  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-3-8-"><td  style="white-space:nowrap; text-align:center;" id="TBL-3-8-1"  
+class="td11">      \(\gamma _{0}\)      </td><td  style="white-space:normal; text-align:left;" id="TBL-3-8-2"  
+class="td11"> <!--l. 189--><p class="noindent" >Recovery   Rate   from   Omicron
+  Variant                                    </p></td><td  style="white-space:nowrap; text-align:center;" id="TBL-3-8-3"  
+class="td11">    0.14       </td><td  style="white-space:nowrap; text-align:center;" id="TBL-3-8-4"  
+class="td11"> Calculated  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-3-9-"><td  style="white-space:nowrap; text-align:center;" id="TBL-3-9-1"  
+class="td11">      \(\gamma _{\delta }\)      </td><td  style="white-space:normal; text-align:left;" id="TBL-3-9-2"  
+class="td11"> <!--l. 190--><p class="noindent" >Recovery    Rate    from    Delta
+  Variant                                    </p></td><td  style="white-space:nowrap; text-align:center;" id="TBL-3-9-3"  
+class="td11">    0.14       </td><td  style="white-space:nowrap; text-align:center;" id="TBL-3-9-4"  
+class="td11"> Calculated  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-3-10-"><td  style="white-space:nowrap; text-align:center;" id="TBL-3-10-1"  
+class="td11">      \(\mu _0\)      </td><td  style="white-space:normal; text-align:left;" id="TBL-3-10-2"  
+class="td11"> <!--l. 191--><p class="noindent" >Death rate due to omicron variant  </p></td><td  style="white-space:nowrap; text-align:center;" id="TBL-3-10-3"  
+class="td11">    0.005      </td><td  style="white-space:nowrap; text-align:center;" id="TBL-3-10-4"  
+class="td11"> Calculated  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-3-11-"><td  style="white-space:nowrap; text-align:center;" id="TBL-3-11-1"  
+class="td11">      \(\mu _\delta \)      </td><td  style="white-space:normal; text-align:left;" id="TBL-3-11-2"  
+class="td11"> <!--l. 192--><p class="noindent" >Death rate due to delta variant    </p></td><td  style="white-space:nowrap; text-align:center;" id="TBL-3-11-3"  
+class="td11">    0.0001      </td><td  style="white-space:nowrap; text-align:center;" id="TBL-3-11-4"  
+class="td11"> Calculated  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-3-12-"><td  style="white-space:nowrap; text-align:center;" id="TBL-3-12-1"  
+class="td11">      \(\mu \)      </td><td  style="white-space:normal; text-align:left;" id="TBL-3-12-2"  
+class="td11"> <!--l. 193--><p class="noindent" >Death rate                               </p></td><td  style="white-space:nowrap; text-align:center;" id="TBL-3-12-3"  
+class="td11"> 0.000019135  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-3-12-4"  
+class="td11"> Calculated  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-3-13-"><td  style="white-space:nowrap; text-align:center;" id="TBL-3-13-1"  
+class="td11">      \(\tau _1\)      </td><td  style="white-space:normal; text-align:left;" id="TBL-3-13-2"  
+class="td11"> <!--l. 194--><p class="noindent" >Rate                                   of
+  recovered  individuals  moving  to
+  non-vaccinated susceptible           </p></td><td  style="white-space:nowrap; text-align:center;" id="TBL-3-13-3"  
+class="td11">     0.1        </td><td  style="white-space:nowrap; text-align:center;" id="TBL-3-13-4"  
+class="td11"> Estimated  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-3-14-"><td  style="white-space:nowrap; text-align:center;" id="TBL-3-14-1"  
+class="td11">      \(\tau _2\)      </td><td  style="white-space:normal; text-align:left;" id="TBL-3-14-2"  
+class="td11"> <!--l. 195--><p class="noindent" >Rate   of   recovered   individuals
+  moving to vaccinated susceptible  </p></td><td  style="white-space:nowrap; text-align:center;" id="TBL-3-14-3"  
+class="td11">     0.9        </td><td  style="white-space:nowrap; text-align:center;" id="TBL-3-14-4"  
+class="td11"> Estimated  </td>
+
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-3-15-"><td  style="white-space:nowrap; text-align:center;" id="TBL-3-15-1"  
+class="td11">            </td></tr></table></div>
+</div>
+<span 
+class="cmbx-10">Assumptions for proposed model :</span>
+     <ul class="itemize1">
+     <li class="itemize">
+     <!--l. 202--><p class="noindent" >The infected population is homogeneously mixed with susceptible people.
+     </p></li>
+     <li class="itemize">
+     <!--l. 203--><p class="noindent" >The  recovered  individuals  may  have  temporary  immunity  but  are
+     vulnerable to catch the infection again.
+     </p></li>
+     <li class="itemize">
+     <!--l. 204--><p class="noindent" >The vaccinated individuals are prone to both disease variants.
+     </p></li>
+     <li class="itemize">
+     <!--l. 205--><p class="noindent" >The newly infected people are immediately contagious.</p></li></ul>
+                                                                  
+
+                                                                  
+<!--l. 207--><p class="noindent" >The governing system of the fractional-order non-linear differential equations which
+describes the proposed epidemic model is as follows: \begin{equation}  \def \arraystretch {1.2} \begin {array}{l} {{}_{0}^{C} D_{t}^{\phi } S =B-\beta _{0} { { S}{ I}}_{0} -\beta _{\delta } { { S}{ I}}_{\delta } -(\mu +\alpha ){ { S}}+\tau _{1} { { R}}} \\ {{}_{0}^{C} D_{t}^{\phi }V =\alpha { { S}}-\mu { { V}}-\alpha _{0} { { V}{ I}}_{0} -\alpha _{\delta } { { V}{ I}}_{\delta } +\tau _{2} { { R}}} \\ {{}_{0}^{C} D_{t}^{\phi }I_0 =\beta _{0}{ { S}}{ { I}}_{0} +\alpha _{0} { { V}}{ { I}}_{0} -(\mu +\mu _{0} +\gamma _{0} ){ { I}}_{0} } \\ {{}_{0}^{C} D_{t}^{\phi } I_\delta =\beta _{\delta } { { S}}{ { I}}_{\delta } +\alpha _{\delta } { { V}}{ { I}}_{\delta } -(\mu +\mu _{\delta } +\gamma _{\delta } ){ { I}}_{\delta } } \\ {{}_{0}^{C} D_{t}^{\phi } R =\gamma _{0} { { I}}_{0} +\gamma _{\delta } { { I}}_{\delta } -(\mu +\tau _{1} +\tau _{2} ){ { R}}} \end{array}  \label{fractionalsystem} \end{equation}
+with non-negative initial conditions \({S}(0)= {S}_{0} \) , \( {V}(0)={ { V}}_{0} \) , \({ { I}}_{0} (0)={ { I}}_{00} \) , \({ { I}}_{\delta } (0)={ { I}}_{\delta 0} \) , \({{ R}}(0)={ { R}}_{0} \). <span 
+class="cmbx-10">Note that: </span>The parameters used in
+the system (\(\ref{fractionalsystem}\)) are non-negative.
+</p>
+   <div class="newtheorem">
+<!--l. 219--><p class="noindent" ><span class="head">
+<a id="x1-5007r1"></a>
+<span 
+class="cmbx-10">Theorem 1.</span>  </span><span 
+class="cmti-10">The feasible region of the system \((\ref{fractionalsystem})\) is given by </span>\[\Omega = \left \{ \left ({S}, {V}, {I}_0 , {I}_\delta , {R} \right ) \in {\mathbb {R}}^{5}_{+} \mid {S}+ {V} + {I}_0 + {I}_\delta + {R} \leq N(0)+ \frac {B}{\mu } \right \}. \]
+</p>
+   </div>
+<!--l. 222--><p class="indent" >
+</p>
+   <div class="proof">
+<!--l. 224--><p class="indent" >   <span class="head">
+<span 
+class="cmti-10">Proof.</span> </span>Let us assume that \(N(t) = {S}(t) + {V}(t)+ {I}_0 (t) + {I}_\delta (t)+ {R}(t)\). Adding all the equations in system (\(\ref{fractionalsystem}\)), \begin {equation}  {}_{0}^{C} D_{t}^{\phi } N(t) = B- \mu N(t) -\mu _{0} I_{0}(t) -\mu _{\delta } I_{\delta }(t) \leq B-\mu N(t) \label{eqn6} \end {equation}
+Further, applying Laplace transform both sides into inequality (\(\ref{eqn6}\)), \[ s^\phi \mathcal {L}\{N(t)\} -s^{\phi -1} N(0) \leq \frac {B}{s} -\mu \mathcal {L}\{N(t)\} \] On solving, \[\mathcal {L}\{N(t)\} \leq \frac {B}{s(s^\phi +\mu )} + N(0) \frac {s^{\phi -1}}{s^\phi +\mu }\]
+Taking inverse Laplace transform and using equations (\(\ref{eqnmittag0}\)) , (\(\ref{eqnmittag1}\)) and (\(\ref{eqnmitaag2}\)), \begin {align*}  N(t) &amp;\leq B t^\phi E_{\phi , \phi +1}(-\mu t^\phi ) + N(0)E_{\phi , 1}(-\mu t^\phi ) \\\
+&amp; = \frac {B}{\mu }(1-E_{\phi } (-\mu t^\phi )) +N(0) E_{\phi }(-\mu t^\phi )  \end {align*}
+</p><!--l. 236--><p class="indent" >   Since \(0 \leq E_{\phi }(-\mu t^\phi ) \leq 1\), Thus, \[{S}(t) + {V}(t)+ {I}_0 (t) + {I}_\delta (t)+ {R}(t) = N(t) \leq \frac {B}{\mu } +N(0) \]                                                                               □
+</p>
+   </div>
+   <h4 class="subsectionHead"><span class="titlemark">3.1   </span> <a 
+ id="x1-60003.1"></a>Existence and Uniqueness of the solution</h4>
+   <div class="newtheorem">
+<!--l. 240--><p class="noindent" ><span class="head">
+<a 
+ id="x1-6001r1"></a>
+<span 
+class="cmbx-10">Lemma 1.</span>  </span> <span class="cite"><span 
+class="cmti-10">[</span><a 
+href="#XLin2007"><span 
+class="cmti-10">12</span></a><span 
+class="cmti-10">]</span></span><a 
+ id="x1-6002"></a> <span 
+class="cmti-10">The fractional-order system</span> \( _0^{C} D_{t}^{\phi } (X(t)) = F(t,X(t)) \) <span 
+class="cmti-10">such that</span> \(X(0)=X_0\) <span 
+class="cmti-10">has unique solution if</span>
+<span 
+class="cmti-10">following holds:</span> </p>
+     <ul class="itemize1">
+     <li class="itemize">
+     <!--l. 243--><p class="noindent" >\(F(t,X(t))\) <span 
+class="cmti-10">and</span> \(({\partial {F}}/{\partial {X}})(X)\) <span 
+class="cmti-10">are continuous functions.</span>
+     </p></li>
+     <li class="itemize">
+     <!--l. 244--><p class="noindent" >\(\| F(X) \| \leq K_1 +K_2 \| X \| \) <span 
+class="cmti-10">where</span> \(K_1\) <span 
+class="cmti-10">and</span> \(K_2\) <span 
+class="cmti-10">are positive constants.</span></p></li></ul>
+                                                                  
+
+                                                                  
+   </div>
+<!--l. 246--><p class="indent" >
+</p>
+   <div class="newtheorem">
+<!--l. 247--><p class="noindent" ><span class="head">
+<a 
+ id="x1-6003r2"></a>
+<span 
+class="cmbx-10">Theorem 2.</span>  </span><span 
+class="cmti-10">The solution of fractional order system (\(\ref{fractionalsystem}\)) exists and is unique.</span>
+</p>
+   </div>
+<!--l. 249--><p class="indent" >
+</p>
+   <div class="proof">
+<!--l. 250--><p class="indent" >   <span class="head">
+<span 
+class="cmti-10">Proof.</span> </span>The system (\(\ref{fractionalsystem}\)) of fractional order differential equations can be written as:
+\begin {equation}  _0^C D_t^{\phi } (X(t)) = F(X) = M_1 + M_2 X+ S M_3 X + V M_4 X  \label{eqnthm2-1} \end {equation}
+where \[ X(t) = \begin {bmatrix} S(t) \\ V(t) \\ I_0(t)\\ I_{\delta }(t) \\ R(t) \end {bmatrix} \text { and } M_1 = \begin {bmatrix} B \\ 0 \\ 0 \\ 0 \\ 0 \end {bmatrix} {\text { are column vectors.}} \] and rest \(M_2 , M_3, M_4\) are square matrices. \begin {align*}  M_2 = \begin {bmatrix} -(\mu +\alpha ) &amp; 0 &amp; 0 &amp; 0 &amp; \tau _1 \\ \alpha &amp; -\mu &amp; 0 &amp; 0 &amp; \tau _2 \\ 0 &amp; 0 &amp; -(\mu +\mu _0 +\gamma _0) &amp; 0 &amp;0 \\ 0&amp; 0 &amp;0 &amp; -(\mu +\mu _\delta + \gamma _\delta ) &amp;0 \\ 0 &amp;0 &amp; \gamma _0 &amp;\gamma _\delta &amp; -(\mu +\tau _1 +\tau _2) \end {bmatrix} ,&amp;&amp;  \end {align*}
+
+</p><!--l. 278--><p class="indent" >   \begin {align*}  M_3 = \begin {bmatrix} 0 &amp; 0 &amp; -\beta _{0} &amp; -\beta _{\delta } &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; \beta _0 &amp; \beta _{\delta } &amp;0 \\ 0&amp; 0 &amp;0 &amp; 0 &amp;0 \\ 0 &amp;0 &amp; 0&amp;0&amp; 0 \end {bmatrix} \text { and } M_4 = \begin {bmatrix} 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; -\alpha _{0} &amp; -\alpha _{\delta } &amp; 0 \\ 0 &amp; 0 &amp; \alpha _0 &amp; \alpha _{\delta } &amp;0 \\ 0&amp; 0 &amp;0 &amp; 0 &amp;0 \\ 0 &amp;0 &amp; 0&amp;0&amp; 0 \end {bmatrix}. &amp;&amp;  \end {align*}
+</p><!--l. 279--><p class="indent" >   Now, using norm both sides in equation (\(\ref{eqnthm2-1}\)) and properties of norm on \(C^*[0,T]\) \begin {align*} \lVert F(X) \rVert &amp;= \lVert M_1 + M_2 X+ S M_3 X + V M_4 X \rVert \\ &amp;\leq \lVert M_1 \rVert + \lVert M_2 X\rVert + \lVert S M_3 X \rVert + \lVert V M_4 X \rVert \\ &amp; \leq \lVert M_1 \rVert + \left ( \lVert M_2 \rVert + \lVert S M_3 \rVert + \lVert V M_4 \rVert \right ) \lVert X \rVert \\ &amp; \leq K_1 +K_2 \lVert X\rVert  \end {align*}
+</p><!--l. 286--><p class="indent" >   where \(K_1 =\lVert M_1 \rVert \) and \(K_2 = \left ( \lVert M_2 \rVert + \lVert S M_3 \rVert + \lVert V M_4 \rVert \right )\) are positive constants. Hence, using lemma (<a 
+href="#x1-6001r1">1<!--tex4ht:ref: lemma1 --></a>), system (\(\ref{fractionalsystem}\)) has the
+unique solution.                                                                                 □
+</p>
+   </div>
+<!--l. 288--><p class="noindent" >
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">3.2   </span> <a 
+ id="x1-70003.2"></a>Equilibrium Points</h4>
+<!--l. 289--><p class="noindent" >In this section, the equilibrium points of the system (\(\ref{fractionalsystem}\)) are evaluated. The points
+are the steady state solution of the system (\(\ref{fractionalsystem}\)). There are two equilibrium points of
+the proposed system to be analyzed for the proposed model. The disease free
+equilibrium point \(E^0\) is given by: \[E^0 =\left ( {S}=\frac {B}{\mu +\alpha },{V}=\frac {B \alpha }{\mu (\mu +\alpha )},{I}_{\delta }=0, {I}_0=0,{R}=0\right ) \] The endemic equilibrium point \(E^1\) is given by \[E^1 =\left ( {S}^*,{V}^*,{I}_{\delta }^*, {I}_0^*,{R}^*\right ) \] where \begin {align*}  S^* &amp;= \frac {\alpha _\delta (\mu +\mu _{0}+\gamma _{0}) - \alpha _{0} (\mu +\mu _\delta +\gamma _\delta )}{\beta _{0} \alpha _\delta -\alpha _{0} \beta _\delta } \\ V^* &amp;= \frac {\beta _{0} (\mu +\mu _\delta +\gamma _\delta ) -\beta _\delta (\gamma _{0}+\mu +\mu _{0})}{\beta _{0} \alpha _\delta -\alpha _{0} \beta _\delta }  \end {align*}
+</p><!--l. 299--><p class="indent" >   Further, \(I_0^* = \frac {A_1}{A_4} , I_\delta ^* =\frac {A_2}{A_4} , R^*=\frac {A_3}{A_4}\) where each \(A_1,A_2,A_3 \text { and }A_4\) can be written in terms of \(S^*, V^*\) and the disease parameters as
+follows: \begin {align*}  \begin {split} A_1 &amp; = -\beta _\delta \alpha (\mu +\tau _{1}+\tau _{2}) {S^*}^{2}+((\mu +\tau _{1}+\tau _{2}) ((-\mu -\alpha ) \alpha _\delta +\mu \beta _\delta ) V^* \\ &amp;\qquad + \gamma _\delta (\mu \tau _{2}+\alpha (\tau _{1}+\tau _{2}))) S^* + (B (\mu +\tau _{1}+\tau _{2}) \alpha _\delta -\gamma _\delta \mu \tau _{1}) V^* - B \tau _{2} \gamma _\delta \end {split}&amp;&amp;  \end {align*}
+
+</p><!--l. 310--><p class="indent" >   \begin {align*}  \begin {split} A_2 &amp; = \alpha \beta _{0} (\mu +\tau _{1}+\tau _{2}) {S^*}^{2}+(-(\mu +\tau _{1}+\tau _{2}) ((-\mu -\alpha ) \alpha _{0}+\beta _{0} \mu ) V^* \\ &amp;\qquad -\gamma _{0} (\mu \tau _{2}+\alpha (\tau _{1}+\tau _{2}))) S^* +(-B (\mu +\tau _{1}+\tau _{2}) \alpha _{0}+\gamma _{0} \mu \tau _{1}) V^* + B \gamma _{0} \tau _{2} \end {split}&amp;&amp;  \end {align*}
+
+                                                                  
+
+                                                                  
+</p><!--l. 315--><p class="indent" >   \begin {align*}  \begin {split} A_3 &amp; = -\alpha (-\beta _{0} \gamma _\delta +\gamma _{0} \beta _\delta ) {S^*}^{2}+V^* (-\gamma _{0} (\mu +\alpha ) \alpha _\delta +((\mu +\alpha ) \alpha _{0}-\beta _{0} \mu ) \gamma _\delta \\&amp;\qquad +\gamma _{0} \beta _\delta \mu ) S^* +B V^* (-\alpha _{0} \gamma _\delta +\gamma _{0} \alpha _\delta ) \end {split}  \end {align*}
+
+</p><!--l. 319--><p class="indent" >   \begin {align*}  A_4 &amp;= (-(\mu +\tau _{1}+\tau _{2}) (\alpha _{0} \beta _\delta -\beta _{0} \alpha _\delta ) V^*+\tau _{2} (-\beta _{0} \gamma _\delta +\gamma _{0} \beta _\delta )) S^* \\ &amp; \qquad - V^* \tau _{1} (-\alpha _{0} \gamma _\delta +\gamma _{0} \alpha _\delta ) &amp;&amp;  \end {align*}
+</p><!--l. 320--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">4   </span> <a 
+ id="x1-80004"></a>Calculation of basic reproduction number (\(\mathsf {R_0}\))</h3>
+<!--l. 321--><p class="noindent" >The next-generation matrix method <span class="cite">[<a 
+href="#XOtunuga2021">10</a>, <a 
+href="#XDiekmann1990">13</a>]</span><a 
+ id="x1-8001"></a> is used to calculate the basic
+reproduction number <span class="cite">[<a 
+href="#XJames2002">14</a>]</span><a 
+ id="x1-8002"></a> of the system. Consider the vectors \(\vec {x} = \left ({I}_0 , {I}_{\delta }\right )^T\) and \(\vec {y} = \left ({S} , {V}, {R}\right )^T\) , \[ _0^{C} D_t^{\phi } \vec {x}(t) =\vec {f}(t) - \vec {v}(t)\] \(\ni \) Let \(F\) and \(V\) be
+the corresponding Jacobian matrix of \(\vec {f}(t)\) and \(\vec {v}(t)\) respectively at the disease free
+equilibrium point \(E^0\), \begin {align*}  F(E^0) =\frac {B}{\mu (\mu + \alpha )} \begin {bmatrix} \mu \beta _{0} + \alpha \alpha _{0}&amp; 0 \\ 0 &amp; \mu \beta _{\delta } + \alpha \alpha _{\delta } \end {bmatrix} \text {,} V(E^0) = \begin {bmatrix} \gamma _{0}+\mu +\mu _{0} &amp; 0 \\ 0 &amp; \mu +\mu _{\delta }+\gamma _{\delta } \end {bmatrix} &amp;&amp; \end {align*}
+</p><!--l. 334--><p class="indent" >   The matrix \(V\) is non-singular and the basic reproduction number \(\mathsf {R_0}\) is the
+spectral radius of the matrix \(F V^{-1}\) evaluated at \(E^0\). \[\mathsf {R_0} = \rho (FV^{-1}) = \sup \left [ \frac {B(\alpha \alpha _{0}+\beta _{0}\mu )}{\mu (\mu +\alpha )(\gamma _{0}+\mu +\mu _{0})} , \frac {B(\alpha \alpha _{\delta }+\mu \beta _{\delta })}{\mu (\mu +\alpha )(\mu +\mu _{\delta }+\gamma _{\delta })} \right ] \] The basic reproduction number (\(\mathsf {R_0}\))
+denotes the average number of secondary infections induced by an infected
+individual in a fully susceptible population. In the above context, first term in
+sup expression of \(\mathsf {R_0}\) denotes the basic reproduction number corresponding to
+Omicron infection and the second term denotes reproduction-number for Delta
+variant.
+</p>
+   <h3 class="sectionHead"><span class="titlemark">5   </span> <a 
+ id="x1-90005"></a>Stability</h3>
+<!--l. 340--><p class="noindent" >In this section, the stability conditions of the model are investigated about
+equilibrium points.
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">5.1   </span> <a 
+ id="x1-100005.1"></a>Local Stability of the disease-free equilibrium \(E^0\)</h4>
+   <div class="newtheorem">
+<!--l. 342--><p class="noindent" ><span class="head">
+<a 
+ id="x1-10001r2"></a>
+<span 
+class="cmbx-10">Lemma 2.</span>  </span><span class="cite"><span 
+class="cmti-10">[</span><a 
+href="#XDiethelm2010"><span 
+class="cmti-10">15</span></a><span 
+class="cmti-10">,</span><span 
+class="cmti-10"> </span><a 
+href="#XPanja2019"><span 
+class="cmti-10">16</span></a><span 
+class="cmti-10">]</span></span><a 
+ id="x1-10002"></a> <span 
+class="cmti-10">Consider the fractional-order system </span>\[ {}_{0}^{C} D_{t}^{\phi } x = Ax \, , x(0) =x_0 \] <span 
+class="cmti-10">where</span> \(A\) <span 
+class="cmti-10">is arbitirary matrix</span>
+<span 
+class="cmti-10">and</span> \(\phi \in (0,1)\) </p>
+     <ul class="itemize1">
+     <li class="itemize">
+     <!--l. 346--><p class="noindent" ><span 
+class="cmti-10">The trivial solution is asymptotically stable if and only if all the eigenvalues</span>
+     \(\lambda _j\) <span 
+class="cmti-10">of matrix</span> \(A\) <span 
+class="cmti-10">satisfy</span> \(\lvert arg(\lambda _j )\rvert &gt; \frac {\phi \pi }{2} \) <span 
+class="cmti-10">for</span> \(j=1,2,3,\cdots ,n.\)
+     </p></li>
+     <li class="itemize">
+     <!--l. 347--><p class="noindent" ><span 
+class="cmti-10">The trivial solution is stable if and only if all the eigenvalues of matrix</span>
+     \(A\) <span 
+class="cmti-10">satisfy</span>  \(\lvert arg(\lambda _j )\rvert \geq \frac {\phi \pi }{2} \)  <span 
+class="cmti-10">and  eigenvalues  with</span>  \(\lvert arg(\lambda _j )\rvert = \frac {\phi \pi }{2} \)  <span 
+class="cmti-10">have  same  algebraic  and  geometric</span>
+     <span 
+class="cmti-10">multiplicity for</span> \(j=1,2,3,\cdots ,n.\)</p></li></ul>
+                                                                  
+
+                                                                  
+   </div>
+<!--l. 349--><p class="indent" >
+</p>
+   <div class="newtheorem">
+<!--l. 350--><p class="noindent" ><span class="head">
+<a 
+ id="x1-10003r3"></a>
+<span 
+class="cmbx-10">Theorem 3.</span>  </span><span 
+class="cmti-10">The disease-free equilibrium point</span> \(E^0\) <span 
+class="cmti-10">of the system (\(\ref{fractionalsystem}\)) is locally</span>
+<span 
+class="cmti-10">asymptotically stable if</span> \(\mathsf {R_0} &lt; 1\) <span 
+class="cmti-10">and unstable if</span> \(\mathsf {R_0} &gt;1\)<span 
+class="cmti-10">.</span>
+</p>
+   </div>
+<!--l. 352--><p class="indent" >
+</p>
+   <div class="proof">
+<!--l. 354--><p class="indent" >   <span class="head">
+<span 
+class="cmti-10">Proof.</span> </span>The Jacobian of the system (\(\ref{fractionalsystem}\)) is given by \[ J = \begin {pmatrix} \begin {matrix}-\beta _0 I_0-\beta _\delta I_{\delta }\\ -\alpha -\mu \end {matrix}&amp; 0 &amp; -\beta _0S &amp; -\beta _{\delta }S &amp; \tau _{1} \\[2.5ex] \alpha &amp; \begin {matrix} -\alpha _{0}I_0-\alpha _\delta I_{\delta } \\ -\mu \end {matrix} &amp; -\alpha _{0}V &amp; -\alpha _\delta V &amp; \tau _{2} \\[2.5ex] \beta _0I_0 &amp; \alpha _{0}I_0 &amp; \begin {matrix} \beta _0 S+\alpha _{0} V \\ -\gamma _{0}-\mu -\mu _{0} \end {matrix} &amp; 0 &amp; 0 \\[2.5ex] \beta _\delta I_{\delta } &amp; \alpha _\delta I_{\delta } &amp; 0 &amp; \begin {matrix} \beta _\delta S+\alpha _\delta V \\ -\mu -\gamma _\delta -\mu _\delta \end {matrix} &amp; 0 \\[2.5ex] 0 &amp; 0 &amp; \gamma _{0} &amp; \gamma _\delta &amp; -\mu -\tau _{1}-\tau _{2} \end {pmatrix}. \] At disease-free equilibrium point
+\(E^0\), \begin {align*}  J(E^0)=\begin {pmatrix} -\alpha -\mu &amp; 0 &amp; \frac {-\beta _0 B}{\mu +\alpha } &amp; \frac {-B\beta _{\delta }}{\mu +\alpha } &amp; \tau _{1} \\[2.5ex] \alpha &amp; -\mu &amp; \frac {-\alpha _0 B \alpha }{\mu \left (\mu +\alpha \right )} &amp; \frac {-\alpha _\delta B \alpha }{\mu \left (\mu +\alpha \right )} &amp; \tau _2 \\[2.5ex] 0 &amp; 0 &amp; \begin {matrix}\frac {(B \mu \beta _0 +B \alpha \alpha _0)}{\mu \left (\mu +\alpha \right )} \\ -\gamma _0 -\mu -\mu _0 \end {matrix} &amp; 0 &amp; 0 \\[2.5ex] 0 &amp; 0 &amp; 0 &amp; \begin {matrix}\frac {(B \mu \beta _\delta +B \alpha \alpha _\delta )}{\mu \left (\mu +\alpha \right )} \\ -\mu -\gamma _\delta -\mu _\delta \end {matrix} &amp; 0 \\[2.5ex] 0 &amp; 0 &amp; \gamma _0 &amp; \gamma _\delta &amp; -\mu -\tau _1 -\tau _2 \end {pmatrix}&amp;&amp;  \end {align*}
+</p><!--l. 384--><p class="indent" >   The eigenvalues of the matrix \(J(E^0)\) are as follows, \begin {align*} \lambda _1 &amp;= -\mu \\ \lambda _2 &amp;= -\mu -\tau _1 - \tau _2 \\ \lambda _3 &amp;= -\mu -\alpha \\ \lambda _4 &amp;= \frac {B\alpha \alpha _\delta +B\mu \beta _\delta -\alpha \mu ^{2}-\alpha \mu \gamma _\delta -\alpha \mu \mu _\delta -\mu ^{3}-\mu ^{2}\gamma _\delta -\mu ^{2}\mu _\delta }{\mu (\mu +\alpha )} \\ \lambda _5 &amp;= \frac {B\alpha \alpha _0 +B\mu \beta _0-\alpha \mu ^{2}-\alpha \mu \gamma _0-\alpha \mu \mu _0-\mu ^{3}-\mu ^{2}\gamma _0-\mu ^{2}\mu _0}{\mu (\mu +\alpha )}  \end {align*}
+</p><!--l. 391--><p class="noindent" >It can be observed that \(\lambda _1 \, , \lambda _2 \, , \lambda _3\) are negative and \[ \lambda _4 &lt;0 \iff \frac {B(\alpha \alpha _{\delta }+\mu \beta _{\delta })}{\mu (\mu +\alpha )(\mu +\mu _{\delta }+\gamma _{\delta })} &lt; 1 \]
+</p><!--l. 394--><p class="noindent" >Similarly, \[ \lambda _5 &lt;0 \iff \frac {B(\alpha \alpha _{0}+\beta _{0}\mu )}{\mu (\mu +\alpha )(\gamma _{0}+\mu +\mu _{0})} &lt; 1 \]
+</p><!--l. 397--><p class="noindent" >Consequently, \begin {align*} R_0 &amp;= \sup \left [ \frac {B(\alpha \alpha _{0}+\beta _{0}\mu )}{\mu (\mu +\alpha )(\gamma _{0}+\mu +\mu _{0})} , \frac {B(\alpha \alpha _{\delta }+\mu \beta _{\delta })}{\mu (\mu +\alpha )(\mu +\mu _{\delta }+\gamma _{\delta })} \right ] &lt; 1 \\ &amp; \quad \Updownarrow \\ &amp; \text {eigenvalues} \lambda _4 \text { and } \lambda _5 \text { are negative.}  \end {align*}
+</p><!--l. 402--><p class="indent" >   Therefore, all eigenvalues of matrix \(J(E^0)\) have negative real part if and only if \(\mathsf {R_0} &lt; 1\). Thus,
+whenever \(\mathsf {R_0} &lt; 1\), argument of each eigenvalue has absolute value \(\pi \). \[\lvert arg(\lambda _j) \rvert = \pi &gt; \frac {\phi \pi }{2} \hspace {2cm} \text {for each } j=1,2,3,4,5.\]
+</p><!--l. 404--><p class="noindent" >Hence, the disease-free equillibirium point \(E^0\) of the system (\(\ref{fractionalsystem}\)) is locally
+asymptotically stable if and only if \(\mathsf {R_0} &lt; 1\).
+</p><!--l. 406--><p class="noindent" >Whenever \(\mathsf {R_0} &gt; 1\) , the eigenvalues \(\lambda _4\) and \(\lambda _5\) are positive. So, disease-free equilibrium point \(E^0\) of
+the system (\(\ref{fractionalsystem}\)) is unstable.                                                                 □
+</p>
+   </div>
+<!--l. 408--><p class="noindent" >Next, the stability conditions of the endemic equilibrium point are observed.
+</p>
+   <h4 class="subsectionHead"><span class="titlemark">5.2   </span> <a 
+ id="x1-110005.2"></a>Local stability of the endemic equilibrium point \(E^1\)</h4>
+   <div class="newtheorem">
+<!--l. 410--><p class="noindent" ><span class="head">
+<a 
+ id="x1-11001r4"></a>
+                                                                  
+
+                                                                  
+<span 
+class="cmbx-10">Theorem 4.</span>  </span><span 
+class="cmti-10">The endemic point</span> \(E^1\) <span 
+class="cmti-10">of the system (\(\ref{fractionalsystem}\)) is locally asymptotically stable if</span>
+<span 
+class="cmti-10">following condition holds,</span>
+     </p><ol  class="enumerate1" >
+<li 
+  class="enumerate" id="x1-11002x4">
+     <!--l. 413--><p class="noindent" >\begin {multline*} (\beta _0 +\beta _{\delta })S^* +(\alpha _0 +\alpha _\delta )V^* &lt; (\alpha _0 +\beta _{0})I_0^* +(\alpha _{\delta }+\beta _{\delta })I_\delta ^* +\alpha +4\mu +\mu _\delta \\ + \mu _0+\gamma _\delta +\gamma _{0} \end {multline*}
+     </p></li></ol>
+   </div>
+<!--l. 415--><p class="indent" >
+</p>
+   <div class="proof">
+<!--l. 417--><p class="indent" >   <span class="head">
+<span 
+class="cmti-10">Proof.</span> </span>The Jacobian of system (\(\ref{fractionalsystem}\)) at endemic equilibrium point \(E^1\) is given by \[J^* = \begin {pmatrix} \begin {matrix}-\beta _0 I_0^{*}-\beta _\delta I_{\delta }^{*}\\ -\alpha -\mu \end {matrix}&amp; 0 &amp; -\beta _0S^{*} &amp; -\beta _{\delta }S^{*} &amp; \tau _{1} \\[2.5ex] \alpha &amp; \begin {matrix} -\alpha _{0}I_0^{*}-\alpha _\delta I_{\delta }^{*} \\ -\mu \end {matrix} &amp; -\alpha _{0}V^{*} &amp; -\alpha _\delta V^{*} &amp; \tau _{2} \\[2.5ex] \beta _0I_0^{*} &amp; \alpha _{0}I_0^{*} &amp; \begin {matrix} \beta _0 S^{*}+\alpha _{0} V^{*} \\ -\gamma _{0}-\mu -\mu _{0} \end {matrix} &amp; 0 &amp; 0 \\[2.5ex] \beta _\delta I_{\delta }^{*} &amp; \alpha _\delta I_{\delta }^{*} &amp; 0 &amp; \begin {matrix} \beta _\delta S^{*}+\alpha _\delta V^{*} \\ -\mu -\gamma _\delta -\mu _\delta \end {matrix} &amp; 0 \\[2.5ex] 0 &amp; 0 &amp; \gamma _{0} &amp; \gamma _\delta &amp; -\mu -\tau _{1}-\tau _{2} \end {pmatrix} \]. The
+characteristic polynomial of matrix \(J^*\) is as follows, \begin {equation}  P(\lambda ) = (\lambda + \mu + \tau _{1} + \tau _{2})(\lambda ^4 + k_3 \lambda ^3+ k_2 \lambda ^2 + k_1 \lambda + k_0 ). \label{poleqn7} \end{equation}
+where the coefficients \(k_0,k_1,k_2,k_3\) are defined as, \begin {align*}  k_3 &amp;= I_0^*(\alpha _{0} +\beta _{0})-(\beta _{0}+\beta _\delta ) S^*-(\alpha _{0}+\alpha _\delta )V+^*(\alpha _\delta +\beta _\delta ) I_{\delta }^* +\alpha +\gamma _{0} +4\mu +\mu _{0}+\gamma _\delta +\mu _\delta  \end {align*}
+
+</p><!--l. 445--><p class="indent" >   \begin {align*}  k_2 &amp;= 6 \mu ^{2}+3\mu (( \beta _\delta + \alpha _\delta ) I_{\delta }^*+( \beta _0+ \alpha _{0}) I_0^* - (\beta _\delta + \beta _0) S^*- (\alpha _\delta V^*+ \alpha _{0}) V^*+\\ &amp; \qquad (\mu _\delta + \gamma _\delta )+( \mu _{0}+ \alpha + \gamma _0)) +{I_{\delta }^*}^{2} \beta _\delta \alpha _\delta +((\alpha _{0} \beta _\delta +\beta _0 \alpha _\delta ) I_0^* +(-\alpha _{0} V^* \\ &amp; \qquad +(-S^*-V^*) \beta _\delta -\beta _0 S^*+\mu _\delta +\gamma _\delta +\mu _{0}+\alpha +\gamma _0) \alpha _\delta -\beta _\delta (\beta _0 S^*\\ &amp; \qquad +\alpha _{0} V^* -\gamma _0-\mu _{0}-\gamma _\delta -\mu _\delta )) I_{\delta }^*+{I_0^*} ^{2} \alpha _{0} \beta _0+(-V^* (\beta _0+\alpha _{0}) \alpha _\delta + \\ &amp; \qquad (-\beta _\delta S^* +(-S^*-V^*) \beta _0+\mu _\delta +\gamma _\delta +\mu _{0}+\alpha +\gamma _0) \alpha _{0}-\beta _0 (\beta _\delta S^*\\ &amp; \qquad -\gamma _0-\mu _{0} -\gamma _\delta -\mu _\delta )) I_0^* +V^* (\beta _0 S^*+\alpha _{0} V^*-\alpha -\gamma _0-\mu _{0}) \alpha _\delta \\ &amp; \qquad +V^* (\beta _\delta S^*-\alpha -\gamma _\delta -\mu _\delta ) \alpha _{0}+ S^* (\beta _0 S^*-\alpha -\gamma _0-\mu _{0}) \beta _\delta -S^* (\mu _\delta \\ &amp; \qquad +\gamma _\delta +\alpha ) \beta _0 +(\mu _\delta +\gamma _\delta +\mu _{0}+\gamma _0) \alpha +(\mu _{0}+\gamma _0) (\mu _\delta +\gamma _\delta ) &amp;&amp; \end {align*}
+
+</p><!--l. 471--><p class="indent" >   \begin {align*}  k_0 &amp;=\mu ^{4}+((\beta _\delta +\alpha _\delta ) {I^*_\delta }+(\beta _{0}+\alpha _{0}) {{I_0^*}}-\beta _\delta {S^*}-\beta _{0} {S^*}-\alpha _\delta {V^*}-\alpha _{0} {V^*}+\mu _\delta +\\ &amp;\qquad \gamma _\delta +\mu _{0}+\alpha +\gamma _{0}) \mu ^{3} +({I^*_\delta }^{2} \beta _\delta \alpha _\delta +((\alpha _{0} \beta _\delta +\beta _{0} \alpha _\delta ) {{I_0^*}}+(-\alpha _{0} {V^*}+\\ &amp;\qquad (-{S^*}- {V^*}) \beta _\delta -\beta _{0} {S^*} +\mu _\delta +\gamma _\delta +\mu _{0}+\alpha +\gamma _{0}) \alpha _\delta -\beta _\delta (\beta _{0} {S^*}+\alpha _{0} {V^*}-\\ &amp;\qquad \gamma _{0}-\mu _{0} -\gamma _\delta -\mu _\delta )) {I^*_\delta }+{{I_0^*}}^{2} \alpha _{0} \beta _{0}+(-{V^*} (\beta _{0}+\alpha _{0}) \alpha _\delta +(-\beta _\delta {S^*}+(-{S^*}\\ &amp;\qquad -{V^*}) \beta _{0} +\mu _\delta +\gamma _\delta +\mu _{0}+\alpha +\gamma _{0}) \alpha _{0}-\beta _{0} (\beta _\delta {S^*}-\gamma _{0}-\mu _{0}-\gamma _\delta -\mu _\delta )) \\ &amp; \qquad {{I_0^*}}+{V^*} (\beta _{0} {S^*}+\alpha _{0} {V^*}-\alpha -\gamma _{0}-\mu _{0}) \alpha _\delta +{V^*} (\beta _\delta {S^*}-\alpha -\gamma _\delta -\mu _\delta ) \alpha _{0}+\\ &amp; \qquad {S^*} (\beta _{0} {S^*} -\alpha -\gamma _{0}-\mu _{0}) \beta _\delta -{S^*} (\mu _\delta +\gamma _\delta +\alpha ) \beta _{0}+(\mu _\delta +\gamma _\delta +\mu _{0}+\gamma _{0}) \alpha \\ &amp; \qquad +(\mu _{0}+ \gamma _{0}) (\mu _\delta +\gamma _\delta )) \mu ^{2} +(-\beta _\delta \alpha _\delta (\beta _{0} {S^*}+\alpha _{0} {V^*}-\gamma _{0}-\mu _{0}-\gamma _\delta -\mu _\delta )\\ &amp; \qquad {I^*_\delta }^{2} +(((-{V^*} (\beta _\delta +\beta _{0}) \alpha _{0} -\beta _{0} (\beta _\delta {S^*}-\gamma _{0}-\mu _{0}-\gamma _\delta -\mu _\delta )) \alpha _\delta -\beta _\delta \alpha _{0} (\beta _{0}\\ &amp; \qquad {S^*} -\gamma _{0}-\mu _{0}-\gamma _\delta -\mu _\delta )) {{I_0^*}}+((({S^*}+{V^*}) \beta _\delta -\mu _\delta -\gamma _\delta -\alpha ) {V^*} \alpha _{0} +(\beta _{0} \\ &amp; \qquad {S^*} -\gamma _{0}-\mu _{0}) ({S^*}+{V^*}) \beta _\delta -{S^*} (\mu _\delta +\gamma _\delta +\alpha ) \beta _{0}+(\mu _\delta +\gamma _\delta +\mu _{0}+\gamma _{0}) \alpha \\ &amp; \qquad + (\mu _{0}+\gamma _{0}) (\mu _\delta +\gamma _\delta )) \alpha _\delta -\beta _\delta (\mu _\delta +\gamma _\delta ) (\beta _{0} {S^*}+\alpha _{0} {V^*}-\gamma _{0}-\mu _{0})) {I^*_\delta } \\&amp; \qquad -\beta _{0} \alpha _{0} (\beta _\delta {S^*}+\alpha _\delta {V^*}-\gamma _{0}-\mu _{0}-\gamma _\delta -\mu _\delta ) {{I_0^*}}^{2}+(((({S^*}+{V^*}) \beta _{0} -\mu _{0} \\ &amp; \qquad -\alpha -\gamma _{0}) \alpha _{0}-\beta _{0} (\mu _{0}+\gamma _{0})) {V^*} \alpha _\delta +((({S^*}+{V^*}) \beta _{0}-\mu _{0}-\alpha -\gamma _{0}) {S^*} \beta _\delta \\ &amp; \qquad -(\mu _\delta +\gamma _\delta ) ({S^*}+{V^*}) \beta _{0} +(\mu _\delta +\gamma _\delta +\mu _{0}+\gamma _{0}) \alpha +(\mu _{0}+\gamma _{0}) (\mu _\delta +\gamma _\delta ))\\ &amp; \qquad \alpha _{0} -\beta _{0} (\mu _{0}+\gamma _{0}) (\beta _\delta {S^*}-\gamma _\delta -\mu _\delta )) {{I_0^*}}+\alpha (\beta _{0} {S^*}+\alpha _{0} {V^*}-\gamma _{0}-\mu _{0}) (\beta _\delta {S^*} \\ &amp; \qquad +\alpha _\delta {V^*}-\gamma _\delta -\mu _\delta )) \mu -\beta _\delta \alpha _\delta (\mu _\delta +\gamma _\delta ) (\beta _{0} {S^*}+\alpha _{0} {V^*}-\gamma _{0}-\mu _{0}) {I^*_\delta }^{2}\\ &amp; \qquad +(((-((\mu _{0}+\gamma _{0}) \beta _\delta + \beta _{0} (\mu _\delta +\gamma _\delta )) {V^*} \alpha _{0} -\beta _{0} (\mu _{0}+\gamma _{0}) (\beta _\delta {S^*}-\gamma _\delta \\ &amp; \qquad -\mu _\delta )) \alpha _\delta -\beta _\delta \alpha _{0} (\mu _\delta +\gamma _\delta ) (\beta _{0} {S^*}-\gamma _{0}-\mu _{0})) {{I_0^*}}-\alpha _\delta \alpha (\mu _\delta +\gamma _\delta ) \\ &amp; \qquad (\beta _{0} {S^*}+\alpha _{0} {V^*}-\gamma _{0}-\mu _{0})) {I^*_\delta } -{{I_0^*}} \alpha _{0} (\mu _{0}+\gamma _{0}) ({{I_0^*}} \beta _{0}+\alpha ) (\beta _\delta {S^*} \\ &amp; \qquad +\alpha _\delta {V^*}-\gamma _\delta -\mu _\delta ) &amp;&amp;  \end {align*}
+
+</p><!--l. 484--><p class="indent" >   \begin {align*}  k_1 &amp;= 4 \mu ^{3}+((3 \beta _\delta +3 \alpha _\delta ) {I_{\delta }^{*}}+(3 \beta _{0}+3 \alpha _{0}) {I_0^{*}}-3 \beta _\delta {S^{*}}-3 \beta _{0} {S^{*}}-3 \alpha _\delta {V^{*}}-3 \alpha _{0} {V^{*}} \\ &amp; \qquad +3 \mu _\delta +3 \gamma _\delta +3 \mu _{0}+3 \alpha +3 \gamma _{0}) \mu ^{2} +(2 {I_{\delta }^{*}}^{2} \beta _\delta \alpha _\delta +((2 \alpha _{0} \beta _\delta +2 \beta _{0} \alpha _\delta ) {I_0^{*}}\\ &amp; \qquad +(-2 \alpha _{0} {V^{*}}+(-2 {S^{*}}-2 {V^{*}}) \beta _\delta -2 \beta _{0} {S^{*}}+2 \mu _\delta +2 \gamma _\delta +2 \mu _{0}+2 \alpha +2 \gamma _{0})\\ &amp; \qquad \alpha _\delta -2 \beta _\delta (\beta _{0} {S^{*}}+\alpha _{0} {V^{*}}-\gamma _{0}-\mu _{0}-\gamma _\delta -\mu _\delta )) {I_{\delta }^{*}}+2 {I_0^{*}}^{2} \alpha _{0} \beta _{0}+(-2 {V^{*}} (\beta _{0}\\ &amp; \qquad + \alpha _{0}) \alpha _\delta +(-2 \beta _\delta {S^{*}}+(-2 {S^{*}}-2 {V^{*}}) \beta _{0} +2 \mu _\delta +2 \gamma _\delta +2 \mu _{0}+2 \alpha +2 \gamma _{0}) \\ &amp; \qquad \alpha _{0} -2 \beta _{0} (\beta _\delta {S^{*}}-\gamma _{0}-\mu _{0}-\gamma _\delta -\mu _\delta )) {I_0^{*}}+2 {V^{*}} (\beta _{0} {S^{*}}+\alpha _{0} {V^{*}}-\alpha -\gamma _{0}-\\ &amp; \qquad \mu _{0}) \alpha _\delta + 2 {V^{*}} (\beta _\delta {S^{*}}-\alpha -\gamma _\delta -\mu _\delta )\alpha _{0}+2 {S^{*}} (\beta _{0} {S^{*}}-\alpha -\gamma _{0}-\mu _{0}) \beta _\delta \\ &amp; \qquad -2 {S^{*}} (\mu _\delta +\gamma _\delta +\alpha ) \beta _{0}+(2 \mu _\delta +2 \gamma _\delta +2 \mu _{0}+2 \gamma _{0}) \alpha +2 (\mu _{0}+\gamma _{0}) (\mu _\delta +\\ &amp;\qquad \gamma _\delta )) \mu -\beta _\delta \alpha _\delta (\beta _{0} {S^{*}}+\alpha _{0} {V^{*}}-\gamma _{0}-\mu _{0}-\gamma _\delta -\mu _\delta ) {I_{\delta }^{*}}^{2}+(((-{V^{*}} (\beta _\delta +\beta _{0}) \\ &amp; \qquad \alpha _{0} -\beta _{0} (\beta _\delta {S^{*}} -\gamma _{0} -\mu _{0}-\gamma _\delta -\mu _\delta )) \alpha _\delta -\beta _\delta \alpha _{0} (\beta _{0} {S^{*}}-\gamma _{0}-\mu _{0}-\gamma _\delta -\mu _\delta \\ &amp; \qquad )) {I_0^{*}} +((({S^{*}}+{V^{*}}) \beta _\delta -\mu _\delta -\gamma _\delta -\alpha ) {V^{*}} \alpha _{0}+ (\beta _{0} {S^{*}}-\gamma _{0}-\mu _{0}) ({S^{*}}+{V^{*}})\\ &amp; \qquad \beta _\delta -{S^{*}} (\mu _\delta +\gamma _\delta +\alpha ) \beta _{0}+(\mu _\delta +\gamma _\delta +\mu _{0}+\gamma _{0}) \alpha +(\mu _{0}+\gamma _{0}) (\mu _\delta +\gamma _\delta )) \alpha _\delta \\ &amp; \qquad -\beta _\delta (\mu _\delta +\gamma _\delta ) (\beta _{0} {S^{*}}+\alpha _{0} {V^{*}}-\gamma _{0}-\mu _{0})) {I_{\delta }^{*}}-\beta _{0} \alpha _{0} (\beta _\delta {S^{*}}+\alpha _\delta {V^{*}}-\gamma _{0}-\\ &amp; \qquad \mu _{0}-\gamma _\delta -\mu _\delta ) {I_0^{*}}^{2}+(((({S^{*}}+{V^{*}}) \beta _{0}-\mu _{0}-\alpha -\gamma _{0}) \alpha _{0}-\beta _{0} (\mu _{0}+\gamma _{0})) \\ &amp; \qquad {V^{*}} \alpha _\delta +((({S^{*}} +{V^{*}}) \beta _{0}-\mu _{0}-\alpha -\gamma _{0}) {S^{*}} \beta _\delta -(\mu _\delta +\gamma _\delta ) ({S^{*}}+{V^{*}}) \beta _{0} + \\ &amp; \qquad (\mu _\delta +\gamma _\delta +\mu _{0}+\gamma _{0}) \alpha +(\mu _{0}+\gamma _{0}) (\mu _\delta +\gamma _\delta )) \alpha _{0}-\beta _{0} (\mu _{0}+\gamma _{0}) (\beta _\delta {S^{*}}-\gamma _\delta \\ &amp;\qquad -\mu _\delta )) {I_0^{*}}+ \alpha (\beta _{0} {S^{*}} +\alpha _{0} {V^{*}} -\gamma _{0}-\mu _{0}) (\beta _\delta {S^{*}}+ \alpha _\delta {V^{*}}-\gamma _\delta -\mu _\delta ) &amp;&amp;  \end {align*}
+</p><!--l. 485--><p class="indent" >   Using Routh-Hurwitz criteria <span class="cite">[<a 
+href="#XBeards1995">17</a>, <a 
+href="#XAhmed2007">18</a>]</span><a 
+ id="x1-11003"></a>, characteristic polynomial (\(\ref{poleqn7}\)) has
+eigenvalues with negative real part if \(k_0, k_1, k_3 &gt;0\) and \(k_1k_2k_3 &gt;k_1^2 +k_3^2k_0\) that gives the required stability conditions
+around \(E^1\).                                                                                           □
+</p>
+   </div>
+<!--l. 487--><p class="noindent" >
+</p>
+   <h3 class="sectionHead"><span class="titlemark">6   </span> <a 
+ id="x1-120006"></a>Memory trace and hereditary trait</h3>
+<!--l. 488--><p class="noindent" >In this section, numerical solution is obtained using L1 scheme <span class="cite">[<a 
+href="#XNaik2020">8</a>, <a 
+href="#XTeka2018">9</a>]</span><a 
+ id="x1-12001"></a>. The numerical
+approximation of the Caputo fractional-order derivative of the function \(f(t)\) is described
+as \begin {equation*}  _0^C D^\phi _t f(t) \approx \frac {(dt)^{-\phi }}{\Gamma (2-\phi )} \left [\sum _{k=0}^{T-1} \left (f(t_{k+1}) -f(t_k)\right ) \left ((T-k)^{1-\phi } -(T-1-k)^{1-\phi }\right )\right ]  \end {equation*}
+Now, the above approximation is done for each equation of the fractional-order
+system (\(\ref{fractionalsystem}\)), \begin {equation*}  _0^C D^\phi _t S(t) \approx \frac {(dt)^{-\phi }}{\Gamma (2-\phi )} \left [\sum _{k=0}^{T-1} \left (S(t_{k+1}) -S(t_k)\right ) \left ((T-k)^{1-\phi } -(T-1-k)^{1-\phi }\right )\right ]  \end {equation*}
+\begin {equation*}  _0^C D^\phi _t V(t) \approx \frac {(dt)^{-\phi }}{\Gamma (2-\phi )} \left [\sum _{k=0}^{T-1} \left (V(t_{k+1}) -V(t_k)\right ) \left ((T-k)^{1-\phi } -(T-1-k)^{1-\phi }\right )\right ]  \end {equation*}
+\begin {equation*}  _0^C D^\phi _t I_0(t) \approx \frac {(dt)^{-\phi }}{\Gamma (2-\phi )} \left [\sum _{k=0}^{T-1} \left (I_0 (t_{k+1}) -I_0(t_k)\right ) \left ((T-k)^{1-\phi } -(T-1-k)^{1-\phi }\right )\right ]  \end {equation*}
+\begin {equation*}  _0^C D^\phi _t I_\delta (t) \approx \frac {(dt)^{-\phi }}{\Gamma (2-\phi )} \left [\sum _{k=0}^{T-1} \left (I_\delta (t_{k+1}) -I_\delta (t_k)\right ) \left ((T-k)^{1-\phi } -(T-1-k)^{1-\phi }\right )\right ]  \end {equation*}
+\begin {equation*}  _0^C D^\phi _t R(t) \approx \frac {(dt)^{-\phi }}{\Gamma (2-\phi )} \left [\sum _{k=0}^{T-1} \left (R(t_{k+1}) -R(t_k)\right ) \left ((T-k)^{1-\phi } -(T-1-k)^{1-\phi }\right )\right ]  \end {equation*}
+Using the definition of Caputo derivative and above equations, the numerical solution
+                                                                  
+
+                                                                  
+of each equation is given by difference of Markov term and Memory trace.
+</p>
+     <ul class="itemize1">
+     <li class="itemize">
+     <!--l. 510--><p class="noindent" ><span 
+class="cmbx-10">For Omicron variant (</span>\(I_0\)<span 
+class="cmbx-10">) : </span>\[{I_0}({t_T}) \approx \text {Markov Term of $I_0$} - \text {Memory Trace of $I_0$}\] where Markov term and Memory trace for \(I_0\) are
+     given by: \begin {align*}  &amp;\text {Markov Term} = dt^\phi \Gamma (2-\phi ) F(X) +I_0(t_{T-1}) \\ &amp;\text {Memory Trace} = \sum _{k=0}^{T-2} \left (I_0(t_{k+1}) -I_0(t_k)\right ) \left ((T-k)^{1-\phi } -(T-1-k)^{1-\phi } \right ) &amp;&amp;  \end {align*}
+     </p></li>
+     <li class="itemize">
+     <!--l. 518--><p class="noindent" ><span 
+class="cmbx-10">For Delta variant (</span>\(I_\delta \)<span 
+class="cmbx-10">) : </span>\begin {align*}  {I_\delta }({t_T}) \approx \text {Markov Term of $I_\delta $} - \text {Memory Trace of $I_\delta $}&amp;&amp; \end {align*}
+     </p><!--l. 521--><p class="noindent" >where Markov term and Memory trace for \(I_\delta \) are given by: \begin {align*}  &amp;\text {Markov Term} = dt^\phi \Gamma (2-\phi ) F(X) +I_\delta (t_{T-1}) \\ &amp;\text {Memory Trace} = \sum _{k=0}^{T-2} \left (I_\delta (t_{k+1}) -I_\delta (t_k)\right ) \left ((T-k)^{1-\phi } -(T-1-k)^{1-\phi } \right ) &amp;&amp;  \end {align*}
+</p>
+     </li></ul>
+<!--l. 527--><p class="noindent" >The term memory trace combines all previous activity and records of long term
+history of the system while Markov term refers to memory-less term where
+system’s future state does not depend upon the past state of the system.
+Notice that whenever \(\phi =1 \), the memory trace is zero and \(0&lt;\phi &lt;1\) gives non-zero memory
+trace.
+</p>
+   <h3 class="sectionHead"><span class="titlemark">7   </span> <a 
+ id="x1-130007"></a>Numerical Simulation</h3>
+<!--l. 530--><p class="noindent" >In this section, the numerical simulation are performed using the MATLAB software
+for the proposed model. Parametric values for numerical simulation are taken from
+the daily case data being updated at <span class="cite">[<a 
+href="#Xmohfw">21</a>]</span><a 
+ id="x1-13001"></a>. Initial values \( \left ( S_0 , V_0 , I_{00} , I_{\delta 0} , R_0 \right )\) are assumed to be \(\left (0.78, 0.02, 0.05, 0.05, 0.1\right )\).
+</p><div class="figure"> 
+
+                                                                  
+
+                                                                  
+                                                                  
+
+                                                                  
+<!--l. 533--><p class="noindent" ><img 
+src="figures//all.svg" alt="PIC"  
+width="276" height="276"  /> <a 
+ id="x1-13002r2"></a>
+<a 
+ id="x1-13003"></a>
+                                                                  
+
+                                                                  
+<!--l. 538--><p class="indent" >   Figure <a 
+href="#x1-13002r2">2<!--tex4ht:ref: figall --></a> represents transmission pattern of the susceptible, vaccinated, omicron,
+delta variant over a period of time (days). In initial days, omicron variant and delta
+variant have similar transmission pattern, but after a week omicron has slight decline
+in cases. Figure <a 
+href="#x1-13004r3">3<!--tex4ht:ref: figdelta-phi --></a> represents the variation in delta variant \(I_\delta \) over different values of \(\phi \).
+Smaller values of fractional-order results to rapid decrement in values of \(I_\delta \) over time. It
+can be observed that as memory effect increases , there is a sharp decrease in \(I_\delta \) values.
+</p><div class="figure"> 
+
+                                                                  
+
+                                                                  
+                                                                  
+
+                                                                  
+<!--l. 540--><p class="noindent" ><img 
+src="figures//delta-phi.svg" alt="PIC"  
+width="276" height="276"  /> <a 
+ id="x1-13004r3"></a>
+<a 
+ id="x1-13005"></a>
+                                                                  
+
+                                                                  
+   <div class="figure"> 
+
+                                                                  
+
+                                                                  
+                                                                  
+
+                                                                  
+<!--l. 545--><p class="noindent" ><img 
+src="figures//omicron-phi.svg" alt="PIC"  
+width="276" height="276"  /><a 
+ id="x1-13006r4"></a>
+<a 
+ id="x1-13007"></a>
+                                                                  
+
+                                                                  
+<!--l. 550--><p class="noindent" >Figure <a 
+href="#x1-13006r4">4<!--tex4ht:ref: figomicron-phi --></a> represents the variation in Omicron variant \(I_0\) over different values of
+fractional-order \(\phi \). Similiar to \(I_\delta \), It can be observed that as memory effect increases,
+there is a sharp decrease in \(I_0\) values as well. </p><div class="figure"> 
+
+                                                                  
+
+                                                                  
+                                                                  
+
+                                                                  
+<!--l. 552--><p class="noindent" ><img 
+src="figures//vaccinated-delta.svg" alt="PIC"  
+width="276" height="276"  /><a 
+ id="x1-13008r5"></a>
+<a 
+ id="x1-13009"></a>
+                                                                  
+
+                                                                  
+<!--l. 557--><p class="noindent" >Figure <a 
+href="#x1-13008r5">5<!--tex4ht:ref: figvaccinated-delta --></a> represents the variation in delta variant \(I_\delta \) over vaccinated susceptibles \(S\).
+Increment in value of vaccinated susceptible \(V\) results to decrement in values of \(I_\delta \).
+Figure <a 
+href="#x1-13010r6">6<!--tex4ht:ref: figvaccinated-omicron --></a> represents the variation in Omicron variant \(I_0\) over vaccinated susceptibles \(V\).
+Increment in values of vaccinated susceptible results to increment in values of
+\(I_0\).
+</p>
+   <div class="figure"> 
+
+                                                                  
+
+                                                                  
+                                                                  
+
+                                                                  
+<!--l. 560--><p class="noindent" ><img 
+src="figures//vaccinated-omicron.svg" alt="PIC"  
+width="18" height="18"  />                                                    <a 
+ id="x1-13010r6"></a>
+<a 
+ id="x1-13011"></a>
+                                                                  
+
+                                                                  
+   <div class="figure"> 
+
+                                                                  
+
+                                                                  
+                                                                  
+
+                                                                  
+<!--l. 565--><p class="noindent" ><img 
+src="figures//omicron-delta-recovered-quiver.svg" alt="PIC"  
+width="345" height="345"  /><a 
+ id="x1-13012r7"></a>
+<a 
+ id="x1-13013"></a>
+                                                                  
+
+                                                                  
+<!--l. 570--><p class="noindent" >From figure <a 
+href="#x1-13012r7">7<!--tex4ht:ref: figomicron-delta-recovered-quiver --></a> it is observed that individuals infectious from Delta and Omicron
+variant are getting recovered and are again vulnerable to catch the infection. Further,
+intensity of recovery also increase as number of infection (irrespective of
+variant) increases. As compared to red arrows representing \(I_\delta \)), blue ones \(I_0\) are
+slightly tilted towards recovered \(R\) represents early recovery of latter variants
+cases.
+</p>
+   <h3 class="sectionHead"><span class="titlemark">8   </span> <a 
+ id="x1-140008"></a>Conclusion</h3>
+<!--l. 572--><p class="noindent" >In this paper, a fractional-order <span 
+class="cmti-10">SVIR </span>model is proposed for COVID-19 with
+two infection classes related to pre- and post-evolution of the SARS-CoV-2.
+Two important equilibrium points are obtained, disease-free \(E^0\) and endemic \(E^1\).
+The basic reproduction number \(\mathsf {R_0}\) is obtained using next-generation matrix
+method and is found to be maximum of the basic reproduction numbers
+corresponding to delta and omicron variant. The equilibrium point \(E^0\) is found to be
+locally asymptotically stable only when \(\mathsf {R_0} &lt; 1\) and \(E^1\) is found to be asymptotically
+stable with certain conditions as mentioned in subsection (<a 
+href="#x1-110005.2">5.2<!--tex4ht:ref: subsec5.2 --></a>). Numerical
+simulations are performed using MATLAB software. It is clear from numerical
+simulations that vaccination drive is very effective intervention measure and latter
+variant of virus is not much severe and infectious. Further, the memory
+effect graph shows as it increases, there is decline in infectious cases of each
+variant.
+</p>
+   <h3 class="sectionHead"><span class="titlemark">9   </span> <a 
+ id="x1-150009"></a>Declaration of Competing Interest</h3>
+<!--l. 574--><p class="noindent" >The authors declare that they have no known competing financial interests or
+personal relationships that could have appeared to influence the work reported in this
+paper.
+</p>
+   <h3 class="sectionHead"><span class="titlemark">10   </span> <a 
+ id="x1-1600010"></a>Credit authorship contribution statement</h3>
+<!--l. 576--><p class="noindent" ><span 
+class="cmbx-10">Shah Nita: </span>gave the concept. <span 
+class="cmbx-10">Chaudhary Kapil: </span>analyzed model mathematically.
+<span 
+class="cmbx-10">Jayswal Ekta: </span>carried out numerical simulation.
+</p>
+   <h3 class="sectionHead"><span class="titlemark">11   </span> <a 
+ id="x1-1700011"></a>Acknowledgment</h3>
+<!--l. 580--><p class="noindent" >The authors acknowledge the valuable technical support given by DST-FIST to
+department. Chaudhary Kapil is supported by CSIR-JRF(Council of Scientific and
+Industrial Research) File No. 09/0070(13467)/2022-EMR-I. The authors are thankful
+to everyone who gave valuable suggestions to improve the quality of this
+manuscript.
+                                                                  
+
+                                                                  
+</p>
+   <h3 class="likesectionHead"><a 
+ id="x1-1800011"></a>References</h3>
+<!--l. 582--><p class="noindent" >
+    </p><div class="thebibliography">
+    <p class="bibitem" ><span class="biblabel">
+  [1]<span class="bibsp">   </span></span><a 
+ id="XYang2021"></a>W. Yang, D. Zhang, L. Peng, C. Zhuge, L. Hong, Rational evaluation
+    of various epidemic models based on the covid-19 data of china, Epidemics
+    37 (2021) 100501. <a 
+href="https://doi.org/10.1016/J.EPIDEM.2021.100501" ><span class="path"><span 
+class="cmtt-10">doi:10.1016/J.EPIDEM.2021.100501</span></span></a>.
+    </p>
+    <p class="bibitem" ><span class="biblabel">
+  [2]<span class="bibsp">   </span></span><a 
+ id="XFatma"></a>F. Özköse, M. Yavuz, M. T. Şenel, R. Habbireeh, Fractional order
+    modelling of omicron sars-cov-2 variant containing heart attack effect using
+    real data from the united kingdom, Chaos, Solitons &#x0026; Fractals 157 (2022)
+    111954. <a 
+href="https://doi.org/10.1016/J.CHAOS.2022.111954" ><span class="path"><span 
+class="cmtt-10">doi:10.1016/J.CHAOS.2022.111954</span></span></a>.
+    </p>
+    <p class="bibitem" ><span class="biblabel">
+  [3]<span class="bibsp">   </span></span><a 
+ id="XRajagopal2020"></a>K. Rajagopal,          N. Hasanzadeh,          F. Parastesh,          I. I.
+    Hamarash, S. Jafari, I. Hussain, <a 
+href="https://link.springer.com/article/10.1007/s11071-020-05757-6" >A fractional-order model for the novel
+    coronavirus (covid-19) outbreak</a>, Nonlinear Dynamics 101 (2020) 711–718.
+    <a 
+href="https://doi.org/10.1007/S11071-020-05757-6/FIGURES/5" ><span class="path"><span 
+class="cmtt-10">doi:10.1007/S11071-020-05757-6/FIGURES/5</span></span></a>.
+    </p>
+    <p class="bibitem" ><span class="biblabel">
+  [4]<span class="bibsp">   </span></span><a 
+ id="XKhajehsaeid2019"></a>H. Khajehsaeid,
+    A comparison between fractional-order and integer-order differential finite
+    deformation viscoelastic models: Effects of filler content and loading rate
+    on material parameters, <a 
+href="https://doi.org/10.1142/S1758825118500990" ><span class="path"><span 
+class="cmtt-10">doi:10.1142/S1758825118500990</span></span></a>.
+    </p>
+    <p class="bibitem" ><span class="biblabel">
+  [5]<span class="bibsp">   </span></span><a 
+ id="XGrassly2008"></a>N. C. Grassly, C. Fraser, <a 
+href="https://www.nature.com/articles/nrmicro1845" >Mathematical models of infectious disease
+    transmission</a>,  Nature  Reviews  Microbiology  2008  6:6  6  (2008)  477–487.
+    <a 
+href="https://doi.org/10.1038/nrmicro1845" ><span class="path"><span 
+class="cmtt-10">doi:10.1038/nrmicro1845</span></span></a>.
+    </p>
+    <p class="bibitem" ><span class="biblabel">
+  [6]<span class="bibsp">   </span></span><a 
+ id="XBalatif2020"></a>O. Balatif, L. Boujallal, A. Labzai, M. Rachik, Stability analysis of
+    a  fractional-order  model  for  abstinence  behavior  of  registration  on  the
+    electoral lists, International Journal of Differential Equations 2020 (2020).
+    <a 
+href="https://doi.org/10.1155/2020/4325640" ><span class="path"><span 
+class="cmtt-10">doi:10.1155/2020/4325640</span></span></a>.
+    </p>
+    <p class="bibitem" ><span class="biblabel">
+  [7]<span class="bibsp">   </span></span><a 
+ id="XKoziol2020"></a>K. Kozioł, R. Stanisławski, G. Bialic, <a 
+href="https://www.mdpi.com/2076-3417/10/23/8316/htm" https://www.mdpi.com/2076-3417/10/23/8316 >Fractional-order sir epidemic
+    model  for  transmission  prediction  of  covid-19  disease</a>,  Applied  Sciences
+    2020, Vol. 10, Page 8316 10 (2020) 8316. <a 
+href="https://doi.org/10.3390/APP10238316" ><span class="path"><span 
+class="cmtt-10">doi:10.3390/APP10238316</span></span></a>.
+                                                                  
+
+                                                                  
+    </p>
+    <p class="bibitem" ><span class="biblabel">
+  [8]<span class="bibsp">   </span></span><a 
+ id="XNaik2020"></a>P. A. Naik, Global dynamics of a fractional-order sir epidemic model
+    with memory, <a 
+href="https://doi.org/10.1142/S1793524520500710" ><span class="path"><span 
+class="cmtt-10">doi:10.1142/S1793524520500710</span></span></a>.
+    </p>
+    <p class="bibitem" ><span class="biblabel">
+  [9]<span class="bibsp">   </span></span><a 
+ id="XTeka2018"></a>W. W.  Teka,  R. K.  Upadhyay,  A. Mondal,  Spiking  and  bursting
+    patterns of fractional-order izhikevich model, Communications in Nonlinear
+    Science and Numerical Simulation 56 (2018) 161–176.  <a 
+href="https://doi.org/10.1016/J.CNSNS.2017.07.026" ><span class="path"><span 
+class="cmtt-10">doi:10.1016/J.</span>
+    <span 
+class="cmtt-10">CNSNS.2017.07.026</span></span></a>.
+    </p>
+    <p class="bibitem" ><span class="biblabel">
+ [10]<span class="bibsp">   </span></span><a 
+ id="XOtunuga2021"></a>O. M. Otunuga, Estimation of epidemiological parameters for covid-19
+    cases using a stochastic seirs epidemic model with vital dynamics, Results
+    in Physics 28 (2021) 104664. <a 
+href="https://doi.org/10.1016/J.RINP.2021.104664" ><span class="path"><span 
+class="cmtt-10">doi:10.1016/J.RINP.2021.104664</span></span></a>.
+    </p>
+    <p class="bibitem" ><span class="biblabel">
+ [11]<span class="bibsp">   </span></span><a 
+ id="XShah2020"></a>N. H.  Shah,  A. H.  Suthar,  E. N.  Jayswal,  Control  strategies  to
+    curtail transmission of covid-19, International Journal of Mathematics and
+    Mathematical Sciences 2020 (2020). <a 
+href="https://doi.org/10.1155/2020/2649514" ><span class="path"><span 
+class="cmtt-10">doi:10.1155/2020/2649514</span></span></a>.
+    </p>
+    <p class="bibitem" ><span class="biblabel">
+ [12]<span class="bibsp">   </span></span><a 
+ id="XLin2007"></a>W. Lin,  Global  existence  theory  and  chaos  control  of  fractional
+    differential equations, Journal of Mathematical Analysis and Applications
+    332 (2007) 709–726. <a 
+href="https://doi.org/10.1016/J.JMAA.2006.10.040" ><span class="path"><span 
+class="cmtt-10">doi:10.1016/J.JMAA.2006.10.040</span></span></a>.
+    </p>
+    <p class="bibitem" ><span class="biblabel">
+ [13]<span class="bibsp">   </span></span><a 
+ id="XDiekmann1990"></a>O. Diekmann, J. A. Heesterbeek, J. A. Metz, On the definition and
+    the computation of the basic reproduction ratio r0 in models for infectious
+    diseases in heterogeneous populations, Journal of Mathematical Biology 28
+    (1990) 365–382. <a 
+href="https://doi.org/10.1007/BF00178324" ><span class="path"><span 
+class="cmtt-10">doi:10.1007/BF00178324</span></span></a>.
+    </p>
+    <p class="bibitem" ><span class="biblabel">
+ [14]<span class="bibsp">   </span></span><a 
+ id="XJames2002"></a>P. V. D.   Driessche,   J. Watmough,   <a 
+href="https://pubmed.ncbi.nlm.nih.gov/12387915/" >Reproduction   numbers   and
+    sub-threshold  endemic  equilibria  for  compartmental  models  of  disease
+    transmission</a>, Mathematical biosciences 180 (2002) 29–48.  <a 
+href="https://doi.org/10.1016/S0025-5564(02)00108-6" ><span class="path"><span 
+class="cmtt-10">doi:10.1016/</span>
+    <span 
+class="cmtt-10">S0025-5564(02)00108-6</span></span></a>.
+    </p>
+    <p class="bibitem" ><span class="biblabel">
+ [15]<span class="bibsp">   </span></span><a 
+ id="XDiethelm2010"></a>K. Diethelm,  <a 
+href="http://link.springer.com/10.1007/978-3-642-14574-2" >The  analysis  of  fractional  differential  equations</a>  2004
+    (2010). <a 
+href="https://doi.org/10.1007/978-3-642-14574-2" ><span class="path"><span 
+class="cmtt-10">doi:10.1007/978-3-642-14574-2</span></span></a>.
+                                                                  
+
+                                                                  
+    </p>
+    <p class="bibitem" ><span class="biblabel">
+ [16]<span class="bibsp">   </span></span><a 
+ id="XPanja2019"></a>P. Panja,  <a 
+href="https://link.springer.com/article/10.1007/s12064-019-00291-5" >Stability  and  dynamics  of  a  fractional-order  three-species
+    predator–prey model</a>, Theory in Biosciences 138 (2019) 251–259.   <a 
+href="https://doi.org/10.1007/S12064-019-00291-5/FIGURES/9" ><span class="path"><span 
+class="cmtt-10">doi:</span>
+    <span 
+class="cmtt-10">10.1007/S12064-019-00291-5/FIGURES/9</span></span></a>.
+    </p>
+    <p class="bibitem" ><span class="biblabel">
+ [17]<span class="bibsp">   </span></span><a 
+ id="XBeards1995"></a>C. Beards, <a 
+href="https://linkinghub.elsevier.com/retrieve/pii/B9780340631836500077" >Automatic control systems</a>, Engineering Vibration Analysis
+    with  Application  to  Control  Systems  (1995)  171–279.  <a 
+href="https://doi.org/10.1016/B978-034063183-6/50007-7" ><span class="path"><span 
+class="cmtt-10">doi:10.1016/</span>
+    <span 
+class="cmtt-10">B978-034063183-6/50007-7</span></span></a>.
+    </p>
+    <p class="bibitem" ><span class="biblabel">
+ [18]<span class="bibsp">   </span></span><a 
+ id="XAhmed2007"></a>E. Ahmed, A. S. Elgazzar, <a 
+href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7125871/" >On fractional order differential equations
+    model for nonlocal epidemics</a>, Physica a 379 (2007) 607. <a 
+href="https://doi.org/10.1016/J.PHYSA.2007.01.010" ><span class="path"><span 
+class="cmtt-10">doi:10.1016/J.</span>
+    <span 
+class="cmtt-10">PHYSA.2007.01.010</span></span></a>.
+    </p>
+    <p class="bibitem" ><span class="biblabel">
+ [19]<span class="bibsp">   </span></span><a 
+ id="Xwho-1"></a><a 
+href="https://covid19.who.int/" >Who coronavirus (covid-19) dashboard — who coronavirus (covid-19)
+    dashboard with vaccination data</a>.
+    </p>
+    <p class="bibitem" ><span class="biblabel">
+ [20]<span class="bibsp">   </span></span><a 
+ id="Xaljazeera"></a><a 
+href="https://www.aljazeera.com/features/2021/12/20/omicron-is-more-transmissible-but-is-it-really-milder" >Omicron is more transmissible, but is it really milder? — doctor’s note
+    — al jazeera</a>.
+    </p>
+    <p class="bibitem" ><span class="biblabel">
+ [21]<span class="bibsp">   </span></span><a 
+ id="Xmohfw"></a><a 
+href="https://mohfw.gov.in/" >Ministry of health and family welfare, goverment of india</a>.
+</p>
+    
+</body> 
+</html>
+                                                                  
+
+

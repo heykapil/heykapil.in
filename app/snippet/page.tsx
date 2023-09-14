@@ -1,6 +1,9 @@
-import { getViewsCount } from "@/lib/metrics";
-import { Suspense, lazy } from "react";
-const SnippetList = lazy(() => import("components/blog/SnippetList"));
+import { Suspense } from "react";
+import dynamic from "next/dynamic";
+// import { getViewsCount } from "@/lib/metrics";
+const SnippetList = dynamic(() => import("components/blog/SnippetList"), {
+  ssr: true,
+});
 export async function generateMetadata() {
   const ogImage = `https://heykapil.in/og?title=All snippets&path=snippet`;
 
@@ -25,15 +28,17 @@ export async function generateMetadata() {
     },
   };
 }
-export default async function SnippetPage() {
-  const allViews = await getViewsCount();
+export default function SnippetPage() {
+  // const allViews = await getViewsCount();
   return (
     <section className='max-w-2xl w-full mx-auto'>
       <h1 className='font-bold text-2xl mb-8 tracking-tighter'>All snippets</h1>
       <div className='flex flex-col gap-6 w-full mt-4'>
         <div className='space-y-1 animated-list'>
           <Suspense>
-            <SnippetList allViews={allViews} />
+            <SnippetList
+            //  allViews={allViews}
+            />
           </Suspense>
         </div>
       </div>

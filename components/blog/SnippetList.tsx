@@ -4,19 +4,12 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { Suspense } from "react";
-import { EyeOpenIcon } from "@radix-ui/react-icons";
-import dynamic from "next/dynamic";
+// import { EyeOpenIcon } from "@radix-ui/react-icons";
+// import dynamic from "next/dynamic";
 import style from "styles/ViewsAnimaion.module.css";
 import { sortedSnippets } from "lib/posts/sortedSnippets";
-const ViewCounter = dynamic(() => import("components/ViewCounter"));
-export default function SnippetList({
-  allViews,
-}: {
-  allViews: {
-    slug: string;
-    count: number;
-  }[];
-}) {
+// const ViewCounter = dynamic(() => import("components/ViewCounter"));
+export default function SnippetList() {
   const [searchValue, setSearchValue] = useState("");
   // const [isloading, setIsloading] = useState(true);
   const [filteredResults, setFilteredResults] = useState(sortedSnippets);
@@ -82,7 +75,7 @@ export default function SnippetList({
                   />
                 </span>
               </div>
-              <div className='flex justify-end flex-row'>
+              {/* <div className='flex justify-end flex-row'>
                 <span className='inline-flex items-center'>
                   <ViewCounter
                     allViews={allViews}
@@ -91,7 +84,7 @@ export default function SnippetList({
                   />{" "}
                   <EyeOpenIcon className='self-center rounded-full mx-1' />
                 </span>
-              </div>
+              </div> */}
 
               <div className='flex flex-row-reverse'>
                 <span className='flex'>

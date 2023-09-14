@@ -1,5 +1,8 @@
 @import "../styles/syntax-highlight.css";
 @import "../styles/nav.css";
+/* @import url(//fonts.googleapis.com/css?family=Droid+Sans);
+@import url(//fonts.googleapis.com/css?family=Gentium+Book+Basic);
+@import url(//fonts.googleapis.com/css?family=Source+Code+Pro); */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -81,6 +84,7 @@
     color: var(--foreground);
     -webkit-font-smoothing: antialiased;
     font-family: "Iowan Old Style", "Iowan", "Georgia", serif;
+
     /* font-size: 14px; */
     font-weight: 400;
     text-rendering: optimizeLegibility;
@@ -127,4 +131,10 @@ h3 {
   scrollbar-width: thin;
   scrollbar-color: #eaeaea transparent;
   scrollbar-gutter: stable;
+}
+
+.center {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
 }
