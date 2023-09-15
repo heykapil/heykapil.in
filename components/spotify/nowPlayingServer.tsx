@@ -3,7 +3,7 @@ import clsx from "clsx";
 import { revalidatePath } from "next/cache";
 import styles from "styles/Music.module.css";
 async function getNowPlaying() {
-  const res = await fetch(process.env.NEXTAUTH_URL + "/api/now-playing", {
+  const res = await fetch("https://heykapil.in/api/now-playing", {
     next: { revalidate: 10 },
     // cache: "no-store",
   });

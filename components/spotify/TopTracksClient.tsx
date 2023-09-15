@@ -9,7 +9,10 @@ import dynamic from "next/dynamic";
 import { Suspense } from "react";
 const Track = dynamic(() => import("./Track"));
 export default function TopTracksClient() {
-  const { data } = useSWR<TopTracks>("/api/spotify/top-tracks", fetcher);
+  const { data } = useSWR<TopTracks>(
+    "https://heykapil.in/api/spotify/top-tracks",
+    fetcher
+  );
 
   if (!data) {
     return null;
