@@ -2,26 +2,21 @@
 
 import { useRef } from "react";
 import { saveCommentEntry } from "lib/actions";
-import { experimental_useFormStatus as useFormStatus } from "react-dom";
 import { SignOut } from "app/guestbook/buttons";
 import { useState, Suspense, lazy } from "react";
 import Halo from "../Halo";
-import { Spinner } from "../Spinner";
-
+import { FormSubmitButton } from "./FormSubmitButton";
 const MarkdownPreview = lazy(() => import("./Preview"));
 export default function CommentForm({ slug }: { slug: string }) {
   const formRef = useRef<HTMLFormElement>(null);
   const [showPreview, setShowPreview] = useState(false);
   const [entry, setEntry] = useState("");
-  // const [loading, setLoading] = useState(false);
-
-  const { pending } = useFormStatus();
   return (
     <>
       <SignOut />
       <form
         id='comment-forn'
-        style={{ opacity: !pending ? 1 : 0.5 }}
+        style={{ opacity: 1 }}
         className='w-full max-w-full mb-8 space-y-1'
         ref={formRef}
         action={async (formData: FormData) => {
@@ -37,7 +32,7 @@ export default function CommentForm({ slug }: { slug: string }) {
               rows={3}
               placeholder='Enter your comment...'
               aria-label='Enter your comment...'
-              disabled={pending}
+              // disabled={pending}
               name='entry'
               value={entry}
               onChange={(e) => setEntry(e.target.value)}
@@ -169,9 +164,18 @@ export default function CommentForm({ slug }: { slug: string }) {
           </div>
         </div>
         <div className='flex items-center justify-between'>
-          <button
+          <FormSubmitButton
+            pendingState={
+              <Halo
+                className='flex items-center justify-between gap-2 px-4 py-2'
+                size={120}
+                strength={30}
+              >
+                Submitting...
+              </Halo>
+            }
             className='border w-fit border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 rounded-md text-sm inline-flex items-center leading-4 text-neutral-900 dark:text-neutral-100 mb-3 cursor-pointer hover:scale-x-110 hover:scale-y-105 duration-200 ease-out'
-            disabled={pending}
+            // disabled={pending}
             type='submit'
           >
             <Halo
@@ -179,9 +183,9 @@ export default function CommentForm({ slug }: { slug: string }) {
               size={120}
               strength={30}
             >
-              {pending ? <Spinner /> : "Submit"}
+              Submit
             </Halo>
-          </button>
+          </FormSubmitButton>
         </div>
       </form>
     </>

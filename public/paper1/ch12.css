@@ -677,6 +677,7 @@ html,
 body {
   overflow-x: hidden;
   padding: 0.25em;
+  scroll-behavior: smooth;
 }
 mjx-container[display="true"] {
   display: inline-grid !important;
@@ -727,3 +728,6 @@ mjx-container[display="true"] {
     border: 3px solid var(--scroll-bar-bg-color);
   }
 }
+/* .noise {
+  background: rgba(246, 246, 246, 1);
+} */

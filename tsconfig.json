@@ -33,7 +33,9 @@
     ".contentlayer/generated",
     "app/lib/hooks/useMousePosition.js",
     "components/theme/provider.tsx",
-    "components/font-resizer.jsx"
-, "components/comment/Preview.js"  ],
+    "components/font-resizer.jsx",
+    "components/comment/Preview.js",
+    "components/comment/FormSubmitButton.jsx"
+  ],
   "exclude": ["node_modules"]
 }

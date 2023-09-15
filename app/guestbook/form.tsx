@@ -2,13 +2,12 @@
 
 import { Suspense, useRef, useState, lazy } from "react";
 import { saveGuestbookEntry } from "lib/actions";
-import { experimental_useFormStatus as useFormStatus } from "react-dom";
+import { FormSubmitButton } from "@/components/comment/FormSubmitButton";
 import { SignOut } from "./buttons";
 const Halo = lazy(() => import("@/components/Halo"));
 const MarkdownPreview = lazy(() => import("@/components/comment/Preview"));
 export default function Form() {
   const formRef = useRef<HTMLFormElement>(null);
-  const { pending } = useFormStatus();
   const [showPreview, setShowPreview] = useState(false);
   const [entry, setEntry] = useState("");
 
@@ -17,7 +16,7 @@ export default function Form() {
       <SignOut />
       <form
         id='comment-forn'
-        style={{ opacity: !pending ? 1 : 0.5 }}
+        style={{ opacity: 1 }}
         className='w-full max-w-full mb-8 space-y-1'
         ref={formRef}
         action={async (formData) => {
@@ -32,7 +31,6 @@ export default function Form() {
               rows={3}
               placeholder='Enter your message...'
               aria-label='Enter your message...'
-              disabled={pending}
               name='entry'
               value={entry}
               onChange={(e) => setEntry(e.target.value)}
@@ -172,9 +170,17 @@ export default function Form() {
         </div>
         <Suspense>
           <div className='flex items-center justify-between'>
-            <button
+            <FormSubmitButton
+              pendingState={
+                <Halo
+                  className='flex items-center justify-between gap-2 px-4 py-2'
+                  size={120}
+                  strength={30}
+                >
+                  Submitting...
+                </Halo>
+              }
               className='border w-fit border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 rounded-md text-sm inline-flex items-center leading-4 text-neutral-900 dark:text-neutral-100 mb-3 cursor-pointer hover:scale-x-110 hover:scale-y-105 duration-200 ease-out'
-              disabled={pending}
               type='submit'
             >
               <Halo
@@ -184,7 +190,7 @@ export default function Form() {
               >
                 Submit
               </Halo>
-            </button>
+            </FormSubmitButton>
           </div>
         </Suspense>
       </form>
