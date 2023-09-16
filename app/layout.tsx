@@ -1,5 +1,6 @@
 import "./globals.css";
 import type { Metadata } from "next";
+import Head from "next/head";
 import { Providers } from "components/theme/provider";
 import NextAuthProvider from "components/SessionProvider";
 import Dock from "../components/dock/Dock";
@@ -155,6 +156,13 @@ export default function RootLayout({
         async
         type='text/javascript'
       ></script> */}
+      <Head>
+        <script
+          async
+          src='https://analytics.umami.is/script.js'
+          data-website-id='83be4a29-01a9-4435-9e68-2d09093afc56'
+        ></script>
+      </Head>
       <body className='max-w-[100%] mb-20 flex flex-col md:flex-row mt-0 lg:mx-auto'>
         <Providers>
           <NextAuthProvider>
