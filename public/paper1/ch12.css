@@ -680,12 +680,11 @@ body {
   scroll-behavior: smooth;
 }
 mjx-container[display="true"] {
-  display: inline-grid !important;
   overflow-x: auto !important;
   overflow-y: hidden !important;
   max-width: 100% !important;
-  /* background-color: antiquewhite; */
 }
+
 @media only screen and (max-width: 600px) {
   .MathJax_Display,
   .MJXc-display,
