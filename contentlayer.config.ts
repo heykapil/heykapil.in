@@ -1,5 +1,4 @@
-import * as fs from "fs";
-import * as path from "path";
+import { writeFileSync, readFileSync } from "fs";
 import { ComputedFields, defineDocumentType } from "contentlayer/source-files";
 import { spawn } from "node:child_process";
 import { makeSource } from "contentlayer/source-remote-files";
@@ -31,7 +30,7 @@ const prettyCodeOptions: Partial<PrettyCodeOptions> = {
   keepBackground: false,
   theme: {
     light: JSON.parse(
-      fs.readFileSync(`${process.cwd()}/lib/rehype/light.json`, "utf8")
+      readFileSync(`${process.cwd()}/lib/rehype/light.json`, "utf8")
     ),
     dark: "dracula",
   },
@@ -245,41 +244,28 @@ const runBashCommand = (command: string) =>
 
 function createTagCountBlog(allPosts: Post[]) {
   const tagCount: Record<string, number> = {};
-  allPosts.forEach((file: Post) => {
-    if (file.tags && (!isProduction || file.status !== "draft")) {
-      file.tags.forEach((tag: string) => {
-        const formattedTag = slugger.slug(tag);
-        if (formattedTag in tagCount) {
-          tagCount[formattedTag] += 1;
-        } else {
-          tagCount[formattedTag] = 1;
-        }
-      });
-    }
+  allPosts.forEach((file) => {
+    file.tags.forEach((tag) => {
+      tagCount[tag] = (tagCount[tag] || 0) + 1;
+    });
   });
-  fs.writeFileSync("./app/tag-data-blog.json", JSON.stringify(tagCount));
+  writeFileSync("./app/tag-data-blog.json", JSON.stringify(tagCount));
   console.log("Tag data blog generated...");
 }
 
 function createTagCountSnippet(allSnippets: Snippet[]) {
   const tagCount: Record<string, number> = {};
   allSnippets.forEach((file) => {
-    if (file.tags && (!isProduction || file.status !== "draft")) {
-      file.tags.forEach((tag) => {
-        const formattedTag = slugger.slug(tag);
-        if (formattedTag in tagCount) {
-          tagCount[formattedTag] += 1;
-        } else {
-          tagCount[formattedTag] = 1;
-        }
-      });
-    }
+    file.tags.forEach((tag) => {
+      tagCount[tag] = (tagCount[tag] || 0) + 1;
+    });
   });
-  fs.writeFileSync("./app/tag-data-snippet.json", JSON.stringify(tagCount));
+  writeFileSync("./app/tag-data-snippet.json", JSON.stringify(tagCount));
+  console.log("Tag data snippet generated...");
 }
 
 function createSearchPostIndex(allPosts: any) {
-  fs.writeFileSync(
+  writeFileSync(
     `public/search-data-post.json`,
     JSON.stringify(allCoreContent(sortPosts(allPosts)))
   );
@@ -287,7 +273,7 @@ function createSearchPostIndex(allPosts: any) {
 }
 
 function createSearchSnippetIndex(allPosts: any) {
-  fs.writeFileSync(
+  writeFileSync(
     `public/search-data-snippet.json`,
     JSON.stringify(allCoreContent(sortPosts(allPosts)))
   );

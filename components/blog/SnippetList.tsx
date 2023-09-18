@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { Suspense } from "react";
-
 import style from "styles/ViewsAnimaion.module.css";
 import { sortedSnippets } from "lib/posts/sortedSnippets";
 export default function SnippetList() {
