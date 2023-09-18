@@ -36,6 +36,7 @@ const prettyCodeOptions: Partial<PrettyCodeOptions> = {
     dark: "dracula",
   },
 };
+const isProduction = process.env.NODE_ENV === "production";
 
 const computedFields: ComputedFields = {
   structuredData: {
@@ -163,7 +164,7 @@ const Post = defineDocumentType(() => ({
     status: {
       type: "enum",
       options: ["published", "draft"],
-      default: "draft",
+      default: "published",
     },
   },
   computedFields,
@@ -245,7 +246,7 @@ const runBashCommand = (command: string) =>
 function createTagCountBlog(allPosts: Post[]) {
   const tagCount: Record<string, number> = {};
   allPosts.forEach((file: Post) => {
-    if (file.tags && file.status !== "draft") {
+    if (file.tags && (!isProduction || file.status !== "draft")) {
       file.tags.forEach((tag: string) => {
         const formattedTag = slugger.slug(tag);
         if (formattedTag in tagCount) {
@@ -259,11 +260,12 @@ function createTagCountBlog(allPosts: Post[]) {
   fs.writeFileSync("./app/tag-data-blog.json", JSON.stringify(tagCount));
   console.log("Tag data blog generated...");
 }
+
 function createTagCountSnippet(allSnippets: Snippet[]) {
   const tagCount: Record<string, number> = {};
-  allSnippets.forEach((file: Snippet) => {
-    if (file.tags && file.status !== "draft") {
-      file.tags.forEach((tag: string) => {
+  allSnippets.forEach((file) => {
+    if (file.tags && (!isProduction || file.status !== "draft")) {
+      file.tags.forEach((tag) => {
         const formattedTag = slugger.slug(tag);
         if (formattedTag in tagCount) {
           tagCount[formattedTag] += 1;
@@ -274,7 +276,6 @@ function createTagCountSnippet(allSnippets: Snippet[]) {
     }
   });
   fs.writeFileSync("./app/tag-data-snippet.json", JSON.stringify(tagCount));
-  console.log("Tag data snippet generated...");
 }
 
 function createSearchPostIndex(allPosts: any) {
