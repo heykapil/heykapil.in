@@ -9,9 +9,15 @@
 .env
 pnpm-lock.yaml
 yarn-lock.yaml
+bun.lockb
 
 # content
 content/
+app/
+public/search-data-post.json
+public/search-data-snippet.json
+app/tag-data-blog.json
+app/tag-data-snippet.json
 
 # testing
 /coverage

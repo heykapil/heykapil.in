@@ -5,6 +5,9 @@ import { Providers } from "components/theme/provider";
 import NextAuthProvider from "components/SessionProvider";
 import Dock from "../components/dock/Dock";
 import Header from "@/components/header/Header";
+import siteMetadata from "@/siteMetadata";
+// @ts-ignore
+import { Analytics, AnalyticsConfig } from "pliny/analytics";
 export const metadata: Metadata = {
   title: "Kapil Chaudhary",
   description: "heykapil.in",
@@ -150,22 +153,19 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en' suppressHydrationWarning>
-      {/* <script
-        src='https://uptime.betterstack.com/widgets/announcement.js'
-        data-id='169384'
-        async
-        type='text/javascript'
-      ></script> */}
       <Head>
-        <script
+        {/* <Script
           async
           src='https://analytics.umami.is/script.js'
           data-website-id='83be4a29-01a9-4435-9e68-2d09093afc56'
-        ></script>
+        /> */}
       </Head>
       <body className='max-w-[100%] mb-20 flex flex-col md:flex-row mt-0 lg:mx-auto'>
         <Providers>
           <NextAuthProvider>
+            <Analytics
+              analyticsConfig={siteMetadata.analytics as AnalyticsConfig}
+            />
             <main className='flex-auto min-w-0 flex flex-col md:px-0'>
               <section className=''>
                 <Header />

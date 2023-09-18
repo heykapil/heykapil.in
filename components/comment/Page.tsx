@@ -76,7 +76,7 @@ export default async function CommentPage({ slug }: { slug: string }) {
               key={entry.id}
               className='py-4 border-b border-[var(--border)] rounded-md'
             >
-              <Suspense fallback={<div>Loading...</div>}>
+              <Suspense>
                 <CommentEntry
                   id={entry.id}
                   slug={slug}

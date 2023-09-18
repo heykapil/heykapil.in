@@ -4,14 +4,11 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { Suspense } from "react";
-// import { EyeOpenIcon } from "@radix-ui/react-icons";
-// import dynamic from "next/dynamic";
+
 import style from "styles/ViewsAnimaion.module.css";
 import { sortedSnippets } from "lib/posts/sortedSnippets";
-// const ViewCounter = dynamic(() => import("components/ViewCounter"));
 export default function SnippetList() {
   const [searchValue, setSearchValue] = useState("");
-  // const [isloading, setIsloading] = useState(true);
   const [filteredResults, setFilteredResults] = useState(sortedSnippets);
   useEffect(() => {
     const filteredSnippetsByTitle = sortedSnippets.filter((snippet) => {
@@ -97,13 +94,10 @@ export default function SnippetList() {
                   />
                 </span>
               </div>
-              {/* 
-                      Reserved for like counter 
-                      <div className=''>
-                        <span>
-                          {format(parseISO(post.publishedAt), "MMM dd")}
-                        </span>
-                      </div> */}
+
+              <div className='flex flex-row-reverse'>
+                <span className='flex'>{snippet.tags}</span>
+              </div>
             </div>
           </Suspense>
         </Link>

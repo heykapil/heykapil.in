@@ -1,9 +1,7 @@
 import { Suspense } from "react";
-import dynamic from "next/dynamic";
+import SnippetList from "@/components/blog/SnippetList";
 // import { getViewsCount } from "@/lib/metrics";
-const SnippetList = dynamic(() => import("components/blog/SnippetList"), {
-  ssr: true,
-});
+
 export async function generateMetadata() {
   const ogImage = `https://heykapil.in/og?title=All snippets&path=snippet`;
 

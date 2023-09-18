@@ -12,7 +12,10 @@ import rehypePrettyCode, {
 import rehypeSlug from "rehype-slug";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import { visit } from "unist-util-visit";
+import { Post, Snippet } from "./.contentlayer/generated";
 const slugger = new GitHubSlugger();
+import { allCoreContent, sortPosts } from "pliny/utils/contentlayer.js";
+
 // const headers_regex = /(#{1,6})\s+(.+)/g;
 interface HeadingType {
   heading: number;
@@ -152,17 +155,14 @@ const Post = defineDocumentType(() => ({
       type: "string",
       required: true,
     },
-    tags: {
-      type: "string",
-      required: false,
-    },
+    tags: { type: "list", of: { type: "string" }, default: [] },
     summary: {
       type: "string",
       required: false,
     },
     status: {
       type: "enum",
-      options: ["published", "draft", "planned"],
+      options: ["published", "draft"],
       default: "draft",
     },
   },
@@ -176,12 +176,12 @@ const Snippet = defineDocumentType(() => ({
   fields: {
     title: { type: "string", required: true },
     description: { type: "string", required: true },
-    tag: { type: "string", required: false },
+    tags: { type: "list", of: { type: "string" }, default: [] },
     logo: { type: "string", required: false },
     toc: { type: "boolean", required: false },
     status: {
       type: "enum",
-      options: ["published", "draft", "planned"],
+      options: ["published", "draft"],
       default: "published",
     },
   },
@@ -242,6 +242,57 @@ const runBashCommand = (command: string) =>
     });
   });
 
+function createTagCountBlog(allPosts: Post[]) {
+  const tagCount: Record<string, number> = {};
+  allPosts.forEach((file: Post) => {
+    if (file.tags && file.status !== "draft") {
+      file.tags.forEach((tag: string) => {
+        const formattedTag = slugger.slug(tag);
+        if (formattedTag in tagCount) {
+          tagCount[formattedTag] += 1;
+        } else {
+          tagCount[formattedTag] = 1;
+        }
+      });
+    }
+  });
+  fs.writeFileSync("./app/tag-data-blog.json", JSON.stringify(tagCount));
+  console.log("Tag data blog generated...");
+}
+function createTagCountSnippet(allSnippets: Snippet[]) {
+  const tagCount: Record<string, number> = {};
+  allSnippets.forEach((file: Snippet) => {
+    if (file.tags && file.status !== "draft") {
+      file.tags.forEach((tag: string) => {
+        const formattedTag = slugger.slug(tag);
+        if (formattedTag in tagCount) {
+          tagCount[formattedTag] += 1;
+        } else {
+          tagCount[formattedTag] = 1;
+        }
+      });
+    }
+  });
+  fs.writeFileSync("./app/tag-data-snippet.json", JSON.stringify(tagCount));
+  console.log("Tag data snippet generated...");
+}
+
+function createSearchPostIndex(allPosts: any) {
+  fs.writeFileSync(
+    `public/search-data-post.json`,
+    JSON.stringify(allCoreContent(sortPosts(allPosts)))
+  );
+  console.log("Local search post index generated...");
+}
+
+function createSearchSnippetIndex(allPosts: any) {
+  fs.writeFileSync(
+    `public/search-data-snippet.json`,
+    JSON.stringify(allCoreContent(sortPosts(allPosts)))
+  );
+  console.log("Local search snippet index generated...");
+}
+
 export default makeSource({
   syncFiles: syncContentFromGit,
   contentDirPath: "content",
@@ -289,5 +340,13 @@ export default makeSource({
         },
       ],
     ],
+  },
+  onSuccess: async (importData) => {
+    const { allPosts } = await importData();
+    const { allSnippets } = await importData();
+    createTagCountBlog(allPosts);
+    createTagCountSnippet(allSnippets);
+    createSearchPostIndex(allPosts);
+    createSearchSnippetIndex(allSnippets);
   },
 });
