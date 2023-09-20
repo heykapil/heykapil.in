@@ -7,7 +7,8 @@ import style from "styles/ViewsAnimaion.module.css";
 import dynamic from "next/dynamic";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
-import { EyeOpenIcon } from "@radix-ui/react-icons";
+import { EyeOpenIcon, ChevronRightIcon } from "@radix-ui/react-icons";
+import data from "../../public/search-data-snippet.json";
 const ViewCounter = dynamic(() => import("@/components/ViewCounter"));
 import {
   Accordion,
@@ -40,8 +41,9 @@ export async function generateMetadata() {
   };
 }
 
-async function PostsByTags({ tag }: { tag: string }) {
-  const filteredPostsByTags = allSnippets.filter((snippet) =>
+function PostsByTags({ tag }: { tag: string }) {
+  const filteredPostsByTags = data.filter((snippet) =>
+    // @ts-ignore
     snippet.tags.includes(tag)
   );
   return (
@@ -49,11 +51,11 @@ async function PostsByTags({ tag }: { tag: string }) {
       {filteredPostsByTags.map((snippet) => (
         <>
           <Link
-            key={snippet._id}
-            className='flex group relative text-sm capitalize flex-row justify-between py-2 px-2 rounded-md hover:bg-gradient-to-r hover:from-rose-100/50 hover:via-pink-200/50 hover:to-orange-100/50 dark:hover:bg-gradient-to-r dark:hover:from-purple-500/30 dark:hover:via-fuchsia-500/30 dark:hover:to-pink-500/30 transition-all duration-200'
+            key={snippet.slug}
+            className='flex group relative text-sm border-t border-[var(--muted)] capitalize flex-row-reverse justify-between py-2 px-2 rounded-md hover:bg-gradient-to-r hover:from-rose-100/50 hover:via-pink-200/50 hover:to-orange-100/50 dark:hover:bg-gradient-to-r dark:hover:from-purple-500/30 dark:hover:via-fuchsia-500/30 dark:hover:to-pink-500/30 transition-all duration-200'
             href={`/snippet/${snippet.slug}`}
           >
-            ‣ {snippet.title}
+            <ChevronRightIcon /> {snippet.title}
           </Link>
         </>
       ))}
@@ -69,14 +71,19 @@ export default async function SnippetPage() {
   return (
     <>
       <div className='sticky top-[70px] hidden h-[calc(100vh-70px)] w-[284px] md:flex md:shrink-0 md:flex-col border-r border-[var(--offset)]'>
-        <div className='font-semibold text-lg mb-4 underline font-newsreader'>
-          Tags
+        <div className='font-semibold text-lg mb-4 underline font-iowan'>
+          All tags
         </div>
         {sortedTags.map((t) => {
           return (
             <Accordion key={t} type='single' collapsible className='w-full'>
               <AccordionItem value={t} className='border-[var(--muted)]'>
-                <AccordionTrigger className='text-sm capitalize font-serif p-2'>{`${t} (${tagCounts[t]})`}</AccordionTrigger>
+                <AccordionTrigger className='text-sm capitalize font-serif p-2'>
+                  <div className='flex flex-row gap-1 font-semibold'>
+                    {/* <div className='flex self-center rounded-full w-2 h-2 bg-[var(--offset)]'></div>{" "} */}
+                    {`# ${t} (${tagCounts[t]})`}
+                  </div>
+                </AccordionTrigger>
                 <AccordionContent className='ml-2'>
                   <PostsByTags tag={t} />
                 </AccordionContent>
@@ -87,7 +94,7 @@ export default async function SnippetPage() {
       </div>
       <Suspense>
         <nav className='order-last hidden w-56 shrink-0 lg:block'>
-          <div className='sticky top-[126px] h-[calc(100vh-121px)]'></div>
+          <div className='sticky top-[20px] h-[calc(100vh-15px)]'></div>
         </nav>
       </Suspense>
       <section className='max-w-2xl w-full mx-auto'>
@@ -148,7 +155,6 @@ export default async function SnippetPage() {
                           />
                         </span>
                       </div>
-
                       <div className='flex flex-row-reverse'>
                         <span className='flex'>{snippet.tags}</span>
                       </div>

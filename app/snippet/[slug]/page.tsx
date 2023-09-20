@@ -3,13 +3,22 @@ import { allSnippets } from "contentlayer/generated";
 import Balancer from "react-wrap-balancer";
 import type { Metadata } from "next";
 import Image from "next/image";
-import clsx from "clsx";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { getViewsCount, getLikesCount } from "@/lib/metrics";
 import style from "styles/LikeContainer.module.css";
 import dynamic from "next/dynamic";
+import data from "../../../public/search-data-snippet.json";
+import SearchBarFilterSnippet from "@/components/search/snippet";
+import { ChevronRightIcon } from "@radix-ui/react-icons";
+import Link from "next/link";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/Accordion";
+import { cn } from "@/lib/utils";
 const ScrolltoTop = dynamic(() => import("@/components/blog/ScrolltoTop"));
 const TableOfContents = dynamic(() => import("@/components/TableofContent"), {
   ssr: false,
@@ -96,101 +105,129 @@ export async function generateMetadata({
 //   return `${fullDate} (${formattedDate})`;
 // }
 
+async function PostsByTags({
+  tag,
+  currentslug,
+}: {
+  tag: string;
+  currentslug: string;
+}) {
+  const filteredPostsByTags = data.filter((snippet) =>
+    // @ts-ignore 
+    snippet.tags.includes(tag)
+  );
+  return (
+    <>
+      {filteredPostsByTags.map((snippet) => (
+        <>
+          <Link
+            key={snippet.slug}
+            className={cn(
+              "flex group relative text-sm border-t border-[var(--muted)] capitalize flex-row-reverse justify-between py-2 px-2 rounded-md hover:bg-gradient-to-r hover:from-rose-100/50 hover:via-pink-200/50 hover:to-orange-100/50 dark:hover:bg-gradient-to-r dark:hover:from-purple-500/30 dark:hover:via-fuchsia-500/30 dark:hover:to-pink-500/30 transition-all duration-200",
+              currentslug === snippet.slug
+                ? "text-blue-500 bg-[var(--offset)] font-bold hidden"
+                : "flex"
+            )}
+            href={`/snippet/${snippet.slug}`}
+          >
+            <ChevronRightIcon /> {snippet.title}
+          </Link>
+        </>
+      ))}
+    </>
+  );
+}
 export default async function Snippet({ params }: { params: any }) {
   const snippet = allSnippets.find((snippet) => snippet.slug === params.slug);
   const allViews = await getViewsCount();
   const allLikes = await getLikesCount();
-
   if (!snippet) {
     notFound();
   }
   return (
     <>
-      <div className='sticky top-[70px] hidden h-[calc(100vh-70px)] w-[284px] md:flex md:shrink-0 md:flex-col border-r border-[var(--offset)]'>
-        <div className='text-[var(--primary)] font-semibold text-lg underline font-newsreader'>
+      <div className='sticky top-[70px] hidden h-[calc(100vh-70px)] w-[284px] md:flex md:shrink-0 md:flex-col border-none border-[var(--offset)]'>
+        {/* <div className='text-[var(--primary)] font-semibold text-lg underline font-newsreader'>
           All snippets
-        </div>
-        <ul className='mt-2 text-sm'>
-          {allSnippets
-            // .sort((a: Snippet, b: Snippet) => {
-            //   if (new Date(a.publishedAt) > new Date(b.publishedAt)) {
-            //     return -1;
-            //   }
-            //   return 1;
-            // })
-            .map((s) => (
-              <li
-                key={s.slug}
-                className={clsx(
-                  "rounder-lg hover:bg-[var(--offset)] py-2 px-1 border-l pl-2",
-                  s.slug === snippet.slug
-                    ? "border-blue-500 bg-[var(--offset)]"
-                    : "border-[var(--muted)]"
-                )}
-              >
-                <Link
-                  className={clsx(
-                    "rounded-md animated-list",
-                    s.slug === snippet.slug ? "font-semibold text-blue-500" : ""
-                  )}
-                  href={`/snippet/${s.slug}`}
-                >
-                  {s.title}
-                </Link>
-              </li>
-            ))}
-        </ul>
+        </div> */}
+        <SearchBarFilterSnippet currentslug={snippet.slug} />
       </div>
       <Suspense>
         <nav className='order-last hidden w-56 shrink-0 lg:block'>
-          <div className='sticky top-[126px] h-[calc(100vh-121px)]'>
-            {snippet?.toc !== false ? (
-              <>
-                <div className='mb-1 mt-[7px] text-sm font-bold'>
-                  On this page
-                </div>
-                <div className='relative' data-docs-table-of-contents=''>
-                  <div
-                    aria-hidden='true'
-                    className='from-gray-0 z-1 absolute top-0 left-0 h-3 w-full bg-gradient-to-b'
-                  ></div>
-                  <div
-                    aria-hidden='true'
-                    className='from-gray-0 absolute bottom-0 left-0 z-10 h-3 w-full bg-gradient-to-t'
-                  ></div>
-                  <ul className='styled-scrollbar max-h-[70vh] overflow-y-auto text-sm'>
-                    <TableOfContents source={snippet.body.raw} />
-                  </ul>
-                </div>
-                <div className='mt-3 space-y-2 border-t border-gray-200 pt-5 text-sm text-gray-900 dark:border-gray-300'></div>
-                <a
-                  className=' mb-3 flex items-center gap-x-1.5 text-sm  transition-opacity'
-                  href={`https://github.com/heykapil/data-website/blob/main/snippets/${snippet.slug}.mdx`}
-                >
-                  Suggest changes
-                  <svg
-                    className='with-icon_icon__MHUeb'
-                    fill='none'
-                    height='20'
-                    shapeRendering='geometricPrecision'
-                    stroke='currentColor'
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    strokeWidth='1.5'
-                    viewBox='0 0 24 24'
-                    width='20'
+          <div className='sticky top-[20px] h-[calc(100vh-15px)]'>
+            <div className='flex flex-col max-h-screen overflow-y-auto'>
+              <div className='mb-1 mt-[7px] text-sm font-bold'>
+                {/* <div className='font-bold flex flex-row space-x-2 divide-solid'>
+                {snippet?.tags.map((t) => (
+                  <div className='flex capitalize'>#{t}</div>
+                ))}
+              </div> */}
+                <p>Similiar posts tagged</p>
+              </div>
+              {snippet?.tags.map((t) => (
+                <Accordion key={t} type='single' collapsible className='w-full'>
+                  <AccordionItem value={t} className='border-[var(--muted)]'>
+                    <AccordionTrigger className='text-sm capitalize font-serif p-2'>
+                      <div className='flex flex-row gap-1'>
+                        {/* <div className='flex self-center rounded-full w-2 h-2 bg-[var(--offset)]'></div>{" "} */}
+                        # {`${t}`}
+                      </div>
+                    </AccordionTrigger>
+                    <AccordionContent className='ml-2'>
+                      <PostsByTags tag={t} currentslug={snippet.slug} />
+                    </AccordionContent>
+                  </AccordionItem>
+                </Accordion>
+              ))}
+
+              {snippet?.toc !== false ? (
+                <>
+                  <div className='mb-1 mt-[20px] text-sm font-bold'>
+                    On this page
+                  </div>
+                  <div className='relative' data-docs-table-of-contents=''>
+                    <div
+                      aria-hidden='true'
+                      className='from-gray-0 z-1 absolute top-0 left-0 h-3 w-full bg-gradient-to-b'
+                    ></div>
+                    <div
+                      aria-hidden='true'
+                      className='from-gray-0 absolute bottom-0 left-0 z-10 h-3 w-full bg-gradient-to-t'
+                    ></div>
+                    <ul className='styled-scrollbar max-h-[70vh] overflow-y-auto text-sm'>
+                      <TableOfContents source={snippet.body.raw} />
+                    </ul>
+                  </div>
+                  <div className='mt-3 space-y-2 border-t border-gray-200 pt-5 text-sm text-gray-900 dark:border-gray-300'></div>
+                  <a
+                    className=' mb-3 flex items-center gap-x-1.5 text-sm  transition-opacity'
+                    href={`https://github.com/heykapil/data-website/blob/main/snippets/${snippet.slug}.mdx`}
                   >
-                    <path d='M7 17L17 7'></path>
-                    <path d='M7 7h10v10'></path>
-                  </svg>
-                </a>
-              </>
-            ) : (
-              ""
-            )}
-            <Suspense>
-              <ScrolltoTop />
-            </Suspense>
+                    Suggest changes
+                    <svg
+                      className='with-icon_icon__MHUeb'
+                      fill='none'
+                      height='20'
+                      shapeRendering='geometricPrecision'
+                      stroke='currentColor'
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                      strokeWidth='1.5'
+                      viewBox='0 0 24 24'
+                      width='20'
+                    >
+                      <path d='M7 17L17 7'></path>
+                      <path d='M7 7h10v10'></path>
+                    </svg>
+                  </a>
+                </>
+              ) : (
+                ""
+              )}
+              <Suspense>
+                <ScrolltoTop />
+              </Suspense>
+            </div>
           </div>
         </nav>
       </Suspense>
@@ -206,7 +243,7 @@ export default async function Snippet({ params }: { params: any }) {
           <Balancer>{snippet.title}</Balancer>
         </h1>
         <div className='flex justify-between items-center mt-2 mb-8 text-sm mx-auto'>
-          <p className='text-sm text-neutral-600 dark:text-neutral-400'>
+          <div className='text-sm text-neutral-600 dark:text-neutral-400'>
             <Suspense>
               <ViewCounter
                 allViews={allViews}
@@ -215,7 +252,7 @@ export default async function Snippet({ params }: { params: any }) {
               />{" "}
               views
             </Suspense>
-          </p>
+          </div>
           <div className='mt-2 sm:mt-0'>
             <Image
               alt={snippet.title}
@@ -226,10 +263,12 @@ export default async function Snippet({ params }: { params: any }) {
             />
           </div>
         </div>
+
         <Mdx
           code={snippet.body.code}
           // tweets={tweets}
         />
+
         <div className={style.container}>
           <Suspense>
             <LikeButton allLikes={allLikes} slug={`snippet/${snippet.slug}`} />
