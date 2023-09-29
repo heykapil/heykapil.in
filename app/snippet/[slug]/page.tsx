@@ -231,7 +231,7 @@ export default async function Snippet({ params }: { params: any }) {
           </div>
         </nav>
       </Suspense>
-      <section className='w-full min-w-0 max-w-3xl md:px-6 mx-auto px-4'>
+      <section className='w-full min-w-0 max-w-2xl md:px-6 mx-auto px-2'>
         <script
           type='application/ld+json'
           suppressHydrationWarning
@@ -243,8 +243,9 @@ export default async function Snippet({ params }: { params: any }) {
           <Balancer>{snippet.title}</Balancer>
         </h1>
         <div className='flex justify-between items-center mt-2 mb-8 text-sm mx-auto'>
-          <div className='text-sm text-neutral-600 dark:text-neutral-400'>
+          <div className='text-sm'>
             <Suspense>
+              <span className='w-2 h-2 inline-flex mr-1 rounded-full bg-gray-500 bg-opacity-50' />
               <ViewCounter
                 allViews={allViews}
                 slug={`snippet/${snippet.slug}`}
