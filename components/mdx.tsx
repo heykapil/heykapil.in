@@ -3,7 +3,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { useMDXComponent } from "next-contentlayer/hooks";
 import { Pre } from "./blog/Pre";
-import { TweetComponent } from "./Tweet/Tweet";
+// import { TweetComponent } from "./Tweet/Tweet";
+import Step from "./Steps/Step";
+import Steps from "./Steps/Steps";
 const CustomLink = (props: any) => {
   const href = props.href;
 
@@ -99,7 +101,10 @@ const components = {
   a: CustomLink,
   pre: Pre,
   Callout,
-  StaticTweet: TweetComponent,
+  Step,
+  Steps,
+  // StaticTweet: TweetComponent,
+
   //   ProsCard,
   //   ConsCard,
   //  pre: Pre,

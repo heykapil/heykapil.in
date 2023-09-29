@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import data from "../../public/search-data-snippet.json";
+import data from "../../lib/data/search-data-snippet.json";
 import clsx from "clsx";
 import Link from "next/link";
 const SearchBarFilterSnippet = ({ currentslug }: { currentslug: string }) => {

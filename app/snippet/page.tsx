@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import tagData from "@/app/tag-data-snippet.json";
+import tagData from "@/lib/data/tag-data-snippet.json";
 import { allSnippets } from "@/.contentlayer/generated";
 import Link from "next/link";
 import { getViewsCount } from "lib/metrics";
@@ -8,7 +8,7 @@ import dynamic from "next/dynamic";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { EyeOpenIcon, ChevronRightIcon } from "@radix-ui/react-icons";
-import data from "../../public/search-data-snippet.json";
+import data from "../../lib/data/search-data-snippet.json";
 const ViewCounter = dynamic(() => import("@/components/ViewCounter"));
 import {
   Accordion,
@@ -79,7 +79,7 @@ export default async function SnippetPage() {
             <Accordion key={t} type='single' collapsible className='w-full'>
               <AccordionItem value={t} className='border-[var(--muted)]'>
                 <AccordionTrigger className='text-sm capitalize font-serif p-2'>
-                  <div className='flex flex-row gap-1 font-semibold'>
+                  <div className='flex flex-row gap-1 font-medium'>
                     {/* <div className='flex self-center rounded-full w-2 h-2 bg-[var(--offset)]'></div>{" "} */}
                     {`# ${t} (${tagCounts[t]})`}
                   </div>

@@ -5,7 +5,7 @@ import dynamic from "next/dynamic";
 import Link from "next/link";
 import Image from "next/image";
 import GallerySkelton from "./gallery/gallerySkelton";
-const TopTracksClient = dynamic(() => import("./spotify/TopTracksClient"));
+// const TopTracksClient = dynamic(() => import("./spotify/TopTracksClient"));
 const DynamicGallery = dynamic(() => import("./gallery/gallery"), {
   loading: () => <GallerySkelton />,
 });
@@ -164,9 +164,9 @@ const Hero = () => {
         </div>
       </div>
 
-      <Suspense>
+      {/* <Suspense>
         <TopTracksClient />
-      </Suspense>
+      </Suspense> */}
       {/* <div className='container flex flex-row mx-auto w-full space-x-3'>
           <Link href="mailto:contact@heykapil.in">
             <MailIcon />

@@ -173,6 +173,9 @@ export default function RootLayout({
               </section>
             </main>
             <Dock />
+            {/* <a href='https://storyset.com/work'>
+              Work illustrations by Storyset
+            </a> */}
           </NextAuthProvider>
         </Providers>
       </body>

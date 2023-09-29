@@ -8,7 +8,7 @@ import { Suspense } from "react";
 import { getViewsCount, getLikesCount } from "@/lib/metrics";
 import style from "styles/LikeContainer.module.css";
 import dynamic from "next/dynamic";
-import data from "../../../public/search-data-snippet.json";
+import data from "../../../lib/data/search-data-snippet.json";
 import SearchBarFilterSnippet from "@/components/search/snippet";
 import { ChevronRightIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
@@ -113,7 +113,7 @@ async function PostsByTags({
   currentslug: string;
 }) {
   const filteredPostsByTags = data.filter((snippet) =>
-    // @ts-ignore 
+    // @ts-ignore
     snippet.tags.includes(tag)
   );
   return (

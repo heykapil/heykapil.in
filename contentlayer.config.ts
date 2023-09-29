@@ -249,7 +249,7 @@ function createTagCountBlog(allPosts: Post[]) {
       tagCount[tag] = (tagCount[tag] || 0) + 1;
     });
   });
-  writeFileSync("./app/tag-data-blog.json", JSON.stringify(tagCount));
+  writeFileSync("./lib/data/tag-data-blog.json", JSON.stringify(tagCount));
   console.log("Tag data blog generated...");
 }
 
@@ -260,13 +260,13 @@ function createTagCountSnippet(allSnippets: Snippet[]) {
       tagCount[tag] = (tagCount[tag] || 0) + 1;
     });
   });
-  writeFileSync("./app/tag-data-snippet.json", JSON.stringify(tagCount));
+  writeFileSync("./lib/data/tag-data-snippet.json", JSON.stringify(tagCount));
   console.log("Tag data snippet generated...");
 }
 
 function createSearchPostIndex(allPosts: any) {
   writeFileSync(
-    `public/search-data-post.json`,
+    `lib/data/search-data-post.json`,
     JSON.stringify(allCoreContent(sortPosts(allPosts)))
   );
   console.log("Local search post index generated...");
@@ -274,7 +274,7 @@ function createSearchPostIndex(allPosts: any) {
 
 function createSearchSnippetIndex(allPosts: any) {
   writeFileSync(
-    `public/search-data-snippet.json`,
+    `lib/data/search-data-snippet.json`,
     JSON.stringify(allCoreContent(sortPosts(allPosts)))
   );
   console.log("Local search snippet index generated...");

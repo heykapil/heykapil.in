@@ -5,6 +5,7 @@ type Props = {
 } & React.PropsWithChildren;
 
 export const Pre = ({ children, raw, ...props }: Props) => {
+  // @ts-ignore
   const lang = props["data-language"] || "shell";
   return (
     <pre {...props} className='group relative w-auto h-auto'>

@@ -1,5 +1,7 @@
 @import "../styles/syntax-highlight.css";
 @import "../styles/nav.css";
+/* @import "tw-elements/dist/css/tw-elements.min.css"; */
+@import url("https://fonts.googleapis.com/css2?family=Gentium+Book+Plus&display=swap");
 /* @import url(//fonts.googleapis.com/css?family=Droid+Sans);
 @import url(//fonts.googleapis.com/css?family=Gentium+Book+Basic);
 @import url(//fonts.googleapis.com/css?family=Source+Code+Pro); */
@@ -83,8 +85,8 @@
     background-color: var(--background);
     color: var(--foreground);
     -webkit-font-smoothing: antialiased;
-    font-family: "Iowan Old Style", "Iowan", "Georgia", serif;
-
+    /* font-family: "Iowan Old Style", "Iowan", "Georgia", serif; */
+    font-family: "Gentium Book Plus", serif;
     /* font-size: 14px; */
     font-weight: 400;
     text-rendering: optimizeLegibility;
@@ -137,4 +139,8 @@ h3 {
   margin-left: auto;
   margin-right: auto;
   text-align: center;
+}
+
+.ease-in-out {
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
