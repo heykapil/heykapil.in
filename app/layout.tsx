@@ -176,6 +176,7 @@ export default function RootLayout({
             {/* <a href='https://storyset.com/work'>
               Work illustrations by Storyset
             </a> */}
+            <iframe src="https://status.heykapil.in/badge?theme=light" width="250" height="30" frameborder="0" scrolling="no"></iframe>
           </NextAuthProvider>
         </Providers>
       </body>
