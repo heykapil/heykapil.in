@@ -167,17 +167,17 @@ export default function RootLayout({
               analyticsConfig={siteMetadata.analytics as AnalyticsConfig}
             />
             <main className='flex-auto min-w-0 flex flex-col md:px-0'>
-              <section className=''>
+              <section className='mb-4'>
                 <Header />
                 {children}
               </section>
+               <iframe src="https://status.heykapil.in/badge?theme=light" className="dark:text-white" width="250" height="30" frameborder="0" scrolling="no"></iframe>
             </main>
             <Dock />
             {/* <a href='https://storyset.com/work'>
               Work illustrations by Storyset
             </a> */}
-            <iframe src="https://status.heykapil.in/badge?theme=light" width="250" height="30" frameborder="0" scrolling="no"></iframe>
-          </NextAuthProvider>
+           </NextAuthProvider>
         </Providers>
       </body>
     </html>
