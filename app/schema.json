@@ -1,0 +1,82 @@
+{
+  "tables": [
+    {
+      "name": "views",
+      "columns": [
+        {
+          "name": "slug",
+          "type": "string",
+          "unique": true
+        },
+        {
+          "name": "count",
+          "type": "int",
+          "notNull": true,
+          "defaultValue": "0"
+        }
+      ]
+    },
+    {
+      "name": "guestbook",
+      "columns": [
+        {
+          "name": "email",
+          "type": "string",
+          "notNull": true,
+          "defaultValue": "user@example.com"
+        },
+        {
+          "name": "body",
+          "type": "string",
+          "notNull": true,
+          "defaultValue": "Lorem ipsum dolor sit amet, consectetur adip"
+        },
+        {
+          "name": "created_by",
+          "type": "string",
+          "notNull": true,
+          "defaultValue": "User Name"
+        },
+        {
+          "name": "image",
+          "type": "string",
+          "notNull": true,
+          "defaultValue": "https://cdn.kapil.app"
+        },
+        {
+          "name": "created_at",
+          "type": "datetime",
+          "notNull": true,
+          "defaultValue": "now"
+        },
+        {
+          "name": "updated_at",
+          "type": "datetime",
+          "notNull": true,
+          "defaultValue": "now"
+        }
+      ]
+    },
+    {
+      "name": "redirects",
+      "columns": [
+        {
+          "name": "source",
+          "type": "string"
+        },
+        {
+          "name": "destination",
+          "type": "string",
+          "notNull": true,
+          "defaultValue": "https://cdn.kapil.app"
+        },
+        {
+          "name": "permanent",
+          "type": "bool",
+          "notNull": true,
+          "defaultValue": "false"
+        }
+      ]
+    }
+  ]
+}
