@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { Suspense, cache } from "react";
+import { Suspense, lazy, cache } from "react";
 import { notFound } from "next/navigation";
 import { CustomMDX } from "app/components/mdx";
 import { getViewsCount } from "app/db/queries";
 import { getSnippetPosts } from "app/db/blog";
-import ViewCounter from "app/blog/view-counter";
 import { increment } from "app/db/actions";
+import ViewCounter from "app/blog/view-counter";
 
 export async function generateMetadata({
   params,

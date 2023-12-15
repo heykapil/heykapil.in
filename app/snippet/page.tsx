@@ -1,9 +1,9 @@
 import Link from "next/link";
-import { Suspense } from "react";
-import ViewCounter from "app/blog/view-counter";
+import { Suspense, lazy } from "react";
 import { getViewsCount } from "app/db/queries";
 import { getSnippetPosts } from "app/db/blog";
 
+const ViewCounter = lazy(() => import("app/blog/view-counter"));
 export const metadata = {
   title: "Blog",
   description: "Read my thoughts on software development, design, and more.",
@@ -24,6 +24,7 @@ export default function SnippetPage() {
           }
           return 1;
         })
+        .filter((post) => post.metadata.archived !== "true")
         .map((post) => (
           <Link
             key={post.slug}

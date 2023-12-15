@@ -1,8 +1,9 @@
 import Link from "next/link";
-import { Suspense } from "react";
-import ViewCounter from "./view-counter";
+import { Suspense, lazy } from "react";
 import { getViewsCount } from "app/db/queries";
 import { getBlogPosts } from "app/db/blog";
+
+const ViewCounter = lazy(() => import("./view-counter"));
 
 export const metadata = {
   title: "Blog",
@@ -24,6 +25,7 @@ export default function BlogPage() {
           }
           return 1;
         })
+        .filter((post) => post.metadata.archived !== "true")
         .map((post) => (
           <Link
             key={post.slug}

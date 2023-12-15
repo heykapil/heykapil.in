@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
-import { Suspense, cache } from "react";
+import { Suspense, lazy, cache } from "react";
 import { notFound } from "next/navigation";
 import { CustomMDX } from "app/components/mdx";
 import { getViewsCount } from "app/db/queries";
 import { getBlogPosts } from "app/db/blog";
-import ViewCounter from "../view-counter";
 import { increment } from "app/db/actions";
+
+const ViewCounter = lazy(() => import("app/blog/view-counter"));
 
 export async function generateMetadata({
   params,
@@ -22,8 +23,8 @@ export async function generateMetadata({
     image,
   } = post.metadata;
   let ogImage = image
-    ? `https://leerob.io${image}`
-    : `https://leerob.io/og?title=${title}`;
+    ? `https://kapil.app${image}`
+    : `https://kapil.app/og?title=${title}`;
 
   return {
     title,
@@ -33,7 +34,7 @@ export async function generateMetadata({
       description,
       type: "article",
       publishedTime,
-      url: `https://leerob.io/blog/${post.slug}`,
+      url: `https://kapil.app/blog/${post.slug}`,
       images: [
         {
           url: ogImage,
@@ -102,12 +103,12 @@ export default function Blog({ params }) {
             dateModified: post.metadata.updated,
             description: post.metadata.summary,
             image: post.metadata.image
-              ? `https://leerob.io${post.metadata.image}`
-              : `https://leerob.io/og?title=${post.metadata.title}`,
-            url: `https://leerob.io/blog/${post.slug}`,
+              ? `https://kapil.app${post.metadata.image}`
+              : `https://kapil.app/og?title=${post.metadata.title}`,
+            url: `https://kapil.app/blog/${post.slug}`,
             author: {
               "@type": "Person",
-              name: "Lee Robinson",
+              name: "Kapil Chaudhary",
             },
           }),
         }}

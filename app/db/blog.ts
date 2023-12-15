@@ -6,6 +6,7 @@ type Metadata = {
   created: string;
   updated: string;
   summary: string;
+  archived?: string;
   image?: string;
 };
 
