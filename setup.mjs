@@ -8,7 +8,7 @@ const syncContentFromGit = async (contentDir) => {
     await runBashCommand(`
       if [ -d  "${contentDir}" ];
         then
-          cd "${contentDir}"; git pull; git add .; git commit -a -m 'auto-sync'; git push;
+          cd "${contentDir}"; git pull origin main; git add .; git commit -a -m 'auto-sync'; git push origin main;
         else
           git clone --depth 1 --single-branch ${gitUrl} ${contentDir};
       fi
