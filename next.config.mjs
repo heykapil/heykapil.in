@@ -1,6 +1,6 @@
 const nextConfig = {
   experimental: {
-    ppr: true,
+    // ppr: true,
   },
   images: {
     remotePatterns: [
@@ -36,15 +36,15 @@ const nextConfig = {
   },
 };
 
-const ContentSecurityPolicy = `
-    default-src 'self';
-    script-src 'self' 'unsafe-eval' 'unsafe-inline';
-    style-src 'self' 'unsafe-inline';
-    img-src * cdn.kapil.app blob: data:;
-    media-src 'none';
-    connect-src *;
-    font-src 'self' data:;
-`;
+// const ContentSecurityPolicy = `
+//     default-src 'self';
+//     script-src 'self' 'unsafe-eval' 'unsafe-inline';
+//     style-src 'self' 'unsafe-inline';
+//     img-src * cdn.kapil.app blob: data:;
+//     media-src 'none';
+//     connect-src *;
+//     font-src 'self' data:;
+// `;
 const securityHeaders = [
   // {
   //   key: "Content-Security-Policy",
