@@ -6,6 +6,7 @@ import { getViewsCount } from "app/db/queries";
 import { getSnippetPosts } from "app/db/blog";
 import { increment } from "app/db/actions";
 import ViewCounter from "app/blog/view-counter";
+import { unstable_noStore as noStore } from "next/cache";
 
 export async function generateMetadata({
   params,
@@ -133,6 +134,7 @@ export default function Blog({ params }) {
 let incrementViews = cache(increment);
 
 async function Views({ slug }: { slug: string }) {
+  noStore();
   let views = await getViewsCount();
   incrementViews(slug);
   return (

@@ -1,13 +1,15 @@
 import Image from "next/image";
 import { unstable_noStore as noStore } from "next/cache";
 import { revalidatePath } from "next/cache";
+import clsx from "clsx";
+import styles from "./Music.module.css";
 
 async function getBirthdayData() {
+  noStore();
   const res = await fetch(`https://api.kapil.app/api/birthday`, {
     next: { revalidate: 43200 },
     // cache: "no-store",
   });
-  noStore();
   revalidatePath("/");
   if (!res.ok) {
     // This will activate the closest `error.js` Error Boundary
@@ -16,11 +18,11 @@ async function getBirthdayData() {
   return res.json();
 }
 async function getSpotifyData() {
+  noStore();
   const res = await fetch(`https://api.kapil.app/api/spotify/now-playing`, {
     next: { revalidate: 10 },
     // cache: "no-store",
   });
-  noStore();
   revalidatePath("/");
   if (!res.ok) {
     // This will activate the closest `error.js` Error Boundary
@@ -45,6 +47,7 @@ function ArrowIcon() {
     </svg>
   );
 }
+
 function Badge(props) {
   return (
     <a
@@ -100,27 +103,49 @@ export default async function Page() {
         </div>
         <div className="relative flex h-80 mb-4 sm:mb-0 hover:scale-[1.025] duration-200 transition easy-in-out ">
           <div className="flex-1 align-stretch min-h-0 items-center justify-center p-3 dark:hover:bg-neutral-700 bg-neutral-100 hover:bg-neutral-200 delay-50 duration-100 dark:bg-neutral-800 rounded-lg group">
-            <a className="" href={spotifyData.songUrl}>
-              <img
-                src={spotifyData.cover || spotifyData.albumImageUrl}
-                className="w-full rounded shadow bg-fill"
+            <img
+              src={spotifyData.cover || spotifyData.albumImageUrl}
+              className="w-full mb-2 rounded shadow bg-fill"
+            />
+            <div className={clsx(styles.music)}>
+              <div
+                className={clsx(
+                  styles.line,
+                  styles.line1,
+                  spotifyData?.isPlaying === false && styles.offline
+                )}
               />
-
-              {/* <SpotifyIcon /> */}
-              <h3 className="font-bold mt-5">
-                <span className="font-normal text-sm">
-                  {" "}
-                  {spotifyData.isPlaying === false
-                    ? "Last played -"
-                    : "Listening -"}{" "}
-                </span>
+              <div
+                className={clsx(
+                  styles.line,
+                  styles.line2,
+                  spotifyData?.isPlaying === false && styles.offline
+                )}
+              />
+              <div
+                className={clsx(
+                  styles.line,
+                  styles.line3,
+                  spotifyData?.isPlaying === false && styles.offline
+                )}
+              />
+              {spotifyData.isPlaying === false ? (
+                <p>Last played</p>
+              ) : (
+                <p>
+                  Playing on <span className="text-[#1DB954]">Spotify</span>
+                </p>
+              )}
+            </div>
+            <h3 className="font-bold mt-2">
+              <span className="font-normal text-sm"> </span>
+              <a className="" href={spotifyData.songUrl}>
                 {spotifyData.title}
-              </h3>
-
-              <p className="font-light mt-2 text-xs">
-                {spotifyData.album} - {spotifyData.artist}
-              </p>
-            </a>
+              </a>
+            </h3>
+            <p className="font-light mt-2 text-xs">
+              {spotifyData.album} - {spotifyData.artist}
+            </p>
           </div>
         </div>
         <div className="relative h-40 sm:h-80 sm:mb-4">

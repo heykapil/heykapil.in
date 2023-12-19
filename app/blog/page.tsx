@@ -2,8 +2,8 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { getViewsCount } from "app/db/queries";
 import { getBlogPosts } from "app/db/blog";
-
 import ViewCounter from "./view-counter";
+import { unstable_noStore as noStore } from "next/cache";
 
 export const metadata = {
   title: "Blog",
@@ -47,6 +47,7 @@ export default function BlogPage() {
 }
 
 async function Views({ slug }: { slug: string }) {
+  noStore();
   let views = await getViewsCount();
 
   return (

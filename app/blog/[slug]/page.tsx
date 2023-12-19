@@ -5,7 +5,7 @@ import { CustomMDX } from "app/components/mdx";
 import { getViewsCount } from "app/db/queries";
 import { getBlogPosts } from "app/db/blog";
 import { increment } from "app/db/actions";
-
+import { unstable_noStore as noStore } from "next/cache";
 const ViewCounter = lazy(() => import("app/blog/view-counter"));
 
 export async function generateMetadata({
@@ -134,6 +134,7 @@ export default function Blog({ params }) {
 let incrementViews = cache(increment);
 
 async function Views({ slug }: { slug: string }) {
+  noStore();
   let views = await getViewsCount();
   incrementViews(slug);
   return (

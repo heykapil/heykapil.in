@@ -15,6 +15,7 @@
   --sh-keyword: #e02518;
   --sh-comment: #a19595;
   --sh-jsxliterals: #6266d1;
+  --primary: #171717;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -23,6 +24,7 @@
     --sh-identifier: white;
     --sh-keyword: #f47067;
     --sh-string: #0fa295;
+    --primary: #fafafa;
   }
 }
 
@@ -50,7 +52,7 @@ html {
 
 .prose .anchor:after {
   @apply text-neutral-300 dark:text-neutral-700;
-  content: '#';
+  content: "#";
 }
 
 .prose *:hover > .anchor {
@@ -106,8 +108,8 @@ pre {
 }
 
 /* Remove Safari input shadow on mobile */
-input[type='text'],
-input[type='email'] {
+input[type="text"],
+input[type="email"] {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
