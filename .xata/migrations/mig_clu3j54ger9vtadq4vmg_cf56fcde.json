@@ -1,0 +1,40 @@
+{
+  "id": "mig_clu3j54ger9vtadq4vmg",
+  "parentID": "mig_clu3dpkjcs9dttppr820",
+  "checksum": "1:cf56fcde13d8cc77544f4dca81a2148f057b32b53b24a8f11747a3d56c9cdd8b",
+  "operations": [
+    {
+      "removeColumn": {
+        "column": "slug",
+        "table": "views"
+      }
+    },
+    {
+      "removeColumn": {
+        "column": "count",
+        "table": "views"
+      }
+    },
+    {
+      "addColumn": {
+        "column": {
+          "name": "slug",
+          "type": "string",
+          "unique": true
+        },
+        "table": "views"
+      }
+    },
+    {
+      "addColumn": {
+        "column": {
+          "name": "count",
+          "type": "int",
+          "notNull": true,
+          "defaultValue": "0"
+        },
+        "table": "views"
+      }
+    }
+  ]
+}

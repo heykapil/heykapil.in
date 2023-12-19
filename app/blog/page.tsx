@@ -1,9 +1,9 @@
 import Link from "next/link";
-import { Suspense, lazy } from "react";
+import { Suspense } from "react";
 import { getViewsCount } from "app/db/queries";
 import { getBlogPosts } from "app/db/blog";
 
-const ViewCounter = lazy(() => import("./view-counter"));
+import ViewCounter from "./view-counter";
 
 export const metadata = {
   title: "Blog",

@@ -1,0 +1,12 @@
+{
+  "id": "mig_clu30o5le5s5vi4ibmeg",
+  "parentID": "mig_clu30mnbnmnlsjcmghe0",
+  "checksum": "1:cca15770527be9e5604ba59fdb0c991955dc57ba75194fc1ca412a0ce5768124",
+  "operations": [
+    {
+      "removeTable": {
+        "table": "image"
+      }
+    }
+  ]
+}

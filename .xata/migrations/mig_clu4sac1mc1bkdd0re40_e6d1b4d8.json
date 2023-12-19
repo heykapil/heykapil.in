@@ -1,0 +1,23 @@
+{
+  "id": "mig_clu4sac1mc1bkdd0re40",
+  "parentID": "mig_clu4m4cger9vtadq5380",
+  "checksum": "1:e6d1b4d8c2d77ca04d5303e4b8472d6d16d551e8cb6845759f38e1f1c23d0a79",
+  "operations": [
+    {
+      "removeColumn": {
+        "column": "slug",
+        "table": "views"
+      }
+    },
+    {
+      "addColumn": {
+        "column": {
+          "name": "slug",
+          "type": "string",
+          "unique": true
+        },
+        "table": "views"
+      }
+    }
+  ]
+}

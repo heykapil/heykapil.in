@@ -1,4 +1,5 @@
-import { auth } from "app/auth";
+import { getServerSession } from "next-auth/next";
+import { authConfig } from "pages/api/auth/[...nextauth]";
 import { getGuestbookEntries } from "app/db/queries";
 import { redirect } from "next/navigation";
 import Form from "./form";
@@ -8,7 +9,7 @@ export const metadata = {
 };
 
 export default async function GuestbookPage() {
-  let session = await auth();
+  let session = await getServerSession(authConfig);
   if (session?.user?.email !== "kapilchaudhary@gujaratuniversity.ac.in") {
     redirect("/");
   }
