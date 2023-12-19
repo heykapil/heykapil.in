@@ -8,17 +8,17 @@ import { Navbar } from "./components/nav";
 import { PreloadResources } from "./preload";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://leerob.io"),
+  metadataBase: new URL("https://kapil.app"),
   title: {
-    default: "Lee Robinson",
-    template: "%s | Lee Robinson",
+    default: "Kapil Chaudhary",
+    template: "%s | Kapil Chaudhary",
   },
   description: "Developer, writer, and creator.",
   openGraph: {
-    title: "Lee Robinson",
+    title: "Kapil Chaudhary",
     description: "Developer, writer, and creator.",
-    url: "https://leerob.io",
-    siteName: "Lee Robinson",
+    url: "https://kapil.app",
+    siteName: "Kapil Chaudhary",
     locale: "en_US",
     type: "website",
   },
@@ -34,13 +34,13 @@ export const metadata: Metadata = {
     },
   },
   twitter: {
-    title: "Lee Robinson",
+    title: "Kapil Chaudhary",
     card: "summary_large_image",
   },
-  verification: {
-    google: "eZSdmzAXlLkKhNJzfgwDqWORghxnJ8qR9_CHdAh5-xw",
-    yandex: "14d2e73487fa6c71",
-  },
+  // verification: {
+  //   google: "eZSdmzAXlLkKhNJzfgwDqWORghxnJ8qR9_CHdAh5-xw",
+  //   yandex: "14d2e73487fa6c71",
+  // },
 };
 
 const cx = (...classes) => classes.filter(Boolean).join(" ");

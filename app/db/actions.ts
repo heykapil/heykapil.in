@@ -99,7 +99,6 @@ export async function deleteGuestbookEntries(selectedEntries: string[]) {
   }
 
   let selectedEntriesAsNumbers = selectedEntries;
-  // let arrayLiteral = `{${selectedEntriesAsNumbers.join(",")}}`;
 
   await queryBuilder
     .deleteFrom("guestbook")

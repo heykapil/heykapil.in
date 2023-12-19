@@ -3,6 +3,7 @@ import { unstable_noStore as noStore } from "next/cache";
 import { revalidatePath } from "next/cache";
 import clsx from "clsx";
 import styles from "./Music.module.css";
+import { Suspense } from "react";
 
 async function getBirthdayData() {
   noStore();
@@ -66,8 +67,10 @@ export default async function Page() {
         hey, I'm kapil 👋
       </h1>
       <p className="prose prose-neutral dark:prose-invert">
-        {`I'm a ${birthdayData.years} old research scholar at Gujarat university. I am currently working as Junior Research Fellow in the area of
+        <Suspense>
+          {`I'm a ${birthdayData.years} old research scholar at Gujarat university. I am currently working as Junior Research Fellow in the area of
               fractional-order dynamical systems and epidemiology. `}
+        </Suspense>
         {`My suporvisior is `}
         <a
           href="https://scholar.google.com/citations?hl=en&user=ngfCbC8AAAAJ"
@@ -84,68 +87,75 @@ export default async function Page() {
       <p className="prose prose-neutral dark:prose-invert"></p>
       <div className="columns-2 sm:columns-3 gap-4 my-8">
         <div className="relative h-40 mb-4 bg-neutral-100 dark:bg-neutral-800 rounded-lg">
-          <div className="absolute top-1/2 -translate-x-1/2 -translate-y-1/2 left-1/2 w-full h-full p-5 rounded-lg">
-            {birthdayData.daysLeft > 0 ? (
-              <div className=" items-center content-center place-content-center text-center">
-                <p className="text-4xl mt-[15%]">
-                  {birthdayData.daysLeft} <span className="text-lg">days</span>
-                </p>
-                <p className="text-lg">until birthday</p>
-              </div>
-            ) : (
-              <div className=" items-center content-center place-content-center text-center">
-                <p className="mt-[20%] text-lg">
-                  Dear Kapil 🎂🎉 Happy birthday!
-                </p>
-              </div>
-            )}
-          </div>
-        </div>
-        <div className="relative flex h-80 mb-4 sm:mb-0 hover:scale-[1.025] duration-200 transition easy-in-out ">
-          <div className="flex-1 align-stretch min-h-0 items-center justify-center p-3 dark:hover:bg-neutral-700 bg-neutral-100 hover:bg-neutral-200 delay-50 duration-100 dark:bg-neutral-800 rounded-lg group">
-            <img
-              src={spotifyData.cover || spotifyData.albumImageUrl}
-              className="w-full mb-2 rounded shadow bg-fill"
-            />
-            <div className={clsx(styles.music)}>
-              <div
-                className={clsx(
-                  styles.line,
-                  styles.line1,
-                  spotifyData?.isPlaying === false && styles.offline
-                )}
-              />
-              <div
-                className={clsx(
-                  styles.line,
-                  styles.line2,
-                  spotifyData?.isPlaying === false && styles.offline
-                )}
-              />
-              <div
-                className={clsx(
-                  styles.line,
-                  styles.line3,
-                  spotifyData?.isPlaying === false && styles.offline
-                )}
-              />
-              {spotifyData.isPlaying === false ? (
-                <p className="hidden sm:flex">Last played</p>
+          <Suspense>
+            <div className="absolute top-1/2 -translate-x-1/2 -translate-y-1/2 left-1/2 w-full h-full p-5 rounded-lg">
+              {birthdayData.daysLeft > 0 ? (
+                <div className=" items-center content-center place-content-center text-center">
+                  <p className="text-4xl mt-[15%]">
+                    {birthdayData.daysLeft}{" "}
+                    <span className="text-lg">days</span>
+                  </p>
+                  <p className="text-lg">until birthday</p>
+                </div>
               ) : (
-                <p className="hidden sm:flex">Playing on Spotify</p>
+                <div className=" items-center content-center place-content-center text-center">
+                  <p className="mt-[20%] text-lg">
+                    Dear Kapil 🎂🎉 Happy birthday!
+                  </p>
+                </div>
               )}
             </div>
-            <a
-              className="flex items-center hover:text-neutral-800 dark:hover:text-neutral-100 hover:underline transition-all mt-1"
-              href={spotifyData.songUrl}
-            >
-              <ArrowIcon />
-              <p className="font-bold mt-1 h-7 ml-2">{spotifyData.title}</p>
-            </a>
-            <p className="font-light mt-2 text-sm">
-              {spotifyData.album} - {spotifyData.artist}
-            </p>
-          </div>
+          </Suspense>
+        </div>
+        <div className="relative flex h-80 mb-4 sm:mb-0 hover:scale-[1.025] duration-200 transition easy-in-out ">
+          <Suspense>
+            <div className="flex-1 align-stretch min-h-0 items-center justify-center p-3 dark:hover:bg-neutral-700 bg-neutral-100 hover:bg-neutral-200 delay-50 duration-100 dark:bg-neutral-800 rounded-lg group">
+              <img
+                src={spotifyData.cover || spotifyData.albumImageUrl}
+                className="w-full mb-2 rounded shadow bg-fill"
+              />
+              <div className={clsx(styles.music)}>
+                <div
+                  className={clsx(
+                    styles.line,
+                    styles.line1,
+                    spotifyData?.isPlaying === false && styles.offline
+                  )}
+                />
+                <div
+                  className={clsx(
+                    styles.line,
+                    styles.line2,
+                    spotifyData?.isPlaying === false && styles.offline
+                  )}
+                />
+                <div
+                  className={clsx(
+                    styles.line,
+                    styles.line3,
+                    spotifyData?.isPlaying === false && styles.offline
+                  )}
+                />
+                {spotifyData.isPlaying === false ? (
+                  <p className="hidden sm:flex">Last played</p>
+                ) : (
+                  <p className="hidden sm:flex">playing on spotify</p>
+                )}
+              </div>
+              <a
+                className="flex items-center hover:text-neutral-800 dark:hover:text-neutral-100 hover:underline transition-all mt-1"
+                href={spotifyData.songUrl}
+              >
+                <ArrowIcon />
+                <p className="font-semibold mt-1 h-7 ml-2">
+                  {spotifyData.title}
+                </p>
+              </a>
+              <p className="font-light mt-2 text-sm">
+                {spotifyData.album} - {spotifyData.artist}
+              </p>
+            </div>
+          </Suspense>
         </div>
         <div className="relative h-40 sm:h-80 sm:mb-4">
           <Image
