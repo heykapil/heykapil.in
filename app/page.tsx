@@ -130,20 +130,19 @@ export default async function Page() {
                 )}
               />
               {spotifyData.isPlaying === false ? (
-                <p>Last played</p>
+                <p className="hidden sm:flex">Last played</p>
               ) : (
-                <p>
-                  Playing on <span className="text-[#1DB954]">Spotify</span>
-                </p>
+                <p className="hidden sm:flex">Playing on Spotify</p>
               )}
             </div>
-            <h3 className="font-bold mt-2">
-              <span className="font-normal text-sm"> </span>
-              <a className="" href={spotifyData.songUrl}>
-                {spotifyData.title}
-              </a>
-            </h3>
-            <p className="font-light mt-2 text-xs">
+            <a
+              className="flex items-center hover:text-neutral-800 dark:hover:text-neutral-100 hover:underline transition-all mt-1"
+              href={spotifyData.songUrl}
+            >
+              <ArrowIcon />
+              <p className="font-bold mt-1 h-7 ml-2">{spotifyData.title}</p>
+            </a>
+            <p className="font-light mt-2 text-sm">
               {spotifyData.album} - {spotifyData.artist}
             </p>
           </div>
