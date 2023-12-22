@@ -1,16 +1,16 @@
 import type { Metadata } from "next";
-import { Suspense } from "react";
+import React, { Suspense } from "react";
 export const metadata: Metadata = {
   title: "Work",
   description: "A summary of my work and contributions.",
 };
 
-async function Stars() {
-  let res = await fetch("https://api.github.com/repos/vercel/next.js");
-  let json = await res.json();
-  let count = Math.round(json.stargazers_count / 1000);
-  return `${count}k stars`;
-}
+// async function Stars() {
+//   let res = await fetch("https://api.github.com/repos/vercel/next.js");
+//   let json = await res.json();
+//   let count = Math.round(json.stargazers_count / 1000);
+//   return `${count}k stars`;
+// }
 
 async function getScholarData() {
   const res = await fetch(
@@ -41,8 +41,9 @@ export default async function WorkPage() {
         <p className="text-neutral-600 dark:text-neutral-400 text-sm">
           Dec 2021 onwards
         </p>
-        <ol>
-          <Suspense>
+
+        <Suspense fallback={<span className="h-8">Loading ...</span>}>
+          <ol>
             {scholarData["articles"].map((data) => (
               <li key={data.title}>
                 <a href={data.link} target="_blank">
@@ -72,8 +73,8 @@ export default async function WorkPage() {
                 </span>
               </li>
             ))}
-          </Suspense>
-        </ol>
+          </ol>
+        </Suspense>
         <hr className="my-6 border-neutral-100 dark:border-neutral-800" />
         <h2 className="font-medium text-xl mb-1 tracking-tighter">Teaching</h2>
         <p className="text-neutral-600 dark:text-neutral-400 text-sm">
