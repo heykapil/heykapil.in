@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { unstable_noStore as noStore } from "next/cache";
-import { revalidatePath } from "next/cache";
+// import { revalidatePath } from "next/cache";
 import clsx from "clsx";
 import styles from "./Music.module.css";
 import { Suspense } from "react";
@@ -9,11 +9,9 @@ async function getBirthdayData() {
   noStore();
   const res = await fetch(`https://api.kapil.app/api/birthday`, {
     next: { revalidate: 43200 },
-    // cache: "no-store",
   });
-  revalidatePath("/");
+  // revalidatePath("/");
   if (!res.ok) {
-    // This will activate the closest `error.js` Error Boundary
     throw new Error("Failed to fetch data");
   }
   return res.json();
@@ -22,11 +20,9 @@ async function getSpotifyData() {
   noStore();
   const res = await fetch(`https://api.kapil.app/api/spotify/now-playing`, {
     next: { revalidate: 10 },
-    // cache: "no-store",
   });
-  revalidatePath("/");
+  // revalidatePath("/");
   if (!res.ok) {
-    // This will activate the closest `error.js` Error Boundary
     throw new Error("Failed to fetch data");
   }
   return res.json();
@@ -61,6 +57,7 @@ function Badge(props) {
 export default async function Page() {
   const birthdayData = await getBirthdayData();
   const spotifyData = await getSpotifyData();
+  // console.log(scholarData);
   return (
     <section>
       <h1 className="font-medium text-2xl mb-8 tracking-tighter">
@@ -163,17 +160,19 @@ export default async function Page() {
             src="https://cdn.kapil.app//images/kapiljch-20220503-0008.jpg"
             fill
             sizes="(max-width: 768px) 213px, 33vw"
-            priority
+            placeholder="blur"
+            blurDataURL="data:image/webp;base64,UklGRhgCAABXRUJQVlA4WAoAAAAgAAAAAQAAAQAASUNDUMgBAAAAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADZWUDggKgAAALABAJ0BKgIAAgADgFoliAJ0AQ72nkAAzj72ZirViMtD3z7F/qqnr8PoAA=="
             className="rounded-lg object-cover object-top sm:object-center"
           />
         </div>
         <div className="relative h-40 mb-4 sm:mb-0">
           <Image
-            alt="Me standing on stage at SmashingConf giving a talk about my optimism for the web"
+            alt=""
             src="http://cdn.kapil.app/images/kapiljch-20221120.webp"
             fill
             sizes="(max-width: 768px) 213px, 33vw"
-            priority
+            placeholder="blur"
+            blurDataURL="data:image/webp;base64,UklGRhgCAABXRUJQVlA4WAoAAAAgAAAAAQAAAQAASUNDUMgBAAAAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADZWUDggKgAAALABAJ0BKgIAAgADgFoliAJ0AQ72nkAAzj72ZirViMtD3z7F/qqnr8PoAA=="
             className="rounded-lg object-cover"
           />
         </div>
@@ -183,17 +182,19 @@ export default async function Page() {
             src="https://cdn.kapil.app/images/kapiljch-20220503-0001.jpg"
             fill
             sizes="(max-width: 768px) 213px, 33vw"
-            priority
+            placeholder="blur"
+            blurDataURL="data:image/webp;base64,UklGRhgCAABXRUJQVlA4WAoAAAAgAAAAAQAAAQAASUNDUMgBAAAAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADZWUDggKgAAALABAJ0BKgIAAgADgFoliAJ0AQ72nkAAzj72ZirViMtD3z7F/qqnr8PoAA=="
             className="rounded-lg object-cover"
           />
         </div>
         <div className="relative h-80">
           <Image
-            alt="My badge on top of a pile of badges from a Vercel meetup we held"
+            alt=""
             src="http://cdn.kapil.app/images/kapiljch-20221008.jpeg"
             fill
             sizes="(min-width: 768px) 213px, 33vw"
-            priority
+            placeholder="blur"
+            blurDataURL="data:image/webp;base64,UklGRhgCAABXRUJQVlA4WAoAAAAgAAAAAQAAAQAASUNDUMgBAAAAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADZWUDggKgAAALABAJ0BKgIAAgADgFoliAJ0AQ72nkAAzj72ZirViMtD3z7F/qqnr8PoAA=="
             className="rounded-lg object-cover"
           />
         </div>
