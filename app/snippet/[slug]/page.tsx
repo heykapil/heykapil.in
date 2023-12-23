@@ -24,7 +24,7 @@ export async function generateMetadata({
   } = post.metadata;
   let ogImage = image
     ? `https://kapil.app${image}`
-    : `https://kapil.app/og?title=${title}`;
+    : `https://og.kapil.app/api/og?title=${title}`;
 
   return {
     title,
