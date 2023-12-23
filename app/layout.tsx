@@ -37,6 +37,61 @@ export const metadata: Metadata = {
     title: "Kapil Chaudhary",
     card: "summary_large_image",
   },
+  icons: {
+    apple: [
+      {
+        url: "https://cdn.kapil.app/images/website/favicons/favicon180x180.png",
+        sizes: "180x180",
+        type: "image/png",
+      },
+      {
+        url: "https://cdn.kapil.app/images/website/favicons/favicon152x152.png",
+        sizes: "152x152",
+        type: "image/png",
+      },
+      {
+        url: "https://cdn.kapil.app/images/website/favicons/favicon144x144.png",
+        sizes: "144x144",
+        type: "image/png",
+      },
+      {
+        url: "https://cdn.kapil.app/images/website/favicons/favicon120x120.png",
+        sizes: "120x120",
+        type: "image/png",
+      },
+      {
+        url: "https://cdn.kapil.app/images/website/favicons/favicon114x114.png",
+        sizes: "114x114",
+        type: "image/png",
+      },
+      {
+        url: "https://cdn.kapil.app/images/website/favicons/favicon60x60.png",
+        sizes: "60x60",
+        type: "image/png",
+      },
+      {
+        url: "https://cdn.kapil.app/images/website/favicons/favicon72x72.png",
+        sizes: "72x72",
+        type: "image/png",
+      },
+      {
+        url: "https://cdn.kapil.app/images/website/favicons/favicon96x96.png",
+        sizes: "96x96",
+        type: "image/png",
+      },
+    ],
+    other: [
+      {
+        rel: "icon",
+        url: "https://cdn.kapil.app/images/website/favicons/favicon.svg",
+        type: "image/svg+xml",
+      },
+      {
+        rel: "icon",
+        url: "https://cdn.kapil.app/images/website/favicons/favicon.ico",
+      },
+    ],
+  },
   // verification: {
   //   google: "eZSdmzAXlLkKhNJzfgwDqWORghxnJ8qR9_CHdAh5-xw",
   //   yandex: "14d2e73487fa6c71",
