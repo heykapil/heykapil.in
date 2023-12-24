@@ -11,21 +11,20 @@ const nextConfig = {
       { hostname: "images.unsplash.com" },
     ],
   },
-  // async redirects() {
-  //   // if (!process.env.POSTGRES_URL) {
-  //   //   return [];
-  //   // }
-
-  //   const { rows: redirects } = await quertyBuilder
-  //     .selectFrom("redirects")
-  //     .select(["source", "destination", "permanent"])
-  //     .execute();
-  //   return redirects.map(({ source, destination, permanent }) => ({
-  //     source,
-  //     destination,
-  //     permanent: !!permanent,
-  //   }));
-  // },
+  async redirects() {
+    return [
+      {
+        source: "/api/spotify/:slug*",
+        destination: "https://api.kapil.app/api/spotify/:slug*", // Matched parameters can be used in the destination
+        permanent: false,
+      },
+      {
+        source: "/og/:slug*",
+        destination: "https://og.kapil.app/api/og/:slug*", // Matched parameters can be used in the destination
+        permanent: false,
+      },
+    ];
+  },
   headers() {
     return [
       {
