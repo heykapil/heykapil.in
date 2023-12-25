@@ -3,8 +3,6 @@ import type { Metadata } from "next";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import { Navbar } from "./components/nav";
-// import { Analytics } from '@vercel/analytics/react';
-// import { SpeedInsights } from '@vercel/speed-insights/next';
 import { PreloadResources } from "./preload";
 
 export const metadata: Metadata = {
@@ -21,6 +19,11 @@ export const metadata: Metadata = {
     siteName: "Kapil Chaudhary",
     locale: "en_US",
     type: "website",
+    images: [
+      {
+        url: `https://og.kapil.app/api/og?title=Kapil Chaudhary&subtitle=Research scholar&bg=https://cdn.kapil.app/images/kapiljch-20220503-0001.jpg`,
+      },
+    ],
   },
   robots: {
     index: true,

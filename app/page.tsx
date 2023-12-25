@@ -16,12 +16,21 @@ async function getBirthdayData() {
   }
   return res.json();
 }
+async function getUptimeStatus() {
+  noStore();
+  const res = await fetch(`https://api2.kapil.app/api/monitors/1395311`, {
+    next: { revalidate: 10 },
+  });
+  if (!res.ok) {
+    throw new Error("Failed to fetch data");
+  }
+  return res.json();
+}
 async function getSpotifyData() {
   noStore();
   const res = await fetch(`https://api.kapil.app/api/spotify/now-playing`, {
     next: { revalidate: 10 },
   });
-  // revalidatePath("/");
   if (!res.ok) {
     throw new Error("Failed to fetch data");
   }
@@ -57,7 +66,9 @@ function Badge(props) {
 export default async function Page() {
   const birthdayData = await getBirthdayData();
   const spotifyData = await getSpotifyData();
-  // console.log(scholarData);
+  const uptimeData = await getUptimeStatus();
+
+  console.log(uptimeData);
   return (
     <section>
       <h1 className="font-medium text-2xl mb-8 tracking-tighter">
@@ -274,30 +285,64 @@ export default async function Page() {
           building open-source communities, product-led growth, and more.
         </p>
       </div> */}
-      {/* <ul className="flex flex-col md:flex-row mt-8 space-x-0 md:space-x-4 space-y-2 md:space-y-0 font-sm text-neutral-600 dark:text-neutral-300">
-        <li>
-          <a
-            className="flex items-center hover:text-neutral-800 dark:hover:text-neutral-100 transition-all"
-            rel="noopener noreferrer"
-            target="_blank"
-            href="https://twitter.com/leeerob"
-          >
-            <ArrowIcon />
-            <p className="h-7 ml-2">follow me</p>
-          </a>
-        </li>
-        <li>
-          <a
-            className="flex items-center hover:text-neutral-800 dark:hover:text-neutral-100 transition-all"
-            rel="noopener noreferrer"
-            target="_blank"
-            href="https://leerob.substack.com"
-          >
-            <ArrowIcon />
-            <p className="h-7 ml-2">get email updates</p>
-          </a>
-        </li>
-      </ul> */}
+      <div className="flex justify-between">
+        <ul className="flex flex-col md:flex-row mt-8 space-x-0 md:space-x-4 space-y-2 md:space-y-0 font-sm text-neutral-600 dark:text-neutral-300">
+          <li>
+            <a
+              className="flex items-center hover:text-neutral-800 dark:hover:text-neutral-100 transition-all"
+              rel="noopener noreferrer"
+              target="_blank"
+              href="https://twitter.com/kapiljch"
+            >
+              <ArrowIcon />
+              <p className="h-7 ml-2">follow me</p>
+            </a>
+          </li>
+          <li>
+            <a
+              className="flex items-center hover:text-neutral-800 dark:hover:text-neutral-100 transition-all"
+              rel="noopener noreferrer"
+              target="_blank"
+              href="mailto:hi@kapil.app"
+            >
+              <ArrowIcon />
+              <p className="h-7 ml-2">email me</p>
+            </a>
+          </li>
+        </ul>
+        <ul className="flex flex-col md:flex-row mt-8 space-x-0 md:space-x-4 space-y-2 md:space-y-0 font-sm text-neutral-600 dark:text-neutral-300">
+          <li className="md:hidden">
+            <a
+              className="flex items-center hover:text-neutral-800 dark:hover:text-neutral-100 transition-all"
+              rel="noopener noreferrer"
+              target="_blank"
+              href="https://instagram.com/kapiljch"
+            >
+              <ArrowIcon />
+              <p className="h-7 ml-2">instagram</p>
+            </a>
+          </li>
+          <li>
+            <a
+              className="flex items-baseline hover:text-neutral-800 dark:hover:text-neutral-100 space-x-2 transition-all"
+              rel="noopener noreferrer"
+              target="_blank"
+              href="https://status.heykapil.in"
+            >
+              <Suspense fallback={<p className="h-7"></p>}>
+                <p className="flex items-center h-7">
+                  <span className="relative flex h-4 w-4">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-4 w-4 bg-green-500"></span>
+                  </span>
+                  <span className="w-2"></span>
+                  {uptimeData.availability.toFixed(3)} % uptime{" "}
+                </p>
+              </Suspense>
+            </a>
+          </li>
+        </ul>
+      </div>
     </section>
   );
 }
