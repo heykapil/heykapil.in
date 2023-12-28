@@ -7,7 +7,8 @@ import { getSnippetPosts } from "app/db/blog";
 import { increment } from "app/db/actions";
 import ViewCounter from "app/blog/view-counter";
 import { unstable_noStore as noStore } from "next/cache";
-
+import { getServerSession } from "next-auth/next";
+import { authConfig } from "pages/api/auth/[...nextauth]";
 export async function generateMetadata({
   params,
 }): Promise<Metadata | undefined> {
@@ -82,60 +83,72 @@ function formatDate(date: string) {
   return `${fullDate} (${formattedDate})`;
 }
 
-export default function Blog({ params }) {
+export default async function Snippet({ params }) {
+  let session = await getServerSession(authConfig);
   let post = getSnippetPosts().find((post) => post.slug === params.slug);
 
   if (!post) {
     notFound();
   }
-
-  return (
-    <section>
-      <script
-        type="application/ld+json"
-        suppressHydrationWarning
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "BlogPosting",
-            headline: post.metadata.title,
-            datePublished: post.metadata.created,
-            dateModified: post.metadata.updated,
-            description: post.metadata.summary,
-            image: post.metadata.image
-              ? `https://kapil.app${post.metadata.image}`
-              : `https://kapil.app/og?title=${post.metadata.title}`,
-            url: `https://kapil.app/blog/${post.slug}`,
-            author: {
-              "@type": "Person",
-              name: "Kapil Chaudhary",
-            },
-          }),
-        }}
-      />
-      <h1 className="title font-medium text-2xl tracking-tighter max-w-[650px]">
-        {post.metadata.title}
-      </h1>
-      <div className="flex justify-between items-center mt-2 mb-8 text-sm max-w-[650px]">
-        <p className="text-sm text-neutral-600 dark:text-neutral-400">
-          {formatDate(post.metadata.created)}
-        </p>
-        <Suspense
-          fallback={
-            <div className="inline-flex">
-              <p className="h-6 animate-pulse bg-slate-100 dark:bg-slate-900 bg-opacity-50 w-6" />
-              <span>views</span>
-            </div>
-          }
-        >
-          <Views slug={`snippet/${post.slug}`} />
-        </Suspense>
+  if (
+    post.metadata.private === `true` &&
+    session?.user?.email !== "kapilchaudhary@gujaratuniversity.ac.in"
+  ) {
+    return (
+      <div>
+        <h2 className="text-2xl">Not Authorized!</h2>
+        <p>The content is made private or hidden.</p>
       </div>
-      <article className="prose prose-quoteless prose-neutral dark:prose-invert">
-        <CustomMDX source={post.content} />
-      </article>
-    </section>
-  );
+    );
+  } else {
+    return (
+      <section>
+        <script
+          type="application/ld+json"
+          suppressHydrationWarning
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "BlogPosting",
+              headline: post.metadata.title,
+              datePublished: post.metadata.created,
+              dateModified: post.metadata.updated,
+              description: post.metadata.summary,
+              image: post.metadata.image
+                ? `https://kapil.app${post.metadata.image}`
+                : `https://kapil.app/og?title=${post.metadata.title}`,
+              url: `https://kapil.app/blog/${post.slug}`,
+              author: {
+                "@type": "Person",
+                name: "Kapil Chaudhary",
+              },
+            }),
+          }}
+        />
+        <h1 className="title font-medium text-2xl tracking-tighter max-w-[650px]">
+          {post.metadata.title}
+        </h1>
+        <div className="flex justify-between items-center mt-2 mb-8 text-sm max-w-[650px]">
+          <p className="text-sm text-neutral-600 dark:text-neutral-400">
+            {formatDate(post.metadata.created)}
+          </p>
+          <Suspense
+            fallback={
+              <div className="inline-flex">
+                <p className="h-6 animate-pulse bg-slate-100 dark:bg-slate-900 bg-opacity-50 w-6" />
+                <span>views</span>
+              </div>
+            }
+          >
+            <Views slug={`snippet/${post.slug}`} />
+          </Suspense>
+        </div>
+        <article className="prose prose-quoteless prose-neutral dark:prose-invert">
+          <CustomMDX source={post.content} />
+        </article>
+      </section>
+    );
+  }
 }
 
 let incrementViews = cache(increment);
