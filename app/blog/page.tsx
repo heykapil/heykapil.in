@@ -36,7 +36,14 @@ export default function BlogPage() {
               <p className="text-neutral-900 dark:text-neutral-100 tracking-tight">
                 {post.metadata.title}
               </p>
-              <Suspense fallback={<p className="h-6" />}>
+              <Suspense
+                fallback={
+                  <div className="inline-flex">
+                    <p className="h-6 animate-pulse bg-slate-100 dark:bg-slate-900 bg-opacity-50 w-6" />
+                    <span>views</span>
+                  </div>
+                }
+              >
                 <Views slug={`blog/${post.slug}`} />
               </Suspense>
             </div>

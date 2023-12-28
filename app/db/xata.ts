@@ -131,6 +131,30 @@ const tables = [
     ],
     revLinks: [{ column: "session", table: "nextauth_users_sessions" }],
   },
+  {
+    name: "images_rows",
+    columns: [
+      { name: "created_at", type: "datetime" },
+      { name: "href", type: "string" },
+      { name: "username", type: "string" },
+      { name: "imageSrc", type: "string" },
+      { name: "name", type: "string" },
+    ],
+  },
+  {
+    name: "uploads",
+    columns: [
+      { name: "name", type: "string", notNull: true, defaultValue: "Name" },
+      {
+        name: "url",
+        type: "string",
+        notNull: true,
+        defaultValue: "https://cdn.kapil.app",
+      },
+      { name: "uploaded_at", type: "text", notNull: true, defaultValue: "now" },
+      { name: "size", type: "int" },
+    ],
+  },
 ] as const;
 
 export type SchemaTables = typeof tables;
@@ -165,6 +189,12 @@ export type NextauthUsersSessionsRecord = NextauthUsersSessions & XataRecord;
 export type NextauthSessions = InferredTypes["nextauth_sessions"];
 export type NextauthSessionsRecord = NextauthSessions & XataRecord;
 
+export type ImagesRows = InferredTypes["images_rows"];
+export type ImagesRowsRecord = ImagesRows & XataRecord;
+
+export type Uploads = InferredTypes["uploads"];
+export type UploadsRecord = Uploads & XataRecord;
+
 export type DatabaseSchema = {
   views: ViewsRecord;
   guestbook: GuestbookRecord;
@@ -175,6 +205,8 @@ export type DatabaseSchema = {
   nextauth_users_accounts: NextauthUsersAccountsRecord;
   nextauth_users_sessions: NextauthUsersSessionsRecord;
   nextauth_sessions: NextauthSessionsRecord;
+  images_rows: ImagesRowsRecord;
+  uploads: UploadsRecord;
 };
 
 const DatabaseClient = buildClient();

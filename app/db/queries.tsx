@@ -40,6 +40,14 @@ export async function getGuestbookEntries() {
     .execute();
   return data;
 }
+export async function getUploadHistory() {
+  const data = await queryBuilder
+    .selectFrom("uploads")
+    .select(["id", "name", "size", "uploaded_at", "url"])
+    .limit(100)
+    .execute();
+  return data;
+}
 // export const getLikesCount = cache(async () => {
 //   return queryBuilder.selectFrom("likes").select(["slug", "count"]).execute();
 // });

@@ -1,0 +1,24 @@
+{
+  "id": "mig_cm60fvmjkjgg7abosc8g",
+  "parentID": "mig_cm5vv4mjkjgg7abosbo0",
+  "checksum": "1:74c2ebc56cd4b100dc75e2a55785d343beea3c8b92b9cb5b98200e8f9ce8aed2",
+  "operations": [
+    {
+      "removeColumn": {
+        "column": "uploaded_at",
+        "table": "uploads"
+      }
+    },
+    {
+      "addColumn": {
+        "column": {
+          "name": "uploaded_at",
+          "type": "text",
+          "notNull": true,
+          "defaultValue": "now"
+        },
+        "table": "uploads"
+      }
+    }
+  ]
+}

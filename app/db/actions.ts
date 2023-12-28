@@ -108,3 +108,22 @@ export async function deleteGuestbookEntries(selectedEntries: string[]) {
   revalidatePath(`/admin`);
   revalidatePath(`/guestbook`);
 }
+
+export async function saveUploadHistory(formData: FormData) {
+  let session = await getSession();
+  let uuid = randomUUID();
+  let name = formData.get("filename");
+  let url = formData.get("fileurl");
+  let size = formData.get("filesize");
+  let uploaded_at = formData.get("uploaded_at");
+  if (!session.user) {
+    throw new Error("Unauthorized");
+  }
+
+  await queryBuilder
+    .insertInto("uploads")
+    // @ts-ignore
+    .values({ id: uuid, name, size, url, uploaded_at })
+    .execute();
+  revalidatePath(`/upload`);
+}

@@ -1,0 +1,28 @@
+{
+  "id": "mig_cm5vv4mjkjgg7abosbo0",
+  "parentID": "mig_cm5vtnmjkjgg7abosbm0",
+  "checksum": "1:82ae6143ffe3c7bc0fd4280aa9acf6e571e991a3dd401adc4fbb77c460ffda83",
+  "operations": [
+    {
+      "renameColumn": {
+        "newName": "name",
+        "oldName": "filename",
+        "table": "uploads"
+      }
+    },
+    {
+      "renameColumn": {
+        "newName": "size",
+        "oldName": "filesize",
+        "table": "uploads"
+      }
+    },
+    {
+      "renameColumn": {
+        "newName": "url",
+        "oldName": "fileurl",
+        "table": "uploads"
+      }
+    }
+  ]
+}

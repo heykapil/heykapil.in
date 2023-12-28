@@ -1,0 +1,57 @@
+{
+  "id": "mig_cm0nggk299t83cm29n10",
+  "parentID": "mig_cluolhqpoc6n60d35p50",
+  "checksum": "1:0c68a1d51abbfd37204e76dda3cd3056d6f152036d313596cd62832e93a5e6d0",
+  "operations": [
+    {
+      "addTable": {
+        "table": "images_rows"
+      }
+    },
+    {
+      "addColumn": {
+        "column": {
+          "name": "created_at",
+          "type": "datetime"
+        },
+        "table": "images_rows"
+      }
+    },
+    {
+      "addColumn": {
+        "column": {
+          "name": "href",
+          "type": "string"
+        },
+        "table": "images_rows"
+      }
+    },
+    {
+      "addColumn": {
+        "column": {
+          "name": "username",
+          "type": "string"
+        },
+        "table": "images_rows"
+      }
+    },
+    {
+      "addColumn": {
+        "column": {
+          "name": "imageSrc",
+          "type": "string"
+        },
+        "table": "images_rows"
+      }
+    },
+    {
+      "addColumn": {
+        "column": {
+          "name": "name",
+          "type": "string"
+        },
+        "table": "images_rows"
+      }
+    }
+  ]
+}

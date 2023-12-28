@@ -58,6 +58,33 @@
       ]
     },
     {
+      "name": "uploads",
+      "columns": [
+        {
+          "name": "uploaded_at",
+          "type": "text",
+          "notNull": true,
+          "defaultValue": "now"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "notNull": true,
+          "defaultValue": "Name"
+        },
+        {
+          "name": "size",
+          "type": "int"
+        },
+        {
+          "name": "url",
+          "type": "string",
+          "notNull": true,
+          "defaultValue": "https://cdn.kapil.app"
+        }
+      ]
+    },
+    {
       "name": "redirects",
       "columns": [
         {
@@ -223,6 +250,31 @@
           "link": {
             "table": "nextauth_users"
           }
+        }
+      ]
+    },
+    {
+      "name": "images_rows",
+      "columns": [
+        {
+          "name": "created_at",
+          "type": "datetime"
+        },
+        {
+          "name": "href",
+          "type": "string"
+        },
+        {
+          "name": "username",
+          "type": "string"
+        },
+        {
+          "name": "imageSrc",
+          "type": "string"
+        },
+        {
+          "name": "name",
+          "type": "string"
         }
       ]
     }

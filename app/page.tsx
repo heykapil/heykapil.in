@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { unstable_noStore as noStore } from "next/cache";
-// import { revalidatePath } from "next/cache";
+import { revalidatePath } from "next/cache";
 import clsx from "clsx";
 import styles from "./Music.module.css";
 import { Suspense } from "react";
@@ -10,7 +10,7 @@ async function getBirthdayData() {
   const res = await fetch(`https://api.kapil.app/api/birthday`, {
     next: { revalidate: 43200 },
   });
-  // revalidatePath("/");
+  revalidatePath("/");
   if (!res.ok) {
     throw new Error("Failed to fetch data");
   }
@@ -21,6 +21,7 @@ async function getUptimeStatus() {
   const res = await fetch(`https://api2.kapil.app/api/monitors/1395311`, {
     next: { revalidate: 10 },
   });
+  revalidatePath("/");
   if (!res.ok) {
     throw new Error("Failed to fetch data");
   }
@@ -31,6 +32,7 @@ async function getSpotifyData() {
   const res = await fetch(`https://api.kapil.app/api/spotify/now-playing`, {
     next: { revalidate: 10 },
   });
+  revalidatePath("/");
   if (!res.ok) {
     throw new Error("Failed to fetch data");
   }
@@ -67,8 +69,6 @@ export default async function Page() {
   const birthdayData = await getBirthdayData();
   const spotifyData = await getSpotifyData();
   const uptimeData = await getUptimeStatus();
-
-  console.log(uptimeData);
   return (
     <section>
       <h1 className="font-medium text-2xl mb-8 tracking-tighter">

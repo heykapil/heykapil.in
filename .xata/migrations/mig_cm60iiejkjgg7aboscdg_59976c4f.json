@@ -1,0 +1,22 @@
+{
+  "id": "mig_cm60iiejkjgg7aboscdg",
+  "parentID": "mig_cm60fvmjkjgg7abosc8g",
+  "checksum": "1:59976c4fd4352a9848a84041dcb0a9c5a739703b9e8eabf3e902d386ce50821d",
+  "operations": [
+    {
+      "removeColumn": {
+        "column": "size",
+        "table": "uploads"
+      }
+    },
+    {
+      "addColumn": {
+        "column": {
+          "name": "size",
+          "type": "int"
+        },
+        "table": "uploads"
+      }
+    }
+  ]
+}
