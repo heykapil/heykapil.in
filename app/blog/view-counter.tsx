@@ -35,9 +35,7 @@ export default function ViewCounter({
     if (trackView) {
       increment(slug);
     }
-    if (isLoading === false) {
-      saveVisitorLog({ path: slug, ip: ip, location: location });
-    }
+    saveVisitorLog({ path: slug, ip: ip, location: location });
   }, []);
 
   return (
