@@ -26,15 +26,12 @@ export default function ViewCounter({
       .then((data) => {
         setIp(data.ip);
       });
-    fetch(`https://ip-api.com/json/${ip}`)
+    fetch(`http://ip-api.com/json/${ip}`)
       .then((res) => res.json())
       .then((data) => {
         setLocation(data.city);
       });
     setLoading(false);
-  }, []);
-
-  useEffect(() => {
     if (trackView) {
       increment(slug);
     }
