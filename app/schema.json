@@ -277,6 +277,27 @@
           "type": "string"
         }
       ]
+    },
+    {
+      "name": "visitors",
+      "columns": [
+        {
+          "name": "url",
+          "type": "string"
+        },
+        {
+          "name": "ip",
+          "type": "string",
+          "notNull": true,
+          "defaultValue": "0.0.0.0"
+        },
+        {
+          "name": "location",
+          "type": "text",
+          "notNull": true,
+          "defaultValue": "Earth"
+        }
+      ]
     }
   ]
 }

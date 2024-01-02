@@ -155,6 +155,14 @@ const tables = [
       { name: "size", type: "int" },
     ],
   },
+  {
+    name: "visitors",
+    columns: [
+      { name: "url", type: "string" },
+      { name: "ip", type: "string", notNull: true, defaultValue: "0.0.0.0" },
+      { name: "location", type: "text", notNull: true, defaultValue: "Earth" },
+    ],
+  },
 ] as const;
 
 export type SchemaTables = typeof tables;
@@ -195,6 +203,9 @@ export type ImagesRowsRecord = ImagesRows & XataRecord;
 export type Uploads = InferredTypes["uploads"];
 export type UploadsRecord = Uploads & XataRecord;
 
+export type Visitors = InferredTypes["visitors"];
+export type VisitorsRecord = Visitors & XataRecord;
+
 export type DatabaseSchema = {
   views: ViewsRecord;
   guestbook: GuestbookRecord;
@@ -207,6 +218,7 @@ export type DatabaseSchema = {
   nextauth_sessions: NextauthSessionsRecord;
   images_rows: ImagesRowsRecord;
   uploads: UploadsRecord;
+  visitors: VisitorsRecord;
 };
 
 const DatabaseClient = buildClient();

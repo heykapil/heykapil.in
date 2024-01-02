@@ -127,3 +127,19 @@ export async function saveUploadHistory(formData: FormData) {
     .execute();
   revalidatePath(`/upload`);
 }
+
+export async function saveVisitorLog({
+  ip,
+  location,
+  path,
+}: {
+  ip: string;
+  location: string;
+  path: string;
+}) {
+  let uuid = randomUUID();
+  await queryBuilder
+    .insertInto("visitors")
+    .values({ id: uuid, url: path, ip, location })
+    .execute();
+}
