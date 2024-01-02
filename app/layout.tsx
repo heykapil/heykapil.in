@@ -4,7 +4,7 @@ import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import { Navbar } from "./components/nav";
 import { PreloadResources } from "./preload";
-
+import IpLogger from "./IpLogger";
 export const metadata: Metadata = {
   metadataBase: new URL("https://kapil.app"),
   title: {
@@ -120,6 +120,7 @@ export default function RootLayout({
           {/* <Analytics /> */}
           {/* <SpeedInsights /> */}
           <PreloadResources />
+          <IpLogger />
         </main>
       </body>
     </html>
