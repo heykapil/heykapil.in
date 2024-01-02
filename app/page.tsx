@@ -4,7 +4,18 @@ import { revalidatePath } from "next/cache";
 import clsx from "clsx";
 import styles from "./Music.module.css";
 import { Suspense } from "react";
+import { headers } from "next/headers";
 
+function IP() {
+  const FALLBACK_IP_ADDRESS = "0.0.0.0";
+  const forwardedFor = headers().get("x-forwarded-for");
+
+  if (forwardedFor) {
+    return forwardedFor.split(",")[0] ?? FALLBACK_IP_ADDRESS;
+  }
+
+  return headers().get("x-real-ip") ?? FALLBACK_IP_ADDRESS;
+}
 async function getBirthdayData() {
   noStore();
   const res = await fetch(`https://api.kapil.app/api/birthday`, {
@@ -340,6 +351,11 @@ export default async function Page() {
                 </p>
               </Suspense>
             </a>
+          </li>
+          <li>
+            <Suspense fallback={null}>
+              <IP />
+            </Suspense>
           </li>
         </ul>
       </div>

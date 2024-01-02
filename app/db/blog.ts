@@ -70,3 +70,7 @@ export function getBlogPosts() {
 export function getSnippetPosts() {
   return getMDXData(path.join(process.cwd(), "content/snippets"));
 }
+
+export function getQuotes() {
+  return getMDXData(path.join(process.cwd(), "content/quotes"));
+}
