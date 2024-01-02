@@ -23,19 +23,21 @@ export default function ViewCounter({
   useEffect(() => {
     fetch("https://api.kapil.app/api/ip")
       .then((res) => res.json())
-      .then((data) => {
-        setIp(data.ip);
+      .then((ip) => {
+        setIp(ip.ip);
       });
-    fetch(`http://ip-api.com/json/${ip}`)
+    fetch(`https://ipapi.co/${ip}/json`)
       .then((res) => res.json())
       .then((data) => {
-        setLocation(data.city);
+        setLocation(`${data.city}, ${data.country_name}`);
       });
     setLoading(false);
     if (trackView) {
       increment(slug);
     }
-    saveVisitorLog({ path: slug, ip: ip, location: location });
+    {
+      !isLoading && saveVisitorLog({ path: slug, ip: ip, location: location });
+    }
   }, []);
 
   return (
