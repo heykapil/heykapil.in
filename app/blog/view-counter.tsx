@@ -25,20 +25,30 @@ export default function ViewCounter({
       .then((res) => res.json())
       .then((ip) => {
         setIp(ip.ip);
-      });
+      }),
+      [];
+  });
+
+  useEffect(() => {
     fetch(`https://ipapi.co/${ip}/json`)
       .then((res) => res.json())
       .then((data) => {
         setLocation(`${data.city}, ${data.country_name}`);
-      });
-    setLoading(false);
+        setLoading(false);
+      }),
+      [ip];
+  });
+
+  useEffect(() => {
     if (trackView) {
       increment(slug);
     }
     {
-      !isLoading && saveVisitorLog({ path: slug, ip: ip, location: location });
+      isLoading !== true
+        ? saveVisitorLog({ path: slug, ip: ip, location: location })
+        : null;
     }
-  }, []);
+  }, [location]);
 
   return (
     <p className="text-gray-600 dark:text-gray-400">
