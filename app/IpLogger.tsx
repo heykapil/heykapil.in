@@ -28,6 +28,6 @@ export default function IpLogger() {
     if (ip !== "0.0.0.0" && (location !== "undefined, undefined" || "Earth")) {
       saveVisitorLog({ path: pathname, ip: ip, location: location });
     }
-  }, [ip, location]);
+  }, [ip, location, pathname]);
   return <span></span>;
 }
