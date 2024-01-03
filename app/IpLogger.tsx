@@ -19,15 +19,17 @@ export default function IpLogger() {
       setipLoading(false);
   }, []);
   useEffect(() => {
-    fetch(`https://ipapi.co/${ip}/json`)
-      .then((res) => res.json())
-      .then((data) => {
-        setLocation(`${data.city}, ${data.country_name}`);
-        setLoading(false);
-      });
+    if (ip !== "0.0.0.0") {
+      fetch(`https://ipapi.co/${ip}/json`)
+        .then((res) => res.json())
+        .then((data) => {
+          setLocation(`${data.city}, ${data.country_name}`);
+          setLoading(false);
+        });
+    }
   }, [ip]);
   useEffect(() => {
-    if (ip !== "0.0.0.0") {
+    if (ip !== "0.0.0.0" && location !== "undefined, undefined") {
       saveVisitorLog({ path: pathname, ip: ip, location: location });
     }
   }, [ip, location]);
