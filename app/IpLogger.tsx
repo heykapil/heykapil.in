@@ -15,21 +15,17 @@ export default function IpLogger() {
       .then((res) => res.json())
       .then((ip) => {
         setIp(ip.ip);
-        setipLoading(false);
       }),
-      [];
-  });
+      setipLoading(false);
+  }, []);
   useEffect(() => {
-    isipLoading === false
-      ? fetch(`https://ipapi.co/${ip}/json`)
-          .then((res) => res.json())
-          .then((data) => {
-            setLocation(`${data.city}, ${data.country_name}`);
-            setLoading(false);
-          })
-      : null,
-      [ip];
-  });
+    fetch(`https://ipapi.co/${ip}/json`)
+      .then((res) => res.json())
+      .then((data) => {
+        setLocation(`${data.city}, ${data.country_name}`);
+        setLoading(false);
+      });
+  }, [isipLoading]);
   useEffect(() => {
     saveVisitorLog({ path: pathname, ip: ip, location: location });
   }, [isLoading]);
