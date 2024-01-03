@@ -4,7 +4,6 @@ import { revalidatePath } from "next/cache";
 import clsx from "clsx";
 import styles from "./Music.module.css";
 import { Suspense } from "react";
-import { headers } from "next/headers";
 
 async function getBirthdayData() {
   noStore();
@@ -19,7 +18,7 @@ async function getBirthdayData() {
 }
 async function getUptimeStatus() {
   noStore();
-  const res = await fetch(`https://api2.kapil.app/api/monitors/1395311`, {
+  const res = await fetch(`https://api.kapil.app/api/monitors/1395311`, {
     next: { revalidate: 10 },
   });
   revalidatePath("/");

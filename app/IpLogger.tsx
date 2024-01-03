@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { saveVisitorLog } from "app/db/actions";
 import { usePathname } from "next/navigation";
 
-export default function IpLogger() {
+export function IpLogger() {
   const [ip, setIp] = useState("0.0.0.0");
   const [location, setLocation] = useState("Earth");
   const pathname = usePathname() || "undefined";
