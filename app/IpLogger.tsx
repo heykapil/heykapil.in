@@ -25,9 +25,11 @@ export default function IpLogger() {
         setLocation(`${data.city}, ${data.country_name}`);
         setLoading(false);
       });
-  }, [isipLoading]);
+  }, [ip]);
   useEffect(() => {
-    saveVisitorLog({ path: pathname, ip: ip, location: location });
-  }, [isLoading]);
+    if (ip !== "0.0.0.0") {
+      saveVisitorLog({ path: pathname, ip: ip, location: location });
+    }
+  }, [ip, location]);
   return <span></span>;
 }
