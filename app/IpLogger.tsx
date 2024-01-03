@@ -11,7 +11,7 @@ export default function IpLogger() {
   const [isLoading, setLoading] = useState(true);
   const pathname = usePathname() || "undefined";
   useEffect(() => {
-    fetch("https://api.kapil.app/api/ip")
+    fetch("https://api2.kapil.app/api/ip")
       .then((res) => res.json())
       .then((ip) => {
         setIp(ip.ip);
@@ -31,11 +31,7 @@ export default function IpLogger() {
       [ip];
   });
   useEffect(() => {
-    {
-      isLoading === false
-        ? saveVisitorLog({ path: pathname, ip: ip, location: location })
-        : null;
-    }
-  }, [location]);
+    saveVisitorLog({ path: pathname, ip: ip, location: location });
+  }, [isLoading]);
   return <span></span>;
 }
