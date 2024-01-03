@@ -25,7 +25,11 @@ export default function IpLogger() {
     }
   }, [ip]);
   useEffect(() => {
-    if (ip !== "0.0.0.0" && (location !== "undefined, undefined" || "Earth")) {
+    if (
+      ip !== "0.0.0.0" &&
+      location !== "undefined, undefined" &&
+      location !== "Earth"
+    ) {
       saveVisitorLog({ path: pathname, ip: ip, location: location });
     }
   }, [ip, location, pathname]);
