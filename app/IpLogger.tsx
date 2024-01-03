@@ -11,7 +11,7 @@ export default function IpLogger() {
   const [isLoading, setLoading] = useState(true);
   const pathname = usePathname() || "undefined";
   useEffect(() => {
-    fetch("https://api2.kapil.app/api/ip")
+    fetch("https://api.kapil.app/api/ip")
       .then((res) => res.json())
       .then((ip) => {
         setIp(ip.ip);
