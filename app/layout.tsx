@@ -121,7 +121,7 @@ export default function RootLayout({
           {/* <Analytics /> */}
           {/* <SpeedInsights /> */}
           <PreloadResources />
-          <Suspense fallback={null}>
+          <Suspense fallback={<span>.</span>}>
             <IpLogger />
           </Suspense>
         </main>
