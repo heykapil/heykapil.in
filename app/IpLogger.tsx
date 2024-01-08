@@ -9,10 +9,23 @@ export function IpLogger() {
   const [location, setLocation] = useState("Earth");
   const pathname = usePathname() || "undefined";
   useEffect(() => {
+    fetch("https://api.kapil.app/api/ip")
+      .then((res) => res.json())
+      .then((ip) => {
+        if (ip !== "0.0.0.0") {
+          setIp(ip.ip);
+        }
+        console.log(ip);
+      });
+  }, []);
+  useEffect(() => {
     fetch("https://api2.kapil.app/api/ip")
       .then((res) => res.json())
       .then((ip) => {
-        setIp(ip.ip);
+        if (ip !== "0.0.0.0") {
+          setIp(ip.ip);
+        }
+        console.log(ip);
       });
   }, []);
   useEffect(() => {
