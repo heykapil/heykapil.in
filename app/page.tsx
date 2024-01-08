@@ -5,8 +5,8 @@ import clsx from "clsx";
 import styles from "./Music.module.css";
 import { Suspense } from "react";
 
+noStore();
 async function getBirthdayData() {
-  noStore();
   const res = await fetch(`https://api.kapil.app/api/birthday`, {
     next: { revalidate: 43200 },
   });
@@ -16,8 +16,8 @@ async function getBirthdayData() {
   }
   return res.json();
 }
+noStore();
 async function getUptimeStatus() {
-  noStore();
   const res = await fetch(`https://api.kapil.app/api/monitors/1395311`, {
     next: { revalidate: 10 },
   });
@@ -27,8 +27,10 @@ async function getUptimeStatus() {
   }
   return res.json();
 }
+
+noStore();
+
 async function getSpotifyData() {
-  noStore();
   const res = await fetch(`https://api.kapil.app/api/spotify/now-playing`, {
     next: { revalidate: 10 },
   });
