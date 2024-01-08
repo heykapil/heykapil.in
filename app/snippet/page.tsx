@@ -50,11 +50,9 @@ export default function SnippetPage() {
     </section>
   );
 }
-
+noStore();
 async function Views({ slug }: { slug: string }) {
-  noStore();
   let views = await getViewsCount();
-
   return (
     // @ts-ignore
     <ViewCounter allViews={views} slug={slug} />

@@ -50,9 +50,9 @@ export default function BlogPage() {
     </section>
   );
 }
+noStore();
 
 async function Views({ slug }: { slug: string }) {
-  noStore();
   let views = await getViewsCount();
 
   return (
