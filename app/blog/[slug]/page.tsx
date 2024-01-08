@@ -152,8 +152,9 @@ export default async function Blog({ params }) {
   }
 }
 let incrementViews = cache(increment);
-noStore();
+
 async function Views({ slug }: { slug: string }) {
+  noStore();
   let views = await getViewsCount();
   incrementViews(slug);
   return (
