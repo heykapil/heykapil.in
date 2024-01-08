@@ -1,4 +1,5 @@
 const nextConfig = {
+  // output: "standalone", // mine worked fine without this line
   experimental: {
     ppr: true,
   },
