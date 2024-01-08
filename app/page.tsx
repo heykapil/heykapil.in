@@ -12,18 +12,18 @@ async function getBirthdayData() {
   });
   revalidatePath("/");
   if (!res.ok) {
-    throw new Error("Failed to fetch data");
+    throw new Error("Failed to fetch birthday data");
   }
   return res.json();
 }
 noStore();
 async function getUptimeStatus() {
-  const res = await fetch(`https://api.kapil.app/api/monitors/1395311`, {
+  const res = await fetch(`https://api2.kapil.app/api/uptime`, {
     next: { revalidate: 10 },
   });
   revalidatePath("/");
   if (!res.ok) {
-    throw new Error("Failed to fetch data");
+    throw new Error("Failed to fetch uptime data");
   }
   return res.json();
 }
@@ -36,7 +36,7 @@ async function getSpotifyData() {
   });
   revalidatePath("/");
   if (!res.ok) {
-    throw new Error("Failed to fetch data");
+    throw new Error("Failed to fetch spotify data");
   }
   return res.json();
 }
@@ -71,6 +71,12 @@ export default async function Page() {
   const birthdayData = await getBirthdayData();
   const spotifyData = await getSpotifyData();
   const uptimeData = await getUptimeStatus();
+  let isDown =
+    uptimeData.state.regions.se_asia.status !== "UP" ||
+    uptimeData.state.regions.eu_west.status !== "UP" ||
+    uptimeData.state.regions.us_east.status !== "UP" ||
+    uptimeData.state.regions.us_west.status !== "UP";
+
   return (
     <section>
       <h1 className="font-medium text-2xl mb-8 tracking-tighter">
@@ -334,11 +340,25 @@ export default async function Page() {
               <Suspense fallback={<p className="h-7"></p>}>
                 <p className="flex items-center h-7">
                   <span className="relative flex h-4 w-4">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-4 w-4 bg-green-500"></span>
+                    <span
+                      className={clsx(
+                        isDown ? "bg-red-500" : "bg-green-500",
+                        "animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75"
+                      )}
+                    ></span>
+                    <span
+                      className={clsx(
+                        isDown ? "bg-red-500" : "bg-green-500",
+                        "relative inline-flex rounded-full h-4 w-4"
+                      )}
+                    ></span>
                   </span>
                   <span className="w-2"></span>
-                  {uptimeData.availability.toFixed(3)} % uptime{" "}
+                  {
+                    uptimeData.state.regions.se_asia
+                      .thirty_day_uptime_percentage
+                  }
+                  % uptime{" "}
                 </p>
               </Suspense>
             </a>
