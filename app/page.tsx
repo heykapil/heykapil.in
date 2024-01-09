@@ -83,7 +83,7 @@ export default async function Page() {
         hey, I'm kapil 👋
       </h1>
       <p className="prose prose-neutral dark:prose-invert">
-        <Suspense>
+        <Suspense fallback={null}>
           {`I'm a ${birthdayData.years} old research scholar at Gujarat university. I am currently working as Junior Research Fellow in the area of
               fractional-order dynamical systems and epidemiology. `}
         </Suspense>
@@ -103,9 +103,9 @@ export default async function Page() {
       <p className="prose prose-neutral dark:prose-invert"></p>
       <div className="columns-2 sm:columns-3 gap-4 my-8">
         <div className="relative h-40 mb-4 bg-neutral-100 dark:bg-neutral-800 rounded-lg">
-          <Suspense>
+          <Suspense fallback={null}>
             <div className="absolute top-1/2 -translate-x-1/2 -translate-y-1/2 left-1/2 w-full h-full p-5 rounded-lg">
-              {birthdayData.daysLeft > 0 ? (
+              {birthdayData && birthdayData.daysLeft > 0 ? (
                 <div className=" items-center content-center place-content-center text-center">
                   <p className="text-4xl mt-[15%]">
                     {birthdayData.daysLeft}{" "}
@@ -176,7 +176,7 @@ export default async function Page() {
         <div className="relative h-40 sm:h-80 sm:mb-4">
           <Image
             alt="Garden of five sense"
-            src="https://cdn.kapil.app//images/kapiljch-20220503-0008.jpg"
+            src="https://cdn.kapil.app/images/kapiljch-20220503-0008.jpg"
             fill
             sizes="(max-width: 768px) 213px, 33vw"
             placeholder="blur"
@@ -209,7 +209,7 @@ export default async function Page() {
         <div className="relative h-80">
           <Image
             alt=""
-            src="http://cdn.kapil.app/images/kapiljch-20221008.jpeg"
+            src="https://cdn.kapil.app/images/kapiljch-20221008.jpeg"
             fill
             sizes="(min-width: 768px) 213px, 33vw"
             placeholder="blur"
@@ -354,10 +354,10 @@ export default async function Page() {
                     ></span>
                   </span>
                   <span className="w-2"></span>
-                  {
-                    uptimeData.state.regions.se_asia
-                      .thirty_day_uptime_percentage
-                  }
+                  {uptimeData.state
+                    ? uptimeData.state.regions.se_asia
+                        .thirty_day_uptime_percentage
+                    : null}
                   % uptime{" "}
                 </p>
               </Suspense>
