@@ -30,15 +30,22 @@ export function IpLogger() {
           setLocation("Earth");
         })
         .then((data) => {
-          setLocation(`${data.city}, ${data.country_name}`);
+          if (data !== undefined) {
+            setLocation(`${data.city}, ${data.country_name}`);
+          }
         });
     }
   }, [ip]);
   useEffect(() => {
     if (
       ip !== "0.0.0.0" &&
+      //  my personal IP
+      ip !== "14.139.122.17" &&
+      // undefined location
       location !== "undefined, undefined" &&
-      location !== "Earth"
+      location !== "Earth" &&
+      // undefined path
+      path !== "undefined"
     ) {
       saveVisitorLog({ path, ip, location });
     }
