@@ -187,7 +187,7 @@ export default async function Page() {
         <div className="relative h-40 mb-4 sm:mb-0">
           <Image
             alt=""
-            src="http://cdn.kapil.app/images/kapiljch-20221120.webp"
+            src="https://cdn.kapil.app/images/kapiljch-20221120.webp"
             fill
             sizes="(max-width: 768px) 213px, 33vw"
             placeholder="blur"

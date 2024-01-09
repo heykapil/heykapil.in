@@ -15,6 +15,24 @@ const nextConfig = {
   async redirects() {
     return [
       {
+        source: "/:path*",
+        has: [{ type: "host", value: "www.kapil.app" }],
+        destination: "https://kapil.app/:path*",
+        permanent: true,
+      },
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "www.heykapil.in" }],
+        destination: "https://kapil.app/:path*",
+        permanent: true,
+      },
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "heykapil.in" }],
+        destination: "https://kapil.app/:path*",
+        permanent: true,
+      },
+      {
         source: "/api/spotify/:slug*",
         destination: "https://api.kapil.app/api/spotify/:slug*", // Matched parameters can be used in the destination
         permanent: false,
