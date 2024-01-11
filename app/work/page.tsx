@@ -1,34 +1,25 @@
 import type { Metadata } from "next";
 import React, { Suspense } from "react";
+import { revalidatePath, unstable_noStore as noStore } from "next/cache";
 export const metadata: Metadata = {
   title: "Work",
   description: "A summary of my work and contributions.",
 };
 
-// async function Stars() {
-//   let res = await fetch("https://api.github.com/repos/vercel/next.js");
-//   let json = await res.json();
-//   let count = Math.round(json.stargazers_count / 1000);
-//   return `${count}k stars`;
-// }
-
+noStore();
 async function getScholarData() {
-  const res = await fetch(
-    `https://serpapi.com/search.json?engine=google_scholar_author&author_id=eL2sgQYAAAAJ&hl=en&api_key=${process.env.SERP_API_KEY}`,
-    {
-      next: { revalidate: 86400 },
-    }
-  );
-  //   revalidatePath("/work");
+  const res = await fetch(`https://api2.kapil.app/api/scholar`, {
+    next: { revalidate: 86400 },
+  });
+  revalidatePath("/work");
   if (!res.ok) {
-    throw new Error("Failed to fetch data");
+    throw new Error("Failed to fetch scholar data");
   }
   return res.json();
 }
 
 export default async function WorkPage() {
   let scholarData = await getScholarData();
-  // console.log(scholarData["articles"]);
   return (
     <section>
       <h1 className="font-medium text-2xl mb-8 tracking-tighter">my work</h1>

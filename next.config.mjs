@@ -10,6 +10,7 @@ const nextConfig = {
       { hostname: "cdn.heykapil.in" },
       { hostname: "cdn.kapil.app" },
       { hostname: "images.unsplash.com" },
+      { hostname: "s3.kapil.app" },
     ],
   },
   async redirects() {
