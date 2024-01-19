@@ -2,6 +2,7 @@ const nextConfig = {
   // output: "standalone", // mine worked fine without this line
   experimental: {
     // ppr: true,
+    useLightningcss: true,
   },
   images: {
     remotePatterns: [
@@ -42,6 +43,11 @@ const nextConfig = {
         source: "/og/:slug*",
         destination: "https://og.kapil.app/api/og/:slug*", // Matched parameters can be used in the destination
         permanent: false,
+      },
+      {
+        source: "/login",
+        destination: "/api/auth/signin",
+        permanent: true,
       },
     ];
   },

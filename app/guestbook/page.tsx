@@ -16,7 +16,7 @@ export default function GuestbookPage() {
       <h1 className="font-medium text-2xl mb-8 tracking-tighter">
         Sign my guestbook
       </h1>
-      <Suspense>
+      <Suspense fallback={<p>Loading ...</p>}>
         <GuestbookForm />
         <GuestbookEntries />
       </Suspense>

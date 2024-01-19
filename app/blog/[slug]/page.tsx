@@ -53,6 +53,7 @@ export async function generateMetadata({
 }
 
 function formatDate(date: string) {
+  noStore();
   let currentDate = new Date();
   if (!date.includes("T")) {
     date = `${date}T00:00:00`;
@@ -130,13 +131,21 @@ export default async function Blog({ params }) {
           {post.metadata.title}
         </h1>
         <div className="flex justify-between items-center mt-2 mb-8 text-sm max-w-[650px]">
-          <p className="text-sm text-neutral-600 dark:text-neutral-400">
-            {formatDate(post.metadata.created)}
-          </p>
           <Suspense
             fallback={
               <div className="inline-flex">
-                <p className="h-6 animate-pulse bg-slate-100 dark:bg-slate-900 bg-opacity-50 w-6" />
+                <p className="h-5 animate-pulse bg-opacity-50 w-5" />
+              </div>
+            }
+          >
+            <p className="text-sm text-neutral-600 dark:text-neutral-400">
+              {formatDate(post.metadata.created)}
+            </p>
+          </Suspense>
+          <Suspense
+            fallback={
+              <div className="inline-flex">
+                <p className="h-5 animate-pulse bg-opacity-50 w-5" />
                 <span>views</span>
               </div>
             }

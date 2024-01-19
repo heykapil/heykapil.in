@@ -37,7 +37,7 @@ export default function SnippetPage() {
               <Suspense
                 fallback={
                   <div className="inline-flex">
-                    <p className="h-6 animate-pulse bg-slate-100 dark:bg-slate-900 bg-opacity-50 w-6" />
+                    <p className="h-5 animate-pulse bg-opacity-50 min-w-5" />
                     <span>views</span>
                   </div>
                 }
