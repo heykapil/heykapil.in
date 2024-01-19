@@ -52,7 +52,7 @@ export default function Emailform() {
               type="text"
               name="from"
               placeholder="from"
-              className="border-b bg-inherit ring-offset-0 outline-none border-gray-200 dark:border-gray-800 w-1/2 px-1 py-1"
+              className="border-b bg-inherit ring-offset-0 outline-none border-gray-200 dark:border-gray-800 w-full lg:w-3/4 xl:w-1/2 px-1 py-1"
               value={formData.from}
               onChange={(e) =>
                 setformData({ ...formData, from: e.target.value })
@@ -64,7 +64,7 @@ export default function Emailform() {
               type="text"
               name="to"
               placeholder="to"
-              className="border-b bg-inherit ring-offset-0 outline-none border-gray-200 dark:border-gray-800 w-1/2 px-1 py-2"
+              className="border-b bg-inherit ring-offset-0 outline-none border-gray-200 dark:border-gray-800 w-full lg:w-3/4 xl:w-1/2 px-1 py-2"
               value={formData.to}
               onChange={(e) => setformData({ ...formData, to: e.target.value })}
               required
@@ -75,7 +75,7 @@ export default function Emailform() {
               type="text"
               name="subject"
               placeholder="subject"
-              className="flex border-b bg-inherit ring-offset-0 outline-none border-gray-200 dark:border-gray-800 w-1/2 px-1 py-2"
+              className="flex border-b bg-inherit ring-offset-0 outline-none border-gray-200 dark:border-gray-800 w-full lg:w-3/4 xl:w-1/2 px-1 py-2"
               value={formData.subject}
               onChange={(e) =>
                 setformData({ ...formData, subject: e.target.value })
@@ -84,7 +84,7 @@ export default function Emailform() {
             />
           </div>
           <textarea
-            rows={6}
+            rows={8}
             name="md"
             placeholder="Enter the markdown text"
             className="flex border-b bg-inherit ring-offset-0 outline-none border-gray-200 dark:border-gray-800 w-full mb-6 px-1 py-2"
@@ -126,7 +126,7 @@ export default function Emailform() {
                 type="text"
                 name="fileurl"
                 placeholder="File URL"
-                className="flex border-b bg-inherit ring-offset-0 outline-none border-gray-200 dark:border-gray-800 w-1/2 px-1 py-2"
+                className="flex border-b bg-inherit ring-offset-0 outline-none border-gray-200 dark:border-gray-800 w-full lg:w-3/4 xl:w-1/2 px-1 py-2"
                 value={formData.fileurl}
                 onChange={(e) =>
                   setformData({
@@ -140,7 +140,7 @@ export default function Emailform() {
                 type="text"
                 name="filename"
                 placeholder="File name"
-                className="flex border-b bg-inherit ring-offset-0 outline-none border-gray-200 dark:border-gray-800 w-1/2 px-1 py-2"
+                className="flex border-b bg-inherit ring-offset-0 outline-none border-gray-200 dark:border-gray-800 w-full lg:w-3/4 xl:w-1/2 px-1 py-2"
                 value={formData.filename}
                 onChange={(e) =>
                   setformData({
