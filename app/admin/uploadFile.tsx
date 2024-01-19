@@ -3,7 +3,7 @@ import { useState } from "react";
 import { usePresignedUpload } from "next-s3-upload";
 import { saveUploadHistory } from "app/db/actions";
 import { useRef } from "react";
-import { FormSubmitButton } from "./submitButton";
+import { SubmitButton } from "app/guestbook/SubmitButton";
 function getDisplayTime() {
   return new Date().toISOString().split("T")[0];
 }
@@ -109,7 +109,7 @@ export default function UploadComponent() {
           onChange={(e) => e.target.value}
           hidden
         />
-        <FormSubmitButton
+        <SubmitButton
           type="submit"
           className="w-fit space-x-1 border border-gray-500 border-opacity-50 rounded-lg p-2 gap-1"
           pendingState={
@@ -119,7 +119,7 @@ export default function UploadComponent() {
           onClick={() => setCurrentDate(getDisplayTime())}
         >
           Save
-        </FormSubmitButton>
+        </SubmitButton>
       </form>
     </div>
   );

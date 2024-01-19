@@ -5,7 +5,9 @@ import { type Session } from "next-auth";
 import { revalidatePath, unstable_noStore as noStore } from "next/cache";
 import { queryBuilder } from "./db";
 import { randomUUID } from "crypto";
-
+import { cookies } from "next/headers";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 export async function increment(slug: string) {
   noStore();
   let id = slug.replace("/", "-");
@@ -142,4 +144,34 @@ export async function saveVisitorLog({
     .insertInto("visitors")
     .values({ id: uuid, url: path, ip, location })
     .execute();
+}
+
+export async function sendEmail(formData: FormData) {
+  const from = formData.get("from") || "Kapil Chaudhary <hi@kapil.app>";
+  const to = formData.get("to") as string;
+  const subject = formData.get("subject") as string;
+  const html = formData.get("html") as string;
+  const fileurl = (formData.get("fileurl") as string) || null;
+  const filename = (formData.get("filename") as string) || null;
+  const secret = process.env.SECRET! as string;
+  const secret2 = process.env.SECRET2! as string;
+  const hash = await bcrypt.hash(secret2, 10);
+  const token = await jwt.sign(hash, secret);
+  let fetchUrl: string;
+
+  if (!filename || !fileurl) {
+    fetchUrl = `https://api.kapil.app/api/sendEmail?token=${token}&from=${from}&to=${to}&subject=${subject}&html=${html}`;
+  } else {
+    fetchUrl = `https://api.kapil.app/api/sendEmail?token=${token}&from=${from}&to=${to}&subject=${subject}&html=${html}&filename=${filename}&fileurl=${fileurl}`;
+  }
+  const data = await fetch(fetchUrl);
+  const response = await data.json();
+  console.log(filename, fileurl);
+  if (response.message) {
+    cookies().set(
+      "email-sent-toast-msg",
+      response.message,
+      { expires: new Date(Date.now() + 10 * 1000) } // 10 seconds
+    );
+  }
 }
