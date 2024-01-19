@@ -3,7 +3,6 @@ import type { Metadata } from "next";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import { Navbar } from "./components/nav";
-import { PreloadResources } from "./preload";
 import { IpLogger } from "./IpLogger";
 import { Suspense } from "react";
 export const metadata: Metadata = {
@@ -120,7 +119,6 @@ export default function RootLayout({
           {children}
           {/* <Analytics /> */}
           {/* <SpeedInsights /> */}
-          <PreloadResources />
           <Suspense fallback={<span>.</span>}>
             <IpLogger />
           </Suspense>
