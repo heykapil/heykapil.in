@@ -59,7 +59,6 @@ export async function saveGuestbookEntry(formData: FormData) {
   if (!session.user) {
     throw new Error("Unauthorized");
   }
-
   let entry = formData.get("entry")?.toString() || "";
   let body = entry.slice(0, 500);
 
@@ -69,24 +68,20 @@ export async function saveGuestbookEntry(formData: FormData) {
     .execute();
 
   revalidatePath(`/guestbook`);
-  const data = await fetch("https://api.resend.com/emails", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      from: "Kapil Chaudhary <hi@kapil.app>",
-      to: "contact@heykapil.in",
-      subject: "New Guestbook Entry",
-      html: `
-      <p>Name: ${created_by}</p>
-      <p>Email: ${email}</p>
-      <p>Message: ${body}</p>`,
-    }),
-  });
-  const response = await data.json();
-  console.log("Email Sent", response);
+  const secret = process.env.SECRET! as string;
+  const secret2 = process.env.SECRET2! as string;
+  const hash = await bcrypt.hash(secret2, 10);
+  const token = await jwt.sign(hash, secret);
+  try {
+    const html = `<p>name ${created_by}</p><p>email ${email}</p><p>message ${body}</p>`;
+    const data = await fetch(
+      `https://api.kapil.app/api/sendEmail?token=${token}&from=hi@kapil.app&to=hi@kapil.app&subject=New guestbook entry&html=${html}`
+    );
+    const response = await data.json();
+    console.log("Email Sent", response);
+  } catch (error: any) {
+    throw new Error(error.message);
+  }
 }
 
 export async function deleteGuestbookEntries(selectedEntries: string[]) {
@@ -164,14 +159,17 @@ export async function sendEmail(formData: FormData) {
   } else {
     fetchUrl = `https://api.kapil.app/api/sendEmail?token=${token}&from=${from}&to=${to}&subject=${subject}&html=${html}&filename=${filename}&fileurl=${fileurl}`;
   }
-  const data = await fetch(fetchUrl);
-  const response = await data.json();
-  console.log(filename, fileurl);
-  if (response.message) {
-    cookies().set(
-      "email-sent-toast-msg",
-      response.message,
-      { expires: new Date(Date.now() + 10 * 1000) } // 10 seconds
-    );
+  try {
+    const data = await fetch(fetchUrl);
+    const response = await data.json();
+    if (response.message) {
+      cookies().set(
+        "email-sent-toast-msg",
+        response.message,
+        { expires: new Date(Date.now() + 10 * 1000) } // 10 seconds
+      );
+    }
+  } catch (error: any) {
+    throw new Error(error.message);
   }
 }
