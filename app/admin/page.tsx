@@ -12,10 +12,10 @@ export const metadata = {
 };
 
 export default async function GuestbookPage() {
-  // let session = await getServerSession(authConfig);
-  // if (session?.user?.email !== "kapilchaudhary@gujaratuniversity.ac.in") {
-  //   redirect("/");
-  // }
+  let session = await getServerSession(authConfig);
+  if (session?.user?.email !== "kapilchaudhary@gujaratuniversity.ac.in") {
+   redirect("/");
+   }
   const toastCookie = cookies().get("email-sent-toast-msg");
   let entries = await getGuestbookEntries();
   return (
