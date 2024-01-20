@@ -59,17 +59,36 @@ function formatDate(date: string) {
     date = `${date}T00:00:00`;
   }
   let targetDate = new Date(date);
-
-  let yearsAgo = currentDate.getFullYear() - targetDate.getFullYear();
-  let monthsAgo = currentDate.getMonth() - targetDate.getMonth();
-  let daysAgo = currentDate.getDate() - targetDate.getDate();
-
+  let daysDiff = Math.round(
+    currentDate.getTime() - targetDate.getTime() / (1000 * 3600 * 24)
+  );
+  let yearsAgo = 0,
+    monthsAgo = 0,
+    weeksAgo = 0,
+    daysAgo = 0;
+  while (daysDiff) {
+    if (daysDiff >= 365) {
+      yearsAgo++;
+      daysDiff -= 365;
+    } else if (daysDiff >= 30) {
+      monthsAgo++;
+      daysDiff -= 30;
+    } else if (daysDiff >= 7) {
+      weeksAgo++;
+      daysDiff -= 7;
+    } else {
+      daysAgo++;
+      daysDiff--;
+    }
+  }
   let formattedDate = "";
 
   if (yearsAgo > 0) {
     formattedDate = `${yearsAgo}y ago`;
   } else if (monthsAgo > 0) {
     formattedDate = `${monthsAgo}mo ago`;
+  } else if (weeksAgo > 0) {
+    formattedDate = `${weeksAgo}w ago`;
   } else if (daysAgo > 0) {
     formattedDate = `${daysAgo}d ago`;
   } else {
