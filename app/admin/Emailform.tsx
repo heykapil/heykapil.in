@@ -31,7 +31,7 @@ export default function Emailform() {
     () =>
       setformData({
         ...formData,
-        html: encodeURI(marked.parse(formData.md) as string),
+        html: marked.parse(formData.md) as string,
       }),
     [formData.md]
   );
@@ -186,6 +186,7 @@ export default function Emailform() {
             <MarkdownPreview markdown={formData.md} />
           </div>
         )}
+        <p>{formData.html}</p>
         <input
           type="text"
           name="html"

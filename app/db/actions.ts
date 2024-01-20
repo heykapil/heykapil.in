@@ -74,15 +74,19 @@ export async function saveGuestbookEntry(formData: FormData) {
   const token = await jwt.sign(hash, secret);
   try {
     const html = `<p>name ${created_by}</p><p>email ${email}</p><p>message ${body}</p>`;
-    const data = await fetch(
-      `https://api.kapil.app/api/sendEmail?token=${token}&from=hi@kapil.app&to=hi@kapil.app&subject=New guestbook entry&html=${html}`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const data = await fetch("https://api2.kapil.app/api/sendEmail", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        from: "Kapil Chaudhary <hi@kapil.app>",
+        to: "Kapil Chaudhary <hi@kapil.app>",
+        subject: "New Guestbook Entry",
+        html,
+        token,
+      }),
+    });
     const response = await data.json();
     console.log("Email Sent", response);
   } catch (error: any) {
@@ -158,19 +162,33 @@ export async function sendEmail(formData: FormData) {
   const secret2 = process.env.SECRET2! as string;
   const hash = await bcrypt.hash(secret2, 10);
   const token = await jwt.sign(hash, secret);
-  let fetchUrl: string;
-
+  let body;
   if (!filename || !fileurl) {
-    fetchUrl = `https://api.kapil.app/api/sendEmail?token=${token}&from=${from}&to=${to}&subject=${subject}&html=${html}`;
+    body = JSON.stringify({
+      token,
+      from,
+      to,
+      subject,
+      html,
+    });
   } else {
-    fetchUrl = `https://api.kapil.app/api/sendEmail?token=${token}&from=${from}&to=${to}&subject=${subject}&html=${html}&filename=${filename}&fileurl=${fileurl}`;
+    body = JSON.stringify({
+      token,
+      from,
+      to,
+      subject,
+      html,
+      fileurl,
+      filename,
+    });
   }
   try {
-    const data = await fetch(fetchUrl, {
+    const data = await fetch("https://api2.kapil.app/api/sendEmail", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
+      body: body,
     });
     const response = await data.json();
     if (response.message) {
