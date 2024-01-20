@@ -77,7 +77,7 @@ export async function saveGuestbookEntry(formData: FormData) {
     const data = await fetch(
       `https://api.kapil.app/api/sendEmail?token=${token}&from=hi@kapil.app&to=hi@kapil.app&subject=New guestbook entry&html=${html}`,
       {
-        method: "GET",
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
@@ -167,7 +167,10 @@ export async function sendEmail(formData: FormData) {
   }
   try {
     const data = await fetch(fetchUrl, {
-      method: "GET",
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
     });
     const response = await data.json();
     if (response.message) {
