@@ -71,21 +71,22 @@ export async function saveGuestbookEntry(formData: FormData) {
   const secret = process.env.SECRET! as string;
   const secret2 = process.env.SECRET2! as string;
   const hash = await bcrypt.hash(secret2, 10);
-  const token = await jwt.sign(hash, secret);
+  const token = (await jwt.sign(hash, secret)) as string;
   try {
     const html = `<p>name ${created_by}</p><p>email ${email}</p><p>message ${body}</p>`;
     const data = await fetch("https://api2.kapil.app/api/sendEmail", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
         from: "Kapil Chaudhary <hi@kapil.app>",
         to: "Kapil Chaudhary <hi@kapil.app>",
         subject: "New Guestbook Entry",
         html,
-        token,
       }),
+      cache: "no-store",
     });
     const response = await data.json();
     console.log("Email Sent", response);
@@ -165,7 +166,6 @@ export async function sendEmail(formData: FormData) {
   let body;
   if (!filename || !fileurl) {
     body = JSON.stringify({
-      token,
       from,
       to,
       subject,
@@ -173,7 +173,6 @@ export async function sendEmail(formData: FormData) {
     });
   } else {
     body = JSON.stringify({
-      token,
       from,
       to,
       subject,
@@ -187,10 +186,13 @@ export async function sendEmail(formData: FormData) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body: body,
+      cache: "no-store",
     });
     const response = await data.json();
+    console.log(response.message);
     if (response.message) {
       cookies().set(
         "email-sent-toast-msg",
