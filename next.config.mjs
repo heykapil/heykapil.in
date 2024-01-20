@@ -3,6 +3,9 @@ const nextConfig = {
   experimental: {
     // ppr: true,
     useLightningcss: true,
+    serverActions: {
+      allowedOrigins: ["api.kapil.app", "api2.kapil.app"],
+    },
   },
   images: {
     remotePatterns: [

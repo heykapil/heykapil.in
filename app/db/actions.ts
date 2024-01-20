@@ -75,7 +75,13 @@ export async function saveGuestbookEntry(formData: FormData) {
   try {
     const html = `<p>name ${created_by}</p><p>email ${email}</p><p>message ${body}</p>`;
     const data = await fetch(
-      `https://api.kapil.app/api/sendEmail?token=${token}&from=hi@kapil.app&to=hi@kapil.app&subject=New guestbook entry&html=${html}`
+      `https://api.kapil.app/api/sendEmail?token=${token}&from=hi@kapil.app&to=hi@kapil.app&subject=New guestbook entry&html=${html}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
     );
     const response = await data.json();
     console.log("Email Sent", response);
@@ -160,7 +166,9 @@ export async function sendEmail(formData: FormData) {
     fetchUrl = `https://api.kapil.app/api/sendEmail?token=${token}&from=${from}&to=${to}&subject=${subject}&html=${html}&filename=${filename}&fileurl=${fileurl}`;
   }
   try {
-    const data = await fetch(fetchUrl);
+    const data = await fetch(fetchUrl, {
+      method: "GET",
+    });
     const response = await data.json();
     if (response.message) {
       cookies().set(
