@@ -1,68 +1,7 @@
-import { unstable_noStore as noStore } from "next/cache";
-import { revalidatePath } from "next/cache";
 import clsx from "clsx";
 import styles from "./Music.module.css";
 import { Suspense } from "react";
 
-async function getBirthdayData() {
-  const res = await fetch(`https://api.kapil.app/api/birthday`, {
-    next: { revalidate: 3600 },
-  });
-  revalidatePath("/");
-  if (!res.ok) {
-    throw new Error("Failed to fetch birthday data");
-  }
-  return res.json();
-}
-
-async function getUptimeStatus() {
-  const res = await fetch(`https://api2.kapil.app/api/uptime`, {
-    next: { revalidate: 3600 },
-  });
-  revalidatePath("/");
-  if (!res.ok) {
-    throw new Error("Failed to fetch uptime data");
-  }
-  return res.json();
-}
-
-async function getSpotifyData() {
-  const res = await fetch(`https://api.kapil.app/api/spotify/now-playing`, {
-    next: { revalidate: 60 },
-  });
-  revalidatePath("/");
-  if (!res.ok) {
-    throw new Error("Failed to fetch spotify data");
-  }
-  return res.json();
-}
-
-function ArrowIcon() {
-  return (
-    <svg
-      width="12"
-      height="12"
-      viewBox="0 0 12 12"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M2.07102 11.3494L0.963068 10.2415L9.2017 1.98864H2.83807L2.85227 0.454545H11.8438V9.46023H10.2955L10.3097 3.09659L2.07102 11.3494Z"
-        fill="currentColor"
-      />
-    </svg>
-  );
-}
-
-function Badge(props) {
-  return (
-    <a
-      {...props}
-      target="_blank"
-      className="border border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 rounded p-1 text-sm inline-flex items-center leading-4 text-neutral-900 dark:text-neutral-100 no-underline"
-    />
-  );
-}
 export default async function Page() {
   const birthdayData = await getBirthdayData();
   const spotifyData = await getSpotifyData();
@@ -325,5 +264,65 @@ export default async function Page() {
         </ul>
       </div>
     </section>
+  );
+}
+
+async function getBirthdayData() {
+  try {
+    const res = await fetch(`https://api.kapil.app/api/birthday`, {
+      next: { revalidate: 3600 },
+    });
+    return res.json();
+  } catch (error: any) {
+    throw new Error("Failed to fetch birthday data");
+  }
+}
+
+async function getUptimeStatus() {
+  try {
+    const res = await fetch(`https://api2.kapil.app/api/uptime`, {
+      next: { revalidate: 3600 },
+    });
+    return res.json();
+  } catch (error: any) {
+    throw new Error("Failed to fetch uptime data");
+  }
+}
+
+async function getSpotifyData() {
+  try {
+    const res = await fetch(`https://api.kapil.app/api/spotify/now-playing`, {
+      next: { revalidate: 60 },
+    });
+    return res.json();
+  } catch (error: any) {
+    throw new Error("Failed to fetch spotify data");
+  }
+}
+
+function ArrowIcon() {
+  return (
+    <svg
+      width="12"
+      height="12"
+      viewBox="0 0 12 12"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M2.07102 11.3494L0.963068 10.2415L9.2017 1.98864H2.83807L2.85227 0.454545H11.8438V9.46023H10.2955L10.3097 3.09659L2.07102 11.3494Z"
+        fill="currentColor"
+      />
+    </svg>
+  );
+}
+
+function Badge(props) {
+  return (
+    <a
+      {...props}
+      target="_blank"
+      className="border border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 rounded p-1 text-sm inline-flex items-center leading-4 text-neutral-900 dark:text-neutral-100 no-underline"
+    />
   );
 }

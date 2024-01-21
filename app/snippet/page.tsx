@@ -3,7 +3,7 @@ import { Suspense } from "react";
 import { getViewsCount } from "app/db/queries";
 import { getSnippetPosts } from "app/db/blog";
 import ViewCounter from "app/blog/view-counter";
-import { unstable_noStore as noStore } from "next/cache";
+import { unstable_noStore as noStore, revalidatePath } from "next/cache";
 
 export const metadata = {
   title: "Snippets",
@@ -66,10 +66,7 @@ export default function SnippetPage() {
 
 async function Views({ slug }: { slug: string }) {
   noStore();
-  let views = await getViewsCount();
-
-  return (
-    // @ts-ignore
-    <ViewCounter allViews={views} slug={slug} />
-  );
+  let views: any;
+  views = await getViewsCount();
+  return <ViewCounter allViews={views} slug={slug} />;
 }

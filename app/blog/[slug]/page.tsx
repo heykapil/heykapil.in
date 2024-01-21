@@ -59,8 +59,8 @@ function formatDate(date: string) {
     date = `${date}T00:00:00`;
   }
   let targetDate = new Date(date);
-  let daysDiff = Math.round((
-    currentDate.getTime() - targetDate.getTime())/ (1000 * 3600 * 24)
+  let daysDiff = Math.round(
+    (currentDate.getTime() - targetDate.getTime()) / (1000 * 3600 * 24)
   );
   let yearsAgo = 0,
     monthsAgo = 0,
@@ -183,10 +183,8 @@ let incrementViews = cache(increment);
 
 async function Views({ slug }: { slug: string }) {
   noStore();
-  let views = await getViewsCount();
+  let views: any;
+  views = await getViewsCount();
   incrementViews(slug);
-  return (
-    // @ts-ignore
-    <ViewCounter allViews={views} slug={slug} />
-  );
+  return <ViewCounter allViews={views} slug={slug} />;
 }

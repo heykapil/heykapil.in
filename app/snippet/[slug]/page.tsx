@@ -6,7 +6,7 @@ import { getViewsCount } from "app/db/queries";
 import { getSnippetPosts } from "app/db/blog";
 import { increment } from "app/db/actions";
 import ViewCounter from "app/blog/view-counter";
-import { unstable_noStore as noStore } from "next/cache";
+import { unstable_noStore as noStore, revalidatePath } from "next/cache";
 import { getServerSession } from "next-auth/next";
 import { authConfig } from "pages/api/auth/[...nextauth]";
 export async function generateMetadata({
@@ -172,13 +172,10 @@ export default async function Snippet({ params }) {
 }
 
 let incrementViews = cache(increment);
-
 async function Views({ slug }: { slug: string }) {
   noStore();
-  let views = await getViewsCount();
+  let views: any;
+  views = await getViewsCount();
   incrementViews(slug);
-  return (
-    // @ts-ignore
-    <ViewCounter allViews={views} slug={slug} />
-  );
+  return <ViewCounter allViews={views} slug={slug} />;
 }

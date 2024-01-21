@@ -9,7 +9,6 @@ import { cookies } from "next/headers";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 export async function increment(slug: string) {
-  noStore();
   let id = slug.replace("/", "-");
   const data = await queryBuilder
     .selectFrom("views")
@@ -38,7 +37,6 @@ export async function increment(slug: string) {
       .executeTakeFirst();
   }
   revalidatePath(`/${slug}`);
-  return;
 }
 
 async function getSession(): Promise<Session> {
