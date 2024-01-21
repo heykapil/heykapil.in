@@ -32,7 +32,7 @@ export default function BlogPage() {
                 className="flex flex-col space-y-1 mb-4 group/item hover:text-black dark:hover:text-white transition duration-[250ms] ease-out hover:duration-[50ms]"
                 href={`/blog/${post.slug}`}
               >
-                <div className="w-full flex flex-row justify-between">
+                <div className="w-full flex flex-col md:flex-row justify-between">
                   <p className="overflow-hidden whitespace-nowrap overflow-ellipsis tracking-tight">
                     {post.metadata.title}{" "}
                     {(post.metadata.archived || post.metadata.private) && (

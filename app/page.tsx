@@ -2,6 +2,7 @@
 import { unstable_noStore as noStore } from "next/cache";
 import { revalidatePath } from "next/cache";
 import clsx from "clsx";
+// import Link from "next/link";
 import styles from "./Music.module.css";
 import { Suspense } from "react";
 
@@ -218,23 +219,29 @@ export default async function Page() {
           />
         </div>
       </div>
-      {/* <div className="prose prose-neutral dark:prose-invert">
-        <p>
-          I create educational content for developers, teaching them about web
-          development, JavaScript and TypeScript, React and Next.js, and more.
-          This comes in all forms: blog posts, videos, tweets, conference talks,
-          and workshops. You can watch some of my favorites below.
-        </p>
-      </div> */}
-      {/* <div className="my-8 flex flex-col sm:flex-row space-x-0 sm:space-x-4 space-y-4 sm:space-y-0 w-full"></div>
       <div className="prose prose-neutral dark:prose-invert">
         <p>
-          Over the past decade, I've written content on my blog and newsletter.
-          I try to keep things simple. You'll find writing about technologies
-          I'm interested in at the time, or how I'm learning and growing in my
-          career, sharing knowledge along the way.
+          On the tech side, I'm a dedicated self-taught developer, crafting
+          interactive and dynamic web applications for fun. My expertise extends
+          to Typescript, Tailwindcss, Chakra, Shadcn, React, Next.js, Auth.js,
+          and PostgreSQL.
+          {/* This website is inspired from the blog of{" "}
+          <Link href="//leerob.io" prefetch={false}>
+            leerob
+          </Link>{" "}
+          (kept his same minimal look without much customizations except some
+          APIs and xata database). */}
         </p>
-      </div> */}
+      </div>
+      <div className="my-8 flex flex-col sm:flex-row space-x-0 sm:space-x-4 space-y-4 sm:space-y-0 w-full"></div>
+      <div className="prose prose-neutral dark:prose-invert">
+        <p>
+          Thank you for visiting, and I hope you enjoy your time exploring the
+          diverse facets of my interests. Happy browsing! Follow me on social
+          media for the latest updates on my projects, research, and insights.
+          Don't miss out to checkout the guestbook!
+        </p>
+      </div>
       {/* <div className="my-8 flex flex-col space-y-4 w-full"> */}
       {/* <BlogLink
           name="What Makes A Great Developer Experience?"

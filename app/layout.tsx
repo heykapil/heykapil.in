@@ -43,42 +43,52 @@ export const metadata: Metadata = {
   icons: {
     apple: [
       {
-        url: "https://cdn.kapil.app/images/website/favicons/favicon180x180.png",
+        url: "https://cdn.kapil.app/images/website/favicons/apple-icon-180x180.png",
         sizes: "180x180",
         type: "image/png",
       },
       {
-        url: "https://cdn.kapil.app/images/website/favicons/favicon152x152.png",
+        url: "https://cdn.kapil.app/images/website/favicons/apple-icon-57x57.png",
+        sizes: "57x57",
+        type: "image/png",
+      },
+      {
+        url: "https://cdn.kapil.app/images/website/favicons/apple-icon-76x76.png",
+        sizes: "76x76",
+        type: "image/png",
+      },
+      {
+        url: "https://cdn.kapil.app/images/website/favicons/applce-icon-152x152.png",
         sizes: "152x152",
         type: "image/png",
       },
       {
-        url: "https://cdn.kapil.app/images/website/favicons/favicon144x144.png",
+        url: "https://cdn.kapil.app/images/website/favicons/apple-icon-144x144.png",
         sizes: "144x144",
         type: "image/png",
       },
       {
-        url: "https://cdn.kapil.app/images/website/favicons/favicon120x120.png",
+        url: "https://cdn.kapil.app/images/website/favicons/apple-icon-120x120.png",
         sizes: "120x120",
         type: "image/png",
       },
       {
-        url: "https://cdn.kapil.app/images/website/favicons/favicon114x114.png",
+        url: "https://cdn.kapil.app/images/website/favicons/apple-icon-114x114.png",
         sizes: "114x114",
         type: "image/png",
       },
       {
-        url: "https://cdn.kapil.app/images/website/favicons/favicon60x60.png",
+        url: "https://cdn.kapil.app/images/website/favicons/apple-icon-60x60.png",
         sizes: "60x60",
         type: "image/png",
       },
       {
-        url: "https://cdn.kapil.app/images/website/favicons/favicon72x72.png",
+        url: "https://cdn.kapil.app/images/website/favicons/apple-icon-72x72.png",
         sizes: "72x72",
         type: "image/png",
       },
       {
-        url: "https://cdn.kapil.app/images/website/favicons/favicon96x96.png",
+        url: "https://cdn.kapil.app/images/website/favicons/favicon-96x96.png",
         sizes: "96x96",
         type: "image/png",
       },
@@ -86,14 +96,26 @@ export const metadata: Metadata = {
     other: [
       {
         rel: "icon",
-        url: "https://cdn.kapil.app/images/website/favicons/favicon.svg",
-        type: "image/svg+xml",
+        url: "https://cdn.kapil.app/images/website/favicons/favicon.ico",
       },
       {
         rel: "icon",
-        url: "https://cdn.kapil.app/images/website/favicons/favicon.ico",
+        url: "https://cdn.kapil.app/images/website/favicons/android-icon-192x192.png",
+        sizes: "192x192",
+        type: "image/png",
+      },
+      {
+        rel: "icon",
+        url: "https://cdn.kapil.app/images/website/favicons/favicon-32x32.png",
+        sizes: "32x32",
+        type: "image/png",
+      },
+      {
+        rel: "manifest",
+        url: "https://cdn.kapil.app/images/website/favicons/manifest.json",
       },
     ],
+    icon: "https://cdn.kapil.app/images/website/favicons/favicon-16x16.png",
   },
 };
 
