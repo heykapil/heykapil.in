@@ -3,7 +3,7 @@ import { Suspense } from "react";
 import { getViewsCount } from "app/db/queries";
 import { getBlogPosts } from "app/db/blog";
 import ViewCounter from "./view-counter";
-import { unstable_noStore as noStore, revalidatePath } from "next/cache";
+import { unstable_noStore as noStore } from "next/cache";
 
 export const metadata = {
   title: "Blog",
@@ -12,7 +12,6 @@ export const metadata = {
 
 export default function BlogPage() {
   let allBlogs = getBlogPosts();
-
   return (
     <div>
       <h1 className="font-medium text-2xl mb-8 tracking-tighter">Blog</h1>
