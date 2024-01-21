@@ -6,7 +6,6 @@ import { Suspense } from "react";
 
 async function getBirthdayData() {
   const res = await fetch(`https://api.kapil.app/api/birthday`, {
-    cache: 'force-cache',
     next: { revalidate: 3600 },
   });
   revalidatePath("/");
@@ -18,7 +17,6 @@ async function getBirthdayData() {
 
 async function getUptimeStatus() {
   const res = await fetch(`https://api2.kapil.app/api/uptime`, {
-    cache: 'force-cache',
     next: { revalidate: 3600 },
   });
   revalidatePath("/");
@@ -30,8 +28,7 @@ async function getUptimeStatus() {
 
 async function getSpotifyData() {
   const res = await fetch(`https://api.kapil.app/api/spotify/now-playing`, {
-    cache: 'force-cache',
-    next: { revalidate: 30 },
+    next: { revalidate: 60 },
   });
   revalidatePath("/");
   if (!res.ok) {
