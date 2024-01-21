@@ -1,12 +1,9 @@
-// import Image from "next/image";
 import { unstable_noStore as noStore } from "next/cache";
 import { revalidatePath } from "next/cache";
 import clsx from "clsx";
-// import Link from "next/link";
 import styles from "./Music.module.css";
 import { Suspense } from "react";
 
-noStore();
 async function getBirthdayData() {
   const res = await fetch(`https://api.kapil.app/api/birthday`, {
     next: { revalidate: 43200 },
@@ -17,10 +14,10 @@ async function getBirthdayData() {
   }
   return res.json();
 }
-noStore();
+
 async function getUptimeStatus() {
   const res = await fetch(`https://api2.kapil.app/api/uptime`, {
-    next: { revalidate: 10 },
+    next: { revalidate: 3600 },
   });
   revalidatePath("/");
   if (!res.ok) {
@@ -29,11 +26,9 @@ async function getUptimeStatus() {
   return res.json();
 }
 
-noStore();
-
 async function getSpotifyData() {
   const res = await fetch(`https://api.kapil.app/api/spotify/now-playing`, {
-    next: { revalidate: 10 },
+    next: { revalidate: 30 },
   });
   revalidatePath("/");
   if (!res.ok) {
