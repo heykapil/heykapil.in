@@ -59,8 +59,8 @@ function formatDate(date: string) {
     date = `${date}T00:00:00`;
   }
   let targetDate = new Date(date);
-  let daysDiff = Math.round(
-    currentDate.getTime() - targetDate.getTime() / (1000 * 3600 * 24)
+  let daysDiff = Math.round((
+    currentDate.getTime() - targetDate.getTime())/ (1000 * 3600 * 24)
   );
   let yearsAgo = 0,
     monthsAgo = 0,
