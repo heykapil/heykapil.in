@@ -72,7 +72,7 @@ export async function saveGuestbookEntry(formData: FormData) {
   const token = (await jwt.sign(hash, secret)) as string;
   try {
     const html = `<p>name ${created_by}</p><p>email ${email}</p><p>message ${body}</p>`;
-    const data = await fetch("https://api2.kapil.app/api/sendEmail", {
+    const data = await fetch("https://api.kapil.app/api/sendEmail", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -180,7 +180,7 @@ export async function sendEmail(formData: FormData) {
     });
   }
   try {
-    const data = await fetch("https://api2.kapil.app/api/sendEmail", {
+    const data = await fetch("https://api.kapil.app/api/sendEmail", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
