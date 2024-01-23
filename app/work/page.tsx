@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 noStore();
 async function getScholarData() {
-  const res = await fetch(`https://api2.kapil.app/api/scholar`, {
+  const res = await fetch(`https://api.kapil.app/api/scholar`, {
     next: { revalidate: 86400 },
   });
   revalidatePath("/work");
