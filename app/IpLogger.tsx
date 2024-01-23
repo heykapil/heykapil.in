@@ -9,7 +9,7 @@ export function IpLogger() {
   const [location, setLocation] = useState("Earth");
   const path = usePathname() || "undefined";
   useEffect(() => {
-    fetch("https://api2.kapil.app/api/ip")
+    fetch("https://api.kapil.app/api/ip")
       .then((res) => res.json())
       .catch((err) => {
         console.log(err);

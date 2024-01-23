@@ -280,7 +280,7 @@ async function getBirthdayData() {
 
 async function getUptimeStatus() {
   try {
-    const res = await fetch(`https://api2.kapil.app/api/uptime`, {
+    const res = await fetch(`https://api.kapil.app/api/uptime`, {
       next: { revalidate: 3600 },
     });
     return res.json();
