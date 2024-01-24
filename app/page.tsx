@@ -6,11 +6,11 @@ export default async function Page() {
   const birthdayData = await getBirthdayData();
   const spotifyData = await getSpotifyData();
   const uptimeData = await getUptimeStatus();
-  let isDown =
-    uptimeData.state.regions.se_asia.status !== "UP" ||
-    uptimeData.state.regions.eu_west.status !== "UP" ||
-    uptimeData.state.regions.us_east.status !== "UP" ||
-    uptimeData.state.regions.us_west.status !== "UP";
+  let isDown = uptimeData.state.regions?.se_asia?.status !== "UP";
+  // ||
+  // uptimeData.state.regions?.eu_west?.status !== "UP" ||
+  // uptimeData.state.regions?.us_east?.status !== "UP" ||
+  // uptimeData.state.regions?.us_west?.status !== "UP";
 
   return (
     <section>
