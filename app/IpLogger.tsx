@@ -34,7 +34,7 @@ export function IpLogger() {
       path !== "undefined"
     ) {
       saveVisitorLog({ path, ip, location });
-      console.log(path, ip, location);
+      // console.log(path, ip, location);
     }
   }, [ip, location, path]);
   return <span></span>;
