@@ -3,7 +3,7 @@ import { useState } from "react";
 import { usePresignedUpload } from "next-s3-upload";
 import { saveUploadHistory } from "app/db/actions";
 import { useRef } from "react";
-import { SubmitButton } from "app/guestbook/SubmitButton";
+import { SubmitButton } from "../guestbook/SubmitButton";
 function getDisplayTime() {
   return new Date().toISOString().split("T")[0];
 }

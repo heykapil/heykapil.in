@@ -1,7 +1,7 @@
 const nextConfig = {
   // output: "standalone", // mine worked fine without this line
   experimental: {
-    // ppr: true,
+    ppr: true,
     useLightningcss: true,
     serverActions: {
       allowedOrigins: ["api.kapil.app", "api2.kapil.app"],
@@ -49,7 +49,7 @@ const nextConfig = {
       },
       {
         source: "/login",
-        destination: "/api/auth/signin",
+        destination: "/signin",
         permanent: true,
       },
     ];

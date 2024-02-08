@@ -1,5 +1,3 @@
-import { getServerSession } from "next-auth/next";
-import { authConfig } from "pages/api/auth/[...nextauth]";
 import { getGuestbookEntries } from "app/db/queries";
 import { redirect } from "next/navigation";
 import Form from "./Deleteform";
@@ -8,13 +6,18 @@ import Emailform from "./Emailform";
 import UploadComponent from "./uploadFile";
 import { UploadHistory } from "./uploadHistory";
 import { Suspense } from "react";
+import { Session } from "app/components/helpers/session";
+
 export const metadata = {
   title: "Admin",
 };
 
 export default async function GuestbookPage() {
-  let session = await getServerSession(authConfig);
-  if (session?.user?.email !== "kapilchaudhary@gujaratuniversity.ac.in") {
+  const session = await Session();
+  if (!session || session === null || session === "") {
+    redirect("/signin?callback=/admin");
+  }
+  if (session && session.role !== "admin") {
     redirect("/");
   }
   const msgCookie = cookies().get("email-sent-toast-msg");
@@ -22,7 +25,9 @@ export default async function GuestbookPage() {
   return (
     <>
       <section>
-        <h1 className="font-medium text-2xl mb-8 tracking-tighter">Admin</h1>
+        <h1 className="font-medium text-2xl mb-8 tracking-tighter">
+          Hi, {session.full_name}
+        </h1>
         <hr className="my-8 border-neutral-400 dark:border-neutral-600" />
         <h2 className="font-medium text-lg my-8 tracking-tighter">
           Delete Guestbook Entries

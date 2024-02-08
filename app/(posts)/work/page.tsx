@@ -8,21 +8,21 @@ export const metadata: Metadata = {
   description: "A summary of my work and contributions.",
 };
 
-noStore();
 async function getScholarData() {
-  const res = await fetch(`https://api.kapil.app/api/scholar`, {
-    next: { revalidate: 86400 },
-  });
-  revalidatePath("/work");
-  if (!res.ok) {
+  noStore();
+  try {
+    const res = await fetch(`https://api.kapil.app/api/scholar`, {
+      next: { revalidate: 86400 },
+    });
+    revalidatePath("/work");
+    return res.json();
+  } catch (error: any) {
     throw new Error("Failed to fetch scholar data");
   }
-  return res.json();
 }
 
 export default async function WorkPage() {
   let scholarData = await getScholarData();
-
   return (
     <section className="group/section">
       <h1 className="font-medium text-2xl mb-8 tracking-tighter">my work</h1>

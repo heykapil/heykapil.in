@@ -1,18 +1,18 @@
 import type { Metadata } from "next";
-import { Suspense, cache } from "react";
+import { Suspense, lazy, cache } from "react";
 import { notFound } from "next/navigation";
 import { CustomMDX } from "app/components/mdx";
 import { getViewsCount } from "app/db/queries";
-import { getSnippetPosts } from "app/db/blog";
+import { getQuotes } from "app/db/blog";
 import { increment } from "app/db/actions";
-import ViewCounter from "app/blog/view-counter";
-import { unstable_noStore as noStore, revalidatePath } from "next/cache";
-import { getServerSession } from "next-auth/next";
-import { authConfig } from "pages/api/auth/[...nextauth]";
+import { unstable_noStore as noStore } from "next/cache";
+import { Session } from "app/components/helpers/session";
+const ViewCounter = lazy(() => import("app/(posts)/blog/view-counter"));
+
 export async function generateMetadata({
   params,
 }): Promise<Metadata | undefined> {
-  let post = getSnippetPosts().find((post) => post.slug === params.slug);
+  let post = getQuotes().find((post) => post.slug === params.slug);
   if (!post) {
     return;
   }
@@ -35,7 +35,7 @@ export async function generateMetadata({
       description,
       type: "article",
       publishedTime,
-      url: `https://kapil.app/snippet/${post.slug}`,
+      url: `https://kapil.app/quotes/${post.slug}`,
       images: [
         {
           url: ogImage,
@@ -52,42 +52,24 @@ export async function generateMetadata({
 }
 
 function formatDate(date: string) {
-  noStore();
   let currentDate = new Date();
   if (!date.includes("T")) {
     date = `${date}T00:00:00`;
   }
   let targetDate = new Date(date);
-  let timeDiff = currentDate.getTime() - targetDate.getTime();
-  let daysDiff = Math.round(timeDiff / (1000 * 3600 * 24));
-  let months = 0,
-    years = 0,
-    days = 0,
-    weeks = 0;
-  while (daysDiff) {
-    if (daysDiff >= 365) {
-      years++;
-      daysDiff -= 365;
-    } else if (daysDiff >= 30) {
-      months++;
-      daysDiff -= 30;
-    } else if (daysDiff >= 7) {
-      weeks++;
-      daysDiff -= 7;
-    } else {
-      days++;
-      daysDiff--;
-    }
-  }
+
+  let yearsAgo = currentDate.getFullYear() - targetDate.getFullYear();
+  let monthsAgo = currentDate.getMonth() - targetDate.getMonth();
+  let daysAgo = currentDate.getDate() - targetDate.getDate();
+
   let formattedDate = "";
-  if (years > 0) {
-    formattedDate = `${years}y ago`;
-  } else if (months > 0) {
-    formattedDate = `${months}mo ago`;
-  } else if (weeks > 0) {
-    formattedDate = `${weeks}w ago`;
-  } else if (days > 0) {
-    formattedDate = `${days}d ago`;
+
+  if (yearsAgo > 0) {
+    formattedDate = `${yearsAgo}y ago`;
+  } else if (monthsAgo > 0) {
+    formattedDate = `${monthsAgo}mo ago`;
+  } else if (daysAgo > 0) {
+    formattedDate = `${daysAgo}d ago`;
   } else {
     formattedDate = "Today";
   }
@@ -101,17 +83,15 @@ function formatDate(date: string) {
   return `${fullDate} (${formattedDate})`;
 }
 
-export default async function Snippet({ params }) {
-  let session = await getServerSession(authConfig);
-  let post = getSnippetPosts().find((post) => post.slug === params.slug);
+export default async function Blog({ params }) {
+  let post = getQuotes().find((post) => post.slug === params.slug);
+  // @ts-ignore
+  let session = await Session();
 
   if (!post) {
     notFound();
   }
-  if (
-    post.metadata.private === `true` &&
-    session?.user?.email !== "kapilchaudhary@gujaratuniversity.ac.in"
-  ) {
+  if (post.metadata.private === `true` && session?.role !== "admin") {
     return (
       <div>
         <h2 className="text-2xl">Not Authorized!</h2>
@@ -147,20 +127,18 @@ export default async function Snippet({ params }) {
           {post.metadata.title}
         </h1>
         <div className="flex justify-between items-center mt-2 mb-8 text-sm max-w-[650px]">
-          <Suspense fallback={<p className="h-5" />}>
-            <p className="text-sm text-neutral-600 dark:text-neutral-400">
-              {formatDate(post.metadata.created)}
-            </p>
-          </Suspense>
+          <p className="text-sm text-neutral-600 dark:text-neutral-400">
+            {formatDate(post.metadata.created)}
+          </p>
           <Suspense
             fallback={
               <div className="inline-flex">
-                <p className="h-5 animate-pulse  bg-opacity-50 w-5" />
+                <p className="h-6 animate-pulse bg-slate-100 dark:bg-slate-900 bg-opacity-50 w-6" />
                 <span>views</span>
               </div>
             }
           >
-            <Views slug={`snippet/${post.slug}`} />
+            <Views slug={`quotes/${post.slug}`} />
           </Suspense>
         </div>
         <article className="prose prose-quoteless prose-neutral dark:prose-invert">
@@ -170,12 +148,14 @@ export default async function Snippet({ params }) {
     );
   }
 }
-
 let incrementViews = cache(increment);
+
 async function Views({ slug }: { slug: string }) {
   noStore();
-  let views: any;
-  views = await getViewsCount();
+  let views = await getViewsCount();
   incrementViews(slug);
-  return <ViewCounter allViews={views} slug={slug} />;
+  return (
+    // @ts-ignore
+    <ViewCounter allViews={views} slug={slug} />
+  );
 }

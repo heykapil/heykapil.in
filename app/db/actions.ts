@@ -1,13 +1,17 @@
 "use server";
-import { getServerSession } from "next-auth/next";
-import { authConfig } from "pages/api/auth/[...nextauth]";
-import { type Session } from "next-auth";
+
 import { revalidatePath, unstable_noStore as noStore } from "next/cache";
 import { queryBuilder } from "./db";
 import { randomUUID } from "crypto";
 import { cookies } from "next/headers";
 import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
+import {
+  getDataFromToken,
+  signJwtAccessToken,
+} from "app/components/helpers/jwt";
+import { Session } from "app/components/helpers/session";
+import { redirect } from "next/navigation";
+
 export async function increment(slug: string) {
   let id = slug.replace("/", "-");
   const data = await queryBuilder
@@ -39,22 +43,13 @@ export async function increment(slug: string) {
   revalidatePath(`/${slug}`);
 }
 
-async function getSession(): Promise<Session> {
-  let session = await getServerSession(authConfig);
-  if (!session || !session.user) {
-    throw new Error("Unauthorized");
-  }
-
-  return session;
-}
-
 export async function saveGuestbookEntry(formData: FormData) {
-  let session = await getSession();
-  let email = session.user?.email as string;
-  let created_by = session.user?.name as string;
-  let image = session.user?.image as string;
+  let session = await Session();
+  let email = session?.email as string;
+  let created_by = session?.full_name as string;
+  let image = session?.avatar as string;
   let uuid = randomUUID();
-  if (!session.user) {
+  if (!session.email || !session.full_name) {
     throw new Error("Unauthorized");
   }
   let entry = formData.get("entry")?.toString() || "";
@@ -66,10 +61,9 @@ export async function saveGuestbookEntry(formData: FormData) {
     .execute();
 
   revalidatePath(`/guestbook`);
-  const secret = process.env.SECRET! as string;
   const secret2 = process.env.SECRET2! as string;
   const hash = await bcrypt.hash(secret2, 10);
-  const token = (await jwt.sign(hash, secret)) as string;
+  const token = signJwtAccessToken({ hash });
   try {
     const html = `<p>name ${created_by}</p><p>email ${email}</p><p>message ${body}</p>`;
     const data = await fetch("https://api.kapil.app/api/sendEmail", {
@@ -94,13 +88,10 @@ export async function saveGuestbookEntry(formData: FormData) {
 }
 
 export async function deleteGuestbookEntries(selectedEntries: string[]) {
-  let session = await getSession();
-  let email = session.user?.email as string;
+  let session = await Session();
+  let role = session?.role as string;
 
-  if (
-    email !== "kapilchaudhary@gujaratuniversity.ac.in" &&
-    email !== "contact@heykapil.in"
-  ) {
+  if (role !== "admin") {
     throw new Error("Unauthorized");
   }
 
@@ -116,13 +107,13 @@ export async function deleteGuestbookEntries(selectedEntries: string[]) {
 }
 
 export async function saveUploadHistory(formData: FormData) {
-  let session = await getSession();
+  let session = await Session();
   let uuid = randomUUID();
   let name = formData.get("filename");
   let url = formData.get("fileurl");
   let size = formData.get("filesize");
   let uploaded_at = formData.get("uploaded_at");
-  if (!session.user) {
+  if (session.role !== "admin") {
     throw new Error("Unauthorized");
   }
 
@@ -157,10 +148,11 @@ export async function sendEmail(formData: FormData) {
   const html = formData.get("html") as string;
   const fileurl = (formData.get("fileurl") as string) || null;
   const filename = (formData.get("filename") as string) || null;
-  const secret = process.env.SECRET! as string;
   const secret2 = process.env.SECRET2! as string;
   const hash = await bcrypt.hash(secret2, 10);
-  const token = await jwt.sign(hash, secret);
+  const token = await signJwtAccessToken({
+    hash,
+  });
   let body;
   if (!filename || !fileurl) {
     body = JSON.stringify({
@@ -190,15 +182,177 @@ export async function sendEmail(formData: FormData) {
       cache: "no-store",
     });
     const response = await data.json();
-    console.log(response.message);
     if (response.message) {
-      cookies().set(
-        "email-sent-toast-msg",
-        response.message,
-        { expires: new Date(Date.now() + 10 * 1000) } // 10 seconds
-      );
+      cookies().set({
+        name: "email-sent-toast-msg",
+        value: response.message,
+        expires: new Date(Date.now() + 10 * 1000),
+      });
     }
   } catch (error: any) {
     throw new Error(error.message);
+  }
+}
+
+export async function Login(formData: FormData) {
+  let username = formData.get("username") as string;
+  let password = formData.get("password") as string;
+  console.log(username, password);
+  if (username.length === 0 || password.length === 0) {
+    cookies().set({
+      name: "LoginCookie",
+      value: "Input both username and password",
+      httpOnly: true,
+      expires: new Date(Date.now() + 5 * 1000),
+    });
+  }
+  try {
+    if (username.length > 0 && password.length > 0) {
+      const data = await fetch("https://api.kapil.app/api/user/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username,
+          password,
+        }),
+      });
+      const response = await data.json();
+      if (response.token !== undefined) {
+        const ProfileToken = signJwtAccessToken(
+          {
+            email: response.user.email,
+            username: response.user.username,
+            ...response.profile,
+          },
+          {
+            expiresIn: "1d",
+          }
+        );
+        cookies().set({
+          name: "accessToken",
+          value: response.token.access_token,
+          httpOnly: true,
+          sameSite: "lax",
+          secure: process.env.NODE_ENV === "production" ? true : false,
+          expires: Number(response.token.access_expiry),
+        });
+        cookies().set({
+          name: "refreshToken",
+          value: response.token.refresh_token,
+          httpOnly: true,
+          sameSite: "lax",
+          secure: process.env.NODE_ENV === "production" ? true : false,
+          expires: Number(response.token.refresh_expiry),
+        });
+        cookies().set({
+          name: "profileToken",
+          value: ProfileToken,
+          httpOnly: true,
+          sameSite: "lax",
+          secure: process.env.NODE_ENV === "production" ? true : false,
+          expires: Number(response.token.access_expiry),
+        });
+        cookies().set({
+          name: "LoginCookie",
+          value: "Success",
+          httpOnly: true,
+          expires: new Date(Date.now() + 10 * 1000),
+        });
+      } else {
+        cookies().set({
+          name: "LoginCookie",
+          value: response.error,
+          httpOnly: true,
+          expires: new Date(Date.now() + 10 * 1000),
+        });
+        cookies().delete("profileToken");
+        cookies().delete("refreshToken");
+        cookies().delete("accessToken");
+      }
+    }
+  } catch (error: any) {
+    throw new Error(error.message);
+  }
+}
+
+export async function Register(formData: FormData) {
+  const username = formData.get("username")?.toString();
+  const password = formData.get("password")?.toString();
+  const email = formData.get("email")?.toString();
+  const full_name = formData.get("full_name")?.toString() || "unnamed";
+  const avatar =
+    formData.get("avatar")?.toString() ||
+    `https://ui-avatars.com/api/?background=random&name=${full_name}`;
+  const role = "user";
+  try {
+    const data = await fetch("https://api.kapil.app/api/user/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username,
+        password,
+        full_name,
+        email,
+        avatar,
+        role,
+      }),
+    });
+    const response = await data.json();
+    cookies().set({
+      name: "RegisterCookie",
+      value: response.message || response.error || "Something went wrong!",
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      expires: new Date(Date.now() + 10 * 1000),
+    });
+  } catch (error: any) {
+    throw new Error(error);
+  }
+}
+
+export async function Logout(callback?: string) {
+  cookies().delete("refreshToken");
+  cookies().delete("profileToken");
+  cookies().delete("accessToken");
+  redirect(callback || "/signin");
+  return;
+}
+
+export async function ChangePass(formData: FormData) {
+  const oldPassword = formData.get("oldPass")?.toString();
+  const newPassword = formData.get("newPass")?.toString();
+  const accessToken = cookies()?.get("accessToken")?.value || "";
+  const id = getDataFromToken({
+    token: cookies()?.get("refreshToken")?.value || "",
+  });
+  try {
+    const data = await fetch("https://api.kapil.app/api/user/password/change", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        accessToken: accessToken,
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        id: id.id,
+        oldPassword,
+        newPassword,
+      }),
+    });
+    const response = await data.json();
+    console.log(response);
+    cookies().set({
+      name: "ChangePassCookie",
+      value: response.message || response.error || "Something went wrong!",
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      expires: new Date(Date.now() + 10 * 1000),
+    });
+  } catch (error: any) {
+    throw new Error(error);
   }
 }

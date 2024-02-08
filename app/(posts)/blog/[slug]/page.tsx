@@ -6,9 +6,9 @@ import { getViewsCount } from "app/db/queries";
 import { getBlogPosts } from "app/db/blog";
 import { increment } from "app/db/actions";
 import { unstable_noStore as noStore } from "next/cache";
-import { getServerSession } from "next-auth/next";
-import { authConfig } from "pages/api/auth/[...nextauth]";
-const ViewCounter = lazy(() => import("app/blog/view-counter"));
+import { Session } from "app/components/helpers/session";
+
+const ViewCounter = lazy(() => import("../view-counter"));
 
 export async function generateMetadata({
   params,
@@ -106,15 +106,13 @@ function formatDate(date: string) {
 
 export default async function Blog({ params }) {
   let post = getBlogPosts().find((post) => post.slug === params.slug);
-  let session = await getServerSession(authConfig);
+  // @ts-ignore
+  let session = await Session();
 
   if (!post) {
     notFound();
   }
-  if (
-    post.metadata.private === `true` &&
-    session?.user?.email !== "kapilchaudhary@gujaratuniversity.ac.in"
-  ) {
+  if (post.metadata.private === `true` && session?.role !== "admin") {
     return (
       <div>
         <h2 className="text-2xl">Not Authorized!</h2>

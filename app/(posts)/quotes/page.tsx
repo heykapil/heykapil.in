@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { getViewsCount } from "app/db/queries";
 import { getQuotes } from "app/db/blog";
-import ViewCounter from "app/blog/view-counter";
+import ViewCounter from "app/(posts)/blog/view-counter";
 import { unstable_noStore as noStore } from "next/cache";
 
 export const metadata = {

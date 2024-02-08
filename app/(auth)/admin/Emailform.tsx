@@ -1,9 +1,9 @@
 "use client";
 import { sendEmail } from "app/db/actions";
-import { SubmitButton } from "app/guestbook/SubmitButton";
+import { SubmitButton } from "../guestbook/SubmitButton";
 import { useRef, useState, useEffect } from "react";
 import { marked } from "marked";
-import MarkdownPreview from "app/admin/Preview";
+import MarkdownPreview from "./Preview";
 marked.use({
   async: false,
   breaks: false,

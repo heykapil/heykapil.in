@@ -1,16 +1,20 @@
-import { getServerSession } from "next-auth/next";
-import { authConfig } from "pages/api/auth/[...nextauth]";
 import { getGuestbookEntries } from "app/db/queries";
-import { SignIn, SignOut } from "./buttons";
 import { Suspense } from "react";
 import Form from "./form";
+import { Session } from "app/components/helpers/session";
+import { redirect } from "next/navigation";
+import { SignOut } from "./buttons";
 
 export const metadata = {
   title: "Guestbook",
   description: "Sign my guestbook and leave your mark.",
 };
 
-export default function GuestbookPage() {
+export default async function GuestbookPage() {
+  const session = await Session();
+  if (!session || session === null || session === "") {
+    redirect("/signin?callback=/guestbook");
+  }
   return (
     <section>
       <h1 className="font-medium text-2xl mb-8 tracking-tighter bg-gradient-to-r from-zinc-300 via-neutral-700 to-zinc-900  bg-clip-text text-transparent">
@@ -25,21 +29,18 @@ export default function GuestbookPage() {
 }
 
 async function GuestbookForm() {
-  let session = await getServerSession(authConfig);
-
-  return session?.user ? (
+  // @ts-ignore
+  let session = await Session();
+  return session?.email ? (
     <>
       <Form />
-      <SignOut />
+      <SignOut callback={"/signin"} />
     </>
-  ) : (
-    <SignIn />
-  );
+  ) : null;
 }
 
 async function GuestbookEntries() {
   let entries = await getGuestbookEntries();
-
   if (entries.length === 0) {
     return null;
   }
