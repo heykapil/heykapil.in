@@ -3,7 +3,7 @@ import { Suspense } from "react";
 import Form from "./form";
 import { Session } from "app/components/helpers/session";
 import { redirect } from "next/navigation";
-import { SignOut } from "./buttons";
+import { SignOut } from "app/components/helpers/signout";
 
 export const metadata = {
   title: "Guestbook",

@@ -197,12 +197,12 @@ export async function sendEmail(formData: FormData) {
 export async function Login(formData: FormData) {
   let username = formData.get("username") as string;
   let password = formData.get("password") as string;
-  console.log(username, password);
   if (username.length === 0 || password.length === 0) {
     cookies().set({
       name: "LoginCookie",
       value: "Input both username and password",
       httpOnly: true,
+      secure: true,
       expires: new Date(Date.now() + 5 * 1000),
     });
   }

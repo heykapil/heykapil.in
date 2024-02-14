@@ -130,7 +130,3 @@ table {
 .prose .callout > p {
   margin: 0 !important;
 }
-
-.title {
-  text-wrap: balance;
-}

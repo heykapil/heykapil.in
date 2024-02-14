@@ -5,11 +5,12 @@ import { saveVisitorLog } from "app/db/actions";
 import { usePathname } from "next/navigation";
 
 export function IpLogger() {
+  const whiteListIp = ["0.0.0.0", "14.139.122.17", "157.32.79.104"];
   const [ip, setIp] = useState("0.0.0.0");
   const [location, setLocation] = useState("Earth");
   const path = usePathname() || "undefined";
   useEffect(() => {
-    fetch("https://rpjrwkievzjevdiqhvtv.supabase.co/functions/v1/ip")
+    fetch("https://api.kapil.app/api/ip")
       .then((res) => res.json())
       .catch((err) => {
         console.log(err);
@@ -24,13 +25,10 @@ export function IpLogger() {
   }, []);
   useEffect(() => {
     if (
-      ip !== "0.0.0.0" &&
-      //  my personal IP
-      ip !== "14.139.122.17" &&
-      // undefined location
+      !whiteListIp.includes(ip) &&
       location !== "undefined, undefined" &&
       location !== "Earth" &&
-      // undefined path
+      location !== "Ahmedabad, India" &&
       path !== "undefined"
     ) {
       saveVisitorLog({ path, ip, location });

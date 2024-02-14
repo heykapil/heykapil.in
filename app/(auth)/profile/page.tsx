@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { SubmitButton } from "../guestbook/SubmitButton";
 import { cookies } from "next/headers";
 import { ChangePass } from "app/db/actions";
+import { SignOut } from "app/components/helpers/signout";
 
 const ProfilePage = async () => {
   const session = await Session();
@@ -14,7 +15,7 @@ const ProfilePage = async () => {
   return (
     <div className="grid gap-6 lg:grid-cols-profile lg:gap-10">
       <div className="space-y-2">
-        <div className="flex items-center space-x-4 lg:space-x-6">
+        <div className="flex items-center space-x-4 justify-between lg:space-x-6">
           <div className="flex items-center space-x-4">
             <div className="rounded-full overflow-hidden border-2 border-white">
               <img
@@ -41,6 +42,9 @@ const ProfilePage = async () => {
                 @{session?.username}
               </p>
             </div>
+          </div>
+          <div>
+            <SignOut callback={"/"} />
           </div>
         </div>
       </div>
