@@ -70,7 +70,6 @@ export default async function LoginPage(props: any) {
             className="w-full dark:bg-neutral-800  rounded p-3 border border-gray-300 focus:border-neutral-700 dark:focus:border-teal-300 focus:ring-1 focus:ring-neutral-700 dark:focus:ring-teal-300 focus:outline-none input active:outline-none"
             name="password"
             minLength={3}
-            autoFocus
             placeholder="Password"
             required
           />

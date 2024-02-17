@@ -111,8 +111,18 @@ export default async function Snippet({ params }) {
   if (post.metadata.private === `true` && session?.role !== "admin") {
     return (
       <div>
-        <h2 className="text-2xl">Not Authorized!</h2>
-        <p>The content is made private or hidden.</p>
+        <h2 className="text-2xl font-semibold">Not Authorized!</h2>
+        <p>No permission to access this conent!</p>
+        <p className="mt-10">
+          Kindly{" "}
+          <a
+            className="font-medium underline underline-offset-2"
+            href={`/signin?callback=/snippet/${post.slug}`}
+          >
+            login
+          </a>{" "}
+          with admin role to access this content!
+        </p>
       </div>
     );
   } else {
