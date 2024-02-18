@@ -29,12 +29,14 @@ export default async function LoginPage(props: any) {
       <h1 className="font-medium text-2xl mb-8 tracking-tighter">
         Welcome back!
       </h1>
-      <p className="my-4 text-md font-medium text-neutral-500">{callBackmsg}</p>
+      <p className="my-4 text-md font-medium text-neutral-700 dark:text-neutral-300">
+        {callBackmsg}
+      </p>
       <form action={Login} className="flex flex-col space-y-2 mb-10 mt-5">
         <div className="relative mb-2 max-w-lg">
           <input
             type="text"
-            className="p-2 caret-current focus:ring-neutral-500 focus:border-neutral-600 dark:focus:border-neutral-400 focus:outline-none block w-full border border-neutral-300 dark:border-neutral-700 rounded-md bg-gray-100 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100"
+            className="p-2 caret-current focus:ring-neutral-500 focus:border-neutral-600 dark:focus:border-neutral-400 focus:outline-none block w-full border border-neutral-300 dark:border-neutral-700 rounded-md bg-neutral-50 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100"
             autoFocus
             name="username"
             minLength={3}
@@ -44,7 +46,7 @@ export default async function LoginPage(props: any) {
           <span className="absolute inset-y-0 end-0 grid place-content-center px-4">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="size-4 text-gray-400"
+              className="size-4 text-neutral-400"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -67,7 +69,7 @@ export default async function LoginPage(props: any) {
         <div className="relative mb-6 max-w-lg">
           <input
             type="password"
-            className="p-2 caret-current focus:ring-neutral-500 focus:border-neutral-600 dark:focus:border-neutral-400 focus:outline-none block w-full border border-neutral-300 dark:border-neutral-700 rounded-md bg-gray-100 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100"
+            className="p-2 caret-current focus:ring-neutral-500 focus:border-neutral-600 dark:focus:border-neutral-400 focus:outline-none block w-full border border-neutral-300 dark:border-neutral-700 rounded-md bg-neutral-50 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100"
             name="password"
             minLength={3}
             placeholder="Password"
@@ -76,7 +78,7 @@ export default async function LoginPage(props: any) {
           <span className="absolute inset-y-0 end-0 grid place-content-center px-4">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="size-4 text-gray-400"
+              className="size-4 text-neutral-400"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -102,29 +104,32 @@ export default async function LoginPage(props: any) {
             Password
           </label> */}
         </div>
-        <div className="space-y-9 max-w-lg">
+        <div className="space-y-10 max-w-lg mb-10">
           <div>
-            <a className="text-sm font-bold text-neutral-500" href="#">
+            <a
+              className="text-sm font-medium text-neutral-700 dark:text-neutral-300 hover:underline hover:underline-offset-2"
+              href="#"
+            >
               Forgot password?
             </a>
           </div>
           <div className="text-sm flex justify-between items-center">
             <Link
-              className="font-bold text-neutral-700 dark:text-neutral-300 py-2 px-2 rounded -ml-2 hover:bg-neutral-200 dark:hover:bg-neutral-800 "
+              className="px-3 py-2 border border-opacity-50 border-neutral-900 dark:border-pink-50 text-sm rounded-md font-semibold hover:border-black/[0.9] dark:hover:border-white/[0.9] hover:shadow-lg"
               href={`/register?callback=${callBackUrl}`}
             >
               Create account
             </Link>
             <SubmitButton
               type="submit"
-              className="py-2 px-6 rounded text-black dark:text-white bg-neutral-300 hover:bg-neutral-400 dark:bg-neutral-700  dark:hover:bg-neutral-600"
+              className="px-8 py-2  bg-neutral-900 dark:bg-pink-50 text-white dark:text-black text-sm rounded-md font-semibold hover:bg-black/[0.9] dark:hover:bg-white/[0.9] hover:shadow-lg"
               pendingState={<span>Loading...</span>}
             >
               Sign in
             </SubmitButton>
           </div>
         </div>
-        <div className="text-sm">
+        <div className="text-sm mt-10">
           {!!LoginCookie && (
             <span className="text-red-500 font-semibold">
               {JSON.parse(JSON.stringify(LoginCookie)).value as string} !

@@ -159,8 +159,9 @@ export default function RootLayout({
             ></rect>
           </svg>
           <Spotlight
-            className="-top-40 left-0 md:left-60 md:-top-20"
+            className="top-0 left-0 lg:left-60 md:-top-20"
             fill="#F7CD5D"
+            // fill="white"
           />
           <Navbar />
           {children}

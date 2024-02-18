@@ -16,9 +16,7 @@ function testUsername(u: string) {
 function testPassword(p: string) {
   return (
     /^(?=.*?[0-9])(?=.*?[A-Za-z]).{8,32}$/.test(p) &&
-    /^(?=.*?[0-9])(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[^0-9A-Za-z]).{8,32}$/.test(
-      p
-    )
+    /^(?=.*?[0-9])(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[^0-9A-Za-z]).{8,32}$/.test(p)
   );
 }
 
@@ -62,12 +60,12 @@ const RegisterForm = ({ callBackUrl }: { callBackUrl: string }) => {
     <form
       action={Register}
       ref={formRef}
-      className="flex flex-col space-y-3 mb-10 my-3 gap-4"
+      className="flex flex-col space-y-1 mb-10 my-2 gap-2 max-w-lg"
     >
       <div className="relative">
         <input
           type="text"
-          className="w-full dark:bg-neutral-800 rounded p-3 border border-gray-300 dark:bo focus:border-neutral-700 dark:focus:border-neutral-300 focus:ring-1 focus:ring-neutral-700 dark:focus:ring-neutral-300 focus:outline-none input active:outline-none"
+          className="p-2 caret-current focus:ring-neutral-500 focus:border-neutral-600 dark:focus:border-neutral-400 focus:outline-none block w-full border border-neutral-300 dark:border-neutral-700 rounded-md bg-gray-100 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100"
           name="full_name"
           minLength={3}
           placeholder="John Doe"
@@ -79,15 +77,15 @@ const RegisterForm = ({ callBackUrl }: { callBackUrl: string }) => {
           autoFocus
         />
         <span className="absolute inset-y-0 end-0 grid place-content-center px-4">
-          <label htmlFor="full_name">
-            {formData.full_name.length > 3 ? <span>✅</span> : null}
+          <label htmlFor="full_name" className="text-neutral-500">
+            {formData.full_name.length > 3 ? <span>✅</span> : "Full name"}
           </label>
         </span>
       </div>
       <div className="relative">
         <input
           type="email"
-          className="w-full dark:bg-neutral-800 rounded p-3 border border-gray-300 focus:border-neutral-700 dark:focus:border-neutral-300 focus:ring-1 focus:ring-neutral-700 dark:focus:ring-neutral-300 focus:outline-none input active:outline-none"
+          className="p-2 caret-current focus:ring-neutral-500 focus:border-neutral-600 dark:focus:border-neutral-400 focus:outline-none block w-full border border-neutral-300 dark:border-neutral-700 rounded-md bg-gray-100 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100"
           name="email"
           minLength={3}
           value={formData.email}
@@ -98,17 +96,19 @@ const RegisterForm = ({ callBackUrl }: { callBackUrl: string }) => {
           required
         />
         <span className="absolute inset-y-0 end-0 grid place-content-center px-4">
-          <label htmlFor="email" className="focus:hidden">
+          <label htmlFor="email" className="text-neutral-500">
             {emailAvaliable && isEmailValid(formData.email) ? (
               <span>✅</span>
-            ) : null}
+            ) : (
+              "Email address"
+            )}
           </label>
         </span>
       </div>
       <div className="relative">
         <input
           type="text"
-          className="w-full dark:bg-neutral-800 rounded p-3 border border-gray-300 focus:border-neutral-700 dark:focus:border-neutral-300 focus:ring-1 focus:ring-neutral-700 dark:focus:ring-neutral-300 focus:outline-none input active:outline-none"
+          className="p-2 caret-current focus:ring-neutral-500 focus:border-neutral-600 dark:focus:border-neutral-400 focus:outline-none block w-full border border-neutral-300 dark:border-neutral-700 rounded-md bg-gray-100 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100"
           name="username"
           value={formData.username}
           onChange={(e) => {
@@ -119,19 +119,21 @@ const RegisterForm = ({ callBackUrl }: { callBackUrl: string }) => {
           required
         />
         <span className="absolute inset-y-0 end-0 grid place-content-center px-4">
-          <label htmlFor="username" className="opacity-100">
+          <label htmlFor="username" className="text-neutral-500">
             {usernameAvaliable &&
             formData.username.length >= 3 &&
             testUsername(formData.username) ? (
               <span>✅</span>
-            ) : null}
+            ) : (
+              "Username"
+            )}
           </label>
         </span>
       </div>
       <div className="relative">
         <input
           type="password"
-          className="w-full dark:bg-neutral-800 rounded p-3 border border-gray-300 focus:border-neutral-700 dark:focus:border-neutral-300 focus:ring-1 focus:ring-neutral-700 dark:focus:ring-neutral-300 focus:outline-none input active:outline-none"
+          className="p-2 caret-current focus:ring-neutral-500 focus:border-neutral-600 dark:focus:border-neutral-400 focus:outline-none block w-full border border-neutral-300 dark:border-neutral-700 rounded-md bg-gray-100 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100"
           name="password"
           minLength={3}
           value={formData.password}
@@ -142,34 +144,36 @@ const RegisterForm = ({ callBackUrl }: { callBackUrl: string }) => {
           required
         />
         <span className="absolute inset-y-0 end-0 grid place-content-center px-4">
-          <label htmlFor="password">
+          <label htmlFor="password" className="text-neutral-500">
             {testPassword(formData.password) &&
             formData.password.length >= 3 ? (
               <span>✅</span>
-            ) : null}
+            ) : (
+              "Password"
+            )}
           </label>
         </span>
       </div>
-      <div className="space-y-9">
-        <div>
+      <div className="space-y-0">
+        <div className="mb-10">
           <a
-            className="text-sm font-bold text-neutral-500 hover:text-neutral-700 dark:hover:text-neutral-300 py-2 hover:underline"
+            className="text-sm font-medium text-neutral-700 dark:text-neutral-300 hover:underline hover:underline-offset-2"
             href="https://1password.com/password-generator"
             target="_blank"
           >
-            Strong password generator!
+            Strong password generator ↗
           </a>
         </div>
         <div className="text-sm flex justify-between items-center">
           <Link
-            className="font-bold text-neutral-700 dark:text-neutral-300 py-2 px-6 rounded -ml-2 bg-neutral-200 dark:bg-neutral-800 "
+            className="px-4 py-2 border border-opacity-50 border-neutral-900 dark:border-pink-50 text-sm rounded-md font-semibold hover:border-black/[0.9] dark:hover:border-white/[0.9] hover:shadow-lg"
             href={`/signin?callback=${callBackUrl}`}
           >
             Sign in
           </Link>
           <SubmitButton
             type="submit"
-            className="py-2 font-semibold px-6 rounded text-black dark:text-white bg-green-300 hover:bg-green-400 dark:bg-green-700  dark:hover:bg-green-600 disabled:cursor-not-allowed disabled:bg-red-500"
+            className="px-8 py-2  bg-neutral-900 dark:bg-pink-50 text-white dark:text-black text-sm rounded-md font-semibold hover:bg-black/[0.9] dark:hover:bg-white/[0.9] hover:shadow-lg"
             pendingState={<span>Registering...</span>}
           >
             Register
