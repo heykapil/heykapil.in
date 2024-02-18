@@ -13,11 +13,11 @@ function testUsername(u: string) {
   return /^[0-9A-Za-z]{6,16}$/.test(u);
 }
 
-function testPassword(testcase: string) {
+function testPassword(p: string) {
   return (
-    /^(?=.*?[0-9])(?=.*?[A-Za-z]).{8,32}$/.test(testcase) &&
+    /^(?=.*?[0-9])(?=.*?[A-Za-z]).{8,32}$/.test(p) &&
     /^(?=.*?[0-9])(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[^0-9A-Za-z]).{8,32}$/.test(
-      testcase
+      p
     )
   );
 }
@@ -36,7 +36,7 @@ const RegisterForm = ({ callBackUrl }: { callBackUrl: string }) => {
   useEffect(() => {
     if (formData.username.length >= 3) {
       fetch(
-        `http://localhost:3001/api/user/taken?username=${formData.username}`,
+        `https://api.kapil.app/api/user/taken?username=${formData.username}`,
         {
           method: "POST",
         }
@@ -49,7 +49,7 @@ const RegisterForm = ({ callBackUrl }: { callBackUrl: string }) => {
   }, [formData.username]);
   useEffect(() => {
     if (formData.email.length >= 3 && isEmailValid(formData.email)) {
-      fetch(`http://localhost:3001/api/user/taken?username=${formData.email}`, {
+      fetch(`https://api.kapil.app/api/user/taken?username=${formData.email}`, {
         method: "POST",
       })
         .then((res) => res.json())
