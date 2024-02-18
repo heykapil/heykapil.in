@@ -5,6 +5,7 @@ import { GeistMono } from "geist/font/mono";
 import { Navbar } from "./components/nav";
 import { IpLogger } from "./IpLogger";
 import { Suspense } from "react";
+import { Spotlight } from "./components/Spotlight";
 export const metadata: Metadata = {
   metadataBase: new URL("https://kapil.app"),
   title: {
@@ -137,6 +138,30 @@ export default function RootLayout({
     >
       <body className="antialiased max-w-2xl mb-40 flex flex-col md:flex-row mx-4 mt-8 lg:mx-auto">
         <main className="flex-auto min-w-0 mt-6 flex flex-col px-2 md:px-0">
+          <svg
+            className="pointer-events-none fixed top-0 left-0 isolate z-50 opacity-15 dark:opacity-[0.1] mix-blend-normal"
+            width="100%"
+            height="100%"
+          >
+            <filter id="pedroduarteisalegend">
+              <feTurbulence
+                type="fractalNoise"
+                baseFrequency="0.80"
+                numOctaves="4"
+                stitchTiles="stitch"
+              />
+              <feColorMatrix type="saturate" values="0" />
+            </filter>
+            <rect
+              width="100%"
+              height="100%"
+              filter="url(#pedroduarteisalegend)"
+            ></rect>
+          </svg>
+          <Spotlight
+            className="-top-40 left-0 md:left-60 md:-top-20"
+            fill="#F7CD5D"
+          />
           <Navbar />
           {children}
           {/* <Analytics /> */}

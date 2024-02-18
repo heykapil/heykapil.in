@@ -30,11 +30,11 @@ export default async function LoginPage(props: any) {
         Welcome back!
       </h1>
       <p className="my-4 text-md font-medium text-neutral-500">{callBackmsg}</p>
-      <form action={Login} className="flex flex-col space-y-3 mb-10">
-        <div className="relative mb-2">
+      <form action={Login} className="flex flex-col space-y-2 mb-10 mt-5">
+        <div className="relative mb-2 max-w-lg">
           <input
             type="text"
-            className="w-full dark:bg-neutral-800 rounded p-3 border border-gray-300 focus:border-neutral-700 dark:focus:border-teal-300 focus:ring-1 focus:ring-neutral-700 dark:focus:ring-teal-300 focus:outline-none input active:outline-none"
+            className="p-2 caret-current focus:ring-neutral-500 focus:border-neutral-600 dark:focus:border-neutral-400 focus:outline-none block w-full border border-neutral-300 dark:border-neutral-700 rounded-md bg-gray-100 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100"
             autoFocus
             name="username"
             minLength={3}
@@ -64,10 +64,10 @@ export default async function LoginPage(props: any) {
             Email or username
           </label> */}
         </div>
-        <div className="relative mb-2">
+        <div className="relative mb-6 max-w-lg">
           <input
             type="password"
-            className="w-full dark:bg-neutral-800  rounded p-3 border border-gray-300 focus:border-neutral-700 dark:focus:border-teal-300 focus:ring-1 focus:ring-neutral-700 dark:focus:ring-teal-300 focus:outline-none input active:outline-none"
+            className="p-2 caret-current focus:ring-neutral-500 focus:border-neutral-600 dark:focus:border-neutral-400 focus:outline-none block w-full border border-neutral-300 dark:border-neutral-700 rounded-md bg-gray-100 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100"
             name="password"
             minLength={3}
             placeholder="Password"
@@ -102,23 +102,11 @@ export default async function LoginPage(props: any) {
             Password
           </label> */}
         </div>
-        <div className="space-y-9">
+        <div className="space-y-9 max-w-lg">
           <div>
             <a className="text-sm font-bold text-neutral-500" href="#">
               Forgot password?
             </a>
-          </div>
-          <div className="text-sm">
-            {!!LoginCookie && (
-              <span className="text-neutral-500 font-semibold">
-                {JSON.parse(JSON.stringify(LoginCookie)).value as string} !
-              </span>
-            )}
-            {!!LoginCookie &&
-            (JSON.parse(JSON.stringify(LoginCookie)).value as string) ===
-              "Success"
-              ? redirect(callBackUrl)
-              : null}
           </div>
           <div className="text-sm flex justify-between items-center">
             <Link
@@ -135,6 +123,18 @@ export default async function LoginPage(props: any) {
               Sign in
             </SubmitButton>
           </div>
+        </div>
+        <div className="text-sm">
+          {!!LoginCookie && (
+            <span className="text-red-500 font-semibold">
+              {JSON.parse(JSON.stringify(LoginCookie)).value as string} !
+            </span>
+          )}
+          {!!LoginCookie &&
+          (JSON.parse(JSON.stringify(LoginCookie)).value as string) ===
+            "Success"
+            ? redirect(callBackUrl)
+            : null}
         </div>
       </form>
     </section>

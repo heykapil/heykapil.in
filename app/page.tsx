@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import styles from "./Music.module.css";
 import { Suspense } from "react";
-
+import { Icon } from "./components/Icon";
 export default async function Page() {
   const birthdayData = await getBirthdayData();
   const spotifyData = await getSpotifyData();
