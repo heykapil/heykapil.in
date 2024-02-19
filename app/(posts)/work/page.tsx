@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import React, { Suspense } from "react";
-import Link from "next/link";
 import { revalidatePath, unstable_noStore as noStore } from "next/cache";
-import { teachingData } from "./data";
 export const metadata: Metadata = {
   title: "Work",
   description: "A summary of my work and contributions.",
@@ -41,7 +39,7 @@ export default async function WorkPage() {
             <ol>
               {scholarData["articles"].map((data) => (
                 <li key={data.title}>
-                  <a href={data.link} target="_blank">
+                  <a target="_blank" href={data.link}>
                     {data.title}
                   </a>{" "}
                   <br />
@@ -74,22 +72,144 @@ export default async function WorkPage() {
         <hr className="my-6 border-neutral-100 dark:border-neutral-800" />
         <h2 className="font-medium text-xl mb-1 tracking-tighter">Teaching</h2>
         <p className="text-neutral-600 dark:text-neutral-400 text-sm">
-          Currently teaching:
+          Dec 2021 onwards
         </p>
-        <div className="group-hover/section:text-[#a1a1aa] mt-8 dark:group-hover/section:text-[#656565]">
-          {teachingData.map((data, index) => (
-            <Link
-              key={index}
-              className="flex flex-col space-y-1 group/item mb-4 hover:text-black dark:hover:text-white transition duration-[250ms] ease-out hover:duration-[50ms]"
-              href={"#"}
-            >
-              <div className="w-full flex flex-col md:flex-row justify-between">
-                <p className="overflow-hidden whitespace-nowrap overflow-ellipsis tracking-tight">
-                  {data.code}: {data.title}
-                </p>
-              </div>
-            </Link>
-          ))}
+        <div className="flex flex-col mt-8 space-y-4">
+          <details className="flex space-y-2 duration-150">
+            <summary className="list-none cursor-pointer">
+              MAT409 - Complex Analysis II
+            </summary>
+            <ul className="list-disc list-inside ml-4">
+              <li>
+                Book:{" "}
+                <a
+                  href="https://cdn.kapil.app/teaching/MAT409_ComplexII_2023-24/Course_Book.pdf"
+                  className="underline text-[#0000ff] dark:text-[#F7CD5D]"
+                >
+                  Complex Variables and applications (J. Brown & R. Churchil)
+                  9th edition
+                </a>
+              </li>
+              <li>
+                <p>Lectures</p>
+              </li>
+              <li>
+                <a
+                  href="https://cdn.kapil.app/teaching/MAT409_ComplexII_2023-24/Unit_II_Assignment.pdf"
+                  className="underline text-[#0000ff] dark:text-[#F7CD5D]"
+                >
+                  Assignment
+                </a>{" "}
+                (Due date: Feb 19, 2024 at 2:00 PM)
+              </li>
+              <li>
+                <a
+                  href="https://cdn.kapil.app/teaching/MAT409_ComplexII_2023-24/Unit%20Test%20II.pdf"
+                  className="underline text-[#0000ff] dark:text-[#F7CD5D]"
+                >
+                  Unit test II
+                </a>{" "}
+                (Test date: Feb 14, 2024 at 3:30 PM)
+              </li>
+              <li>
+                <a
+                  href="https://cdn.kapil.app/teaching/MAT409_ComplexII_2023-24/Solution%20Unit%20Test%20II.pdf"
+                  className="underline text-[#0000ff] dark:text-[#F7CD5D]"
+                >
+                  Test solutions
+                </a>
+              </li>
+            </ul>
+          </details>
+          <details className="flex space-y-2">
+            <summary className="overflow-hidden whitespace-nowrap overflow-ellipsis tracking-tight">
+              MAT405PR - Matrices & Linear algebra
+            </summary>
+            <ul className="list-disc list-inside ml-4">
+              <details>
+                <summary>Lecture notes</summary>
+                <ul className="list-inside flex flex-row list-none space-x-4 ml-4">
+                  <li>
+                    <a
+                      href="https://cdn.kapil.app/teaching/MAT405_Linear_2022-23/Notes%20-%2011-01.pdf"
+                      className="underline text-[#0000ff] dark:text-[#F7CD5D]"
+                    >
+                      11 Jan
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://cdn.kapil.app/teaching/MAT405_Linear_2022-23/Notes%20-%2012-01.pdf"
+                      className="underline text-[#0000ff] dark:text-[#F7CD5D]"
+                    >
+                      12 Jan
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://cdn.kapil.app/teaching/MAT405_Linear_2022-23/Notes%20-%2013-01.pdf"
+                      className="underline text-[#0000ff] dark:text-[#F7CD5D]"
+                    >
+                      13 Jan
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://cdn.kapil.app/teaching/MAT405_Linear_2022-23/Notes%20-%2018-01.pdf"
+                      className="underline text-[#0000ff] dark:text-[#F7CD5D]"
+                    >
+                      18 Jan
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://cdn.kapil.app/teaching/MAT405_Linear_2022-23/Notes%20-%2020-01.pdf"
+                      className="underline text-[#0000ff] dark:text-[#F7CD5D]"
+                    >
+                      20 Jan
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://cdn.kapil.app/teaching/MAT405_Linear_2022-23/Notes%20-%2021-01.pdf"
+                      className="underline text-[#0000ff] dark:text-[#F7CD5D]"
+                    >
+                      21 Jan
+                    </a>
+                  </li>
+                </ul>
+              </details>
+              <details>
+                <summary>Practice problems</summary>
+                <ul className="list-inside flex flex-row list-none space-x-4 ml-4">
+                  <li>
+                    <a
+                      href="https://cdn.kapil.app/teaching/MAT405_Linear_2022-23/Practice%20Problems%20-11%20Jan.pdf"
+                      className="underline text-[#0000ff] dark:text-[#F7CD5D]"
+                    >
+                      11 Jan
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://cdn.kapil.app/teaching/MAT405_Linear_2022-23/Practice%20Problems%20-12%20Jan.pdf"
+                      className="underline text-[#0000ff] dark:text-[#F7CD5D]"
+                    >
+                      12 Jan
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://cdn.kapil.app/teaching/MAT405_Linear_2022-23/Practice%20Problems%20-13%20Jan.pdf"
+                      className="underline text-[#0000ff] dark:text-[#F7CD5D]"
+                    >
+                      13 Jan
+                    </a>
+                  </li>
+                </ul>
+              </details>
+            </ul>
+          </details>
         </div>
       </div>
     </section>

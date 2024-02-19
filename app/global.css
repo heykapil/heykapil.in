@@ -16,6 +16,7 @@
   --sh-comment: #a19595;
   --sh-jsxliterals: #6266d1;
   --primary: #171717;
+  --sun-rise: #f7cd5d;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -25,6 +26,7 @@
     --sh-keyword: #f47067;
     --sh-string: #0fa295;
     --primary: #fafafa;
+    --sun-rise: #f7cd5d;
   }
 }
 
@@ -129,4 +131,43 @@ table {
 
 .prose .callout > p {
   margin: 0 !important;
+}
+
+details {
+  overflow: hidden;
+}
+
+summary {
+  padding: 0rem;
+  display: block;
+  padding-left: 1rem;
+  position: relative;
+  cursor: pointer;
+}
+
+summary:before {
+  content: "";
+  border-width: 0.4rem;
+  border-style: solid;
+  border-color: transparent transparent transparent currentColor;
+  position: absolute;
+  top: 0.4rem;
+  left: 0.1rem;
+  transform: rotate(0);
+  transform-origin: 0.2rem 50%;
+  transition: 0.2s transform ease;
+}
+
+/* THE MAGIC 🧙‍♀️ */
+details[open] > summary:before {
+  transform: rotate(90deg);
+}
+
+details summary::-webkit-details-marker {
+  display: none;
+}
+
+details > ul {
+  padding-bottom: 1rem;
+  margin-bottom: 0;
 }
