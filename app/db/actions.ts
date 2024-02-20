@@ -356,3 +356,57 @@ export async function ChangePass(formData: FormData) {
     throw new Error(error);
   }
 }
+
+export async function ForgotPass(formData: FormData) {
+  const username = formData.get("username")?.toString();
+  try {
+    const data = await fetch("https://api.kapil.app/api/user/password/forgot", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username,
+      }),
+    });
+    const response = await data.json();
+    cookies().set({
+      name: "ForgotPassCookie",
+      value: response.message || response.error || "Something went wrong!",
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      expires: new Date(Date.now() + 10 * 1000),
+    });
+  } catch (error: any) {
+    throw new Error(error);
+  }
+}
+
+export async function ResetPassword(formData: FormData) {
+  const password = formData.get("password")?.toString();
+  const token = formData.get("token")?.toString();
+  try {
+    const data = await fetch(
+      `https://api.kapil.app/api/user/password/reset?token=${token}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          password,
+        }),
+      }
+    );
+    const response = await data.json();
+    cookies().set({
+      name: "ResetPassCookie",
+      value: response.message || response.error || "Something went wrong!",
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      expires: new Date(Date.now() + 10 * 1000),
+    });
+  } catch (error: any) {
+    throw new Error(error);
+  }
+}
