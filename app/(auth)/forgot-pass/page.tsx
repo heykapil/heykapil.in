@@ -57,7 +57,7 @@ export default async function ForgotPassPage(props: any) {
           <div className="text-sm flex justify-between items-center">
             <Link
               className="px-3 py-2 border border-opacity-50 border-neutral-900 dark:border-pink-50 text-sm rounded-md font-semibold hover:border-black/[0.9] dark:hover:border-white/[0.9] hover:shadow-lg"
-              href={`/signinr?callback=${callBackUrl}`}
+              href={`/signin?callback=${callBackUrl}`}
             >
               Signin
             </Link>
