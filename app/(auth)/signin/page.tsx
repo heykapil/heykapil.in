@@ -26,10 +26,10 @@ export default async function LoginPage(props: any) {
   }
   return (
     <section>
-      <h1 className="font-medium text-2xl mb-8 tracking-tighter">
+      <h1 className="font-medium text-2xl mb-8 tracking-tighter animate-fade-right">
         Welcome back!
       </h1>
-      <p className="my-4 text-md font-medium text-neutral-700 dark:text-neutral-300">
+      <p className="my-4 text-md font-medium text-neutral-700 dark:text-neutral-300 animate-bounce">
         {callBackmsg}
       </p>
       <form action={Login} className="flex flex-col space-y-2 mb-10 mt-5">

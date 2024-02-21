@@ -17,7 +17,7 @@ export default async function GuestbookPage() {
   }
   return (
     <section>
-      <h1 className="font-medium text-2xl mb-8 tracking-tighter bg-gradient-to-r from-zinc-300 via-neutral-700 to-zinc-900  bg-clip-text text-transparent">
+      <h1 className="font-medium text-2xl mb-8 tracking-tighter bg-gradient-to-r from-zinc-300 via-neutral-700 to-zinc-900  bg-clip-text text-transparent animate-fade-right">
         Sign my guestbook
       </h1>
       <Suspense fallback={<p>Loading...</p>}>

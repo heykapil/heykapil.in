@@ -1,7 +1,6 @@
 import clsx from "clsx";
 import styles from "./Music.module.css";
 import { Suspense } from "react";
-import { Icon } from "./components/Icon";
 export default async function Page() {
   const birthdayData = await getBirthdayData();
   const spotifyData = await getSpotifyData();
@@ -14,7 +13,7 @@ export default async function Page() {
 
   return (
     <section>
-      <h1 className="font-medium text-2xl mb-8 tracking-tighter">
+      <h1 className="font-medium text-2xl mb-8 tracking-tighter animate-fade-right">
         hey, I'm kapil 👋
       </h1>
       <p className="prose prose-neutral dark:prose-invert">
@@ -42,7 +41,7 @@ export default async function Page() {
             <div className="absolute top-1/2 -translate-x-1/2 -translate-y-1/2 left-1/2 w-full h-full p-5 rounded-lg">
               {birthdayData && birthdayData.daysLeft > 0 ? (
                 <div className=" items-center content-center place-content-center text-center">
-                  <p className="text-4xl mt-[15%]">
+                  <p className="text-4xl mt-[15%] animate-fade-up">
                     {birthdayData.daysLeft}{" "}
                     <span className="text-lg">days</span>
                   </p>
@@ -251,7 +250,7 @@ export default async function Page() {
                       )}
                     ></span>
                   </span>
-                  <span className="w-2"></span>
+                  <span className="w-2 animate-fade-up"></span>
                   {uptimeData.state
                     ? uptimeData.state.regions.se_asia
                         .thirty_day_uptime_percentage

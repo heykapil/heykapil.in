@@ -21,5 +21,7 @@ export default function ViewCounter({
       increment(slug);
     }
   }, []);
-  return <p>{`${number.toLocaleString()}`} views</p>;
+  return (
+    <p className="animate-flip-up">{`${number.toLocaleString()}`} views</p>
+  );
 }

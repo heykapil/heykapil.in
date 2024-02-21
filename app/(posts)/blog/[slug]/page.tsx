@@ -7,7 +7,7 @@ import { getBlogPosts } from "app/db/blog";
 import { increment } from "app/db/actions";
 import { unstable_noStore as noStore } from "next/cache";
 import { Session } from "app/components/helpers/session";
-
+import { formatDate } from "app/components/helpers/format-date";
 const ViewCounter = lazy(() => import("../view-counter"));
 
 export async function generateMetadata({
@@ -52,58 +52,6 @@ export async function generateMetadata({
   };
 }
 
-function formatDate(date: string) {
-  noStore();
-  let currentDate = new Date();
-  if (!date.includes("T")) {
-    date = `${date}T00:00:00`;
-  }
-  let targetDate = new Date(date);
-  let daysDiff = Math.round(
-    (currentDate.getTime() - targetDate.getTime()) / (1000 * 3600 * 24)
-  );
-  let yearsAgo = 0,
-    monthsAgo = 0,
-    weeksAgo = 0,
-    daysAgo = 0;
-  while (daysDiff) {
-    if (daysDiff >= 365) {
-      yearsAgo++;
-      daysDiff -= 365;
-    } else if (daysDiff >= 30) {
-      monthsAgo++;
-      daysDiff -= 30;
-    } else if (daysDiff >= 7) {
-      weeksAgo++;
-      daysDiff -= 7;
-    } else {
-      daysAgo++;
-      daysDiff--;
-    }
-  }
-  let formattedDate = "";
-
-  if (yearsAgo > 0) {
-    formattedDate = `${yearsAgo}y ago`;
-  } else if (monthsAgo > 0) {
-    formattedDate = `${monthsAgo}mo ago`;
-  } else if (weeksAgo > 0) {
-    formattedDate = `${weeksAgo}w ago`;
-  } else if (daysAgo > 0) {
-    formattedDate = `${daysAgo}d ago`;
-  } else {
-    formattedDate = "Today";
-  }
-
-  let fullDate = targetDate.toLocaleString("en-us", {
-    month: "long",
-    day: "numeric",
-    year: "numeric",
-  });
-
-  return `${fullDate} (${formattedDate})`;
-}
-
 export default async function Blog({ params }) {
   let post = getBlogPosts().find((post) => post.slug === params.slug);
   // @ts-ignore
@@ -115,8 +63,10 @@ export default async function Blog({ params }) {
   if (post.metadata.private === `true` && session?.role !== "admin") {
     return (
       <div>
-        <h2 className="text-2xl font-semibold">Not Authorized!</h2>
-        <p>No permission to access this conent!</p>
+        <h2 className="text-2xl font-semibold animate-fade-right">
+          Not Authorized!
+        </h2>
+        <p className="animate-fade-up">No permission to access this conent!</p>
         <p className="mt-10">
           Kindly{" "}
           <a
@@ -154,7 +104,7 @@ export default async function Blog({ params }) {
             }),
           }}
         />
-        <h1 className="title font-medium text-2xl tracking-tighter max-w-[650px]">
+        <h1 className="title font-medium text-2xl tracking-tighter max-w-[650px] animate-fade-right">
           {post.metadata.title}
         </h1>
         <div className="flex justify-between items-center mt-2 mb-8 text-sm max-w-[650px]">
@@ -173,7 +123,6 @@ export default async function Blog({ params }) {
             fallback={
               <div className="inline-flex">
                 <p className="h-5 animate-pulse bg-opacity-50 w-5" />
-                <span>views</span>
               </div>
             }
           >

@@ -12,10 +12,10 @@ export default async function RegisterPage(props: any) {
   const RegisterCookie = cookies().get("RegisterCookie");
   return (
     <section>
-      <h1 className="font-medium text-2xl mb-8 tracking-tighter">
+      <h1 className="font-medium text-2xl mb-8 tracking-tighter animate-fade-right">
         Create account!
       </h1>
-      <p className="my-4 text-md font-medium text-neutral-700 dark:text-neutral-300 ">
+      <p className="my-4 text-md font-medium animate-fade-up text-neutral-700 dark:text-neutral-300 ">
         Fill up the registration form to create a new account!
       </p>
       <RegisterForm callBackUrl={callBackUrl} />
