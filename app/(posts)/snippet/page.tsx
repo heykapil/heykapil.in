@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { getViewsCount } from "app/db/queries";
 import { getSnippetPosts } from "app/db/blog";
-import ViewCounter from "app/(posts)/blog/view-counter";
+import ViewCounter from "app/(posts)/musing/view-counter";
 import { unstable_noStore as noStore, revalidatePath } from "next/cache";
 import { formatShortDate } from "app/components/helpers/format-date";
 
@@ -16,7 +16,7 @@ export default function SnippetPage() {
 
   return (
     <div>
-      <h1 className="font-medium text-2xl mb-8 tracking-tighter animate-fade-right">
+      <h1 className="animate-fade-right mb-8 text-2xl font-medium tracking-tighter">
         Snippets
       </h1>
       {/* <p className="mb-8 text-gray-500">
@@ -37,11 +37,11 @@ export default function SnippetPage() {
             .map((post) => (
               <Link
                 key={post.slug}
-                className="group flex border-b border-gray-500 border-opacity-20 flex-col space-y-1 py-4 group/item hover:text-black dark:hover:text-white  transition duration-[300ms] ease-out hover:duration-[50ms]"
+                className="group/item group flex flex-col space-y-1 border-b border-gray-500 border-opacity-20 py-4 transition duration-[300ms]  ease-out hover:text-black hover:duration-[50ms] dark:hover:text-white"
                 href={`/snippet/${post.slug}`}
               >
-                <div className="w-full flex flex-col md:flex-row justify-between">
-                  <p className="overflow-hidden whitespace-nowrap overflow-ellipsis tracking-tight">
+                <div className="flex w-full flex-col justify-between md:flex-row">
+                  <p className="overflow-hidden overflow-ellipsis whitespace-nowrap tracking-tight">
                     {post.metadata.title}{" "}
                     {(post.metadata.private || post.metadata.archived) && (
                       <span className="ml-[-2]">🔐</span>
@@ -50,12 +50,12 @@ export default function SnippetPage() {
                   <Suspense
                     fallback={
                       <div className="inline-flex">
-                        <p className="h-5 animate-pulse bg-opacity-50 min-w-5" />
+                        <p className="h-5 min-w-5 animate-pulse bg-opacity-50" />
                         <span>views</span>
                       </div>
                     }
                   >
-                    <div className="hidden md:inline-flex self-center items-center">
+                    <div className="hidden items-center self-center md:inline-flex">
                       {formatShortDate(post.metadata.created)}
                       <span className="group-hover:animate-fade-left">
                         <svg
@@ -63,7 +63,7 @@ export default function SnippetPage() {
                           height="1em"
                           fill="none"
                           viewBox="0 0 256 256"
-                          className="translate-x-2 hidden rotate-45 transition group-hover:block"
+                          className="hidden translate-x-2 rotate-45 transition group-hover:block"
                         >
                           <rect width="256" height="256" fill="none" />
                           <path

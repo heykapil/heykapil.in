@@ -1,9 +1,6 @@
 import Link from "next/link";
 import { Suspense } from "react";
-import { getViewsCount } from "app/db/queries";
 import { getBlogPosts } from "app/db/blog";
-import ViewCounter from "./view-counter";
-import { unstable_noStore as noStore } from "next/cache";
 import { formatShortDate } from "app/components/helpers/format-date";
 
 export const metadata = {
@@ -15,8 +12,8 @@ export default function BlogPage() {
   let allBlogs = getBlogPosts();
   return (
     <div>
-      <h1 className="font-medium text-2xl mb-8 tracking-tighter animate-fade-right">
-        Blog
+      <h1 className="animate-fade-right mb-8 text-2xl font-medium tracking-tighter">
+        Musing
       </h1>
       <section className="group/section">
         <div className="group-hover/section:text-[#a1a1aa] dark:group-hover/section:text-[#656565]">
@@ -31,11 +28,11 @@ export default function BlogPage() {
             .map((post) => (
               <Link
                 key={post.slug}
-                className="group flex border-b border-gray-500 border-opacity-20 flex-col space-y-1 py-4 group/item hover:text-black dark:hover:text-white  transition duration-[300ms] ease-out hover:duration-[50ms]"
-                href={`/blog/${post.slug}`}
+                className="group/item group flex flex-col space-y-1 border-b border-gray-500 border-opacity-20 py-4 transition duration-[300ms]  ease-out hover:text-black hover:duration-[50ms] dark:hover:text-white"
+                href={`/musing/${post.slug}`}
               >
-                <div className="w-full flex flex-col md:flex-row justify-between">
-                  <p className="overflow-hidden whitespace-nowrap overflow-ellipsis tracking-tight">
+                <div className="flex w-full flex-col justify-between md:flex-row">
+                  <p className="overflow-hidden overflow-ellipsis whitespace-nowrap tracking-tight">
                     {post.metadata.title}{" "}
                     {(post.metadata.archived || post.metadata.private) && (
                       <span>🔐</span>
@@ -44,12 +41,12 @@ export default function BlogPage() {
                   <Suspense
                     fallback={
                       <div className="inline-flex">
-                        <p className="h-5 animate-pulse bg-opacity-50 min-w-5" />
+                        <p className="h-5 min-w-5 animate-pulse bg-opacity-50" />
                         <span>views</span>
                       </div>
                     }
                   >
-                    <div className="hidden md:inline-flex self-center items-center">
+                    <div className="hidden items-center self-center md:inline-flex">
                       {formatShortDate(post.metadata.created)}
                       <span className="group-hover:animate-fade-left">
                         <svg
@@ -57,7 +54,7 @@ export default function BlogPage() {
                           height="1em"
                           fill="none"
                           viewBox="0 0 256 256"
-                          className="translate-x-2 hidden rotate-45 transition group-hover:block"
+                          className="hidden translate-x-2 rotate-45 transition group-hover:block"
                         >
                           <rect width="256" height="256" fill="none" />
                           <path
@@ -79,11 +76,4 @@ export default function BlogPage() {
       </section>
     </div>
   );
-}
-
-async function Views({ slug }: { slug: string }) {
-  noStore();
-  let views: any;
-  views = await getViewsCount();
-  return <ViewCounter allViews={views} slug={slug} />;
 }

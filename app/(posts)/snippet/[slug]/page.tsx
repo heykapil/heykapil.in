@@ -5,7 +5,7 @@ import { CustomMDX } from "app/components/mdx";
 import { getViewsCount } from "app/db/queries";
 import { getSnippetPosts } from "app/db/blog";
 import { increment } from "app/db/actions";
-import ViewCounter from "app/(posts)/blog/view-counter";
+import ViewCounter from "app/(posts)/musing/view-counter";
 import { unstable_noStore as noStore } from "next/cache";
 import { Session } from "app/components/helpers/session";
 import { formatDate } from "app/components/helpers/format-date";
@@ -101,10 +101,10 @@ export default async function Snippet({ params }) {
             }),
           }}
         />
-        <h1 className="title font-medium text-2xl tracking-tighter max-w-[650px] animate-fade-right">
+        <h1 className="title animate-fade-right max-w-[650px] text-2xl font-medium tracking-tighter">
           {post.metadata.title}
         </h1>
-        <div className="flex justify-between items-center mt-2 mb-8 text-sm max-w-[650px]">
+        <div className="mb-8 mt-2 flex max-w-[650px] items-center justify-between text-sm">
           <Suspense fallback={<p className="h-5" />}>
             <p className="text-sm text-neutral-600 dark:text-neutral-400">
               {formatDate(post.metadata.created)}
@@ -113,7 +113,7 @@ export default async function Snippet({ params }) {
           <Suspense
             fallback={
               <div className="inline-flex">
-                <p className="h-5 bg-opacity-50 w-5" />
+                <p className="h-5 w-5 bg-opacity-50" />
               </div>
             }
           >

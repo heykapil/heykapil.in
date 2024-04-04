@@ -7,7 +7,7 @@ import { getQuotes } from "app/db/blog";
 import { increment } from "app/db/actions";
 import { unstable_noStore as noStore } from "next/cache";
 import { Session } from "app/components/helpers/session";
-const ViewCounter = lazy(() => import("app/(posts)/blog/view-counter"));
+const ViewCounter = lazy(() => import("app/(posts)/musing/view-counter"));
 
 export async function generateMetadata({
   params,

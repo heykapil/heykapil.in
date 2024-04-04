@@ -36,7 +36,7 @@ export async function generateMetadata({
       description,
       type: "article",
       publishedTime,
-      url: `https://kapil.app/blog/${post.slug}`,
+      url: `https://kapil.app/musing/${post.slug}`,
       images: [
         {
           url: ogImage,
@@ -63,7 +63,7 @@ export default async function Blog({ params }) {
   if (post.metadata.private === `true` && session?.role !== "admin") {
     return (
       <div>
-        <h2 className="text-2xl font-semibold animate-fade-right">
+        <h2 className="animate-fade-right text-2xl font-semibold">
           Not Authorized!
         </h2>
         <p className="animate-fade-up">No permission to access this conent!</p>
@@ -71,7 +71,7 @@ export default async function Blog({ params }) {
           Kindly{" "}
           <a
             className="font-medium underline underline-offset-2"
-            href={`/signin?callback=/blog/${post.slug}`}
+            href={`/signin?callback=/thoughts/${post.slug}`}
           >
             login
           </a>{" "}
@@ -96,7 +96,7 @@ export default async function Blog({ params }) {
               image: post.metadata.image
                 ? `https://kapil.app${post.metadata.image}`
                 : `https://kapil.app/og?title=${post.metadata.title}`,
-              url: `https://kapil.app/blog/${post.slug}`,
+              url: `https://kapil.app/musing/${post.slug}`,
               author: {
                 "@type": "Person",
                 name: "Kapil Chaudhary",
@@ -104,14 +104,14 @@ export default async function Blog({ params }) {
             }),
           }}
         />
-        <h1 className="title font-medium text-2xl tracking-tighter max-w-[650px] animate-fade-right">
+        <h1 className="title animate-fade-right max-w-[650px] text-2xl font-medium tracking-tighter">
           {post.metadata.title}
         </h1>
-        <div className="flex justify-between items-center mt-2 mb-8 text-sm max-w-[650px]">
+        <div className="mb-8 mt-2 flex max-w-[650px] items-center justify-between text-sm">
           <Suspense
             fallback={
               <div className="inline-flex">
-                <p className="h-5 animate-pulse bg-opacity-50 w-5" />
+                <p className="h-5 w-5 animate-pulse bg-opacity-50" />
               </div>
             }
           >
@@ -122,11 +122,11 @@ export default async function Blog({ params }) {
           <Suspense
             fallback={
               <div className="inline-flex">
-                <p className="h-5 animate-pulse bg-opacity-50 w-5" />
+                <p className="h-5 w-5 animate-pulse bg-opacity-50" />
               </div>
             }
           >
-            <Views slug={`blog/${post.slug}`} />
+            <Views slug={`musing/${post.slug}`} />
           </Suspense>
         </div>
         <article className="prose prose-quoteless prose-neutral dark:prose-invert">

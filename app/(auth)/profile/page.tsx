@@ -36,7 +36,7 @@ const ProfilePage = async () => {
             </div>
             <div className="space-y-1">
               <h1 className="text-2xl capitalize font-bold">
-                {session?.full_name}
+                {session?.full_name || session.name}
               </h1>
               <p className="text-sm text-gray-500 dark:text-gray-400">
                 @{session?.username}
@@ -62,36 +62,40 @@ const ProfilePage = async () => {
         </div>
       </div>
       <hr />
-      <form className="flex flex-col space-y-2" action={ChangePass}>
-        <input
-          className="border-b bg-inherit ring-offset-0 outline-none border-zinc-700 dark:border-zinc-300 w-full max-w-[250px] px-1 py-2"
-          type="password"
-          name="oldPass"
-          placeholder="old password"
-          minLength={3}
-        />
-        <input
-          className="border-b bg-inherit ring-offset-0 outline-none border-zinc-700 dark:border-zinc-300 w-full max-w-[250px]  px-1 py-2"
-          type="password"
-          name="newPass"
-          placeholder="new password"
-          minLength={3}
-        />
-        <SubmitButton
-          type="submit"
-          className="px-3 py-2 w-fit border-b dark:border-zinc-300-neutral-200 dark:border-b ring-offset-0 outline-none border-zinc-700 dark:border-zinc-300-neutral-700 bg-neutral-50 dark:bg-neutral-800 rounded p-1 text-sm inline-flex items-center leading-4 text-neutral-900 dark:text-neutral-100 mb-8 transition-all',
+      {!session.oauth ? (
+        <form className="flex flex-col space-y-2" action={ChangePass}>
+          <input
+            className="border-b bg-inherit ring-offset-0 outline-none border-zinc-700 dark:border-zinc-300 w-full max-w-[250px] px-1 py-2"
+            type="password"
+            name="oldPass"
+            placeholder="old password"
+            minLength={3}
+          />
+          <input
+            className="border-b bg-inherit ring-offset-0 outline-none border-zinc-700 dark:border-zinc-300 w-full max-w-[250px]  px-1 py-2"
+            type="password"
+            name="newPass"
+            placeholder="new password"
+            minLength={3}
+          />
+          <SubmitButton
+            type="submit"
+            className="px-3 py-2 w-fit border-b dark:border-zinc-300-neutral-200 dark:border-b ring-offset-0 outline-none border-zinc-700 dark:border-zinc-300-neutral-700 bg-neutral-50 dark:bg-neutral-800 rounded p-1 text-sm inline-flex items-center leading-4 text-neutral-900 dark:text-neutral-100 mb-8 transition-all',
          disabled:opacity-50"
-          pendingState={
-            <p className="flex items-center gap-1">
-              Loading... <span className="loading loading-dots"></span>
-            </p>
-          }
-        >
-          Change Password
-        </SubmitButton>
-        {!!ChangePassCookie &&
-          (JSON.parse(JSON.stringify(ChangePassCookie)).value as string)}
-      </form>
+            pendingState={
+              <p className="flex items-center gap-1">
+                Loading... <span className="loading loading-dots"></span>
+              </p>
+            }
+          >
+            Change Password
+          </SubmitButton>
+          {!!ChangePassCookie &&
+            (JSON.parse(JSON.stringify(ChangePassCookie)).value as string)}
+        </form>
+      ) : (
+        ""
+      )}
     </div>
   );
 };

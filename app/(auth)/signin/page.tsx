@@ -32,6 +32,7 @@ export default async function LoginPage(props: any) {
       <p className="my-4 text-md font-medium text-neutral-700 dark:text-neutral-300 animate-bounce">
         {callBackmsg}
       </p>
+
       <form action={Login} className="flex flex-col space-y-2 mb-10 mt-5">
         <div className="relative mb-2 max-w-lg">
           <input
@@ -136,6 +137,23 @@ export default async function LoginPage(props: any) {
             : null}
         </div>
       </form>
+      <div className="mb-6 max-w-lg border-t-2 border-opacity-50 border-neutral-500" />
+      <p className="my-6 text-md font-medium text-neutral-700 dark:text-neutral-300">
+        Or use your Github account to continue...
+      </p>
+      <Link
+        className="px-8 py-2 my-0  inline-block mx-auto w-fit max-w-lg  bg-neutral-900 dark:bg-pink-50 text-white dark:text-black text-sm rounded-md font-semibold hover:bg-black/[0.9] dark:hover:bg-white/[0.9] hover:shadow-lg"
+        href="https://github.com/login/oauth/authorize?scope=user:email&client_id=631dc2729898da1ac8a4"
+      >
+        <img
+          alt="GitHub logo"
+          src="https://leerob.io/github-logo.svg"
+          width="20"
+          height="20"
+          className="inline-block mr-2 self-center invert dark:invert-0"
+        />
+        Login with GitHub
+      </Link>
     </section>
   );
 }

@@ -4,5 +4,6 @@ import { DatabaseSchema, getXataClient } from "./xata"; // Generated client
 const xata = getXataClient();
 
 export const queryBuilder = new Kysely<Model<DatabaseSchema>>({
+  // @ts-ignore
   dialect: new XataDialect({ xata }),
 });
