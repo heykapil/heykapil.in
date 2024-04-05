@@ -188,7 +188,7 @@ const RegisterForm = ({ callBackUrl }: { callBackUrl: string }) => {
       </p>
       <Link
         className="px-8 py-2 my-0  inline-block mx-auto w-fit max-w-lg  bg-neutral-900 dark:bg-pink-50 text-white dark:text-black text-sm rounded-md font-semibold hover:bg-black/[0.9] dark:hover:bg-white/[0.9] hover:shadow-lg"
-        href="https://github.com/login/oauth/authorize?scope=user:email&client_id=631dc2729898da1ac8a4"
+        href={`https://github.com/login/oauth/authorize?scope=user:email&client_id=631dc2729898da1ac8a4&redirect_uri=https%3A%2F%2Fapi.kapil.app%2Fapi%2Fcallback%2Fgithub%3Fnext%3D${callBackUrl}`}
       >
         <img
           alt="GitHub logo"

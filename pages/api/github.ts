@@ -7,6 +7,7 @@ export default async function handler(
   res: NextApiResponse,
 ) {
   const token = (req.query?.token as string) || "";
+  const next = (req.query?.next as string) || "/profile";
   if (!token) {
     return res.status(400).json({ error: "Bad Request" });
   }
@@ -36,6 +37,6 @@ export default async function handler(
       `refreshToken=${refreshToken}; Path=/; Secure; HttpOnly; SameSite; Max-Age=864000;`,
       `profileToken=${profileToken}; Path=/; Secure; HttpOnly; SameSite; Max-Age=864000;`,
     ]);
-    return res.redirect("/profile");
+    return res.redirect(next);
   }
 }
