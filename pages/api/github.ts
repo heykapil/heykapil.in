@@ -37,6 +37,6 @@ export default async function handler(
       `refreshToken=${refreshToken}; Path=/; Secure; HttpOnly; SameSite; Max-Age=864000;`,
       `profileToken=${profileToken}; Path=/; Secure; HttpOnly; SameSite; Max-Age=864000;`,
     ]);
-    return res.redirect(next);
+    return res.redirect(307, next);
   }
 }
