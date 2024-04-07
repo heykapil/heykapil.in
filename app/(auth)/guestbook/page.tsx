@@ -4,6 +4,7 @@ import Form from "./form";
 import { Session } from "app/components/helpers/session";
 import { redirect } from "next/navigation";
 import { SignOut } from "app/components/helpers/signout";
+import Link from "next/link";
 
 export const metadata = {
   title: "Guestbook",
@@ -12,6 +13,7 @@ export const metadata = {
 
 export default async function GuestbookPage() {
   const session = await Session();
+  // console.log(session);
   if (!session || session === null || session === "") {
     redirect("/signin?callback=/guestbook");
   }
@@ -36,7 +38,15 @@ async function GuestbookForm() {
       <Form />
       <SignOut callback={"/signin"} />
     </>
-  ) : null;
+  ) : (
+    <p className="py-6">
+      Kindly{" "}
+      <Link className="underline" href="/signin?callback=/guestbook">
+        login
+      </Link>{" "}
+      to leave a message here.
+    </p>
+  );
 }
 
 async function GuestbookEntries() {

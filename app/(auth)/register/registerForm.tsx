@@ -167,10 +167,10 @@ const RegisterForm = ({ callBackUrl }: { callBackUrl: string }) => {
           </div>
           <div className="text-sm flex justify-between items-center">
             <Link
-              className="px-4 py-2 border border-opacity-50 border-neutral-900 dark:border-pink-50 text-sm rounded-md font-semibold hover:border-black/[0.9] dark:hover:border-white/[0.9] hover:shadow-lg"
+              className="text-md font-semibold rounded-md  opacity-80 hover:underline hover:opacity-100"
               href={`/signin?callback=${callBackUrl}`}
             >
-              Sign in
+              Have an account? Sign in
             </Link>
             <SubmitButton
               type="submit"
@@ -184,21 +184,39 @@ const RegisterForm = ({ callBackUrl }: { callBackUrl: string }) => {
       </form>
       <div className="mb-6 max-w-lg border-t-2 border-opacity-50 border-neutral-500" />
       <p className="my-6 text-md font-medium text-neutral-700 dark:text-neutral-300">
-        Or use your GitHub account to continue...
+        Or use your github or google account to continue...
       </p>
-      <Link
-        className="px-8 py-2 my-0  inline-block mx-auto w-fit max-w-lg  bg-neutral-900 dark:bg-pink-50 text-white dark:text-black text-sm rounded-md font-semibold hover:bg-black/[0.9] dark:hover:bg-white/[0.9] hover:shadow-lg"
-        href={`https://github.com/login/oauth/authorize?scope=user:email&client_id=631dc2729898da1ac8a4&redirect_uri=https%3A%2F%2Fapi.kapil.app%2Fapi%2Fcallback%2Fgithub%3Fnext%3D${callBackUrl}`}
-      >
-        <img
-          alt="GitHub logo"
-          src="https://leerob.io/github-logo.svg"
-          width="20"
-          height="20"
-          className="inline-block mr-2 self-center invert dark:invert-0"
-        />
-        Register with GitHub
-      </Link>
+      <div className="flex flex-col md:flex-row justify-between max-w-lg gap-2 w-full">
+        <Link
+          className="px-8 py-2 my-0 mx-auto w-full bg-neutral-900 dark:bg-pink-50 text-white dark:text-black text-sm rounded-md font-semibold hover:bg-black/[0.9] dark:hover:bg-white/[0.9] hover:shadow-lg"
+          href={`https://github.com/login/oauth/authorize?scope=user:email&client_id=631dc2729898da1ac8a4&redirect_uri=https%3A%2F%2Fapi.kapil.app%2Fapi%2Fcallback%2Fgithub%3Fnext%3D${callBackUrl}`}
+        >
+          <img
+            alt="GitHub logo"
+            src="/github.svg"
+            width="20"
+            height="20"
+            className="inline-block self-center place-self-center mr-2 invert dark:invert-0"
+          />
+          Login with GitHub
+        </Link>
+
+        <Link
+          className="px-8 py-2 my-0 mx-auto gap-3 w-full bg-neutral-900 dark:bg-pink-50 text-white dark:text-black text-sm rounded-md font-semibold hover:bg-black/[0.9] dark:hover:bg-white/[0.9] hover:shadow-lg"
+          href={`https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/userinfo.email&include_granted_scopes=true&response_type=token&state=${callBackUrl}&redirect_uri=https%3A//api.kapil.app/callback/google&client_id=942887810322-f539im4rt338srvi20r3ed48dvaqd1b1.apps.googleusercontent.com`}
+        >
+          <img
+            alt="Google logo"
+            src="/google.svg"
+            width="20"
+            height="20"
+            className="inline-block mr-2 self-center invert dark:invert-0"
+          />
+          Login with Google
+        </Link>
+
+        {/* https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/userinfo.email&include_granted_scopes=true&response_type=token&state=/guestbook&redirect_uri=http%3A//localhost:3000/callback/google&client_id=942887810322-f539im4rt338srvi20r3ed48dvaqd1b1.apps.googleusercontent.com */}
+      </div>
     </>
   );
 };

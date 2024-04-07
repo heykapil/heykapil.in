@@ -228,12 +228,12 @@ export async function Login(formData: FormData) {
           },
           {
             expiresIn: "1d",
-          }
+          },
         );
         cookies().set({
           name: "accessToken",
           value: response.token.access_token,
-          httpOnly: true,
+          httpOnly: process.env.NODE_ENV === "production" ? true : false,
           sameSite: "lax",
           secure: process.env.NODE_ENV === "production" ? true : false,
           expires: Number(response.token.access_expiry),
@@ -241,7 +241,7 @@ export async function Login(formData: FormData) {
         cookies().set({
           name: "refreshToken",
           value: response.token.refresh_token,
-          httpOnly: true,
+          httpOnly: process.env.NODE_ENV === "production" ? true : false,
           sameSite: "lax",
           secure: process.env.NODE_ENV === "production" ? true : false,
           expires: Number(response.token.refresh_expiry),
@@ -249,7 +249,7 @@ export async function Login(formData: FormData) {
         cookies().set({
           name: "profileToken",
           value: ProfileToken,
-          httpOnly: true,
+          httpOnly: process.env.NODE_ENV === "production" ? true : false,
           sameSite: "lax",
           secure: process.env.NODE_ENV === "production" ? true : false,
           expires: Number(response.token.access_expiry),
@@ -257,14 +257,14 @@ export async function Login(formData: FormData) {
         cookies().set({
           name: "LoginCookie",
           value: "Success",
-          httpOnly: true,
+          httpOnly: process.env.NODE_ENV === "production" ? true : false,
           expires: new Date(Date.now() + 10 * 1000),
         });
       } else {
         cookies().set({
           name: "LoginCookie",
           value: response.error,
-          httpOnly: true,
+          httpOnly: process.env.NODE_ENV === "production" ? true : false,
           expires: new Date(Date.now() + 10 * 1000),
         });
         cookies().delete("profileToken");
@@ -305,7 +305,7 @@ export async function Register(formData: FormData) {
     cookies().set({
       name: "RegisterCookie",
       value: response.message || response.error || "Something went wrong!",
-      httpOnly: true,
+      httpOnly: process.env.NODE_ENV === "production" ? true : false,
       secure: process.env.NODE_ENV === "production",
       expires: new Date(Date.now() + 10 * 1000),
     });
@@ -396,7 +396,7 @@ export async function ResetPassword(formData: FormData) {
         body: JSON.stringify({
           password,
         }),
-      }
+      },
     );
     const response = await data.json();
     cookies().set({

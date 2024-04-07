@@ -17,7 +17,7 @@ export async function middleware(request: NextRequest) {
       midResponse.cookies.set({
         name: "accessToken",
         value: response.access_token,
-        httpOnly: true,
+        httpOnly: process.env.NODE_ENV === "production" ? true : false,
         sameSite: "lax",
         secure: process.env.NODE_ENV === "production" ? true : false,
         expires: Number(response.access_expiry),
@@ -26,7 +26,7 @@ export async function middleware(request: NextRequest) {
       midResponse.cookies.set({
         name: "refreshToken",
         value: response.refresh_token,
-        httpOnly: true,
+        httpOnly: process.env.NODE_ENV === "production" ? true : false,
         sameSite: "lax",
         secure: process.env.NODE_ENV === "production" ? true : false,
         expires: Number(response.refresh_expiry),
@@ -35,7 +35,7 @@ export async function middleware(request: NextRequest) {
       midResponse.cookies.set({
         name: "profileToken",
         value: response.profile_token,
-        httpOnly: true,
+        httpOnly: process.env.NODE_ENV === "production" ? true : false,
         sameSite: "lax",
         secure: process.env.NODE_ENV === "production" ? true : false,
         expires: Number(response.access_expiry),
