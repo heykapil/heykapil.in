@@ -33,9 +33,9 @@ export default async function handler(
       oauth: "google",
     });
     res.setHeader("Set-Cookie", [
-      `accessToken=${accessToken}; Path=/;  SameSite; Max-Age=864000;`,
-      `refreshToken=${refreshToken}; Path=/; SameSite; Max-Age=864000;`,
-      `profileToken=${profileToken}; Path=/; SameSite; Max-Age=864000;`,
+      `accessToken=${accessToken}; Path=/; Secure; HttpOnly;  SameSite; Max-Age=864000;`,
+      `refreshToken=${refreshToken}; Path=/; Secure; HttpOnly;  SameSite; Max-Age=864000;`,
+      `profileToken=${profileToken}; Path=/; Secure; HttpOnly; SameSite; Max-Age=864000;`,
     ]);
     return res.redirect(307, next);
   }
