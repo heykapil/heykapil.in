@@ -197,10 +197,10 @@ export default async function Page() {
               className="flex items-center hover:text-neutral-800 dark:hover:text-neutral-100 transition-all"
               rel="noopener noreferrer"
               target="_blank"
-              href="https://twitter.com/kapiljch"
+              href="https://notes.kapil.app"
             >
               <ArrowIcon />
-              <p className="h-7 ml-2">follow me</p>
+              <p className="h-7 ml-2">notes</p>
             </a>
           </li>
           <li>
@@ -211,7 +211,7 @@ export default async function Page() {
               href="mailto:hi@kapil.app"
             >
               <ArrowIcon />
-              <p className="h-7 ml-2">email me</p>
+              <p className="h-7 ml-2">email</p>
             </a>
           </li>
         </ul>
@@ -221,10 +221,10 @@ export default async function Page() {
               className="flex items-center hover:text-neutral-800 dark:hover:text-neutral-100 transition-all"
               rel="noopener noreferrer"
               target="_blank"
-              href="https://instagram.com/kapiljch"
+              href="https://gallary.kapil.app"
             >
               <ArrowIcon />
-              <p className="h-7 ml-2">instagram</p>
+              <p className="h-7 ml-2">gallary</p>
             </a>
           </li>
           <li>
@@ -232,7 +232,7 @@ export default async function Page() {
               className="flex items-baseline hover:text-neutral-800 dark:hover:text-neutral-100 space-x-2 transition-all"
               rel="noopener noreferrer"
               target="_blank"
-              href="https://status.heykapil.in"
+              href="https://status.kapil.app"
             >
               <Suspense fallback={<p className="h-7"></p>}>
                 <p className="flex items-center h-7">
