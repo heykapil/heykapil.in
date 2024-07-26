@@ -1,5 +1,4 @@
 import path from "path";
-// import dotenv from "dotenv";
 import { spawn } from "node:child_process";
 
 const syncContentFromGit = async (contentDir) => {
@@ -57,7 +56,6 @@ const runBashCommand = (command) =>
   });
 
 (async () => {
-  // dotenv.config();
 
   // if (process.env.IS_TEMPLATE === "false") {
   //   // This means it's not the template, it's my legit site
