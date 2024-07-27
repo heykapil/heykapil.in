@@ -9,8 +9,15 @@ export function IpLogger() {
   const [ip, setIp] = useState("0.0.0.0");
   const [location, setLocation] = useState("Earth");
   const path = usePathname() || "undefined";
+  let endpoint;
+  var rand_boolean = Math.random() < 0.5;
+  if (rand_boolean) {
+    endpoint = `https://api.kapil.app/api/ip`
+  } else {
+    endpoint = `https://api-kapil.netlify.app/api/ip`
+  }
   useEffect(() => {
-    fetch("https://api.kapil.app/api/ip")
+    fetch(endpoint)
       .then((res) => res.json())
       .catch((err) => {
         console.log(err);
