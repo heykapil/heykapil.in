@@ -1,10 +1,12 @@
 import clsx from "clsx";
 import styles from "./Music.module.css";
 import { Suspense } from "react";
+import { Session } from "app/components/helpers/session";
 export default async function Page() {
   const birthdayData = await getBirthdayData();
   const spotifyData = await getSpotifyData();
   const uptimeData = await getUptimeStatus();
+  const session = await Session();
   let isDown = uptimeData.state.regions?.se_asia?.status !== "UP";
   // ||
   // uptimeData.state.regions?.eu_west?.status !== "UP" ||
@@ -192,7 +194,18 @@ export default async function Page() {
       </div> */}
       <div className="flex justify-between">
         <ul className="flex flex-col md:flex-row mt-8 space-x-0 md:space-x-4 space-y-2 md:space-y-0 font-sm text-neutral-600 dark:text-neutral-300">
-          <li>
+        <li>
+          <a
+              className="flex items-center hover:text-neutral-800 dark:hover:text-neutral-100 transition-all"
+              rel="noopener noreferrer"
+              target="_blank"
+              href={(session && session.role === `admin`) ? `https://kapil.app/admin` : `https://kapil.app/signin?callback=/admin`}
+          >
+            <ArrowIcon />
+              <p className="h-7 ml-2">{session ? session.email : 'admin'}</p>
+          </a>
+        </li>
+        <li>
             <a
               className="flex items-center hover:text-neutral-800 dark:hover:text-neutral-100 transition-all"
               rel="noopener noreferrer"
@@ -227,6 +240,17 @@ export default async function Page() {
               <p className="h-7 ml-2">gallary</p>
             </a>
           </li>
+          <li className="md:hidden">
+            <a
+              className="flex items-center hover:text-neutral-800 dark:hover:text-neutral-100 transition-all"
+              rel="noopener noreferrer"
+              target="_blank"
+              href="https://x.com/kapiljch"
+            >
+              <ArrowIcon />
+              <p className="h-7 ml-2">twitter</p>
+            </a>
+          </li>
           <li>
             <a
               className="flex items-baseline hover:text-neutral-800 dark:hover:text-neutral-100 space-x-2 transition-all"
@@ -255,7 +279,7 @@ export default async function Page() {
                     ? uptimeData.state.regions.se_asia
                         .thirty_day_uptime_percentage
                     : null}
-                  % uptime{" "}
+                  % ↑{" "}
                 </p>
               </Suspense>
             </a>
