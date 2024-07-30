@@ -11,13 +11,13 @@ export function IpLogger() {
   const path = usePathname() || "undefined";
   let endpoint;
   var rand_boolean = Math.random() < 0.5;
-  if (rand_boolean) {
-    endpoint = `https://api.kapil.app/api/ip`
-  } else {
-    endpoint = `https://api-kapil.netlify.app/api/ip`
-  }
+  // if (rand_boolean) {
+  //   endpoint = `https://api.kapil.app/api/ip`
+  // } else {
+  //   endpoint = `https://api-kapil.netlify.app/api/ip`
+  // }
   useEffect(() => {
-    fetch(endpoint)
+    fetch(`https://api2.kapil.app/api/ip`)
       .then((res) => res.json())
       .catch((err) => {
         console.log(err);
