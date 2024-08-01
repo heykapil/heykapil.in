@@ -3,7 +3,6 @@ import { Suspense } from "react";
 import Form from "./form";
 import { Session } from "app/components/helpers/session";
 import { redirect } from "next/navigation";
-// import { SignOut } from "app/components/helpers/signout";
 import Link from "next/link";
 
 export const metadata = {
@@ -13,8 +12,7 @@ export const metadata = {
 
 export default async function GuestbookPage() {
   const session = await Session();
-  // console.log(session);
-  if (!session || session === null || session === "") {
+  if (!session || !session?.email) {
     redirect("/signin?callback=/guestbook");
   }
   return (
@@ -31,18 +29,8 @@ export default async function GuestbookPage() {
 }
 
 async function GuestbookForm() {
-  // @ts-ignore
-  let session = await Session();
-  return session?.email ? (
-    <>
-      <Form />
-      <a href={`/signout?callback=/signin`}>
-        <button className="text-xs text-neutral-700 dark:text-neutral-300 mt-2 mb-6 rounded-lg px-3 py-2 font-semibold bg-neutral-200 dark:bg-neutral-800 hover:bg-neutral-300 dark:hover:bg-neutral-700">
-        Sign Out
-        </button>
-        </a>
-    </>
-  ) : (
+  const session = await Session();
+  return (!session || !session?.email || !session.username) ? (
     <p className="py-6">
       Kindly{" "}
       <Link className="underline" href="/signin?callback=/guestbook">
@@ -50,7 +38,14 @@ async function GuestbookForm() {
       </Link>{" "}
       to leave a message here.
     </p>
-  );
+  ) : ( <>
+      <Form />
+      <a href={`/signout?callback=/signin`}>
+        <button className="text-xs text-neutral-700 dark:text-neutral-300 mt-2 mb-6 rounded-lg px-3 py-2 font-semibold bg-neutral-200 dark:bg-neutral-800 hover:bg-neutral-300 dark:hover:bg-neutral-700">
+        Sign Out
+        </button>
+        </a></>
+  )
 }
 
 async function GuestbookEntries() {

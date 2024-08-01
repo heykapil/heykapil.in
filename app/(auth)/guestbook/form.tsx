@@ -5,7 +5,6 @@ import { saveGuestbookEntry } from "app/db/actions";
 import { SubmitButton } from "./SubmitButton";
 export default function Form() {
   const formRef = useRef<HTMLFormElement>(null);
-
   return (
     <form
       className="relative max-w-[500px]"
