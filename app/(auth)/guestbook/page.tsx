@@ -3,7 +3,7 @@ import { Suspense } from "react";
 import Form from "./form";
 import { Session } from "app/components/helpers/session";
 import { redirect } from "next/navigation";
-import { SignOut } from "app/components/helpers/signout";
+// import { SignOut } from "app/components/helpers/signout";
 import Link from "next/link";
 
 export const metadata = {
@@ -36,7 +36,9 @@ async function GuestbookForm() {
   return session?.email ? (
     <>
       <Form />
-      <SignOut callback={"/signin"} />
+      <a href={`/signout?callback=/signin`} className="text-xs text-neutral-700 dark:text-neutral-300 mt-2 mb-6 rounded-lg px-3 py-2 font-semibold bg-neutral-200 dark:bg-neutral-800 hover:bg-neutral-300 dark:hover:bg-neutral-700">
+        Sign Out
+        </a>
     </>
   ) : (
     <p className="py-6">

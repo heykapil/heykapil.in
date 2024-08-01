@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import { SubmitButton } from "../guestbook/SubmitButton";
 import { cookies } from "next/headers";
 import { ChangePass } from "app/db/actions";
-import { SignOut } from "app/components/helpers/signout";
+// import { SignOut } from "app/components/helpers/signout";
 
 const ProfilePage = async () => {
   const session = await Session();
@@ -44,7 +44,10 @@ const ProfilePage = async () => {
             </div>
           </div>
           <div>
-            <SignOut callback={"/"} />
+            {/* <SignOut callback={"/"} /> */}
+            <a href={`/signout?callback=/`} className="text-xs text-neutral-700 dark:text-neutral-300 mt-2 mb-6 rounded-lg px-3 py-2 font-semibold bg-neutral-200 dark:bg-neutral-800 hover:bg-neutral-300 dark:hover:bg-neutral-700">
+              Sign Out
+              </a>
           </div>
         </div>
       </div>
