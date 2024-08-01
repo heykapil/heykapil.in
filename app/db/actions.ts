@@ -314,7 +314,7 @@ export async function Register(formData: FormData) {
   }
 }
 
-export async function Logout(callback?: string) {
+export async function Logout({ callback } : { callback?: string}) {
   cookies().delete("refreshToken");
   cookies().delete("profileToken");
   cookies().delete("accessToken");

@@ -202,7 +202,7 @@ export default async function Page() {
               href={(session && session.role === `admin`) ? `https://kapil.app/admin` : `https://kapil.app/signin?callback=/admin`}
           >
             <ArrowIcon />
-              <p className="h-7 ml-2">{session ? session.email : 'admin'}</p>
+              <p className="h-7 ml-2">{!session ? 'admin' : (session.email || 'admin')}</p>
           </a>
         </li>
         <li>
