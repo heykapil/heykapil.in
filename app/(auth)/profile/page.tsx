@@ -1,16 +1,15 @@
-import { Session } from "app/components/helpers/session";
-import { redirect } from "next/navigation";
-import { SubmitButton } from "../guestbook/SubmitButton";
-import { cookies } from "next/headers";
-import { ChangePass } from "app/db/actions";
-// import { SignOut } from "app/components/helpers/signout";
+import { Session } from 'app/components/helpers/session';
+import { redirect } from 'next/navigation';
+import { SubmitButton } from '../guestbook/SubmitButton';
+import { cookies } from 'next/headers';
+import { ChangePass } from 'app/db/actions';
 
 const ProfilePage = async () => {
   const session = await Session();
   if (!session || !session?.email) {
-    redirect("/signin?callback=/profile");
+    redirect('/signin?callback=/profile');
   }
-  const ChangePassCookie = cookies().get("ChangePassCookie");
+  const ChangePassMessage = cookies().get('ChangePassCookie')?.value;
 
   return (
     <div className="grid gap-6 lg:grid-cols-profile lg:gap-10">
@@ -24,19 +23,19 @@ const ProfilePage = async () => {
                 height="80"
                 src={
                   session?.avatar ||
-                  `https://ui-avatars.com/api/?background=random&name=${session?.full_name}` ||
+                  `https://ui-avatars.com/api/?background=random&name=${session?.fullname}` ||
                   `https://ui-avatars.com/api/?background=random&name=${session?.username}`
                 }
                 style={{
-                  aspectRatio: "80/80",
-                  objectFit: "cover",
+                  aspectRatio: '80/80',
+                  objectFit: 'cover',
                 }}
                 width="80"
               />
             </div>
             <div className="space-y-1">
               <h1 className="text-2xl capitalize font-bold">
-                {session?.full_name || session.name}
+                {session?.fullname || session?.name || session?.full_name}
               </h1>
               <p className="text-sm text-gray-500 dark:text-gray-400">
                 @{session?.username}
@@ -44,10 +43,12 @@ const ProfilePage = async () => {
             </div>
           </div>
           <div>
-            {/* <SignOut callback={"/"} /> */}
-            <a href={`/signout?callback=/`} className="text-xs text-neutral-700 dark:text-neutral-300 mt-2 mb-6 rounded-lg px-3 py-2 font-semibold bg-neutral-200 dark:bg-neutral-800 hover:bg-neutral-300 dark:hover:bg-neutral-700">
+            <a
+              href={`/signout?callback=/`}
+              className="text-xs text-neutral-700 dark:text-neutral-300 mt-2 mb-6 rounded-lg px-3 py-2 font-semibold bg-neutral-200 dark:bg-neutral-800 hover:bg-neutral-300 dark:hover:bg-neutral-700"
+            >
               Sign Out
-              </a>
+            </a>
           </div>
         </div>
       </div>
@@ -59,7 +60,7 @@ const ProfilePage = async () => {
           <div className="flex"> email: {session?.email}</div>
           <div className="flex"> username: {session?.username}</div>
           <div className="flex">
-            role: {session?.verified ? "verified" : "unverified"}{" "}
+            role: {session?.verified ? 'verified' : 'unverified'}{' '}
             {session?.role}
           </div>
         </div>
@@ -67,12 +68,18 @@ const ProfilePage = async () => {
       <hr />
       {!session.oauth ? (
         <form className="flex flex-col space-y-2" action={ChangePass}>
+          {!!ChangePassMessage ? (
+            <p className="font-semibold text-red-500 mb-10">
+              {ChangePassMessage}{' '}
+            </p>
+          ) : null}
           <input
             className="border-b bg-inherit ring-offset-0 outline-none border-zinc-700 dark:border-zinc-300 w-full max-w-[250px] px-1 py-2"
             type="password"
             name="oldPass"
             placeholder="old password"
             minLength={3}
+            required
           />
           <input
             className="border-b bg-inherit ring-offset-0 outline-none border-zinc-700 dark:border-zinc-300 w-full max-w-[250px]  px-1 py-2"
@@ -80,6 +87,7 @@ const ProfilePage = async () => {
             name="newPass"
             placeholder="new password"
             minLength={3}
+            required
           />
           <SubmitButton
             type="submit"
@@ -93,11 +101,9 @@ const ProfilePage = async () => {
           >
             Change Password
           </SubmitButton>
-          {!!ChangePassCookie &&
-            (JSON.parse(JSON.stringify(ChangePassCookie)).value as string)}
         </form>
       ) : (
-        ""
+        ''
       )}
     </div>
   );

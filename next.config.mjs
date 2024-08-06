@@ -12,6 +12,7 @@ const nextConfig = {
       { hostname: "s3.tebi.io" },
       { hostname: "heykapil.in" },
       { hostname: "cdn.heykapil.in" },
+      {hostname: "bkpl5hem.dev.cdn.imgeng.in"},
       { hostname: "cdn.kapil.app" },
       { hostname: "images.unsplash.com" },
       { hostname: "s3.kapil.app" },

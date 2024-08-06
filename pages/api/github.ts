@@ -1,42 +1,52 @@
-import { getDataFromToken } from "app/components/helpers/jwt";
-import { signJwtAccessToken } from "app/components/helpers/jwt";
-import type { NextApiRequest, NextApiResponse } from "next";
+import {
+  verifyPasetoToken,
+  signPasetoToken,
+} from 'app/components/helpers/paseto';
+import type { NextApiRequest, NextApiResponse } from 'next';
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-  const token = (req.query?.token as string) || "";
-  const next = (req.query?.next as string) || "/profile";
-  if (!token) {
-    return res.status(400).json({ error: "Bad Request" });
-  }
-  if (token) {
-    const data = await getDataFromToken({ token });
-    const accessToken = signJwtAccessToken({
-      id: data.id,
-      oauth: data.oauth,
-      oauth_id: data.oauth_id,
-    });
-    const refreshToken = signJwtAccessToken({
-      id: data.id,
-      oauth: data.oauth,
-      oauth_id: data.oauth_id,
-    });
-    const profileToken = signJwtAccessToken({
-      username: data.username,
-      email: data.email,
-      full_name: data.name,
-      avatar: data.avatar,
-      role: "github user",
-      verified: "true",
-      oauth: "github",
-    });
-    res.setHeader("Set-Cookie", [
-      `accessToken=${accessToken}; Path=/; Secure; HttpOnly; SameSite; Max-Age=864000;`,
-      `refreshToken=${refreshToken}; Path=/; Secure; HttpOnly; SameSite; Max-Age=864000;`,
-      `profileToken=${profileToken}; Path=/; Secure; HttpOnly; SameSite; Max-Age=864000;`,
-    ]);
-    return res.redirect(307, next);
+  try {
+    const token = (req.query?.token as string) || '';
+    const next = (req.query?.next as string) || '/profile';
+    const sessionId = (req.query?.sessionid as string) || '';
+    if (!token || !sessionId) {
+      return res.status(400).json({ error: 'Bad Request' });
+    }
+    if (token) {
+      const data = await verifyPasetoToken({ token });
+      const payload = {
+        id: data.id,
+        oauth: data.oauth,
+        oauth_id: data.oauth_id,
+      };
+      const accessToken = (await signPasetoToken({
+        payload,
+      })) as string;
+      const refreshToken = (await signPasetoToken({ payload })) as string;
+      const profilePayload = {
+        username: data.username,
+        email: data.email,
+        full_name: data.name,
+        avatar: data.avatar,
+        role: 'github user',
+        verified: 'true',
+        oauth: 'github',
+      };
+      const profileToken = (await signPasetoToken({
+        payload: profilePayload,
+      })) as string;
+      res.setHeader('Set-Cookie', [
+        `accessToken=${accessToken}; Path=/; HttpOnly; Secure; SameSite; Max-Age=864000;`,
+        `refreshToken=${refreshToken}; Path=/; HttpOnly; Secure; SameSite; Max-Age=864000;`,
+        `profileToken=${profileToken}; Path=/;  HttpOnly; Secure; SameSite; Max-Age=864000;`,
+        `sessionId=${sessionId}; Path=/; HttpOnly; SameSite; Secure; Max-Age=864000;`,
+      ]);
+      return res.status(200).redirect(next);
+    }
+  } catch (error) {
+    return res.status(500).json({ error: 'Internal Server Error' });
   }
 }

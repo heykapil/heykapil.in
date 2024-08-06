@@ -1,28 +1,32 @@
-import { Login } from "app/db/actions";
-import { cookies } from "next/headers";
-import { SubmitButton } from "../guestbook/SubmitButton";
-import { redirect } from "next/navigation";
-import { Session } from "app/components/helpers/session";
-import Link from "next/link";
+import { Login } from 'app/db/actions';
+import { cookies } from 'next/headers';
+import { SubmitButton } from '../guestbook/SubmitButton';
+import { redirect } from 'next/navigation';
+import { Session } from 'app/components/helpers/session';
+import Link from 'next/link';
+import useStorage from 'app/components/helpers/useStorage';
 export default async function LoginPage(props: any) {
-  const callBackUrl = props?.searchParams?.callback?.toString() || "/profile";
-  const LoginCookie = cookies().get("LoginCookie");
+  const callBackUrl = props?.searchParams?.callback?.toString() || '/profile';
+  const LoginCookie = cookies().get('LoginCookie');
   const session = await Session();
+  const userAgent = cookies().get('userAgent')?.value as string;
   if (session && session.email && session.username) {
     redirect(callBackUrl);
   }
-  let callBackmsg = "Kindly login to continue...";
-  if (callBackUrl.includes("/admin")) {
-    callBackmsg = "Kindly login to continue to the admin panel!";
+  const { getItem } = useStorage();
+  const state = getItem('state');
+  let callBackmsg = 'Kindly login to continue...';
+  if (callBackUrl.includes('/admin')) {
+    callBackmsg = 'Kindly login to continue to the admin panel!';
   }
-  if (callBackUrl.includes("/blog")) {
-    callBackmsg = "Kindly login to read the blog post!";
+  if (callBackUrl.includes('/blog')) {
+    callBackmsg = 'Kindly login to read the blog post!';
   }
-  if (callBackUrl.includes("/snippet")) {
-    callBackmsg = "Kindly login to read the snippet post!";
+  if (callBackUrl.includes('/snippet')) {
+    callBackmsg = 'Kindly login to read the snippet post!';
   }
-  if (callBackUrl.includes("/guestbook")) {
-    callBackmsg = "Kindly login to sign the guestbook!";
+  if (callBackUrl.includes('/guestbook')) {
+    callBackmsg = 'Kindly login to sign the guestbook!';
   }
   return (
     <section>
@@ -44,6 +48,7 @@ export default async function LoginPage(props: any) {
             required
             placeholder="Email or username"
           />
+          <input type="hidden" required name="state" value={state} />
           <span className="absolute inset-y-0 end-0 grid place-content-center px-4">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -132,7 +137,7 @@ export default async function LoginPage(props: any) {
           )}
           {!!LoginCookie &&
           (JSON.parse(JSON.stringify(LoginCookie)).value as string) ===
-            "Success"
+            'Success'
             ? redirect(callBackUrl)
             : null}
         </div>
@@ -144,7 +149,7 @@ export default async function LoginPage(props: any) {
       <div className="flex flex-col md:flex-row justify-between max-w-lg gap-2 w-full">
         <Link
           className="px-8 py-2 my-0 mx-auto w-full bg-neutral-900 dark:bg-pink-50 text-white dark:text-black text-sm rounded-md font-semibold hover:bg-black/[0.9] dark:hover:bg-white/[0.9] hover:shadow-lg"
-          href={`https://github.com/login/oauth/authorize?scope=user:email&client_id=631dc2729898da1ac8a4&redirect_uri=https%3A%2F%2Fapi.kapil.app%2Fapi%2Fcallback%2Fgithub%3Fnext%3D${callBackUrl}`}
+          href={`https://github.com/login/oauth/authorize?scope=user:email&client_id=631dc2729898da1ac8a4&redirect_uri=${process.env.API_URL}%2Fapi%2Fcallback%2Fgithub%3Fnext%3D${callBackUrl}&user-agent=${userAgent}`}
         >
           <img
             alt="GitHub logo"
@@ -158,7 +163,7 @@ export default async function LoginPage(props: any) {
 
         <Link
           className="px-8 py-2 my-0 mx-auto gap-3 w-full bg-neutral-900 dark:bg-pink-50 text-white dark:text-black text-sm rounded-md font-semibold hover:bg-black/[0.9] dark:hover:bg-white/[0.9] hover:shadow-lg"
-          href={`https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile&include_granted_scopes=true&response_type=token&state=${callBackUrl}&redirect_uri=https%3A//api.kapil.app/callback/google&client_id=942887810322-f539im4rt338srvi20r3ed48dvaqd1b1.apps.googleusercontent.com`}
+          href={`https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile&include_granted_scopes=true&response_type=token&state=${callBackUrl}&redirect_uri=${process.env.API_URL!}/callback/google&client_id=942887810322-f539im4rt338srvi20r3ed48dvaqd1b1.apps.googleusercontent.com&user-agent=${userAgent}`}
         >
           <img
             alt="Google logo"

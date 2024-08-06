@@ -1,8 +1,8 @@
-"use client";
-import React, { useEffect, useRef, useState } from "react";
-import { Register } from "app/db/actions";
-import { SubmitButton } from "../guestbook/SubmitButton";
-import Link from "next/link";
+'use client';
+import React, { useEffect, useRef, useState } from 'react';
+import { Register } from 'app/db/actions';
+import { SubmitButton } from '../guestbook/SubmitButton';
+import Link from 'next/link';
 
 function isEmailValid(email: string) {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -25,18 +25,17 @@ const RegisterForm = ({ callBackUrl }: { callBackUrl: string }) => {
   const [usernameAvaliable, setusernameAvailiable] = useState(false);
   const [emailAvaliable, setemailAvailiable] = useState(false);
   const [formData, setformData] = useState({
-    full_name: "",
-    email: "",
-    username: "",
-    password: "",
+    full_name: '',
+    email: '',
+    username: '',
+    password: '',
   });
-  //   console.log(testUsername(formData.username));
   useEffect(() => {
     if (formData.username.length >= 3) {
       fetch(
-        `https://api.kapil.app/api/user/taken?username=${formData.username}`,
+        `http://localhost:3000/api/user/taken?username=${formData.username}`,
         {
-          method: "POST",
+          method: 'POST',
         },
       )
         .then((res) => res.json())
@@ -47,8 +46,8 @@ const RegisterForm = ({ callBackUrl }: { callBackUrl: string }) => {
   }, [formData.username]);
   useEffect(() => {
     if (formData.email.length >= 3 && isEmailValid(formData.email)) {
-      fetch(`https://api.kapil.app/api/user/taken?username=${formData.email}`, {
-        method: "POST",
+      fetch(`http://localhost:3000/api/user/taken?username=${formData.email}`, {
+        method: 'POST',
       })
         .then((res) => res.json())
         .then((data: any) => {
@@ -79,7 +78,7 @@ const RegisterForm = ({ callBackUrl }: { callBackUrl: string }) => {
           />
           <span className="absolute inset-y-0 end-0 grid place-content-center px-4">
             <label htmlFor="full_name" className="text-neutral-500">
-              {formData.full_name.length > 3 ? <span>✅</span> : "Full name"}
+              {formData.full_name.length > 3 ? <span>✅</span> : 'Full name'}
             </label>
           </span>
         </div>
@@ -101,7 +100,7 @@ const RegisterForm = ({ callBackUrl }: { callBackUrl: string }) => {
               {emailAvaliable && isEmailValid(formData.email) ? (
                 <span>✅</span>
               ) : (
-                "Email address"
+                'Email address'
               )}
             </label>
           </span>
@@ -126,7 +125,7 @@ const RegisterForm = ({ callBackUrl }: { callBackUrl: string }) => {
               testUsername(formData.username) ? (
                 <span>✅</span>
               ) : (
-                "Username"
+                'Username'
               )}
             </label>
           </span>
@@ -150,7 +149,7 @@ const RegisterForm = ({ callBackUrl }: { callBackUrl: string }) => {
               formData.password.length >= 3 ? (
                 <span>✅</span>
               ) : (
-                "Password"
+                'Password'
               )}
             </label>
           </span>

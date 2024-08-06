@@ -5,7 +5,6 @@ import { GeistMono } from "geist/font/mono";
 import { Navbar } from "./components/nav";
 import { IpLogger } from "./IpLogger";
 import { Suspense } from "react";
-import { Spotlight } from "./components/Spotlight";
 export const metadata: Metadata = {
   metadataBase: new URL("https://kapil.app"),
   title: {

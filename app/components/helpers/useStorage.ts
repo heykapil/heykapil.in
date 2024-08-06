@@ -3,10 +3,12 @@ type UseStorageReturnValue = {
   getItem: (key: string, type?: StorageType) => string;
   setItem: (key: string, value: string, type?: StorageType) => boolean;
   removeItem: (key: string, type?: StorageType) => void;
+  userAgent: () => any | null;
 };
 
 const useStorage = (): UseStorageReturnValue => {
-  const storageType = (type?: StorageType): 'localStorage' | 'sessionStorage' => `${type ?? 'session'}Storage`;
+  const storageType = (type?: StorageType): 'localStorage' | 'sessionStorage' =>
+    `${type ?? 'session'}Storage`;
 
   const isBrowser: boolean = ((): boolean => typeof window !== 'undefined')();
 
@@ -27,10 +29,17 @@ const useStorage = (): UseStorageReturnValue => {
     window[storageType(type)].removeItem(key);
   };
 
+  const userAgent = () => {
+    if (isBrowser) {
+      return window.navigator.userAgent;
+    } else return null;
+  };
+
   return {
     getItem,
     setItem,
     removeItem,
+    userAgent,
   };
 };
 

@@ -1,18 +1,17 @@
-import clsx from "clsx";
-import styles from "./Music.module.css";
-import { Suspense } from "react";
-import { Session } from "app/components/helpers/session";
+import clsx from 'clsx';
+import styles from './Music.module.css';
+import { Suspense } from 'react';
+import { Session } from 'app/components/helpers/session';
 export default async function Page() {
   const birthdayData = await getBirthdayData();
   const spotifyData = await getSpotifyData();
   const uptimeData = await getUptimeStatus();
   const session = await Session();
-  let isDown = uptimeData.state.regions?.se_asia?.status !== "UP";
+  let isDown = uptimeData.state.regions?.se_asia?.status !== 'UP';
   // ||
   // uptimeData.state.regions?.eu_west?.status !== "UP" ||
   // uptimeData.state.regions?.us_east?.status !== "UP" ||
   // uptimeData.state.regions?.us_west?.status !== "UP";
-
   return (
     <section>
       <h1 className="font-medium text-2xl mb-8 tracking-tighter animate-fade-right">
@@ -44,7 +43,7 @@ export default async function Page() {
               {birthdayData && birthdayData.daysLeft > 0 ? (
                 <div className=" items-center content-center place-content-center text-center">
                   <p className="text-4xl mt-[15%] animate-fade-up">
-                    {birthdayData.daysLeft}{" "}
+                    {birthdayData.daysLeft}{' '}
                     <span className="text-lg">days</span>
                   </p>
                   <p className="text-lg">until birthday</p>
@@ -71,21 +70,21 @@ export default async function Page() {
                   className={clsx(
                     styles.line,
                     styles.line1,
-                    spotifyData?.isPlaying === false && styles.offline
+                    spotifyData?.isPlaying === false && styles.offline,
                   )}
                 />
                 <div
                   className={clsx(
                     styles.line,
                     styles.line2,
-                    spotifyData?.isPlaying === false && styles.offline
+                    spotifyData?.isPlaying === false && styles.offline,
                   )}
                 />
                 <div
                   className={clsx(
                     styles.line,
                     styles.line3,
-                    spotifyData?.isPlaying === false && styles.offline
+                    spotifyData?.isPlaying === false && styles.offline,
                   )}
                 />
                 {spotifyData.isPlaying === false ? (
@@ -112,7 +111,7 @@ export default async function Page() {
         <div className="relative h-40 sm:h-80 sm:mb-4">
           <img
             alt="Garden of five sense"
-            src="https://s3.kapil.app/images/kapiljch-20220503-0008.jpg"
+            src="https://bkpl5hem.dev.cdn.imgeng.in/images/kapiljch-20220503-0008.jpg"
             sizes="(max-width: 768px) 213px, 33vw"
             placeholder="blur"
             //  blurDataURL="data:image/webp;base64,UklGRhgCAABXRUJQVlA4WAoAAAAgAAAAAQAAAQAASUNDUMgBAAAAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADZWUDggKgAAALABAJ0BKgIAAgADgFoliAJ0AQ72nkAAzj72ZirViMtD3z7F/qqnr8PoAA=="
@@ -123,7 +122,7 @@ export default async function Page() {
         <div className="relative h-40 mb-4 sm:mb-0">
           <img
             alt=""
-            src="https://s3.kapil.app/images/kapiljch-20221120.webp"
+            src="https://bkpl5hem.dev.cdn.imgeng.in/images/kapiljch-20221120.webp"
             sizes="(max-width: 768px) 213px, 33vw"
             placeholder="blur"
             // blurDataURL="data:image/webp;base64,UklGRhgCAABXRUJQVlA4WAoAAAAgAAAAAQAAAQAASUNDUMgBAAAAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADZWUDggKgAAALABAJ0BKgIAAgADgFoliAJ0AQ72nkAAzj72ZirViMtD3z7F/qqnr8PoAA=="
@@ -134,7 +133,7 @@ export default async function Page() {
         <div className="relative h-40 mb-4">
           <img
             alt="Garden of five senses"
-            src="https://s3.kapil.app/images/kapiljch-20220503-0001.jpg"
+            src="https://bkpl5hem.dev.cdn.imgeng.in/images/kapiljch-20220503-0001.jpg"
             sizes="(max-width: 768px) 213px, 33vw"
             placeholder="blur"
             // blurDataURL="data:image/webp;base64,UklGRhgCAABXRUJQVlA4WAoAAAAgAAAAAQAAAQAASUNDUMgBAAAAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADZWUDggKgAAALABAJ0BKgIAAgADgFoliAJ0AQ72nkAAzj72ZirViMtD3z7F/qqnr8PoAA=="
@@ -145,7 +144,7 @@ export default async function Page() {
         <div className="relative h-80">
           <img
             alt=""
-            src="https://s3.kapil.app/images/kapiljch-20221008.jpeg"
+            src="https://bkpl5hem.dev.cdn.imgeng.in/images/kapiljch-20221008.jpeg"
             sizes="(min-width: 768px) 213px, 33vw"
             placeholder="blur"
             // blurDataURL="data:image/webp;base64,UklGRhgCAABXRUJQVlA4WAoAAAAgAAAAAQAAAQAASUNDUMgBAAAAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADZWUDggKgAAALABAJ0BKgIAAgADgFoliAJ0AQ72nkAAzj72ZirViMtD3z7F/qqnr8PoAA=="
@@ -194,18 +193,22 @@ export default async function Page() {
       </div> */}
       <div className="flex justify-between">
         <ul className="flex flex-col md:flex-row mt-8 space-x-0 md:space-x-4 space-y-2 md:space-y-0 font-sm text-neutral-600 dark:text-neutral-300">
-        <li>
-          <a
+          <li>
+            <a
               className="flex items-center hover:text-neutral-800 dark:hover:text-neutral-100 transition-all"
               rel="noopener noreferrer"
               // target="_blank"
-              href={!session ? 'https://kapil.app/signin?callback=/admin' : 'https://kapil.app/signout?callback=/'}
-          >
-            <ArrowIcon />
+              href={
+                !session
+                  ? 'https://kapil.app/signin?callback=/admin'
+                  : 'https://kapil.app/signout?callback=/'
+              }
+            >
+              <ArrowIcon />
               <p className="h-7 ml-2">{!session ? 'login' : 'logout'}</p>
-          </a>
-        </li>
-        <li>
+            </a>
+          </li>
+          <li>
             <a
               className="flex items-center hover:text-neutral-800 dark:hover:text-neutral-100 transition-all"
               rel="noopener noreferrer"
@@ -263,14 +266,14 @@ export default async function Page() {
                   <span className="relative flex h-4 w-4">
                     <span
                       className={clsx(
-                        isDown ? "bg-red-500" : "bg-green-500",
-                        "animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75"
+                        isDown ? 'bg-red-500' : 'bg-green-500',
+                        'animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75',
                       )}
                     ></span>
                     <span
                       className={clsx(
-                        isDown ? "bg-red-500" : "bg-green-500",
-                        "relative inline-flex rounded-full h-4 w-4"
+                        isDown ? 'bg-red-500' : 'bg-green-500',
+                        'relative inline-flex rounded-full h-4 w-4',
                       )}
                     ></span>
                   </span>
@@ -279,7 +282,7 @@ export default async function Page() {
                     ? uptimeData.state.regions.se_asia
                         .thirty_day_uptime_percentage
                     : null}
-                  % ↑{" "}
+                  % ↑{' '}
                 </p>
               </Suspense>
             </a>
@@ -297,7 +300,7 @@ async function getBirthdayData() {
     });
     return res.json();
   } catch (error: any) {
-    throw new Error("Failed to fetch birthday data");
+    throw new Error('Failed to fetch birthday data');
   }
 }
 
@@ -308,7 +311,7 @@ async function getUptimeStatus() {
     });
     return res.json();
   } catch (error: any) {
-    throw new Error("Failed to fetch uptime data");
+    throw new Error('Failed to fetch uptime data');
   }
 }
 
@@ -319,7 +322,7 @@ async function getSpotifyData() {
     });
     return res.json();
   } catch (error: any) {
-    throw new Error("Failed to fetch spotify data");
+    throw new Error('Failed to fetch spotify data');
   }
 }
 
