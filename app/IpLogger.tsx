@@ -7,13 +7,7 @@ import useStorage from 'app/components/helpers/useStorage';
 import { getCookie, setCookie } from 'cookies-next';
 export function IpLogger() {
   const { userAgent } = useStorage();
-  const options = {
-    maxAge: 60 * 60 * 24,
-    sameSite: process.env.NODE_ENV === 'production',
-    httpOnly: process.env.NODE_ENV === 'production',
-    secure: process.env.NODE_ENV === 'production',
-  };
-  setCookie('userAgent', decodeURI(userAgent()), options);
+  setCookie('userAgent', decodeURI(userAgent()));
   const sessionIP = getCookie('sessionIP')?.valueOf() || '';
   const sessionLocation = getCookie('sessionLocation')?.valueOf() || '';
   const [ip, setIp] = useState('0.0.0.0');
@@ -31,12 +25,8 @@ export function IpLogger() {
           if (data !== undefined) {
             setIp(data.ip);
             setLocation(`${data.city}, ${data.country_name}`);
-            setCookie('sessionIP', data.ip, options);
-            setCookie(
-              'sessionLocation',
-              `${data.city}, ${data.country_name}`,
-              options,
-            );
+            setCookie('sessionIP', data.ip);
+            setCookie('sessionLocation', `${data.city}, ${data.country_name}`);
           }
         });
     } else {
