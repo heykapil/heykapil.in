@@ -42,7 +42,7 @@ export default async function handler(
         `refreshToken=${refreshToken}; Path=/; HttpOnly; Secure; SameSite; Max-Age=864000;`,
         `profileToken=${profileToken}; Path=/;  HttpOnly; Secure; SameSite; Max-Age=864000;`,
         `sessionId=${sessionId}; Path=/; HttpOnly; SameSite; Secure; Max-Age=864000;`,
-        `newcsrfToken=${data.csrfToken}; Path=/; HttpOnly; SameSite; Secure; Max-Age:30000;`,
+        `newcsrfToken=${data.csrfToken}; Path=/; HttpOnly; SameSite; Secure;`,
       ]);
       return res.status(200).redirect(next);
     }

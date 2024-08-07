@@ -1,5 +1,4 @@
 'use server';
-
 import { revalidatePath, unstable_noStore as noStore } from 'next/cache';
 import { queryBuilder } from './db';
 import { randomUUID } from 'crypto';
@@ -13,7 +12,6 @@ import {
 } from 'app/components/helpers/paseto';
 import { generateRandomUUID } from 'app/components/helpers/uuid';
 import { generateState } from 'app/components/helpers/random';
-import { setCookie } from 'cookies-next';
 export async function increment(slug: string) {
   let id = slug.replace('/', '-');
   const data = await queryBuilder
@@ -146,11 +144,6 @@ export async function sendEmail(formData: FormData) {
   const html = formData.get('html') as string;
   const fileurl = (formData.get('fileurl') as string) || null;
   const filename = (formData.get('filename') as string) || null;
-  const secret2 = process.env.SECRET2! as string;
-  // const hash = await bcrypt.hash(secret2, 10);
-  // const token = await signJwtAccessToken({
-  //   hash,
-  // });
   let body;
   if (!filename || !fileurl) {
     body = JSON.stringify({
@@ -170,11 +163,17 @@ export async function sendEmail(formData: FormData) {
     });
   }
   try {
+    const token = await encryptToken(
+      { subject },
+      {
+        expiresIn: '60s',
+      },
+    );
     const data = await fetch('https://api.kapil.app/api/sendEmail', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        // Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
       body: body,
       cache: 'no-store',
@@ -329,14 +328,11 @@ export async function Register(formData: FormData) {
   const password = formData.get('password')?.toString();
   const email = formData.get('email')?.toString();
   const fullname = formData.get('full_name')?.toString() || 'unnamed';
-  const random = cookies().get('state')?.value as string | '';
-  if (!random) {
-    cookies().set('state', randomUUID(), {
-      httpOnly: process.env.NODE_ENV === 'production',
-      secure: process.env.NODE_ENV === 'production',
-      expires: new Date(Date.now() + 60 * 1000),
-    });
-  }
+  cookies().set('state', randomUUID(), {
+    httpOnly: process.env.NODE_ENV === 'production',
+    secure: process.env.NODE_ENV === 'production',
+    expires: new Date(Date.now() + 60 * 1000),
+  });
   const state = cookies().get('state')?.value as string;
   const avatar =
     formData.get('avatar')?.toString() ||
@@ -376,6 +372,7 @@ export async function Register(formData: FormData) {
       value: response.message || response.error || 'Something went wrong!',
       httpOnly: process.env.NODE_ENV === 'production' ? true : false,
       secure: process.env.NODE_ENV === 'production',
+      sameSite: true,
       expires: new Date(Date.now() + 10 * 1000),
     });
   } catch (error: any) {
@@ -388,6 +385,10 @@ export async function Logout({ callback }: { callback?: string }) {
   cookies().delete('profileToken');
   cookies().delete('accessToken');
   cookies().delete('sessionId');
+  cookies().delete('state');
+  cookies().delete('oldcsrfToken');
+  cookies().delete('csrfToken');
+  cookies().delete('newcsrfToken');
   redirect(callback || '/signin');
   return;
 }
@@ -540,10 +541,10 @@ export async function OauthLogin(formData: FormData) {
     sessionIP,
     sessionLocation,
   };
-  setCookie('oldcsrfToken', csrfToken, {
-    httpOnly: true,
-    maxAge: 5 * 60 * 1000,
+  cookies().set('oldcsrfToken', csrfToken, {
+    httpOnly: process.env.NODE_ENV === 'production',
     secure: process.env.NODE_ENV === 'production',
+    sameSite: true,
   });
   const stateToken = await encryptToken(payload, { expiresIn: '60s' });
   const url = `${link}&state=${stateToken}`;
