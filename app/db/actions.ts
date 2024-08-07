@@ -9,6 +9,7 @@ import {
   encryptToken,
   decryptToken,
   verifyPasetoToken,
+  signPasetoToken,
 } from 'app/components/helpers/paseto';
 import { generateRandomUUID } from 'app/components/helpers/uuid';
 import { generateState } from 'app/components/helpers/random';
@@ -327,13 +328,13 @@ export async function Register(formData: FormData) {
   const username = formData.get('username')?.toString();
   const password = formData.get('password')?.toString();
   const email = formData.get('email')?.toString();
-  const fullname = formData.get('full_name')?.toString() || 'unnamed';
-  cookies().set('state', randomUUID(), {
+  const fullname = formData.get('full_name')?.toString();
+  const state = generateState();
+  cookies().set('state', state, {
     httpOnly: process.env.NODE_ENV === 'production',
     secure: process.env.NODE_ENV === 'production',
     expires: new Date(Date.now() + 60 * 1000),
   });
-  const state = cookies().get('state')?.value as string;
   const avatar =
     formData.get('avatar')?.toString() ||
     `https://ui-avatars.com/api/?background=random&name=${fullname}`;
@@ -386,10 +387,8 @@ export async function Logout({ callback }: { callback?: string }) {
   cookies().delete('accessToken');
   cookies().delete('sessionId');
   cookies().delete('state');
-  cookies().delete('oldcsrfToken');
   cookies().delete('csrfToken');
-  cookies().delete('newcsrfToken');
-  redirect(callback || '/signin');
+  redirect(callback || '/signin?success=succesfully logged out!');
   return;
 }
 
@@ -442,7 +441,6 @@ export async function ChangePass(formData: FormData) {
       expires: new Date(Date.now() + 10 * 1000),
     });
   } catch (error: any) {
-    // console.log(error);
     throw new Error(error);
   }
 }
@@ -536,11 +534,12 @@ export async function OauthLogin(formData: FormData) {
   const csrfToken = generateState();
   try {
     cookies().set({
-      name: 'oldcsrfToken',
+      name: 'csrfToken',
       value: csrfToken,
       httpOnly: process.env.NODE_ENV === 'production',
       secure: process.env.NODE_ENV === 'production',
       sameSite: true,
+      expires: new Date(Date.now() + 90 * 1000),
     });
   } catch (error: any) {
     throw new Error(error);
@@ -555,4 +554,71 @@ export async function OauthLogin(formData: FormData) {
   const stateToken = await encryptToken(payload, { expiresIn: '60s' });
   const url = `${link}&state=${stateToken}`;
   redirect(url);
+}
+
+export async function OauthCallback({
+  token,
+  sessionId,
+  next,
+}: {
+  token: string;
+  sessionId: string;
+  next: string;
+}) {
+  if (!token || !sessionId) {
+    await Logout({ callback: `/signin?error=invalid_token_or_session_id` });
+  }
+  const data = await verifyPasetoToken({ token });
+  const csrfToken = cookies().get('csrfToken')?.value || '';
+  if (data.csrfToken !== csrfToken || !data.csrfToken || !csrfToken) {
+    await Logout({ callback: `/signin?error=error_csrf_token` });
+  }
+  const payload = {
+    id: data.id,
+    oauth: data.oauth,
+    oauth_id: data.oauth_id,
+  };
+  const accessToken = (await signPasetoToken({
+    payload,
+  })) as string;
+  const refreshToken = (await signPasetoToken({ payload })) as string;
+  const profilePayload = {
+    username: data.username,
+    email: data.email,
+    full_name: data.name,
+    avatar: data.avatar,
+    role: data.oauth + 'user',
+    verified: 'true',
+    oauth: data.oauth,
+  };
+  const profileToken = (await signPasetoToken({
+    payload: profilePayload,
+  })) as string;
+  const options = {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: true,
+  };
+  cookies().set({
+    name: 'accessToken',
+    value: accessToken,
+    ...options,
+  });
+  cookies().set({
+    name: 'refreshToken',
+    value: refreshToken,
+    ...options,
+  });
+  cookies().set({
+    name: 'profileToken',
+    value: profileToken,
+    ...options,
+  });
+  cookies().set({
+    name: 'sessionId',
+    value: sessionId,
+    ...options,
+  });
+  cookies().delete('csrfToken');
+  redirect(next);
 }

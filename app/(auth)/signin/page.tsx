@@ -6,7 +6,8 @@ import { Session } from 'app/components/helpers/session';
 import Link from 'next/link';
 export default async function LoginPage(props: any) {
   const callBackUrl = props?.searchParams?.callback?.toString() || '/profile';
-  const LoginCookie = cookies().get('LoginCookie');
+  const error = props?.searchParams?.error?.toString() || '';
+  const message = cookies().get('LoginCookie')?.value || '';
   const session = await Session();
   if (session && session.email && session.username) {
     redirect(callBackUrl);
@@ -30,7 +31,11 @@ export default async function LoginPage(props: any) {
         Welcome back!
       </h1>
       <p className="my-4 text-md font-medium text-neutral-700 dark:text-neutral-300 animate-bounce">
-        {callBackmsg}
+        {!!error || !!message ? (
+          <span className="text-red-500 font-semibold">{error || message}</span>
+        ) : (
+          callBackmsg
+        )}
       </p>
 
       <form action={Login} className="flex flex-col space-y-2 mb-10 mt-5">
@@ -127,16 +132,7 @@ export default async function LoginPage(props: any) {
           </div>
         </div>
         <div className="text-sm mt-10">
-          {!!LoginCookie && (
-            <span className="text-red-500 font-semibold">
-              {JSON.parse(JSON.stringify(LoginCookie)).value as string} !
-            </span>
-          )}
-          {!!LoginCookie &&
-          (JSON.parse(JSON.stringify(LoginCookie)).value as string) ===
-            'Success'
-            ? redirect(callBackUrl)
-            : null}
+          {!!message && message === 'Success' ? redirect(callBackUrl) : null}
         </div>
       </form>
       <div className="mb-6 max-w-lg border-t-2 border-opacity-50 border-neutral-500" />

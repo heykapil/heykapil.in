@@ -33,7 +33,7 @@ const RegisterForm = ({ callBackUrl }: { callBackUrl: string }) => {
   useEffect(() => {
     if (formData.username.length >= 3) {
       fetch(
-        `http://localhost:3000/api/user/taken?username=${formData.username}`,
+        process.env.API_URL! + `/api/user/taken?username=${formData.username}`,
         {
           method: 'POST',
         },
@@ -46,9 +46,12 @@ const RegisterForm = ({ callBackUrl }: { callBackUrl: string }) => {
   }, [formData.username]);
   useEffect(() => {
     if (formData.email.length >= 3 && isEmailValid(formData.email)) {
-      fetch(`http://localhost:3000/api/user/taken?username=${formData.email}`, {
-        method: 'POST',
-      })
+      fetch(
+        process.env.API_URL + `/api/user/taken?username=${formData.email}`,
+        {
+          method: 'POST',
+        },
+      )
         .then((res) => res.json())
         .then((data: any) => {
           setemailAvailiable(data.ok || false);
