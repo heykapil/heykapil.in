@@ -3,7 +3,7 @@ import {
   signPasetoToken,
 } from 'app/components/helpers/paseto';
 import type { NextApiRequest, NextApiResponse } from 'next';
-
+import { cookies } from 'next/headers';
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
@@ -43,6 +43,7 @@ export default async function handler(
         `refreshToken=${refreshToken}; Path=/; HttpOnly; Secure; SameSite; Max-Age=864000;`,
         `profileToken=${profileToken}; Path=/;  HttpOnly; Secure; SameSite; Max-Age=864000;`,
         `sessionId=${sessionId}; Path=/; HttpOnly; SameSite; Secure; Max-Age=864000;`,
+        `newcsrfToken=${data.csrfToken}; Path=/; HttpOnly; SameSite; Secure; Max-Age:30000;`,
       ]);
       return res.status(200).redirect(next);
     }

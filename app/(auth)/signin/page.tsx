@@ -1,26 +1,13 @@
-import { Login } from 'app/db/actions';
+import { Login, OauthLogin } from 'app/db/actions';
 import { cookies } from 'next/headers';
 import { SubmitButton } from '../guestbook/SubmitButton';
 import { redirect } from 'next/navigation';
 import { Session } from 'app/components/helpers/session';
 import Link from 'next/link';
-import { encryptToken } from 'app/components/helpers/paseto';
 export default async function LoginPage(props: any) {
   const callBackUrl = props?.searchParams?.callback?.toString() || '/profile';
   const LoginCookie = cookies().get('LoginCookie');
   const session = await Session();
-  const userAgent = cookies().get('userAgent')?.value as string;
-  const sessionIP = cookies().get('sessionIP')?.value as string;
-  const sessionLocation = cookies().get('sessionLocation')?.value as string;
-  const payload = {
-    callBackUrl,
-    userAgent,
-    sessionIP,
-    sessionLocation,
-  };
-  const state = await encryptToken(payload, {
-    expiresIn: '5 min',
-  });
   if (session && session.email && session.username) {
     redirect(callBackUrl);
   }
@@ -133,7 +120,7 @@ export default async function LoginPage(props: any) {
             <SubmitButton
               type="submit"
               className="px-8 py-2  bg-neutral-900 dark:bg-pink-50 text-white dark:text-black text-sm rounded-md font-semibold hover:bg-black/[0.9] dark:hover:bg-white/[0.9] hover:shadow-lg"
-              pendingState={<span>Loading...</span>}
+              pendingState={<span className="mx-auto table">Loading...</span>}
             >
               Login
             </SubmitButton>
@@ -157,33 +144,59 @@ export default async function LoginPage(props: any) {
         Or use your github or google account to continue...
       </p>
       <div className="flex flex-col md:flex-row justify-between max-w-lg gap-2 w-full">
-        <Link
-          className="px-8 py-2 my-0 mx-auto w-full bg-neutral-900 dark:bg-pink-50 text-white dark:text-black text-sm rounded-md font-semibold hover:bg-black/[0.9] dark:hover:bg-white/[0.9] hover:shadow-lg"
-          href={`https://github.com/login/oauth/authorize?scope=user:email&client_id=631dc2729898da1ac8a4&redirect_uri=${process.env.API_URL}/api/callback/github&state=${state}`}
-        >
-          <img
-            alt="GitHub logo"
-            src="/github.svg"
-            width="20"
-            height="20"
-            className="inline-block self-center place-self-center mr-2 invert dark:invert-0"
-          />
-          Login with GitHub
-        </Link>
-
-        <Link
+        <form
+          action={OauthLogin}
           className="px-8 py-2 my-0 mx-auto gap-3 w-full bg-neutral-900 dark:bg-pink-50 text-white dark:text-black text-sm rounded-md font-semibold hover:bg-black/[0.9] dark:hover:bg-white/[0.9] hover:shadow-lg"
-          href={`https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile&include_granted_scopes=true&response_type=token&redirect_uri=${process.env.API_URL!}/callback/google&client_id=942887810322-f539im4rt338srvi20r3ed48dvaqd1b1.apps.googleusercontent.com&state=${state}`}
         >
-          <img
-            alt="Google logo"
-            src="/google.svg"
-            width="20"
-            height="20"
-            className="inline-block mr-2 self-center invert dark:invert-0"
+          <input
+            type="hidden"
+            name="link"
+            value={`https://github.com/login/oauth/authorize?scope=user:email&client_id=631dc2729898da1ac8a4&redirect_uri=${process.env.API_URL}/api/callback/github`}
+            required
+            minLength={1}
           />
-          Login with Google
-        </Link>
+          <input type="hidden" name="callback" value={callBackUrl} />
+          <SubmitButton
+            type="submit"
+            pendingState={<span className="mx-auto table">Loading...</span>}
+          >
+            <img
+              alt="GitHub logo"
+              src="/github.svg"
+              width="20"
+              height="20"
+              className="inline-block self-center place-self-center mr-2 invert dark:invert-0"
+            />
+            Login with GitHub
+          </SubmitButton>
+        </form>
+
+        <form
+          action={OauthLogin}
+          className="px-8 py-2 my-0 mx-auto gap-3 w-full bg-neutral-900 dark:bg-pink-50 text-white dark:text-black text-sm rounded-md font-semibold hover:bg-black/[0.9] dark:hover:bg-white/[0.9] hover:shadow-lg"
+        >
+          <input
+            type="hidden"
+            name="link"
+            value={`https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile&include_granted_scopes=true&response_type=token&redirect_uri=${process.env.API_URL!}/callback/google&client_id=942887810322-f539im4rt338srvi20r3ed48dvaqd1b1.apps.googleusercontent.com`}
+            required
+            minLength={1}
+          />
+          <input type="hidden" name="callback" value={callBackUrl} />
+          <SubmitButton
+            type="submit"
+            pendingState={<span className="mx-auto table">Loading...</span>}
+          >
+            <img
+              alt="Google logo"
+              src="/google.svg"
+              width="20"
+              height="20"
+              className="inline-block self-center place-self-center mr-2 invert dark:invert-0"
+            />
+            Login with Google
+          </SubmitButton>
+        </form>
 
         {/* https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/userinfo.email&include_granted_scopes=true&response_type=token&state=/guestbook&redirect_uri=http%3A//localhost:3000/callback/google&client_id=942887810322-f539im4rt338srvi20r3ed48dvaqd1b1.apps.googleusercontent.com */}
       </div>

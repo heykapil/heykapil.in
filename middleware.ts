@@ -1,45 +1,45 @@
-import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
 export async function middleware(request: NextRequest) {
-  let refreshToken = request.cookies.get("refreshToken")?.value || "";
-  let accessToken = request.cookies.get("accessToken")?.value || "";
-  let profileToken = request.cookies.get("profileToken")?.value || "";
+  let refreshToken = request.cookies.get('refreshToken')?.value || '';
+  let accessToken = request.cookies.get('accessToken')?.value || '';
+  let profileToken = request.cookies.get('profileToken')?.value || '';
   let midResponse = NextResponse.next();
   if (refreshToken && (!accessToken || !profileToken)) {
-    const data = await fetch("https://api.kapil.app/api/user/refresh", {
-      method: "POST",
+    const data = await fetch('https://api.kapil.app/api/user/refresh', {
+      method: 'POST',
       headers: {
         refreshToken: refreshToken as string,
       },
     });
     const response = await data.json();
-    if ((response.message = "succesfully refreshed")) {
+    if ((response.message = 'succesfully refreshed')) {
       midResponse.cookies.set({
-        name: "accessToken",
+        name: 'accessToken',
         value: response.access_token,
-        httpOnly: process.env.NODE_ENV === "production" ? true : false,
+        httpOnly: process.env.NODE_ENV === 'production' ? true : false,
         sameSite: true,
-        secure: process.env.NODE_ENV === "production" ? true : false,
+        secure: process.env.NODE_ENV === 'production' ? true : false,
         expires: Number(response.access_expiry),
-        path: "/",
+        path: '/',
       });
       midResponse.cookies.set({
-        name: "refreshToken",
+        name: 'refreshToken',
         value: response.refresh_token,
-        httpOnly: process.env.NODE_ENV === "production" ? true : false,
+        httpOnly: process.env.NODE_ENV === 'production' ? true : false,
         sameSite: true,
-        secure: process.env.NODE_ENV === "production" ? true : false,
+        secure: process.env.NODE_ENV === 'production' ? true : false,
         expires: Number(response.refresh_expiry),
-        path: "/",
+        path: '/',
       });
       midResponse.cookies.set({
-        name: "profileToken",
+        name: 'profileToken',
         value: response.profile_token,
-        httpOnly: process.env.NODE_ENV === "production" ? true : false,
+        httpOnly: process.env.NODE_ENV === 'production' ? true : false,
         sameSite: true,
-        secure: process.env.NODE_ENV === "production" ? true : false,
+        secure: process.env.NODE_ENV === 'production' ? true : false,
         expires: Number(response.access_expiry),
-        path: "/",
+        path: '/',
       });
     }
   }
@@ -48,5 +48,5 @@ export async function middleware(request: NextRequest) {
 
 // See "Matching Paths" below to learn more
 export const config = {
-  matcher: ["/:path*"],
+  matcher: ['/:path*'],
 };

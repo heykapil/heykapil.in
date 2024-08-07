@@ -10,9 +10,10 @@ import {
   encryptToken,
   decryptToken,
   verifyPasetoToken,
-  signPasetoToken,
 } from 'app/components/helpers/paseto';
 import { generateRandomUUID } from 'app/components/helpers/uuid';
+import { generateState } from 'app/components/helpers/random';
+import { setCookie } from 'cookies-next';
 export async function increment(slug: string) {
   let id = slug.replace('/', '-');
   const data = await queryBuilder
@@ -520,4 +521,31 @@ export async function ResetPassword(formData: FormData) {
   } catch (error: any) {
     throw new Error(error);
   }
+}
+
+export async function OauthLogin(formData: FormData) {
+  const callBackUrl = formData.get('callback')?.toString() || '/profile';
+  const link = formData.get('link')?.toString() || '';
+  if (!link) {
+    throw new Error('Invalid Link');
+  }
+  const userAgent = cookies().get('userAgent')?.value || '';
+  const sessionIP = cookies().get('sessionIP')?.value || '';
+  const sessionLocation = cookies().get('sessionLocation')?.value || '';
+  const csrfToken = generateState();
+  const payload = {
+    csrfToken,
+    callBackUrl,
+    userAgent,
+    sessionIP,
+    sessionLocation,
+  };
+  setCookie('oldcsrfToken', csrfToken, {
+    httpOnly: true,
+    maxAge: 5 * 60 * 1000,
+    secure: process.env.NODE_ENV === 'production',
+  });
+  const stateToken = await encryptToken(payload, { expiresIn: '60s' });
+  const url = `${link}&state=${stateToken}`;
+  redirect(url);
 }
