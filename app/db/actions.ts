@@ -534,6 +534,17 @@ export async function OauthLogin(formData: FormData) {
   const sessionIP = cookies().get('sessionIP')?.value || '';
   const sessionLocation = cookies().get('sessionLocation')?.value || '';
   const csrfToken = generateState();
+  try {
+    cookies().set({
+      name: 'oldcsrfToken',
+      value: csrfToken,
+      httpOnly: process.env.NODE_ENV === 'production',
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: true,
+    });
+  } catch (error: any) {
+    throw new Error(error);
+  }
   const payload = {
     csrfToken,
     callBackUrl,
@@ -541,11 +552,6 @@ export async function OauthLogin(formData: FormData) {
     sessionIP,
     sessionLocation,
   };
-  cookies().set('oldcsrfToken', csrfToken, {
-    httpOnly: process.env.NODE_ENV === 'production',
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: true,
-  });
   const stateToken = await encryptToken(payload, { expiresIn: '60s' });
   const url = `${link}&state=${stateToken}`;
   redirect(url);
