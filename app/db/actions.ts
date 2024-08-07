@@ -228,8 +228,8 @@ export async function Login(formData: FormData) {
             'Content-Type': 'application/json',
             'x-state': stateToken as string,
             'x-user-agent': cookies().get('userAgent')?.value as string,
-            'x-ipaddress': cookies().get('ipAddress')?.value as string,
-            'x-location': cookies().get('location')?.value as string,
+            'x-ipaddress': cookies().get('sessionIP')?.value as string,
+            'x-location': cookies().get('sessionLocation')?.value as string,
           },
           body: JSON.stringify({
             username,
@@ -261,8 +261,8 @@ export async function Login(formData: FormData) {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${response.token.access_token}`,
                 'x-user-agent': cookies().get('userAgent')?.value as string,
-                'x-ipaddress': cookies().get('ipAddress')?.value as string,
-                'x-location': cookies().get('location')?.value as string,
+                'x-ipaddress': cookies().get('sessionIP')?.value as string,
+                'x-location': cookies().get('sessionLocation')?.value as string,
               },
             },
           );
@@ -359,8 +359,8 @@ export async function Register(formData: FormData) {
           'Content-Type': 'application/json',
           'x-state': stateToken as string,
           'x-user-agent': cookies().get('userAgent')?.value as string,
-          'x-ipaddress': cookies().get('ipAddress')?.value as string,
-          'x-location': cookies().get('location')?.value as string,
+          'x-ipaddress': cookies().get('sessionIP')?.value as string,
+          'x-location': cookies().get('sessionLocation')?.value as string,
         },
         body: JSON.stringify({
           username,
@@ -423,8 +423,8 @@ export async function ChangePass(formData: FormData) {
           Accept: 'application/json',
           'x-state': stateToken as string,
           'x-user-agent': cookies().get('userAgent')?.value as string,
-          'x-ipaddress': cookies().get('ipAddress')?.value as string,
-          'x-location': cookies().get('location')?.value as string,
+          'x-ipaddress': cookies().get('sessionIP')?.value as string,
+          'x-location': cookies().get('sessionLocation')?.value as string,
         },
         body: JSON.stringify({
           id,
@@ -471,8 +471,8 @@ export async function ForgotPass(formData: FormData) {
           'Content-Type': 'application/json',
           'x-state': stateToken as string,
           'x-user-agent': cookies().get('userAgent')?.value as string,
-          'x-ipaddress': cookies().get('ipAddress')?.value as string,
-          'x-location': cookies().get('location')?.value as string,
+          'x-ipaddress': cookies().get('sessionIP')?.value as string,
+          'x-location': cookies().get('sessionLocation')?.value as string,
         },
         body: JSON.stringify({
           email: username,
@@ -504,8 +504,8 @@ export async function ResetPassword(formData: FormData) {
         headers: {
           'Content-Type': 'application/json',
           'x-user-agent': cookies().get('userAgent')?.value as string,
-          'x-ipaddress': cookies().get('ipAddress')?.value as string,
-          'x-location': cookies().get('location')?.value as string,
+          'x-ipaddress': cookies().get('sessionIP')?.value as string,
+          'x-location': cookies().get('sessionLocation')?.value as string,
         },
         body: JSON.stringify({
           password,
