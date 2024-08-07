@@ -68,6 +68,7 @@ const RegisterForm = ({ callBackUrl }: { callBackUrl: string }) => {
             className="p-2 caret-current focus:ring-neutral-500 focus:border-neutral-600 dark:focus:border-neutral-400 focus:outline-none block w-full border border-neutral-300 dark:border-neutral-700 rounded-md bg-gray-100 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100"
             name="full_name"
             minLength={3}
+            maxLength={50}
             placeholder="John Doe"
             value={formData.full_name}
             onChange={(e) =>
@@ -88,6 +89,7 @@ const RegisterForm = ({ callBackUrl }: { callBackUrl: string }) => {
             className="p-2 caret-current focus:ring-neutral-500 focus:border-neutral-600 dark:focus:border-neutral-400 focus:outline-none block w-full border border-neutral-300 dark:border-neutral-700 rounded-md bg-gray-100 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100"
             name="email"
             minLength={3}
+            maxLength={100}
             value={formData.email}
             onChange={(e) => {
               setformData({ ...formData, email: e.target.value });
@@ -136,6 +138,7 @@ const RegisterForm = ({ callBackUrl }: { callBackUrl: string }) => {
             className="p-2 caret-current focus:ring-neutral-500 focus:border-neutral-600 dark:focus:border-neutral-400 focus:outline-none block w-full border border-neutral-300 dark:border-neutral-700 rounded-md bg-gray-100 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100"
             name="password"
             minLength={3}
+            maxLength={50}
             value={formData.password}
             onChange={(e) =>
               setformData({ ...formData, password: e.target.value })

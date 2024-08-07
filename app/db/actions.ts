@@ -194,14 +194,11 @@ export async function sendEmail(formData: FormData) {
 export async function Login(formData: FormData) {
   let username = formData.get('username') as string;
   let password = formData.get('password') as string;
-  const random = cookies().get('state')?.value as string | '';
-  if (!random) {
-    cookies().set('state', generateRandomUUID(), {
-      httpOnly: process.env.NODE_ENV === 'production',
-      secure: process.env.NODE_ENV === 'production',
-      expires: new Date(Date.now() + 60 * 1000),
-    });
-  }
+  cookies().set('state', generateRandomUUID(), {
+    httpOnly: process.env.NODE_ENV === 'production',
+    secure: process.env.NODE_ENV === 'production',
+    expires: new Date(Date.now() + 60 * 1000),
+  });
   const state = cookies().get('state')?.value as string;
   if (username.length < 3 || password.length < 3) {
     cookies().set({
@@ -213,11 +210,11 @@ export async function Login(formData: FormData) {
     });
   }
   try {
-    if (username.length >= 3 && password.length >= 0) {
+    if (username.length >= 3 && password.length >= 3) {
       const stateToken = await encryptToken(
         { state },
         {
-          expiresIn: '1m',
+          expiresIn: '60s',
         },
       );
       const data = await fetch(
@@ -348,7 +345,7 @@ export async function Register(formData: FormData) {
     const stateToken = await encryptToken(
       { state },
       {
-        expiresIn: '1m',
+        expiresIn: '60s',
       },
     );
     const data = await fetch(
@@ -410,7 +407,7 @@ export async function ChangePass(formData: FormData) {
     const stateToken = await encryptToken(
       { state },
       {
-        expiresIn: '1m',
+        expiresIn: '60s',
       },
     );
     const data = await fetch(
@@ -460,7 +457,7 @@ export async function ForgotPass(formData: FormData) {
     const stateToken = await encryptToken(
       { state },
       {
-        expiresIn: '1m',
+        expiresIn: '60s',
       },
     );
     const data = await fetch(

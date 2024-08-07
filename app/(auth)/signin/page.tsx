@@ -54,10 +54,10 @@ export default async function LoginPage(props: any) {
             autoFocus
             name="username"
             minLength={3}
+            maxLength={50}
             required
             placeholder="Email or username"
           />
-          <input type="hidden" required name="state" value={state} />
           <span className="absolute inset-y-0 end-0 grid place-content-center px-4">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -87,6 +87,7 @@ export default async function LoginPage(props: any) {
             className="p-2 caret-current focus:ring-neutral-500 focus:border-neutral-600 dark:focus:border-neutral-400 focus:outline-none block w-full border border-neutral-300 dark:border-neutral-700 rounded-md bg-neutral-50 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100"
             name="password"
             minLength={3}
+            maxLength={50}
             placeholder="Password"
             required
           />
