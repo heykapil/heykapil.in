@@ -1,14 +1,14 @@
-import type { Metadata } from "next";
-import { Suspense, lazy, cache } from "react";
-import { notFound } from "next/navigation";
-import { CustomMDX } from "app/components/mdx";
-import { getViewsCount } from "app/db/queries";
-import { getBlogPosts } from "app/db/blog";
-import { increment } from "app/db/actions";
-import { unstable_noStore as noStore } from "next/cache";
-import { Session } from "app/components/helpers/session";
-import { formatDate } from "app/components/helpers/format-date";
-const ViewCounter = lazy(() => import("../view-counter"));
+import type { Metadata } from 'next';
+import { Suspense, lazy, cache } from 'react';
+import { notFound } from 'next/navigation';
+import { CustomMDX } from 'app/components/mdx';
+import { getViewsCount } from 'app/db/queries';
+import { getBlogPosts } from 'app/db/blog';
+import { increment } from 'app/db/actions';
+import { unstable_noStore as noStore } from 'next/cache';
+import { Session } from 'app/components/helpers/session';
+import { formatDate } from 'app/components/helpers/format-date';
+const ViewCounter = lazy(() => import('../view-counter'));
 
 export async function generateMetadata({
   params,
@@ -34,7 +34,7 @@ export async function generateMetadata({
     openGraph: {
       title,
       description,
-      type: "article",
+      type: 'article',
       publishedTime,
       url: `https://kapil.app/musing/${post.slug}`,
       images: [
@@ -44,7 +44,7 @@ export async function generateMetadata({
       ],
     },
     twitter: {
-      card: "summary_large_image",
+      card: 'summary_large_image',
       title,
       description,
       images: [ogImage],
@@ -60,7 +60,7 @@ export default async function Blog({ params }) {
   if (!post) {
     notFound();
   }
-  if (post.metadata.private === `true` && session?.role !== "admin") {
+  if (post.metadata.private === `true` && session?.role !== 'admin') {
     return (
       <div>
         <h2 className="animate-fade-right text-2xl font-semibold">
@@ -68,13 +68,13 @@ export default async function Blog({ params }) {
         </h2>
         <p className="animate-fade-up">No permission to access this conent!</p>
         <p className="mt-10">
-          Kindly{" "}
+          Kindly{' '}
           <a
             className="font-medium underline underline-offset-2"
-            href={`/signin?callback=/thoughts/${post.slug}`}
+            href={`/signin?callback=/musing/${post.slug}`}
           >
             login
-          </a>{" "}
+          </a>{' '}
           with admin role to access this content!
         </p>
       </div>
@@ -87,8 +87,8 @@ export default async function Blog({ params }) {
           suppressHydrationWarning
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "BlogPosting",
+              '@context': 'https://schema.org',
+              '@type': 'BlogPosting',
               headline: post.metadata.title,
               datePublished: post.metadata.created,
               dateModified: post.metadata.updated,
@@ -98,8 +98,8 @@ export default async function Blog({ params }) {
                 : `https://kapil.app/og?title=${post.metadata.title}`,
               url: `https://kapil.app/musing/${post.slug}`,
               author: {
-                "@type": "Person",
-                name: "Kapil Chaudhary",
+                '@type': 'Person',
+                name: 'Kapil Chaudhary',
               },
             }),
           }}
