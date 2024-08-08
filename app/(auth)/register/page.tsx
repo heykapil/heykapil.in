@@ -10,6 +10,9 @@ export default async function RegisterPage(props: any) {
     redirect(callBackUrl);
   }
   const message = cookies().get('RegisterCookie')?.value || '';
+  if (message === 'success') {
+    redirect(callBackUrl);
+  }
   return (
     <section>
       <h1 className="font-medium text-2xl mb-8 tracking-tighter animate-fade-right">

@@ -154,7 +154,18 @@ export default async function LoginPage(props: any) {
           <input type="hidden" name="callback" value={callBackUrl} />
           <SubmitButton
             type="submit"
-            pendingState={<span className="mx-auto table">Loading...</span>}
+            pendingState={
+              <>
+                <img
+                  alt="GitHub logo"
+                  src="/github.svg"
+                  width="20"
+                  height="20"
+                  className="inline-block self-center place-self-center mr-2 invert dark:invert-0"
+                />
+                Waiting for github...
+              </>
+            }
           >
             <img
               alt="GitHub logo"
@@ -181,7 +192,18 @@ export default async function LoginPage(props: any) {
           <input type="hidden" name="callback" value={callBackUrl} />
           <SubmitButton
             type="submit"
-            pendingState={<span className="mx-auto table">Loading...</span>}
+            pendingState={
+              <>
+                <img
+                  alt="Google logo"
+                  src="/google.svg"
+                  width="20"
+                  height="20"
+                  className="inline-block self-center place-self-center mr-2 invert dark:invert-0"
+                />
+                <span>Waiting for google...</span>
+              </>
+            }
           >
             <img
               alt="Google logo"
