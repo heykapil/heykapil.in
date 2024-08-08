@@ -199,13 +199,13 @@ export default async function Page() {
               rel="noopener noreferrer"
               // target="_blank"
               href={
-                !!session.id
+                session?.id
                   ? 'https://kapil.app/signout?callback=/'
                   : 'https://kapil.app/signin?callback=/admin'
               }
             >
               <ArrowIcon />
-              <p className="h-7 ml-2">{!!session.id ? 'logout' : 'login'}</p>
+              <p className="h-7 ml-2">{session?.id ? 'logout' : 'login'}</p>
             </a>
           </li>
           <li>

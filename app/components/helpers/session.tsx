@@ -9,14 +9,14 @@ export async function Session() {
   if (!sessionId || !accessToken || !refreshToken || !profileToken) {
     session = null;
   }
-  if (!!profileToken && (!sessionId || !accessToken || !refreshToken)) {
+  if (profileToken && (!sessionId || !accessToken || !refreshToken)) {
     session = null;
   }
-  if (!!profileToken) {
+  if (profileToken) {
     session = await verifyPasetoToken({ token: profileToken });
   } else {
     session = null;
   }
-  // console.log(session);
+  console.log(session);
   return session;
 }
