@@ -195,7 +195,7 @@ export async function sendEmail(formData: FormData) {
 export async function Login(formData: FormData) {
   let username = formData.get('username') as string;
   let password = formData.get('password') as string;
-  cookies().set('state', generateRandomUUID(), {
+  cookies().set('state', generateState(), {
     httpOnly: process.env.NODE_ENV === 'production',
     secure: process.env.NODE_ENV === 'production',
     expires: new Date(Date.now() + 60 * 1000),
@@ -399,7 +399,7 @@ export async function ChangePass(formData: FormData) {
 
   const id = (await verifyPasetoToken({ token: accessToken }))?.id || '';
   try {
-    const state = generateRandomUUID();
+    const state = generateState();
     cookies().set('state', state, {
       httpOnly: process.env.NODE_ENV === 'production',
       secure: process.env.NODE_ENV === 'production',
@@ -448,7 +448,7 @@ export async function ChangePass(formData: FormData) {
 export async function ForgotPass(formData: FormData) {
   const username = formData.get('username')?.toString();
   try {
-    const state = generateRandomUUID();
+    const state = generateState();
     cookies().set('state', state, {
       httpOnly: process.env.NODE_ENV === 'production',
       secure: process.env.NODE_ENV === 'production',
