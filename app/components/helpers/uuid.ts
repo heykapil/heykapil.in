@@ -1,4 +1,6 @@
+import crypto from 'crypto';
 export function generateRandomUUID() {
-  return Math.random().toString(36).substring(2, 15) +
-      Math.random().toString(36).substring(2, 15);
+  const timehex = new Date().valueOf().toString(16);
+  const uuid = crypto.randomUUID().replace(/-/g, '');
+  return timehex + '-' + uuid;
 }
