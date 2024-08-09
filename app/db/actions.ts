@@ -13,33 +13,24 @@ import {
 } from 'app/components/helpers/paseto';
 import { generateRandomUUID } from 'app/components/helpers/uuid';
 import { generateState } from 'app/components/helpers/random';
+
 export async function increment(slug: string) {
-  let id = slug.replace('/', '-');
-  const data = await queryBuilder
-    .selectFrom('views')
-    .where('slug', '=', slug)
-    .select(['count'])
-    .execute();
-  const views = !data.length ? 0 : Number(data[0].count);
-  if (views === 0) {
-    await queryBuilder
-      .insertInto('views')
-      .values({
-        id: id,
-        slug: slug,
-        count: 1,
-      })
-      .execute();
-  } else {
-    await queryBuilder
-      .updateTable('views')
-      .set({
-        count: views + 1,
-      })
-      .where('slug', '=', slug)
-      .executeTakeFirst();
-  }
-  revalidatePath(`/${slug}`);
+  const state = generateState();
+  const payload = { state };
+  const token = await signPasetoToken({ payload });
+  const url =
+    'https://kv.kapil.app/kv/sum' +
+    `?key=pageviews,${slug}&value=1&state=${state}`;
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer v4.public.${token}`,
+    },
+    body: JSON.stringify(10),
+  });
+  await response.json();
+  const path = '/' + slug.replace(',', '/');
+  revalidatePath(path);
 }
 export async function saveGuestbookEntry(formData: FormData) {
   let session = await Session();

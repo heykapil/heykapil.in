@@ -1,13 +1,9 @@
-import Link from "next/link";
-import { Suspense } from "react";
-import { getViewsCount } from "app/db/queries";
-import { getQuotes } from "app/db/blog";
-import ViewCounter from "app/(posts)/musing/view-counter";
-import { unstable_noStore as noStore } from "next/cache";
+import Link from 'next/link';
+import { getQuotes } from 'app/db/blog';
 
 export const metadata = {
-  title: "Quotes",
-  description: "All quotes",
+  title: 'Quotes',
+  description: 'All quotes',
 };
 
 export default function BlogPage() {
@@ -23,7 +19,7 @@ export default function BlogPage() {
           }
           return 1;
         })
-        .filter((post) => post.metadata.archived !== "true")
+        .filter((post) => post.metadata.archived !== 'true')
         .map((post) => (
           <Link
             key={post.slug}
@@ -34,29 +30,9 @@ export default function BlogPage() {
               <p className="text-neutral-900 dark:text-neutral-100 tracking-tight">
                 {post.metadata.title}
               </p>
-              <Suspense
-                fallback={
-                  <div className="inline-flex">
-                    <p className="h-6 animate-pulse bg-slate-100 dark:bg-slate-900 bg-opacity-50 w-6" />
-                    <span>views</span>
-                  </div>
-                }
-              >
-                <Views slug={`quotes/${post.slug}`} />
-              </Suspense>
             </div>
           </Link>
         ))}
     </section>
-  );
-}
-
-async function Views({ slug }: { slug: string }) {
-  noStore();
-  let views = await getViewsCount();
-
-  return (
-    // @ts-ignore
-    <ViewCounter allViews={views} slug={slug} />
   );
 }

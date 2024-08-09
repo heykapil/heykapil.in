@@ -1,14 +1,14 @@
-import Link from "next/link";
-import { Suspense } from "react";
-import { getViewsCount } from "app/db/queries";
-import { getSnippetPosts } from "app/db/blog";
-import ViewCounter from "app/(posts)/musing/view-counter";
-import { unstable_noStore as noStore, revalidatePath } from "next/cache";
-import { formatShortDate } from "app/components/helpers/format-date";
+import Link from 'next/link';
+import { Suspense } from 'react';
+import { getViewsCount } from 'app/db/queries';
+import { getSnippetPosts } from 'app/db/blog';
+import ViewCounter from 'app/(posts)/musing/view-counter';
+import { unstable_noStore as noStore, revalidatePath } from 'next/cache';
+import { formatShortDate } from 'app/components/helpers/format-date';
 
 export const metadata = {
-  title: "Snippets",
-  description: "Read my thoughts on software development, design, and more.",
+  title: 'Snippets',
+  description: 'Read my thoughts on software development, design, and more.',
 };
 
 export default function SnippetPage() {
@@ -33,7 +33,7 @@ export default function SnippetPage() {
               }
               return 1;
             })
-            .filter((post) => post.metadata.archived !== "true")
+            .filter((post) => post.metadata.archived !== 'true')
             .map((post) => (
               <Link
                 key={post.slug}
@@ -42,7 +42,7 @@ export default function SnippetPage() {
               >
                 <div className="flex w-full flex-col justify-between md:flex-row">
                   <p className="overflow-hidden overflow-ellipsis whitespace-nowrap tracking-tight">
-                    {post.metadata.title}{" "}
+                    {post.metadata.title}{' '}
                     {(post.metadata.private || post.metadata.archived) && (
                       <span className="ml-[-2]">🔐</span>
                     )}
@@ -87,11 +87,4 @@ export default function SnippetPage() {
       </section>
     </div>
   );
-}
-
-async function Views({ slug }: { slug: string }) {
-  noStore();
-  let views: any;
-  views = await getViewsCount();
-  return <ViewCounter allViews={views} slug={slug} />;
 }

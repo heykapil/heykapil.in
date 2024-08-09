@@ -126,7 +126,7 @@ export default async function Blog({ params }) {
               </div>
             }
           >
-            <Views slug={`musing/${post.slug}`} />
+            <Views slug={`musing,${post.slug}`} />
           </Suspense>
         </div>
         <article className="prose prose-quoteless prose-neutral dark:prose-invert">
@@ -136,12 +136,16 @@ export default async function Blog({ params }) {
     );
   }
 }
-let incrementViews = cache(increment);
 
+let incrementViews = cache(increment);
 async function Views({ slug }: { slug: string }) {
   noStore();
-  let views: any;
-  views = await getViewsCount();
+  let views = await getViewsCount(slug);
   incrementViews(slug);
-  return <ViewCounter allViews={views} slug={slug} />;
+  return (
+    <>
+      <ViewCounter slug={slug} />
+      <p className="animate-flip-up">{views} views</p>
+    </>
+  );
 }

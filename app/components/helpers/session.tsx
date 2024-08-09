@@ -17,6 +17,6 @@ export async function Session() {
   } else {
     session = null;
   }
-  console.log(session);
+  // console.log(session);
   return session;
 }
