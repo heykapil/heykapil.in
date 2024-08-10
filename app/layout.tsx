@@ -1,7 +1,8 @@
 import './global.css';
 import type { Metadata } from 'next';
-import { GeistSans } from 'geist/font/sans';
-import { GeistMono } from 'geist/font/mono';
+// import { GeistSans } from 'geist/font/sans';
+// import { GeistMono } from 'geist/font/mono';
+import { Lato } from 'next/font/google';
 import { Navbar } from './components/nav';
 import { IpLogger } from './IpLogger';
 import { Suspense } from 'react';
@@ -120,6 +121,7 @@ export const metadata: Metadata = {
 };
 
 const cx = (...classes) => classes.filter(Boolean).join(' ');
+const font = Lato({ subsets: ['latin'], weight: '400' });
 
 export default function RootLayout({
   children,
@@ -131,8 +133,7 @@ export default function RootLayout({
       lang="en"
       className={cx(
         'text-black bg-white dark:text-white dark:bg-[#111010]',
-        GeistSans.variable,
-        GeistMono.variable,
+        font.className,
       )}
     >
       <body className="antialiased max-w-2xl mb-40 flex flex-col md:flex-row mx-4 mt-8 lg:mx-auto">

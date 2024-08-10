@@ -21,7 +21,6 @@
     "clsx": "^2.1.0",
     "cookies-next": "^4.2.1",
     "framer-motion": "^11.0.12",
-    "geist": "latest",
     "jsonwebtoken": "^9.0.2",
     "kysely": "^0.26.3",
     "marked": "^11.1.1",
