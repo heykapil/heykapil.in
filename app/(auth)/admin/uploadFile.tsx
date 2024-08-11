@@ -1,16 +1,16 @@
-"use client";
-import { useState } from "react";
-import { usePresignedUpload } from "next-s3-upload";
-import { saveUploadHistory } from "app/db/actions";
-import { useRef } from "react";
-import { SubmitButton } from "../guestbook/SubmitButton";
+'use client';
+import { useState } from 'react';
+import { usePresignedUpload } from 'next-s3-upload';
+import { saveUploadHistory } from 'app/db/actions';
+import { useRef } from 'react';
+import { SubmitButton } from '../guestbook/SubmitButton';
 function getDisplayTime() {
-  return new Date().toISOString().split("T")[0];
+  return new Date().toISOString().split('T')[0];
 }
 export default function UploadComponent() {
-  let [fileUrl, setFileUrl] = useState("");
-  let [filename, setFileName] = useState("");
-  let [filesize, setFileSize] = useState("");
+  let [fileUrl, setFileUrl] = useState('');
+  let [filename, setFileName] = useState('');
+  let [filesize, setFileSize] = useState('');
   const [currentDate, setCurrentDate] = useState();
   let { FileInput, openFileDialog, uploadToS3, files } = usePresignedUpload();
   const formRef = useRef<HTMLFormElement>(null);
@@ -20,14 +20,14 @@ export default function UploadComponent() {
     if (event.target.files && event.target.files[0]) {
       if (event.target.files[0].size > 100 * 1000 * 1024) {
         alert(
-          "File size is greater than 100 MB. Reduce size of image before uploading."
+          'File size is greater than 100 MB. Reduce size of image before uploading.',
         );
         return false;
       }
     }
     let { url } = await uploadToS3(file);
     // @ts-ignore
-    setFileUrl(url.replace("https://s3.tebi.io/", "https://"));
+    setFileUrl(url.replace('https://s3.tebi.io/', 'https://'));
   };
 
   return (

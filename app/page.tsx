@@ -198,14 +198,10 @@ export default async function Page() {
               className="flex items-center hover:text-neutral-800 dark:hover:text-neutral-100 transition-all"
               rel="noopener noreferrer"
               // target="_blank"
-              href={
-                session?.id
-                  ? 'https://kapil.app/signout?callback=/'
-                  : 'https://kapil.app/signin?callback=/admin'
-              }
+              href={'https://kapil.app/signin?callback=/admin'}
             >
               <ArrowIcon />
-              <p className="h-7 ml-2">{session?.id ? 'logout' : 'login'}</p>
+              <p className="h-7 ml-2">admin</p>
             </a>
           </li>
           <li>
