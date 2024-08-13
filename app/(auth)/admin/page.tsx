@@ -26,7 +26,7 @@ export default async function GuestbookPage() {
     <>
       <section>
         <h1 className="font-medium text-xl mb-8 tracking-tighter">
-          Hi, {session?.fullname}
+          Hi, {session?.fullname.toUpperCase()}
         </h1>
         <hr className="my-8 border-neutral-400 dark:border-neutral-600" />
         <GetKVList />

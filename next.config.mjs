@@ -10,12 +10,11 @@ const nextConfig = {
   images: {
     remotePatterns: [
       { hostname: "s3.tebi.io" },
-      { hostname: "heykapil.in" },
-      { hostname: "cdn.heykapil.in" },
-      {hostname: "bkpl5hem.dev.cdn.imgeng.in"},
-      { hostname: "cdn.kapil.app" },
-      { hostname: "images.unsplash.com" },
       { hostname: "s3.kapil.app" },
+      {hostname: "bkpl5hem.dev.cdn.imgeng.in"},
+      { hostname: "cdn2.kapil.app" },
+      { hostname: "images.unsplash.com" },
+      { hostname: "cdn.kapil.app" },
     ],
   },
   async redirects() {

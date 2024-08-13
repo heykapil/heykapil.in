@@ -256,7 +256,7 @@ export async function Login(formData: FormData) {
             },
           );
           await sessionData.json();
-          // console.log(sessionResponse);
+
           cookies().set({
             name: 'sessionId',
             value: sessionId,
@@ -557,12 +557,16 @@ export async function OauthCallback({
   next: string;
 }) {
   if (!token || !sessionId) {
-    await Logout({ callback: `/signin?error=invalid_token_or_session_id` });
+    await Logout({
+      callback: `/signin?error=invalid_token_or_session_id&callbackUrl=${next}`,
+    });
   }
   const data = await verifyPasetoToken({ token });
   const csrfToken = cookies().get('csrfToken')?.value || '';
   if (data.csrfToken !== csrfToken || !data.csrfToken || !csrfToken) {
-    await Logout({ callback: `/signin?error=error_csrf_token` });
+    await Logout({
+      callback: `/signin?error=error_csrf_token&callbackUrl=${next}`,
+    });
   }
   const payload = {
     id: data.id,
@@ -571,8 +575,16 @@ export async function OauthCallback({
   };
   const accessToken = (await signPasetoToken({
     payload,
+    options: {
+      expiresIn: '7d',
+    },
   })) as string;
-  const refreshToken = (await signPasetoToken({ payload })) as string;
+  const refreshToken = (await signPasetoToken({
+    payload,
+    options: {
+      expiresIn: '7d',
+    },
+  })) as string;
   const profilePayload = {
     username: data.username,
     email: data.email,
@@ -582,13 +594,14 @@ export async function OauthCallback({
     verified: 'true',
     oauth: data.oauth,
   };
-  const profileToken = (await signPasetoToken({
-    payload: profilePayload,
-  })) as string;
+  const profileToken = await encryptToken(profilePayload, {
+    expiresIn: '7d',
+  });
   const options = {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
     sameSite: true,
+    expiresIn: 606740 * 1000,
   };
   cookies().set({
     name: 'accessToken',
@@ -602,7 +615,7 @@ export async function OauthCallback({
   });
   cookies().set({
     name: 'profileToken',
-    value: profileToken,
+    value: profileToken as string,
     ...options,
   });
   cookies().set({
