@@ -35,7 +35,9 @@ export async function increment(slug: string) {
 export async function saveGuestbookEntry(formData: FormData) {
   let session = await Session();
   let email = session?.email as string;
-  let fullname = (session?.fullname || session?.username) as string;
+  let fullname = (session?.fullname ||
+    session?.full_name ||
+    session?.username) as string;
   let avatar = session?.avatar as string;
   if (
     !session.email ||
@@ -55,7 +57,7 @@ export async function saveGuestbookEntry(formData: FormData) {
     const request = await fetch(url, {
       method: 'POST',
       body: JSON.stringify({
-        userid: session.userid,
+        userid: session?.userid || session?.username,
         email,
         fullname,
         avatar,
@@ -602,6 +604,7 @@ export async function OauthCallback({
     role: data.oauth + 'user',
     verified: 'true',
     oauth: data.oauth,
+    userid: data.id,
   };
   const profileToken = await encryptToken(profilePayload, {
     expiresIn: '7d',
