@@ -44,8 +44,7 @@ export async function saveGuestbookEntry(formData: FormData) {
   let body = entry.slice(0, 500);
   try {
     const state = generateState();
-    const payload = { state };
-    const token = await encryptToken({ payload });
+    const token = await encryptToken({ state });
     const url = 'https://api.kapil.app/api/guestbook/send?' + `state=${state}`;
     const request = await fetch(url, {
       method: 'POST',
