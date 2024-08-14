@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { useFormStatus } from "react-dom";
-import { useState, useEffect } from "react";
-import { deleteGuestbookEntries } from "app/db/actions";
+import { useFormStatus } from 'react-dom';
+import { useState, useEffect } from 'react';
+import { deleteGuestbookEntries } from 'app/db/actions';
 
 export default function Form({ entries }) {
   const [selectedInputs, setSelectedInputs] = useState<string[]>([]);
@@ -12,28 +12,28 @@ export default function Form({ entries }) {
 
   useEffect(() => {
     const keyDownHandler = ({ key }) => {
-      if (key === "Shift") {
+      if (key === 'Shift') {
         setIsShiftKeyPressed(true);
       }
-      if (key === "Meta" || key === "Control") {
+      if (key === 'Meta' || key === 'Control') {
         setIsCommandKeyPressed(true);
       }
     };
     const keyUpHandler = ({ key }) => {
-      if (key === "Shift") {
+      if (key === 'Shift') {
         setIsShiftKeyPressed(false);
       }
-      if (key === "Meta" || key === "Control") {
+      if (key === 'Meta' || key === 'Control') {
         setIsCommandKeyPressed(false);
       }
     };
 
-    window.addEventListener("keydown", keyDownHandler);
-    window.addEventListener("keyup", keyUpHandler);
+    window.addEventListener('keydown', keyDownHandler);
+    window.addEventListener('keyup', keyUpHandler);
 
     return () => {
-      window.removeEventListener("keydown", keyDownHandler);
-      window.removeEventListener("keyup", keyUpHandler);
+      window.removeEventListener('keydown', keyDownHandler);
+      window.removeEventListener('keyup', keyUpHandler);
     };
   }, []);
 
@@ -41,7 +41,7 @@ export default function Form({ entries }) {
     setSelectedInputs((prevInputs) =>
       checked
         ? [...prevInputs, id]
-        : prevInputs.filter((inputId) => inputId !== id)
+        : prevInputs.filter((inputId) => inputId !== id),
     );
     setStartShiftClickIndex(index);
   };
@@ -50,7 +50,7 @@ export default function Form({ entries }) {
     setSelectedInputs((prevInputs) =>
       prevInputs.includes(id)
         ? prevInputs.filter((inputId) => inputId !== id)
-        : [...prevInputs, id]
+        : [...prevInputs, id],
     );
   };
 
@@ -65,7 +65,7 @@ export default function Form({ entries }) {
 
       if (checked) {
         const combinedSelection = Array.from(
-          new Set([...prevInputs, ...newSelection])
+          new Set([...prevInputs, ...newSelection]),
         );
         return combinedSelection;
       } else {
@@ -87,9 +87,9 @@ export default function Form({ entries }) {
   const handleKeyDown = (
     event: React.KeyboardEvent<HTMLInputElement>,
     id: string,
-    index: number
+    index: number,
   ) => {
-    if (event.key === "Enter") {
+    if (event.key === 'Enter') {
       // Check if the checkbox was already selected
       const isChecked = selectedInputs.includes(id);
 
@@ -148,15 +148,15 @@ function GuestbookEntry({ entry, children }) {
       <div className="w-full text-sm break-words items-center flex">
         {children}
         <span className="text-neutral-600 dark:text-neutral-400 mr-1 border-neutral-100">
-          {entry.created_by}:
+          {entry.fullname}:
         </span>
-        {entry.body}
+        {entry.message}
       </div>
     </div>
   );
 }
 
-const cx = (...classes) => classes.filter(Boolean).join(" ");
+const cx = (...classes) => classes.filter(Boolean).join(' ');
 
 function DeleteButton({ isActive }) {
   const { pending } = useFormStatus();
@@ -164,10 +164,10 @@ function DeleteButton({ isActive }) {
   return (
     <button
       className={cx(
-        "px-3 py-2 border border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 rounded p-1 text-sm inline-flex items-center leading-4 text-neutral-900 dark:text-neutral-100 mb-8 transition-all",
+        'px-3 py-2 border border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 rounded p-1 text-sm inline-flex items-center leading-4 text-neutral-900 dark:text-neutral-100 mb-8 transition-all',
         {
-          "bg-red-300/50 dark:bg-red-700/50": isActive,
-        }
+          'bg-red-300/50 dark:bg-red-700/50': isActive,
+        },
       )}
       disabled={pending}
       type="submit"

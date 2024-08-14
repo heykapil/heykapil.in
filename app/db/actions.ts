@@ -37,40 +37,33 @@ export async function saveGuestbookEntry(formData: FormData) {
   let email = session?.email as string;
   let created_by = session?.full_name as string;
   let image = session?.avatar as string;
-  let uuid = randomUUID();
-  if (!session.email || !session.full_name) {
+  if (!session.email || !session.full_name || !session.userid) {
     throw new Error('Unauthorized');
   }
   let entry = formData.get('entry')?.toString() || '';
   let body = entry.slice(0, 500);
-
-  await queryBuilder
-    .insertInto('guestbook')
-    .values({ id: uuid, email, body, created_by, image })
-    .execute();
-
-  revalidatePath(`/guestbook`);
-  const secret2 = process.env.SECRET2! as string;
-  // const hash = await bcrypt.hash(secret2, 10);
-  // const token = signJwtAccessToken({ hash });
   try {
-    const html = `<p>name ${created_by}</p><p>email ${email}</p><p>message ${body}</p>`;
-    const data = await fetch('https://api.kapil.app/api/sendEmail', {
+    const state = generateState();
+    const payload = { state };
+    const token = await encryptToken({ payload });
+    const url = 'https://api.kapil.app/api/guestbook/send?' + `state=${state}`;
+    const request = await fetch(url, {
       method: 'POST',
+      body: JSON.stringify({
+        userid: session.userid,
+        email,
+        fullname: created_by,
+        avatar: image,
+        message: body,
+      }),
       headers: {
         'Content-Type': 'application/json',
-        // Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({
-        from: 'Kapil Chaudhary <hi@kapil.app>',
-        to: 'Kapil Chaudhary <hi@kapil.app>',
-        subject: 'New Guestbook Entry',
-        html,
-      }),
-      cache: 'no-store',
     });
-    const response = await data.json();
-    console.log('Email Sent', response);
+    const response = await request.json();
+    console.log(response);
+    revalidatePath(`/guestbook`);
   } catch (error: any) {
     throw new Error(error.message);
   }
@@ -84,12 +77,23 @@ export async function deleteGuestbookEntries(selectedEntries: string[]) {
   }
 
   let selectedEntriesAsNumbers = selectedEntries;
-
-  await queryBuilder
-    .deleteFrom('guestbook')
-    .where('id', 'in', selectedEntriesAsNumbers)
-    .execute();
-
+  const state = generateState();
+  const token = await encryptToken({ state });
+  const response = await fetch(
+    process.env.API_URL! + '/api/guestbook/delete?' + `state=${state}`,
+    {
+      method: 'POST',
+      body: JSON.stringify({ ids: selectedEntriesAsNumbers }),
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    },
+  );
+  const data = await response.json();
+  if (!data.ok) {
+    throw new Error(data.error);
+  }
   revalidatePath(`/admin`);
   revalidatePath(`/guestbook`);
 }

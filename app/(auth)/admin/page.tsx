@@ -1,4 +1,3 @@
-import { getGuestbookEntries } from 'app/db/queries';
 import { redirect } from 'next/navigation';
 import Form from './Deleteform';
 import { cookies } from 'next/headers';
@@ -21,37 +20,42 @@ export default async function GuestbookPage() {
     redirect('/profile');
   }
   const msgCookie = cookies().get('email-sent-toast-msg');
-  let entries = await getGuestbookEntries();
+  const request = await fetch('https://api.kapil.app/api/guestbook/get');
+  const data = await request.json();
+  if (!data.ok) {
+    return null;
+  }
+
+  const entries = data?.data;
   return (
-    <>
-      <section>
-        <h1 className="font-medium text-xl mb-8 tracking-tighter">
-          Hi, {session?.fullname.toUpperCase()}
-        </h1>
+    <section>
+      <h1 className="font-medium text-xl mb-8 tracking-tighter">
+        Hi,
+        {session?.fullname.toUpperCase()}
+      </h1>
+      <hr className="my-8 border-neutral-400 dark:border-neutral-600" />
+      <GetKVList />
+      <hr className="my-8 border-neutral-400 dark:border-neutral-600" />
+      <h2 className="text-lg my-8"># Delete Guestbook Entries</h2>
+      <Suspense fallback={<p>Loading...</p>}>
+        <Form entries={entries} />
+      </Suspense>
+      <hr className="my-8 border-neutral-400 dark:border-neutral-600" />
+      <h2 className="text-xl my-8"># Send Email</h2>
+      <Suspense fallback={<p>Loading...</p>}>
+        <Emailform />
+        {!!msgCookie && (
+          <span>{JSON.parse(JSON.stringify(msgCookie)).value as string}</span>
+        )}
+      </Suspense>
+      <hr className="my-8 border-neutral-400 dark:border-neutral-600" />
+      <h2 className="text-xl my-8"># Upload to S3</h2>
+      <Suspense fallback={<p>Loading...</p>}>
+        <UploadComponent />
         <hr className="my-8 border-neutral-400 dark:border-neutral-600" />
-        <GetKVList />
-        <hr className="my-8 border-neutral-400 dark:border-neutral-600" />
-        <h2 className="text-lg my-8"># Delete Guestbook Entries</h2>
-        <Suspense fallback={<p>Loading...</p>}>
-          <Form entries={entries} />
-        </Suspense>
-        <hr className="my-8 border-neutral-400 dark:border-neutral-600" />
-        <h2 className="text-xl my-8"># Send Email</h2>
-        <Suspense fallback={<p>Loading...</p>}>
-          <Emailform />
-          {!!msgCookie && (
-            <span>{JSON.parse(JSON.stringify(msgCookie)).value as string}</span>
-          )}
-        </Suspense>
-        <hr className="my-8 border-neutral-400 dark:border-neutral-600" />
-        <h2 className="text-xl my-8"># Upload to S3</h2>
-        <Suspense fallback={<p>Loading...</p>}>
-          <UploadComponent />
-          <hr className="my-8 border-neutral-400 dark:border-neutral-600" />
-          <UploadHistory />
-        </Suspense>
-      </section>
-    </>
+        <UploadHistory />
+      </Suspense>
+    </section>
   );
 }
 
