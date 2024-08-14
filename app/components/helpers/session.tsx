@@ -1,5 +1,5 @@
 import { cookies } from 'next/headers';
-import { decryptToken, verifyPasetoToken } from './paseto';
+import { decryptToken } from './paseto';
 export async function Session() {
   let session: any;
   const profileToken = cookies().get('profileToken')?.value || '';
@@ -17,6 +17,5 @@ export async function Session() {
   } else {
     session = null;
   }
-  // console.log(session);
   return session;
 }

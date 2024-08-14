@@ -35,9 +35,14 @@ export async function increment(slug: string) {
 export async function saveGuestbookEntry(formData: FormData) {
   let session = await Session();
   let email = session?.email as string;
-  let created_by = session?.full_name as string;
-  let image = session?.avatar as string;
-  if (!session.email || !session.full_name || !session.userid) {
+  let fullname = (session?.fullname || session?.username) as string;
+  let avatar = session?.avatar as string;
+  if (
+    !session.email ||
+    !session.fullname ||
+    !session.userid ||
+    !session.username
+  ) {
     throw new Error('Unauthorized');
   }
   let entry = formData.get('entry')?.toString() || '';
@@ -45,14 +50,15 @@ export async function saveGuestbookEntry(formData: FormData) {
   try {
     const state = generateState();
     const token = await encryptToken({ state });
-    const url = 'https://api.kapil.app/api/guestbook/send?' + `state=${state}`;
+    const url =
+      process.env.API_URL! + '/api/guestbook/send?' + `state=${state}`;
     const request = await fetch(url, {
       method: 'POST',
       body: JSON.stringify({
         userid: session.userid,
         email,
-        fullname: created_by,
-        avatar: image,
+        fullname,
+        avatar,
         message: body,
       }),
       headers: {
