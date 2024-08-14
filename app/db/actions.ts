@@ -38,13 +38,11 @@ export async function saveGuestbookEntry(formData: FormData) {
   let fullname = (session?.fullname ||
     session?.full_name ||
     session?.username) as string;
-  let avatar = session?.avatar as string;
-  if (
-    !session.email ||
-    !session.fullname ||
-    !session.userid ||
-    !session.username
-  ) {
+  let avatar =
+    session?.avatar ||
+    `https://ui-avatars.com/api/?background=random&name=${session?.fullname}` ||
+    `https://ui-avatars.com/api/?background=random&name=${session?.username}`;
+  if (!session.email) {
     throw new Error('Unauthorized');
   }
   let entry = formData.get('entry')?.toString() || '';
