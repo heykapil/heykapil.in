@@ -51,7 +51,7 @@ export async function saveGuestbookEntry(formData: FormData) {
     const state = generateState();
     const token = await encryptToken({ state });
     const url =
-      process.env.API_URL! + '/api/guestbook/send?' + `state=${state}`;
+      process.env.API_URL! + '/api/guestbook/submit?' + `state=${state}`;
     const request = await fetch(url, {
       method: 'POST',
       body: JSON.stringify({
