@@ -1,67 +1,20 @@
 'use client';
-import React, { useEffect, useRef, useState } from 'react';
+import { useFormState } from 'react-dom';
 import { Register } from 'app/db/actions';
 import { SubmitButton } from '../guestbook/SubmitButton';
 import Link from 'next/link';
-
-function isEmailValid(email: string) {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return emailRegex.test(email);
-}
-
-function testUsername(u: string) {
-  return /^[0-9A-Za-z]{6,16}$/.test(u);
-}
-
-function testPassword(p: string) {
-  return (
-    /^(?=.*?[0-9])(?=.*?[A-Za-z]).{8,32}$/.test(p) &&
-    /^(?=.*?[0-9])(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[^0-9A-Za-z]).{8,32}$/.test(p)
-  );
-}
-
+import { EMPTY_FORM_STATE } from 'app/components/helpers/to-form-state';
+import { FieldError } from 'app/components/helpers/fieldError';
+import { useToastMessage } from 'app/components/helpers/form-reset-toast';
+import { useFormReset } from 'app/components/helpers/form-reset-toast';
 const RegisterForm = ({ callBackUrl }: { callBackUrl: string }) => {
-  const formRef = useRef<HTMLFormElement>(null);
-  const [usernameAvaliable, setusernameAvailiable] = useState(false);
-  const [emailAvaliable, setemailAvailiable] = useState(false);
-  const [formData, setformData] = useState({
-    full_name: '',
-    email: '',
-    username: '',
-    password: '',
-  });
-  useEffect(() => {
-    if (formData.username.length >= 3) {
-      fetch(
-        process.env.API_URL! + `/api/user/taken?username=${formData.username}`,
-        {
-          method: 'POST',
-        },
-      )
-        .then((res) => res.json())
-        .then((data: any) => {
-          setusernameAvailiable(data.ok || false);
-        });
-    }
-  }, [formData.username]);
-  useEffect(() => {
-    if (formData.email.length >= 3 && isEmailValid(formData.email)) {
-      fetch(
-        process.env.API_URL + `/api/user/taken?username=${formData.email}`,
-        {
-          method: 'POST',
-        },
-      )
-        .then((res) => res.json())
-        .then((data: any) => {
-          setemailAvailiable(data.ok || false);
-        });
-    }
-  }, [formData.email]);
+  const [formState, action] = useFormState(Register, EMPTY_FORM_STATE);
+  const noScriptFallback = useToastMessage(formState);
+  const formRef = useFormReset(formState);
   return (
     <>
       <form
-        action={Register}
+        action={action}
         ref={formRef}
         className="flex flex-col space-y-1 mb-10 my-2 gap-2 max-w-lg"
       >
@@ -73,18 +26,10 @@ const RegisterForm = ({ callBackUrl }: { callBackUrl: string }) => {
             minLength={3}
             maxLength={50}
             placeholder="John Doe"
-            value={formData.full_name}
-            onChange={(e) =>
-              setformData({ ...formData, full_name: e.target.value })
-            }
             required
             autoFocus
           />
-          <span className="absolute inset-y-0 end-0 grid place-content-center px-4">
-            <label htmlFor="full_name" className="text-neutral-500">
-              {formData.full_name.length > 3 ? <span>✅</span> : 'Full name'}
-            </label>
-          </span>
+          <FieldError formState={formState} name="title" />
         </div>
         <div className="relative">
           <input
@@ -92,73 +37,34 @@ const RegisterForm = ({ callBackUrl }: { callBackUrl: string }) => {
             className="p-2 caret-current focus:ring-neutral-500 focus:border-neutral-600 dark:focus:border-neutral-400 focus:outline-none block w-full border border-neutral-300 dark:border-neutral-700 rounded-md bg-gray-100 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100"
             name="email"
             minLength={3}
-            maxLength={100}
-            value={formData.email}
-            onChange={(e) => {
-              setformData({ ...formData, email: e.target.value });
-            }}
+            maxLength={50}
             placeholder="my-name@email.com"
             required
           />
-          <span className="absolute inset-y-0 end-0 grid place-content-center px-4">
-            <label htmlFor="email" className="text-neutral-500">
-              {emailAvaliable && isEmailValid(formData.email) ? (
-                <span>✅</span>
-              ) : (
-                'Email address'
-              )}
-            </label>
-          </span>
+          <FieldError formState={formState} name="email" />
         </div>
         <div className="relative">
           <input
             type="text"
             className="p-2 caret-current focus:ring-neutral-500 focus:border-neutral-600 dark:focus:border-neutral-400 focus:outline-none block w-full border border-neutral-300 dark:border-neutral-700 rounded-md bg-gray-100 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100"
             name="username"
-            value={formData.username}
-            onChange={(e) => {
-              setformData({ ...formData, username: e.target.value });
-            }}
-            minLength={3}
+            minLength={5}
             placeholder="john123"
             required
           />
-          <span className="absolute inset-y-0 end-0 grid place-content-center px-4">
-            <label htmlFor="username" className="text-neutral-500">
-              {usernameAvaliable &&
-              formData.username.length >= 3 &&
-              testUsername(formData.username) ? (
-                <span>✅</span>
-              ) : (
-                'Username'
-              )}
-            </label>
-          </span>
+          <FieldError formState={formState} name="username" />
         </div>
         <div className="relative">
           <input
             type="password"
             className="p-2 caret-current focus:ring-neutral-500 focus:border-neutral-600 dark:focus:border-neutral-400 focus:outline-none block w-full border border-neutral-300 dark:border-neutral-700 rounded-md bg-gray-100 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100"
             name="password"
-            minLength={3}
+            minLength={8}
             maxLength={50}
-            value={formData.password}
-            onChange={(e) =>
-              setformData({ ...formData, password: e.target.value })
-            }
             placeholder="123abc!@#"
             required
           />
-          <span className="absolute inset-y-0 end-0 grid place-content-center px-4">
-            <label htmlFor="password" className="text-neutral-500">
-              {testPassword(formData.password) &&
-              formData.password.length >= 3 ? (
-                <span>✅</span>
-              ) : (
-                'Password'
-              )}
-            </label>
-          </span>
+          <FieldError formState={formState} name="password" />
         </div>
         <div className="space-y-0">
           <div className="mb-10">
@@ -186,6 +92,7 @@ const RegisterForm = ({ callBackUrl }: { callBackUrl: string }) => {
             </SubmitButton>
           </div>
         </div>
+        {noScriptFallback}
       </form>
       <div className="mb-6 max-w-lg border-t-2 border-opacity-50 border-neutral-500" />
       <p className="my-6 text-md font-medium text-neutral-700 dark:text-neutral-300">

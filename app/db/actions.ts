@@ -6,6 +6,11 @@ import { cookies } from 'next/headers';
 import { Session } from 'app/components/helpers/session';
 import { redirect } from 'next/navigation';
 import {
+  loginSchema,
+  saveGuestbookEntrySchema,
+  registerSchema,
+} from 'app/db/zschema';
+import {
   encryptToken,
   decryptToken,
   verifyPasetoToken,
@@ -13,6 +18,17 @@ import {
 } from 'app/components/helpers/paseto';
 import { generateRandomUUID } from 'app/components/helpers/uuid';
 import { generateState } from 'app/components/helpers/random';
+import {
+  FormState,
+  toFormState,
+  fromErrorToFormState,
+} from 'app/components/helpers/to-form-state';
+
+const cookieOptions = {
+  httpOnly: true,
+  sameSite: true,
+  secure: process.env.NODE_ENV === 'production' ? true : false,
+};
 
 export async function increment(slug: string) {
   const state = generateState();
@@ -32,18 +48,13 @@ export async function increment(slug: string) {
   const path = '/' + slug.replace(',', '/');
   revalidatePath(path);
 }
+
 export async function saveGuestbookEntry(formData: FormData) {
   let session = await Session();
-  let email = session?.email as string;
-  let fullname = (session?.fullname ||
-    session?.full_name ||
-    session?.username) as string;
-  let avatar =
-    session?.avatar ||
-    `https://ui-avatars.com/api/?background=random&name=${session?.fullname}` ||
-    `https://ui-avatars.com/api/?background=random&name=${session?.username}`;
   if (!session.email) {
-    throw new Error('Unauthorized');
+    return fromErrorToFormState(
+      'Error! You must be logged in to post a message.',
+    );
   }
   let entry = formData.get('entry')?.toString() || '';
   let body = entry.slice(0, 500);
@@ -52,26 +63,32 @@ export async function saveGuestbookEntry(formData: FormData) {
     const token = await encryptToken({ state });
     const url =
       process.env.API_URL! + '/api/guestbook/submit?' + `state=${state}`;
+    const data = saveGuestbookEntrySchema.parse({
+      userid: session?.userid || session?.username,
+      email: session?.email as string,
+      fullname: (session?.fullname ||
+        session?.full_name ||
+        session?.username) as string,
+      avatar:
+        session?.avatar ||
+        `https://ui-avatars.com/api/?background=random&name=${session?.fullname}` ||
+        `https://ui-avatars.com/api/?background=random&name=${session?.username}`,
+      message: body,
+    });
     const request = await fetch(url, {
       method: 'POST',
-      body: JSON.stringify({
-        userid: session?.userid || session?.username,
-        email,
-        fullname,
-        avatar,
-        message: body,
-      }),
+      body: JSON.stringify(data),
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
     });
-    const response = await request.json();
-    console.log(response);
-    revalidatePath(`/guestbook`);
+    await request.json();
   } catch (error: any) {
-    throw new Error(error.message);
+    return fromErrorToFormState(error);
   }
+  revalidatePath(`/guestbook`);
+  return toFormState('SUCCESS', 'message created');
 }
 
 export async function deleteGuestbookEntries(selectedEntries: string[]) {
@@ -192,152 +209,119 @@ export async function sendEmail(formData: FormData) {
   }
 }
 
-export async function Login(formData: FormData) {
-  let username = formData.get('username') as string;
-  let password = formData.get('password') as string;
-  cookies().set('state', generateState(), {
-    httpOnly: process.env.NODE_ENV === 'production',
-    secure: process.env.NODE_ENV === 'production',
-    expires: new Date(Date.now() + 60 * 1000),
-  });
-  const state = cookies().get('state')?.value as string;
-  if (username.length < 3 || password.length < 3) {
-    cookies().set({
-      name: 'LoginCookie',
-      value: 'Input both username and password',
-      httpOnly: true,
-      secure: true,
-      expires: new Date(Date.now() + 5 * 1000),
-    });
-  }
+export async function Login(formState: FormState, formData: FormData) {
   try {
-    if (username.length >= 3 && password.length >= 3) {
-      const stateToken = await encryptToken(
-        { state },
-        {
-          expiresIn: '60s',
+    const state = generateState();
+    cookies().set('state', state, {
+      ...cookieOptions,
+      expires: new Date(Date.now() + 60 * 1000),
+    });
+    const stateToken = await encryptToken(
+      { state },
+      {
+        expiresIn: '60s',
+      },
+    );
+    const credentials = loginSchema.parse({
+      username: formData.get('username') as string,
+      password: formData.get('password') as string,
+    });
+    const data = await fetch(
+      process.env.API_URL + '/api/user/login?' + `state=${state}`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-state': stateToken as string,
+          'x-user-agent': cookies().get('userAgent')?.value as string,
+          'x-ipaddress': cookies().get('sessionIP')?.value as string,
+          'x-location': cookies().get('sessionLocation')?.value as string,
         },
-      );
-      const data = await fetch(
-        process.env.API_URL + '/api/user/login?' + `state=${state}`,
-        {
+        body: JSON.stringify(credentials),
+      },
+    );
+    const response = await data.json();
+    if (response.ok) {
+      const rstate = data.headers.get('x-state') as string;
+      const dstate = (await decryptToken(rstate))?.state as string;
+      const userid = (
+        await verifyPasetoToken({
+          token: response.token.access_token,
+        })
+      )?.id as string;
+      if (dstate === state) {
+        const sessionId = generateRandomUUID();
+        const sessionData = await fetch(process.env.API_URL + '/api/session', {
           method: 'POST',
+          body: JSON.stringify({
+            sessionid: sessionId,
+            usertype: 'Credentials',
+            id: userid,
+          }),
           headers: {
             'Content-Type': 'application/json',
-            'x-state': stateToken as string,
+            Authorization: `Bearer ${response.token.access_token}`,
             'x-user-agent': cookies().get('userAgent')?.value as string,
             'x-ipaddress': cookies().get('sessionIP')?.value as string,
             'x-location': cookies().get('sessionLocation')?.value as string,
           },
-          body: JSON.stringify({
-            username,
-            password,
-          }),
-        },
-      );
-      const response = await data.json();
-      if (response.ok) {
-        const rstate = data.headers.get('x-state') as string;
-        const dstate = (await decryptToken(rstate))?.state as string;
-        const userid = (
-          await verifyPasetoToken({
-            token: response.token.access_token,
-          })
-        )?.id as string;
-        if (dstate === state) {
-          const sessionId = generateRandomUUID();
-          const sessionData = await fetch(
-            process.env.API_URL + '/api/session',
-            {
-              method: 'POST',
-              body: JSON.stringify({
-                sessionid: sessionId,
-                usertype: 'Credentials',
-                id: userid,
-              }),
-              headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${response.token.access_token}`,
-                'x-user-agent': cookies().get('userAgent')?.value as string,
-                'x-ipaddress': cookies().get('sessionIP')?.value as string,
-                'x-location': cookies().get('sessionLocation')?.value as string,
-              },
-            },
-          );
-          await sessionData.json();
-
-          cookies().set({
-            name: 'sessionId',
-            value: sessionId,
-            httpOnly: process.env.NODE_ENV === 'production' ? true : false,
-            sameSite: 'lax',
-            secure: process.env.NODE_ENV === 'production' ? true : false,
-            expires: new Date(response.token.refresh_expiry),
-          });
-          cookies().set({
-            name: 'accessToken',
-            value: response.token.access_token,
-            httpOnly: process.env.NODE_ENV === 'production' ? true : false,
-            sameSite: 'lax',
-            secure: process.env.NODE_ENV === 'production' ? true : false,
-            expires: new Date(response.token.access_expiry),
-          });
-          cookies().set({
-            name: 'refreshToken',
-            value: response.token.refresh_token,
-            httpOnly: process.env.NODE_ENV === 'production' ? true : false,
-            sameSite: 'lax',
-            secure: process.env.NODE_ENV === 'production' ? true : false,
-            expires: new Date(response.token.refresh_expiry),
-          });
-          cookies().set({
-            name: 'profileToken',
-            value: response.token.profile_token,
-            httpOnly: process.env.NODE_ENV === 'production' ? true : false,
-            sameSite: 'lax',
-            secure: process.env.NODE_ENV === 'production' ? true : false,
-            expires: new Date(response.token.profile_expiry),
-          });
-          cookies().set({
-            name: 'LoginCookie',
-            value: 'Success',
-            httpOnly: process.env.NODE_ENV === 'production' ? true : false,
-            expires: new Date(Date.now() + 10 * 1000),
-          });
-          cookies().delete('state');
-        }
-      } else {
+        });
+        await sessionData.json();
+        cookies().set({
+          name: 'sessionId',
+          value: sessionId,
+          ...cookieOptions,
+          expires: new Date(response.token.refresh_expiry),
+        });
+        cookies().set({
+          name: 'accessToken',
+          value: response.token.access_token,
+          ...cookieOptions,
+          expires: new Date(response.token.access_expiry),
+        });
+        cookies().set({
+          name: 'refreshToken',
+          value: response.token.refresh_token,
+          ...cookieOptions,
+          expires: new Date(response.token.refresh_expiry),
+        });
+        cookies().set({
+          name: 'profileToken',
+          value: response.token.profile_token,
+          ...cookieOptions,
+          expires: new Date(response.token.profile_expiry),
+        });
         cookies().set({
           name: 'LoginCookie',
-          value: response.error,
-          httpOnly: process.env.NODE_ENV === 'production' ? true : false,
+          value: 'Success',
+          ...cookieOptions,
           expires: new Date(Date.now() + 10 * 1000),
         });
-        cookies().delete('profileToken');
-        cookies().delete('refreshToken');
-        cookies().delete('accessToken');
         cookies().delete('state');
       }
+      return toFormState('SUCCESS', 'Login successfully!');
     }
+    console.log(response);
+    return toFormState('ERROR', response.error);
   } catch (error: any) {
-    throw new Error(error.message);
+    return fromErrorToFormState(error);
   }
 }
 
-export async function Register(formData: FormData) {
-  const username = formData.get('username')?.toString();
-  const password = formData.get('password')?.toString();
-  const email = formData.get('email')?.toString();
-  const fullname = formData.get('full_name')?.toString();
+export async function Register(formState: FormState, formData: FormData) {
+  // await new Promise((resolve) => setTimeout(resolve, 250));
+  const credentials = registerSchema.parse({
+    username: formData.get('username')?.toString(),
+    password: formData.get('password')?.toString(),
+    email: formData.get('email')?.toString(),
+    fullname: formData.get('full_name')?.toString(),
+  });
   const state = generateState();
   cookies().set('state', state, {
-    httpOnly: process.env.NODE_ENV === 'production',
-    secure: process.env.NODE_ENV === 'production',
+    ...cookieOptions,
     expires: new Date(Date.now() + 60 * 1000),
   });
-  const avatar =
-    formData.get('avatar')?.toString() ||
-    `https://ui-avatars.com/api/?background=random&name=${fullname}`;
+  const avatar = `https://ui-avatars.com/api/?background=random&name=${credentials.fullname}`;
   const role = 'user';
   try {
     const stateToken = await encryptToken(
@@ -358,10 +342,7 @@ export async function Register(formData: FormData) {
           'x-location': cookies().get('sessionLocation')?.value as string,
         },
         body: JSON.stringify({
-          username,
-          password,
-          fullname,
-          email,
+          ...credentials,
           avatar,
           role,
         }),
@@ -371,14 +352,13 @@ export async function Register(formData: FormData) {
     cookies().set({
       name: 'RegisterCookie',
       value: response.message || response.error || 'Something went wrong!',
-      httpOnly: process.env.NODE_ENV === 'production' ? true : false,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: true,
+      ...cookieOptions,
       expires: new Date(Date.now() + 10 * 1000),
     });
   } catch (error: any) {
-    throw new Error(error);
+    return fromErrorToFormState(error);
   }
+  return toFormState('SUCCESS', 'Registration successful!');
 }
 
 export async function Logout({ callback }: { callback?: string }) {
@@ -389,14 +369,13 @@ export async function Logout({ callback }: { callback?: string }) {
   cookies().delete('state');
   cookies().delete('csrfToken');
   redirect(callback || '/signin?success=succesfully logged out!');
-  return;
+  return toFormState('SUCCESS', 'Logout successful!');
 }
 
 export async function ChangePass(formData: FormData) {
   const oldPassword = formData.get('oldPass')?.toString();
   const newPassword = formData.get('newPass')?.toString();
   const accessToken = cookies()?.get('accessToken')?.value || '';
-
   const id = (await verifyPasetoToken({ token: accessToken }))?.id || '';
   try {
     const state = generateState();
@@ -436,8 +415,7 @@ export async function ChangePass(formData: FormData) {
     cookies().set({
       name: 'ChangePassCookie',
       value: response.message || response.error || 'Something went wrong!',
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
+      ...cookieOptions,
       expires: new Date(Date.now() + 10 * 1000),
     });
   } catch (error: any) {
@@ -450,8 +428,7 @@ export async function ForgotPass(formData: FormData) {
   try {
     const state = generateState();
     cookies().set('state', state, {
-      httpOnly: process.env.NODE_ENV === 'production',
-      secure: process.env.NODE_ENV === 'production',
+      ...cookieOptions,
       expires: new Date(Date.now() + 60 * 1000),
     });
     const stateToken = await encryptToken(
