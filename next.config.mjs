@@ -1,17 +1,21 @@
 const nextConfig = {
-  // output: "standalone", // mine worked fine without this line
   experimental: {
     // ppr: true,
-    useLightningcss: true,
     serverActions: {
       allowedOrigins: ["api.kapil.app", "api2.kapil.app"],
     },
+    transpilePackages: ['next-mdx-remote'],
+    logging: {
+       fetches: {
+         fullUrl: true,
+       },
+     },
   },
   images: {
     remotePatterns: [
       { hostname: "s3.tebi.io" },
       { hostname: "s3.kapil.app" },
-      {hostname: "bkpl5hem.dev.cdn.imgeng.in"},
+      { hostname: "bkpl5hem.dev.cdn.imgeng.in" },
       { hostname: "cdn2.kapil.app" },
       { hostname: "images.unsplash.com" },
       { hostname: "cdn.kapil.app" },

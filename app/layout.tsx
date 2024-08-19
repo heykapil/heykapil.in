@@ -1,13 +1,8 @@
 import './global.css';
 import type { Metadata } from 'next';
-// import { GeistSans } from 'geist/font/sans';
-// import { GeistMono } from 'geist/font/mono';
 import { Lato } from 'next/font/google';
 import { Navbar } from './components/nav';
-import { IpLogger } from './IpLogger';
-import { Suspense } from 'react';
 import ToastProvider from 'app/components/toast-provider';
-
 export const metadata: Metadata = {
   metadataBase: new URL('https://kapil.app'),
   title: {
