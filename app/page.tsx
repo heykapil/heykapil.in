@@ -104,7 +104,7 @@ export default async function Page() {
                 )}
                 href={spotifyData.songUrl}
               >
-                <p className="font-semibold mt-1 text-sm h-12 mr-2 text-clip overflow-hidden">
+                <p className="font-semibold mt-1 text-sm h-6 mr-2 text-clip overflow-hidden">
                   {spotifyData.title}
                 </p>
                 <ArrowIcon />
