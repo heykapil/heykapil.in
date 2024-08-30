@@ -31,4 +31,4 @@ updated: 2024-08-20T02:08:33+05:30
 - Doubt kills more dreams than failure ever will.
 - Talent is cheaper than table salt. What separates the talented individual from the successful one is a lot of hard work.
 - It takes more courage to reveal insecurities than to hide them, more strength to relate to people than to dominate them, more ‘manhood’ to abide by thought-out principles rather than blind reflex. Toughness is in the soul and spirit, not in muscles and an immature mind
--
+- Untill death, all deafeats are psychlogical.
