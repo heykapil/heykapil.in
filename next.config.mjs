@@ -12,7 +12,10 @@ const nextConfig = {
      },
   },
   images: {
+    loader: 'custom',
+    loaderFile: './app/components/helpers/gumlet.ts',
     remotePatterns: [
+      {hostname: 'kapil.gumlet.io'},
       { hostname: "s3.tebi.io" },
       { hostname: "s3.kapil.app" },
       { hostname: "bkpl5hem.dev.cdn.imgeng.in" },
