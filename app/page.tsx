@@ -133,7 +133,7 @@ export default async function Page() {
         <div className="relative h-40 mb-4 sm:mb-0">
           <Image
             alt="Department of Mathematics, Gujarat University, Ahmedabad"
-            src="https://cdn.kapil.app/images/kapiljch-20221120.webp"
+            src="https://cf.kapil.app/images/kapiljch-20221120.webp"
             sizes="(max-width: 768px) 213px, 33vw"
             className="rounded-lg absolute h-full w-full object-cover"
             priority
@@ -143,7 +143,7 @@ export default async function Page() {
         <div className="relative h-40 mb-4">
           <Image
             alt="Musmuna Village"
-            src="https://cdn.kapil.app/images/kapiljch-20220503-0001.jpg"
+            src="https://cf.kapil.app/images/kapiljch-20220503-0001.jpg"
             sizes="(max-width: 768px) 213px, 33vw"
             className="rounded-lg absolute h-full w-full object-cover"
             priority
@@ -153,7 +153,7 @@ export default async function Page() {
         <div className="relative h-80">
           <Image
             alt="Gujarat University, Ahmedabad"
-            src="https://cdn.kapil.app/images/kapiljch-20221008.jpeg"
+            src="https://cf.kapil.app/images/kapiljch-20221008.jpeg"
             sizes="(min-width: 768px) 213px, 33vw"
             className="rounded-lg absolute h-full w-full object-cover"
             fill

@@ -1,5 +1,5 @@
 export default function gumletLoader({ src, width, quality }) {
-  if (src.includes('cdn.kapil.app')) {
+  if (src.includes('cf.kapil.app')) {
     let parsedUrl = new URL(src);
     parsedUrl.hostname = 'kapil.gumlet.io';
     parsedUrl.searchParams.set('w', width);
