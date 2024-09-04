@@ -240,6 +240,83 @@ server {
 }
 ```
 
+Using custom acme clients like google public certificates.
+
+- Create a google cloud account and enable the Public certificate API. Follow [this guide](https://cloud.google.com/certificate-manager/docs/public-ca-tutorial) to get `EAB_KID` and `EAB_HMAC_KEY`
+
+- Register an account with public CA using the following certbot command
+
+```
+certbot register \
+    --email "EMAIL_ADDRESS" \
+    --no-eff-email \
+    --server "https://dv.acme-v02.api.pki.goog/directory" \
+    --eab-kid "EAB_KID" \
+    --eab-hmac-key "EAB_HMAC_KEY"
+```
+
+- Now, we need to prove the ownership of the domain through various acme challanges to make sure CA can issue the certificate to us. For this, we will use dns method. Create a token with the dns provider of domain with read and write access of your dns records.
+- In case of cloudflare, [create a token](https://dash.cloudflare.com/profile/api-tokens).
+- Install plugin of certbot to automate this process of validating dns records for dns provider (here cloudflare)
+
+```
+sudo apt install python3-cloudflare python3-certbot-dns-cloudflare
+```
+
+- Create Cloudflare crenditial file with the created token
+
+```
+cd ~
+sudo mkdir /etc/cloudflare
+cd /etc/cloudflare
+sudo touch credential.ini
+sudo nano credential.ini
+```
+
+with following details
+
+```
+dns_cloudflare_api_token = YOUR TOKEN
+```
+
+- Protect this file
+
+```
+cd ~
+sudo chmod 0600 /etc/cloudflare/credential.ini
+```
+
+- Issuance of certificate and installation
+
+```
+# only issues certificate
+sudo certbot certonly \
+  --dns-cloudflare \
+  --dns-cloudflare-credentials /etc/cloudflare/credential.ini
+  -d mydomain.com,*.mydomain.com
+  --server 'https://dv.acme-v02.api.pki.goog/directory'
+
+# changes nginx config file to use the issued certificate
+sudo cerbot install
+
+```
+- Test, Reload and restart the nginx
+- View and delete the certificate
+
+```
+sudo certbot certificates
+
+sudo certbot delete -d domain.tld
+
+# After deleting make sure to modify nginx config file, otherwise test will fail.
+
+sudo nginx -t
+```
+
+```
+
+```
+
 Planned in next post that will discuss about:
 
 - [Caching static content and Gzip compression](gzip-browser-cache-nginx.md)
