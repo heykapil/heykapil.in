@@ -5,6 +5,7 @@ import { randomUUID } from 'crypto';
 import { cookies } from 'next/headers';
 import { Session } from 'app/components/helpers/session';
 import { redirect } from 'next/navigation';
+import { redis } from 'app/components/helpers/redis';
 import {
   loginSchema,
   saveGuestbookEntrySchema,
@@ -23,6 +24,8 @@ import {
   toFormState,
   fromErrorToFormState,
 } from 'app/components/helpers/to-form-state';
+import { randomHex } from 'app/components/helpers/randomHex';
+import { generateSession } from 'app/components/helpers/generateSession';
 
 const cookieOptions = {
   httpOnly: true,
@@ -250,7 +253,7 @@ export async function Login(formState: FormState, formData: FormData) {
         })
       )?.id as string;
       if (dstate === state) {
-        const sessionId = generateRandomUUID();
+        const sessionId = generateSession();
         const sessionData = await fetch(process.env.API_URL + '/api/session', {
           method: 'POST',
           body: JSON.stringify({
@@ -267,6 +270,9 @@ export async function Login(formState: FormState, formData: FormData) {
           },
         });
         await sessionData.json();
+        const connection = await redis();
+        await connection.set(userid, sessionId, 'EX', 60 * 60 * 24 * 7);
+        await connection.quit();
         cookies().set({
           name: 'sessionId',
           value: sessionId,
