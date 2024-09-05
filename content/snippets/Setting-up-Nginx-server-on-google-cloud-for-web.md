@@ -114,7 +114,7 @@ updated: 2023-12-14T18:14:00
     }
     }
     ```
-<Callout emoji="ℹ️">
+<Callout emoji="💡">
 <b>Note that:</b>
  1. You can replace external-ip `xx.xxx.xxx.xxx` with your subdomain/domain if you have pointed the domain in the DNS configuration to this ip address.
  2. As NextJS app runs on 3000 port on `localhost`. So, we are using reverse proxy to listen http port 80 to this.
