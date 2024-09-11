@@ -1,6 +1,7 @@
 {
   "private": true,
   "scripts": {
+    "build:digitalocean": "npm install --force && npm run build && npm ci",
     "dev": "next dev",
     "build": "next build",
     "build-only": "next build",
