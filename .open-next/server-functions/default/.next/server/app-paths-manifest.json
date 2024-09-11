@@ -1,0 +1,23 @@
+{
+  "/_not-found/page": "app/_not-found/page.js",
+  "/robots.txt/route": "app/robots.txt/route.js",
+  "/(auth)/callback/oauth/page": "app/(auth)/callback/oauth/page.js",
+  "/(auth)/forgot-pass/page": "app/(auth)/forgot-pass/page.js",
+  "/(auth)/profile/page": "app/(auth)/profile/page.js",
+  "/(auth)/register/page": "app/(auth)/register/page.js",
+  "/(auth)/signout/page": "app/(auth)/signout/page.js",
+  "/(auth)/verifyEmail/page": "app/(auth)/verifyEmail/page.js",
+  "/(auth)/signin/page": "app/(auth)/signin/page.js",
+  "/(posts)/musing/[slug]/page": "app/(posts)/musing/[slug]/page.js",
+  "/(posts)/snippet/[slug]/page": "app/(posts)/snippet/[slug]/page.js",
+  "/(posts)/quotes/[slug]/page": "app/(posts)/quotes/[slug]/page.js",
+  "/extras/cookie/page": "app/extras/cookie/page.js",
+  "/page": "app/page.js",
+  "/extras/privacy/page": "app/extras/privacy/page.js",
+  "/(auth)/admin/page": "app/(auth)/admin/page.js",
+  "/(auth)/guestbook/page": "app/(auth)/guestbook/page.js",
+  "/(posts)/musing/page": "app/(posts)/musing/page.js",
+  "/(posts)/quotes/page": "app/(posts)/quotes/page.js",
+  "/(posts)/snippet/page": "app/(posts)/snippet/page.js",
+  "/(posts)/work/page": "app/(posts)/work/page.js"
+}
