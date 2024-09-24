@@ -214,6 +214,26 @@ export async function sendEmail(formData: FormData) {
 
 export async function Login(formState: FormState, formData: FormData) {
   try {
+    const hash = formData.get('hash') as string;
+    const text = formData.get('captcha') as string;
+    if (!hash || !text) {
+      return toFormState('ERROR', 'Invalid captcha');
+    }
+    const verifyCaptcha = await fetch(
+      `http://localhost:3001` +
+        '/api/captcha/verify' +
+        `?hash=${hash}` +
+        `&text=${text}`,
+      {
+        method: 'POST',
+        body: JSON.stringify({ hash, text }),
+      },
+    );
+    const responseCaptcha = await verifyCaptcha.json();
+    console.log(responseCaptcha);
+    if (!responseCaptcha.success) {
+      return toFormState('ERROR', 'Invalid captcha');
+    }
     const state = generateState();
     cookies().set('state', state, {
       ...cookieOptions,

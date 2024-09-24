@@ -4,7 +4,7 @@ import { Login } from 'app/db/actions';
 import Link from 'next/link';
 import { SubmitButton } from '../guestbook/SubmitButton';
 import { redirect } from 'next/navigation';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { EMPTY_FORM_STATE } from 'app/components/helpers/to-form-state';
 import { FieldError } from 'app/components/helpers/fieldError';
 import { useToastMessage } from 'app/components/helpers/form-reset-toast';
@@ -16,10 +16,27 @@ export function LoginForm({
   message: string;
   callBackUrl: string;
 }) {
+  const [captcha, setCaptcha] = useState('');
+  const [hash, setHash] = useState('');
+  const [captchaInput, setCaptchaInput] = useState('');
   const [formState, action] = useFormState(Login, EMPTY_FORM_STATE);
   const [hidden, setHidden] = useState<boolean>(true);
   const noScriptFallback = useToastMessage(formState);
   const formRef = useFormReset(formState);
+  useEffect(() => {
+    fetchCaptcha();
+  }, []);
+
+  const fetchCaptcha = async () => {
+    const req = await fetch('http://localhost:3001/api/captcha/generate', {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    const res = await req.json();
+    setCaptcha(res.captcha);
+    setHash(res.hash);
+  };
   return (
     <form
       action={action}
@@ -125,8 +142,28 @@ export function LoginForm({
           </button>
         </span>
       </div>
-      <div className="space-y-10 max-w-lg mb-10">
-        <div>
+      <div className="flex flex-row my-2 space-y-2 max-w-lg">
+        {/* <span className="flex place-self-end mr-3">Captcha: </span> */}
+        <div
+          className="flex bg-white"
+          dangerouslySetInnerHTML={{ __html: captcha }}
+        />
+        <button
+          type="button"
+          className="flex place-self-center ml-2 text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 focus:outline-none focus:ring focus:ring-neutral-500 focus:ring-opacity-50 dark:focus:ring-neutral-400 dark:focus:ring-opacity-50 transition-colors"
+          onClick={fetchCaptcha}
+        >
+          <svg
+            fill="currentColor"
+            height="20px"
+            width="20px"
+            version="1.1"
+            viewBox="0 0 489.533 489.533"
+          >
+            <path d="M268.175,488.161c98.2-11,176.9-89.5,188.1-187.7c14.7-128.4-85.1-237.7-210.2-239.1v-57.6c0-3.2-4-4.9-6.7-2.9 l-118.6,87.1c-2,1.5-2,4.4,0,5.9l118.6,87.1c2.7,2,6.7,0.2,6.7-2.9v-57.5c87.9,1.4,158.3,76.2,152.3,165.6 c-5.1,76.9-67.8,139.3-144.7,144.2c-81.5,5.2-150.8-53-163.2-130c-2.3-14.3-14.8-24.7-29.2-24.7c-17.9,0-31.9,15.9-29.1,33.6 C49.575,418.961,150.875,501.261,268.175,488.161z" />
+          </svg>
+        </button>
+        <div className="flex ml-auto">
           <Link
             className="text-sm font-medium text-neutral-700 dark:text-neutral-300 hover:underline hover:underline-offset-2"
             href="/forgot-pass"
@@ -134,6 +171,24 @@ export function LoginForm({
             Forgot password?
           </Link>
         </div>
+      </div>
+      <div>
+        <label>
+          <input
+            placeholder="Captcha"
+            className="p-2 max-w-48 caret-current focus:ring-neutral-500 focus:border-neutral-600 dark:focus:border-neutral-400 focus:outline-none block w-full border border-neutral-300 dark:border-neutral-700 rounded-md bg-neutral-50 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100"
+            name="captcha"
+            type="text"
+            value={captchaInput}
+            onChange={(e) => setCaptchaInput(e.target.value)}
+            required
+          />
+          <input type="hidden" className="hidden" name="hash" value={hash} />
+        </label>
+        <FieldError formState={formState} name="captcha" />
+      </div>
+      <div className="py-2" />
+      <div className="space-y-10 max-w-lg mb-10">
         <div className="text-sm flex justify-between items-center">
           <Link
             className="px-3 py-2 border border-opacity-50 border-neutral-900 dark:border-pink-50 text-sm rounded-md font-semibold hover:border-black/[0.9] dark:hover:border-white/[0.9] hover:shadow-lg"
