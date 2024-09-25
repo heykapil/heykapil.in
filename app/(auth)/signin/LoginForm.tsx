@@ -28,7 +28,7 @@ export function LoginForm({
   }, []);
 
   const fetchCaptcha = async () => {
-    const req = await fetch('http://localhost:3001/api/captcha/generate', {
+    const req = await fetch('https://api.kapil.app/api/captcha/generate', {
       headers: {
         'Content-Type': 'application/json',
       },

@@ -220,7 +220,7 @@ export async function Login(formState: FormState, formData: FormData) {
       return toFormState('ERROR', 'Invalid captcha');
     }
     const verifyCaptcha = await fetch(
-      `http://localhost:3001` +
+      `https://api.kapil.app` +
         '/api/captcha/verify' +
         `?hash=${hash}` +
         `&text=${text}`,
@@ -230,7 +230,6 @@ export async function Login(formState: FormState, formData: FormData) {
       },
     );
     const responseCaptcha = await verifyCaptcha.json();
-    console.log(responseCaptcha);
     if (!responseCaptcha.success) {
       return toFormState('ERROR', 'Invalid captcha');
     }
