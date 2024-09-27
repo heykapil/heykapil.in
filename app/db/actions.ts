@@ -219,16 +219,10 @@ export async function Login(formState: FormState, formData: FormData) {
     if (!hash || !text) {
       return toFormState('ERROR', 'Invalid captcha');
     }
-    const verifyCaptcha = await fetch(
-      `https://api.kapil.app` +
+    const verifyCaptcha = await fetch(process.env.API_URL! +
         '/api/captcha/verify' +
         `?hash=${hash}` +
-        `&text=${text}`,
-      {
-        method: 'POST',
-        body: JSON.stringify({ hash, text }),
-      },
-    );
+        `&text=${text}`);
     const responseCaptcha = await verifyCaptcha.json();
     if (!responseCaptcha.success) {
       return toFormState('ERROR', 'Invalid captcha');
