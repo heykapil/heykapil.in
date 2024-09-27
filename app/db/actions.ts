@@ -190,7 +190,7 @@ export async function sendEmail(formData: FormData) {
         expiresIn: '60s',
       },
     );
-    const data = await fetch('https://api.kapil.app/api/sendEmail', {
+    const data = await fetch(process.env.API_URL + '/api/sendEmail', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -219,10 +219,12 @@ export async function Login(formState: FormState, formData: FormData) {
     if (!hash || !text) {
       return toFormState('ERROR', 'Invalid captcha');
     }
-    const verifyCaptcha = await fetch(process.env.API_URL! +
+    const verifyCaptcha = await fetch(
+      process.env.API_URL! +
         '/api/captcha/verify' +
         `?hash=${hash}` +
-        `&text=${text}`);
+        `&text=${text}`,
+    );
     const responseCaptcha = await verifyCaptcha.json();
     if (!responseCaptcha.success) {
       return toFormState('ERROR', 'Invalid captcha');

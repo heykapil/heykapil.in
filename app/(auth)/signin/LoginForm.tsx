@@ -23,20 +23,22 @@ export function LoginForm({
   const [hidden, setHidden] = useState<boolean>(true);
   const noScriptFallback = useToastMessage(formState);
   const formRef = useFormReset(formState);
+
+  useEffect(() => {
+    fetchCaptcha();
+  }, [formState]);
+
   useEffect(() => {
     fetchCaptcha();
   }, []);
 
   const fetchCaptcha = async () => {
-    const req = await fetch('https://api.kapil.app/api/captcha/generate', {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+    const req = await fetch('https://api.kapil.app/api/captcha/generate');
     const res = await req.json();
     setCaptcha(res.captcha);
     setHash(res.hash);
   };
+
   return (
     <form
       action={action}
