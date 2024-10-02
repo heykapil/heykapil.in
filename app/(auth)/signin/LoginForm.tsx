@@ -28,10 +28,6 @@ export function LoginForm({
     fetchCaptcha();
   }, [formState]);
 
-  useEffect(() => {
-    fetchCaptcha();
-  }, []);
-
   const fetchCaptcha = async () => {
     const req = await fetch('https://api.kapil.app/api/captcha/generate');
     const res = await req.json();
