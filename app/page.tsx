@@ -14,7 +14,7 @@ export default async function Page() {
       </h1>
       <p className="prose prose-neutral dark:prose-invert">
         <Suspense fallback={null}>
-          {`I'm a ${birthdayData.years} old research scholar at Gujarat university. I am currently working as Junior Research Fellow in the area of
+          {`I'm a ${birthdayData.years} old research scholar at Gujarat university. I am currently working as Senior Research Fellow in the area of
               fractional-order dynamical systems and epidemiology. `}
         </Suspense>
         {`My suporvisior is `}
