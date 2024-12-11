@@ -32,3 +32,6 @@ updated: 2024-11-28T18:08:33+05:30
 25. Never force or beg for sex; it must always be pleasurable for both partners. However, take control on some even days to show your dominance.
 26. No-one, I mean no-one, (including your parents) should insult your partner in front of you, take it as a slap on your self-esteem.
 27. Understand the dark psychology and [manipulation techinques](https://www.verywellmind.com/manipulation-in-marriage-2302245) used by the partners. Avoid or seek help, such things may(most of times, it will) impact your mental health and test your will power.
+28. Love one girl blindly and soon the same will teach you why you need to have five.
+29. Show your anger and aggression (when you feel broken in the relationship) in the gym by lifting weights and dumbells. Train as much as you can, as much as you body hurts.
+30. Women likes men with bigger arms, it is similar to men liking bigger boobs. Hit gyms and lift dumbells.
