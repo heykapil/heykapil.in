@@ -20,3 +20,15 @@ updated: 2024-11-28T18:08:33+05:30
 13. Never lend money to your friends and relatives (including your in-laws). Forget about the money (it's not coming back to you), even your relationship with your friend/relative going to be soon worse/finished. Don't even be the guarantor of their loans.
 14. You’re not special. You’re quite an average person. Don’t try to be an exception-you’ll fail.
 15. Looks do matter, so go to the gym, burn fat, be in good shape and get some muscles. Wear and smell good.
+16. When you speak with someone, try to see your reflection in other persons eyes. this will make you apppear imposing.
+17. When someone else is speaking, listen and when when you speak make sure then listen.
+18. In moments of chaos, remain calm. Thanks to the clarity of your mind, you will be the winner.
+19. If you are insulted, dont get upset, just silently look into other people's eyes and they will notice your power.
+20. Smile with your eyes, more than your mouth/lips.
+21. Never answer immediately to anything (either text/call or direct). Take few seconds and responds accurately. silence is power.
+22. Walk with your shoulders back and spine straight. It shows comfort.
+23. Speak more slowly. This is a sign of confidence and assurance.
+24. Text someone like your message will be read in an open court someday. Dance like no one is watching.
+25. Never force or beg for sex; it must always be pleasurable for both partners. However, take control on some even days to show your dominance.
+26. No-one, I mean no-one, (including your parents) should insult your partner in front of you, take it as a slap on your self-esteem.
+27. Understand the dark psychology and [manipulation techinques](https://www.verywellmind.com/manipulation-in-marriage-2302245) used by the partners. Avoid or seek help, such things may(most of times, it will) impact your mental health and test your will power.
