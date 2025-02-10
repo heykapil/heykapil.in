@@ -6,7 +6,8 @@ export default async function Page() {
   const birthdayData = await getBirthdayData();
   const spotifyData = await getSpotifyData();
   const uptimeData = await getUptimeStatus();
-  let isDown = uptimeData.state.regions?.se_asia?.status !== 'UP';
+  // let isDown = uptimeData?.state?.regions?.se_asia?.status !== 'UP';
+  
   return (
     <section>
       <h1 className="font-medium text-2xl mb-8 tracking-tighter animate-fade-right">
@@ -236,40 +237,7 @@ export default async function Page() {
               <ArrowIcon />
               <p className="h-7 ml-2">twitter</p>
             </a>
-          </li>
-          <li>
-            <a
-              className="flex items-baseline hover:text-neutral-800 dark:hover:text-neutral-100 space-x-2 transition-all"
-              rel="noopener noreferrer"
-              target="_blank"
-              href="https://status.kapil.app"
-            >
-              <Suspense fallback={<p className="h-7"></p>}>
-                <p className="flex items-center h-7">
-                  <span className="relative flex h-4 w-4">
-                    <span
-                      className={clsx(
-                        isDown ? 'bg-red-500' : 'bg-green-500',
-                        'animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75',
-                      )}
-                    ></span>
-                    <span
-                      className={clsx(
-                        isDown ? 'bg-red-500' : 'bg-green-500',
-                        'relative inline-flex rounded-full h-4 w-4',
-                      )}
-                    ></span>
-                  </span>
-                  <span className="w-2 animate-fade-up"></span>
-                  {uptimeData.state
-                    ? uptimeData.state.regions.se_asia
-                        .thirty_day_uptime_percentage
-                    : null}
-                  % ⇧{' '}
-                </p>
-              </Suspense>
-            </a>
-          </li>
+          </li>  
         </ul>
       </div>
     </section>
