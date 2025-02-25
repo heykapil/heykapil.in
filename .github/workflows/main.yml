@@ -1,9 +1,29 @@
 name: Ping Supabase to Prevent Pausing
 
+ 
 on:
   schedule:
     - cron: '0 9 * * 1,4' # Runs at 9:00 AM every Monday and Thursday
-
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'warning'
+        type: choice
+        options:
+        - info
+        - warning
+        - debug
+      tags:
+        description: 'Test scenario tags'
+        required: false
+        type: boolean
+      environment:
+        description: 'Environment to run tests against'
+        type: environment
+        required: true
+        
 jobs:
   ping:
     runs-on: ubuntu-latest
