@@ -147,3 +147,98 @@ function [t, x, y] = ABCpredatorprey(a, b, c, d, alpha, beta, tspan, x0, y0, dt)
     end
 end
 ```
+
+
+```matlab title=sensitivity_morris_ode45.m
+%% Parameter and Morris Method Setup
+% Define parameter names and bounds [min, max] for a, b, c, d
+param_names = {'a','b','c','d'};
+lb = [0.5, 0.5, 0.5, 0.5];    % example lower bounds
+ub = [2.0, 2.0, 2.0, 2.0];    % example upper bounds
+
+p = numel(param_names);      % number of parameters (here 4)
+r = 10;                      % number of Morris trajectories (sample paths)
+delta = 0.2;                 % step size (in normalized [0,1] space)
+% Initialize arrays to collect elementary effects for each parameter
+effects = zeros(r, p);
+
+% Seed the random number generator for reproducibility
+rng(0);  % (Octave: rand('seed',0);)
+
+%% Predator-Prey Model Definition
+% Lotka-Volterra system: dx/dt = a*x - b*x*y; dy/dt = c*x*y - d*y
+% Define a function handle for simulation
+predatorPrey = @(t, y, a, b, c, d) [ ...
+    a*y(1) - b*y(1)*y(2); ...
+    c*y(1)*y(2) - d*y(2) ];
+
+% Simulation settings
+tspan = [0, 30];             % time span for ODE integration
+y0 = [40; 9];                % initial [prey; predator] populations
+
+%% Generate Morris Sample Trajectories and Compute Effects
+for k = 1:r
+    % Random base point in [0,1]^p for trajectory k
+    x_base = rand(1, p);
+    % Convert base point to actual parameter values
+    params_base = lb + x_base .* (ub - lb);
+    % Simulate model at base point
+    % Note: solve ODE using ode45 (MATLAB) or lsode/ode45 (Octave)
+    [~, Y_base] = ode45(@(t,y) predatorPrey(t, y, ...
+                           params_base(1), params_base(2), ...
+                           params_base(3), params_base(4)), tspan, y0);
+    % Compute output metric (e.g. max predator population)
+    f_base = max(Y_base(:,2));
+    
+    % Randomize the order of parameter perturbation in this trajectory
+    order = randperm(p);
+    for j = 1:p
+        i = order(j);  % parameter index to perturb
+        % Determine perturbation direction: +Δ if possible, else -Δ
+        if x_base(i) <= 1 - delta
+            x_new = x_base;
+            x_new(i) = x_base(i) + delta;
+        else
+            x_new = x_base;
+            x_new(i) = x_base(i) - delta;
+        end
+        % Convert new point to parameter values
+        params_new = lb + x_new .* (ub - lb);
+        % Simulate model at new point
+        [~, Y_new] = ode45(@(t,y) predatorPrey(t, y, ...
+                              params_new(1), params_new(2), ...
+                              params_new(3), params_new(4)), tspan, y0);
+        f_new = max(Y_new(:,2));  % output metric at perturbed point
+        
+        % Compute elementary effect for parameter i (difference quotient)
+        % Using Δ in the normalized space, so effect = (f_new - f_base)/Δ
+        effects(k, i) = (f_new - f_base) / delta;
+        
+        % Update base point for next step in the same trajectory
+        x_base = x_new;
+        f_base = f_new;
+    end
+end
+
+%% Compute Sensitivity Indices (μ and σ)
+mu = mean(effects, 1);         % mean elementary effect for each param
+sigma = std(effects, 0, 1);    % std deviation of effects for each param
+
+%% Plot the Results as a Bar Graph
+figure;
+bar(mu, 'FaceColor', [0.6 0.8 1.0]);  % colored bars for μ
+hold on;
+% Add error bars for σ on each bar
+errorbar(1:p, mu, sigma, '.k', 'LineWidth', 1.5);
+hold off;
+xticks(1:p);
+xticklabels(param_names);
+xlabel('Parameter');
+ylabel('Mean elementary effect \mu');
+title('Morris Sensitivity Analysis (Mean \mu with Std \sigma)');
+grid on;
+
+% Optional: draw a horizontal line at zero
+yline(0, '--k');
+```
+
