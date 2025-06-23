@@ -32,3 +32,10 @@ updated: 2024-08-20T02:08:33+05:30
 - Talent is cheaper than table salt. What separates the talented individual from the successful one is a lot of hard work.
 - It takes more courage to reveal insecurities than to hide them, more strength to relate to people than to dominate them, more ‘manhood’ to abide by thought-out principles rather than blind reflex. Toughness is in the soul and spirit, not in muscles and an immature mind
 - Untill death, all deafeats are psychlogical.
+- - Teach your sons that even when a girl/woman is crying, she can still be lying.
+- Even when you trust your wife, close friends, and family, never tell them everything.
+- A man’s downfall is rarely caused by his enemies. It’s caused by his inability to sit in a room alone, without validation, without noise, with only his thoughts. Master that silence, and no opponent can ever truly own you.
+- One minute of anger, lust, and greed can ruin decades of your hard work.
+- Porn is a graveyard for undisciplined men. It’s where your energy, drive, and confidence go to rot. You don’t conquer porn by deleting apps. You conquer it by resurrecting your fucking purpose. You kill the addiction the moment you realize: You weren’t horny. you were empty. You didn’t need realese but you needed direction. You weren’t craving her body, you were running from your own reflection.
+- Ejaculation makes you weak. Your willpower, motivation, minerals, vitamins and others are lost in each ejaculation. Staying horny makes you powerful. Don't spill your seed, save it for a well deserving submissive woman. Use your energy and direct it to meaningful things. Control over urges builds discipline and power to fuel your growth.
+- As a man, you need to build relationships with: doctors, lawyers, investors, accountants, police officers, Fitness/gym freaks, real estate dealers.
