@@ -178,7 +178,7 @@ Your VM will be provisioning in the OCI console. You can now log in using the SS
 
 ## Action Workflow code:
 
-```
+```yaml
 name: Try to Create OCI VM
 # It will run every 5 minutes.
 on:
