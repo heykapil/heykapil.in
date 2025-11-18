@@ -1,11 +1,9 @@
 ---
 id: f2f241f2-cb3f-47c8-8510-501be786b430
-title: Self hosting overleaf on arm instance
+title: Self-Hosting Overleaf (Community Edition) on Oracle Free Tier (ARM) using Dokploy
 created: 2025-11-18T00:00:00Z
 updated: 2025-11-18T00:00:00Z
 ---
-
-# Self-Hosting Overleaf (Community Edition) on Oracle Free Tier (ARM) using Dokploy
 
 Deploying Overleaf (ShareLaTeX) on Oracle Cloud's ARM (Ampere) instances requires a bit of custom configuration because the official Docker images are built for x86 architecture. Additionally, setting up the required MongoDB Replica Set and persistent volumes in a containerized environment can be tricky.
 
