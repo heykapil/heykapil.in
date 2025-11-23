@@ -1,80 +1,101 @@
+import { components } from 'app/components/mdx';
 import fs from 'fs';
+import matter from 'gray-matter';
+import { compileMDX } from 'next-mdx-remote/rsc';
 import path from 'path';
+// Define the base path to your content inside the app directory
+const BASE_PATH = path.join(process.cwd(), 'content');
 
-type Metadata = {
+export type Metadata = {
   title: string;
   created: string;
   updated: string;
   summary: string;
+  slug: string;
   archived?: string;
+  private?: boolean;
   image?: string;
-  private?: string;
 };
 
-function parseFrontmatter(fileContent: string) {
-  let frontmatterRegex = /---\s*([\s\S]*?)\s*---/;
-  let match = frontmatterRegex.exec(fileContent);
-  let frontMatterBlock = match![1];
-  let content = fileContent.replace(frontmatterRegex, '').trim();
-  let frontMatterLines = frontMatterBlock.trim().split('\n');
-  let metadata: Partial<Metadata> = {};
-
-  frontMatterLines.forEach((line) => {
-    let [key, ...valueArr] = line.split(': ');
-    let value = valueArr.join(': ').trim();
-    value = value.replace(/^['"](.*)['"]$/, '$1'); // Remove quotes
-    metadata[key.trim() as keyof Metadata] = value;
-  });
-
-  return { metadata: metadata as Metadata, content };
+// 1. Helper to read a directory
+function getMDXFiles(dir: string) {
+  const dirPath = path.join(BASE_PATH, dir);
+  if (!fs.existsSync(dirPath)) return [];
+  return fs.readdirSync(dirPath).filter(file => path.extname(file) === '.md');
 }
 
-function getMDXFiles(dir) {
-  return fs
-    .readdirSync(dir)
-    .filter(
-      (file) =>
-        path.extname(file) === '.md' && path.basename(file) !== 'index.md',
-    );
-}
-
-function readMDXFile(filePath) {
-  let rawContent = fs.readFileSync(filePath, 'utf-8');
-  return parseFrontmatter(rawContent);
-}
-
-// function extractTweetIds(content) {
-//   let tweetMatches = content.match(/<StaticTweet\sid="[0-9]+"\s\/>/g);
-//   return tweetMatches?.map((tweet) => tweet.match(/[0-9]+/g)[0]) || [];
-// }
-
-function getMDXData(dir) {
+// 2. Get a List of Posts (Lightweight - used for listing pages)
+// Only reads frontmatter, doesn't compile MDX
+export function getMDXData(dir: string) {
   let mdxFiles = getMDXFiles(dir);
-  return mdxFiles.map((file) => {
-    let { metadata, content } = readMDXFile(path.join(dir, file));
-    let slug = path.basename(file, path.extname(file));
-    // let tweetIds = extractTweetIds(content);
+
+  return mdxFiles.map(file => {
+    let filePath = path.join(BASE_PATH, dir, file);
+    let { data } = matter(fs.readFileSync(filePath, 'utf-8'));
+
     return {
-      metadata,
-      slug,
-      // tweetIds,
-      content,
-    };
+      ...data,
+      slug: path.basename(file, path.extname(file)),
+    } as Metadata;
   });
 }
 
-export function getBlogPosts() {
-  return getMDXData(path.join(process.cwd(), 'content/posts'));
+// 3. Get a Single Post (Heavyweight - used for the [slug] page)
+// Returns the compiled React Component + Metadata
+export async function getPost(dir: string, slug: string) {
+  const filePath = path.join(BASE_PATH, dir, `${slug}.md`);
+
+  if (!fs.existsSync(filePath)) {
+    return null;
+  }
+
+  const source = fs.readFileSync(filePath, 'utf-8');
+
+  // const options = {
+  //   theme: 'one-dark-pro',
+  //   defaultLang: 'plaintext',
+  //   keepBackground: false,
+  // };
+
+  // compileMDX parses frontmatter AND turns markdown into React
+  const { content, frontmatter } = await compileMDX<Metadata>({
+    source,
+    options: {
+      parseFrontmatter: true,
+      mdxOptions: {
+        rehypePlugins: [],
+      },
+    },
+    components: components,
+  });
+
+  return {
+    content,
+    metadata: { ...frontmatter, slug },
+  };
 }
 
 export function getSnippetPosts() {
-  return getMDXData(path.join(process.cwd(), 'content/snippets'));
-}
-
-export function getExtraPosts() {
-  return getMDXData(path.join(process.cwd(), 'content/extra'));
+  return getMDXData('snippets');
 }
 
 export function getQuotes() {
-  return getMDXData(path.join(process.cwd(), 'content/quotes'));
+  return getMDXData('quotes');
+}
+
+// Helper to get a specific snippet by slug directly
+export async function getSnippet(slug: string) {
+  return getPost('snippets', slug);
+}
+
+export function getExtraPosts() {
+  return getMDXData('extra');
+}
+
+export function getBlogPosts() {
+  return getMDXData('blog');
+}
+
+export async function getBlog(slug: string) {
+  return getPost('blog', slug);
 }

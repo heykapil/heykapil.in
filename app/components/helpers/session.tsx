@@ -1,35 +1,22 @@
+'use server';
 import { cookies } from 'next/headers';
-import { decryptToken } from './paseto';
-// import { redis } from './redis';
-// import { Logout } from 'app/db/actions';
-// import { redirect } from 'next/navigation';
-export async function Session() {
-  let session: any;
-  const profileToken = cookies().get('profileToken')?.value || '';
-  const sessionId = cookies().get('sessionId')?.value || '';
-  const accessToken = cookies().get('accessToken')?.value || '';
-  const refreshToken = cookies().get('refreshToken')?.value || '';
-  if (!sessionId || !accessToken || !refreshToken || !profileToken) {
-    session = null;
+import { verifyJWT } from './jose';
+
+export async function getSession() {
+  const cookie = await cookies();
+  const secureCookie: boolean =
+    process.env.BETTER_AUTH_URL?.startsWith('https://') || false;
+  const cookiePrefix = secureCookie ? '__Secure-' : '';
+  const session_token =
+    cookie.get(`${cookiePrefix}kapil.app.session_token`)?.value || '';
+  const session_data =
+    cookie.get(`${cookiePrefix}kapil.app.sessionData`)?.value || '';
+  if (!session_token || !session_data) return null;
+  try {
+    const session = await verifyJWT(session_data);
+    return session;
+  } catch (e: any) {
+    console.log(e);
+    return null;
   }
-  if (profileToken && (!sessionId || !accessToken || !refreshToken)) {
-    session = null;
-  }
-  if (profileToken) {
-    session = await decryptToken(profileToken);
-    // const decodedToken = await decryptToken(profileToken);
-    // const pool = await redis();
-    // const redissessionId = await pool.get(decodedToken?.userid);
-    // console.log(redissessionId);
-    // if (redissessionId === sessionId) {
-    //   session = decodedToken;
-    // } else {
-    //   session = null;
-    //   redirect('/signout?error=Session Expired');
-    // }
-    // await pool.quit();
-  } else {
-    session = null;
-  }
-  return session;
 }

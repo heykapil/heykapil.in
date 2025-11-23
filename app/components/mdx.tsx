@@ -1,9 +1,8 @@
-import Link from "next/link";
-import Image from "next/image";
-import { MDXRemote } from "next-mdx-remote/rsc";
-// import { TweetComponent } from './tweet';
-import { highlight } from "sugar-high";
-import React from "react";
+import { MDXRemote } from 'next-mdx-remote/rsc';
+import Image from 'next/image';
+import Link from 'next/link';
+import React from 'react';
+import { highlight } from 'sugar-high';
 
 function Table({ data }) {
   let headers = data.headers.map((header, index) => (
@@ -30,7 +29,7 @@ function Table({ data }) {
 function CustomLink(props) {
   let href = props.href;
 
-  if (href.startsWith("/")) {
+  if (href.startsWith('/')) {
     return (
       <Link href={href} {...props}>
         {props.children}
@@ -38,7 +37,7 @@ function CustomLink(props) {
     );
   }
 
-  if (href.startsWith("#")) {
+  if (href.startsWith('#')) {
     return <a {...props} />;
   }
 
@@ -63,7 +62,7 @@ function ProsCard({ title, pros }) {
     <div className="border border-emerald-200 dark:border-emerald-900 bg-neutral-50 dark:bg-neutral-900 rounded-xl p-6 my-4 w-full">
       <span>{`You might use ${title} if...`}</span>
       <div className="mt-4">
-        {pros.map((pro) => (
+        {pros.map(pro => (
           <div key={pro} className="flex font-medium items-baseline mb-2">
             <div className="h-4 w-4 mr-2">
               <svg className="h-4 w-4 text-emerald-500" viewBox="0 0 24 24">
@@ -92,7 +91,7 @@ function ConsCard({ title, cons }) {
     <div className="border border-red-200 dark:border-red-900 bg-neutral-50 dark:bg-neutral-900 rounded-xl p-6 my-6 w-full">
       <span>{`You might not use ${title} if...`}</span>
       <div className="mt-4">
-        {cons.map((con) => (
+        {cons.map(con => (
           <div key={con} className="flex font-medium items-baseline mb-2">
             <div className="h-4 w-4 mr-2">
               <svg
@@ -122,10 +121,10 @@ function slugify(str) {
     .toString()
     .toLowerCase()
     .trim() // Remove whitespace from both ends of a string
-    .replace(/\s+/g, "-") // Replace spaces with -
-    .replace(/&/g, "-and-") // Replace & with 'and'
-    .replace(/[^\w\-]+/g, "") // Remove all non-word characters except for -
-    .replace(/\-\-+/g, "-"); // Replace multiple - with single -
+    .replace(/\s+/g, '-') // Replace spaces with -
+    .replace(/&/g, '-and-') // Replace & with 'and'
+    .replace(/[^\w\-]+/g, '') // Remove all non-word characters except for -
+    .replace(/\-\-+/g, '-'); // Replace multiple - with single -
 }
 
 function createHeading(level) {
@@ -135,18 +134,18 @@ function createHeading(level) {
       `h${level}`,
       { id: slug },
       [
-        React.createElement("a", {
+        React.createElement('a', {
           href: `#${slug}`,
           key: `link-${slug}`,
-          className: "anchor",
+          className: 'anchor',
         }),
       ],
-      children
+      children,
     );
   };
 }
 
-let components = {
+export let components = {
   h1: createHeading(1),
   h2: createHeading(2),
   h3: createHeading(3),

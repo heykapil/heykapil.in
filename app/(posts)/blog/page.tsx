@@ -1,48 +1,39 @@
 import { formatShortDate } from 'app/components/helpers/format-date';
-import { getSnippetPosts } from 'app/db/blog';
+import { getBlogPosts } from 'app/db/blog';
 import Link from 'next/link';
 import { Suspense } from 'react';
 
 export const metadata = {
-  title: 'Snippets',
+  title: 'Blog',
   description: 'Read my thoughts on software development, design, and more.',
 };
 
-export default function SnippetPage() {
-  let allSnippets = getSnippetPosts();
-
+export default function BlogPage() {
+  let allBlogs = getBlogPosts();
   return (
     <div>
       <h1 className="animate-fade-right mb-8 text-2xl font-medium tracking-tighter">
-        Snippets
+        Blog
       </h1>
-      {/* <p className="mb-8 text-gray-500">
-        Snippets are small pieces of code that I use in my projects. They are
-        usually not big enough to be a blog post, but I still want to share them
-        with the world.
-      </p> */}
       <section className="group/section">
-        <div className="group-hover/section:text-zinc-400 dark:group-hover/section:text-[#656565]">
-          {allSnippets
+        <div className="group-hover/section:text-[#a1a1aa] dark:group-hover/section:text-[#656565]">
+          {allBlogs
             .sort((a, b) => {
               if (new Date(a.created) > new Date(b.created)) {
                 return -1;
               }
               return 1;
             })
-            .filter(post => post.archived !== 'true')
+            .filter(post => post.archived !== 'true' && post.private !== true)
             .map(post => (
               <Link
                 key={post.slug}
-                className="group/item group flex flex-col space-y-1 border-b border-neutral-100 dark:border-neutral-900 border-opacity-20 py-4 transition duration-[300ms]  ease-out hover:text-black hover:duration-[50ms] dark:hover:text-white"
-                href={`/snippet/${post.slug}`}
+                className="group/item group flex flex-col space-y-1 border-b border-gray-100 dark:border-gray-900  py-4 transition duration-300  ease-out hover:text-black hover:duration-[50ms] dark:hover:text-white"
+                href={`/blog/${post.slug}`}
               >
                 <div className="flex w-full flex-col justify-between md:flex-row">
                   <p className="overflow-hidden overflow-ellipsis whitespace-nowrap tracking-tight">
-                    {post.title}{' '}
-                    {(post.private || post.archived) && (
-                      <span className="ml-[-2]">🔐</span>
-                    )}
+                    {post.title}
                   </p>
                   <Suspense
                     fallback={
@@ -76,8 +67,6 @@ export default function SnippetPage() {
                     </div>
                   </Suspense>
                 </div>
-                {/* <Views slug={`snippet/${post.slug}`} /> */}
-                {/* {post.metadata.created} */}
               </Link>
             ))}
         </div>

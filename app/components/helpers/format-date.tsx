@@ -49,7 +49,7 @@ export function formatDate(date: string) {
 
 export function formatShortDate(date: string) {
   let currentDate = new Date();
-  if (!date.includes("T")) {
+  if (!date.toString().includes("T")) {
     date = `${date}T00:00:00`;
   }
   let targetDate = new Date(date);

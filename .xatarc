@@ -1,6 +1,0 @@
-{
-  "databaseURL": "https://Kapil-Chaudhary-s-workspace-kmmi3f.ap-southeast-2.xata.sh/db/kapil",
-  "codegen": {
-    "output": "app/db/xata.ts"
-  }
-}

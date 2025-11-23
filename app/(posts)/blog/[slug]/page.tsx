@@ -1,18 +1,17 @@
-import ViewCounter from 'app/(posts)/blog/view-counter';
 import { formatDate } from 'app/components/helpers/format-date';
 import { increment } from 'app/db/actions';
-import { getPost, getSnippetPosts } from 'app/db/blog';
+import { getBlogPosts, getPost } from 'app/db/blog';
 import { getViewsCount } from 'app/db/queries';
 import { unstable_noStore } from 'next/cache';
 import { notFound } from 'next/navigation';
 import { cache } from 'react';
-
+import ViewCounter from '../view-counter';
 type Props = {
   params: Promise<{ slug: string }>;
 };
 
 export async function generateStaticParams() {
-  let posts = getSnippetPosts();
+  let posts = getBlogPosts();
   return posts.map(post => ({
     slug: post.slug,
   }));
@@ -20,7 +19,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata(props: Props) {
   const params = await props.params;
-  const post = await getPost('snippets', params.slug);
+  const post = await getPost('blog', params.slug);
   if (!post) return;
   return {
     title: post.metadata.title,
@@ -28,12 +27,12 @@ export async function generateMetadata(props: Props) {
   };
 }
 
-export default async function SnippetPost(props: Props) {
+export default async function BlogPost(props: Props) {
   const params = await props.params;
 
   try {
     // @ts-ignore
-    const { content, metadata } = await getPost('snippets', params.slug);
+    const { content, metadata } = await getPost('blog', params.slug);
 
     return (
       <article className="mt-0">
@@ -45,7 +44,7 @@ export default async function SnippetPost(props: Props) {
             <p className="text-sm text-neutral-500">
               {formatDate(metadata.created)}
             </p>
-            <Views slug={`snippet,${metadata.slug}`} />
+            <Views slug={`musing,${metadata.slug}`} />
           </div>
         </header>
         <div className="prose prose-neutral dark:prose-invert mt-8">

@@ -1,6 +1,5 @@
-import { queryBuilder } from './db';
-import { generateState } from 'app/components/helpers/random';
 import { signPasetoToken } from 'app/components/helpers/paseto';
+import { generateState } from 'app/components/helpers/random';
 export const getViewsCount = async (slug: string) => {
   const state = generateState();
   const payload = { state };
@@ -12,12 +11,3 @@ export const getViewsCount = async (slug: string) => {
   const count = data?.value?.value || 0;
   return count;
 };
-
-export async function getUploadHistory() {
-  const data = await queryBuilder
-    .selectFrom('uploads')
-    .select(['id', 'name', 'size', 'uploaded_at', 'url'])
-    .limit(100)
-    .execute();
-  return data;
-}

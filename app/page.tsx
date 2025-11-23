@@ -1,13 +1,12 @@
 import clsx from 'clsx';
-import styles from './Music.module.css';
-import { Suspense } from 'react';
 import Image from 'next/image';
+import { Suspense } from 'react';
+import styles from './Music.module.css';
 export default async function Page() {
   const birthdayData = await getBirthdayData();
   const spotifyData = await getSpotifyData();
   const uptimeData = await getUptimeStatus();
-  // let isDown = uptimeData?.state?.regions?.se_asia?.status !== 'UP';
-  
+
   return (
     <section>
       <h1 className="font-medium text-2xl mb-8 tracking-tighter animate-fade-right">
@@ -237,7 +236,7 @@ export default async function Page() {
               <ArrowIcon />
               <p className="h-7 ml-2">twitter</p>
             </a>
-          </li>  
+          </li>
         </ul>
       </div>
     </section>
