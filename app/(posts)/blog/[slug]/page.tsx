@@ -47,7 +47,7 @@ export default async function BlogPost(props: Props) {
             <Views slug={`musing,${metadata.slug}`} />
           </div>
         </header>
-        <div className="prose prose-neutral dark:prose-invert mt-8">
+        <div className="mt-8 prose prose-neutral dark:prose-invert max-w-none  prose-headings:font-semibold prose-headings:tracking-tighter prose-h1:text-3xl prose-a:text-blue-600 dark:prose-a:text-blue-400 prose-code:text-pink-600 prose-img:rounded-xl">
           {content}
         </div>
       </article>

@@ -40,7 +40,7 @@ export default async function QuotesPost(props: Props) {
             {formatDate(metadata.created)}
           </p>
         </header>
-        <div className="prose prose-neutral dark:prose-invert mt-8">
+        <div className="prose prose-neutral dark:prose-invert mt-8 w-full max-w-none">
           {content}
         </div>
       </article>

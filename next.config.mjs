@@ -1,4 +1,5 @@
 const nextConfig = {
+  // output: 'export',
   experimental: {
     // ppr: true,
     serverActions: {
@@ -23,43 +24,6 @@ const nextConfig = {
       { hostname: 'fastly.kapil.app' },
       { hostname: 'cdn.kapil.app' },
     ],
-  },
-  async redirects() {
-    return [
-      {
-        source: '/:path*',
-        has: [{ type: 'host', value: 'www.kapil.app' }],
-        destination: 'https://kapil.app/:path*',
-        permanent: true,
-      },
-      {
-        source: '/:path*',
-        has: [{ type: 'host', value: 'www.heykapil.in' }],
-        destination: 'https://kapil.app/:path*',
-        permanent: true,
-      },
-      {
-        source: '/:path*',
-        has: [{ type: 'host', value: 'heykapil.in' }],
-        destination: 'https://kapil.app/:path*',
-        permanent: true,
-      },
-      {
-        source: '/api/spotify/:slug*',
-        destination: 'https://api.kapil.app/api/spotify/:slug*', // Matched parameters can be used in the destination
-        permanent: false,
-      },
-      {
-        source: '/og/:slug*',
-        destination: 'https://og.kapil.app/api/og/:slug*', // Matched parameters can be used in the destination
-        permanent: false,
-      },
-      {
-        source: '/login',
-        destination: '/signin',
-        permanent: true,
-      },
-    ];
   },
   headers() {
     return [

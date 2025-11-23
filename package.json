@@ -1,6 +1,5 @@
 {
   "author": "Kapil Chaudhary",
-  "type": "module",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -13,7 +12,6 @@
     "@radix-ui/react-label": "^2.1.8",
     "@tabler/icons-react": "^3.35.0",
     "@tailwindcss/postcss": "^4.1.17",
-    "@tailwindcss/typography": "^0.5.19",
     "@types/node": "^24.10.1",
     "@types/react": "^19.2.6",
     "@types/react-dom": "^19.2.3",

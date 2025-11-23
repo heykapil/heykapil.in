@@ -1,4 +1,6 @@
-@import 'tailwindcss';
+@import "tailwindcss";
+/* @import '@tailwindcss-animated' */
+@plugin "@tailwindcss/typography";
 
 ::selection {
   background-color: #47a3f3;
@@ -28,8 +30,11 @@
   }
 }
 
+
 html {
   min-width: 360px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 h1,
@@ -39,7 +44,6 @@ h2 {
 
 .prose .anchor {
   @apply absolute invisible no-underline;
-
   margin-left: -1em;
   padding-right: 0.5em;
   width: 80%;
@@ -60,7 +64,7 @@ h2 {
   content: '#';
 }
 
-.prose *:hover > .anchor {
+.prose *:hover>.anchor {
   @apply visible;
 }
 
@@ -97,10 +101,37 @@ h4 {
   @apply font-medium;
 }
 
-.prose > :first-child {
+.prose> :first-child {
   /* Override removing top margin, causing layout shift */
   margin-top: 1.25em;
   margin-bottom: 1.25em;
+}
+
+.prose ul {
+  list-style-type: disc;
+  padding-left: 1.625em;
+  margin-top: 1.25em;
+  margin-bottom: 1.25em;
+}
+
+.prose ol {
+  list-style-type: decimal;
+  padding-left: 1.625em;
+  margin-top: 1.25em;
+  margin-bottom: 1.25em;
+}
+
+.prose li {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  padding-left: 0.375em;
+}
+
+/* Added !important to win the specificity war against Tailwind Dark Mode */
+.prose ul>li::marker,
+.prose ol>li::marker {
+  color: var(--primary) !important;
+  font-weight: bold;
 }
 
 pre::-webkit-scrollbar {
@@ -134,7 +165,7 @@ table {
   white-space: nowrap;
 }
 
-.prose .callout > p {
+.prose .callout>p {
   margin: 0;
 }
 
@@ -164,7 +195,7 @@ summary:before {
 }
 
 /* THE MAGIC 🧙‍♀️ */
-details[open] > summary:before {
+details[open]>summary:before {
   transform: rotate(90deg);
 }
 
@@ -172,7 +203,7 @@ details summary::-webkit-details-marker {
   display: none;
 }
 
-details > ul {
+details>ul {
   padding-bottom: 1rem;
   margin-bottom: 0;
 }

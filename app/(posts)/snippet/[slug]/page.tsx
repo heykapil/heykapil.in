@@ -48,7 +48,7 @@ export default async function SnippetPost(props: Props) {
             <Views slug={`snippet,${metadata.slug}`} />
           </div>
         </header>
-        <div className="prose prose-neutral dark:prose-invert mt-8">
+        <div className="prose prose-neutral dark:prose-invert mt-8 w-full max-w-none">
           {content}
         </div>
       </article>
