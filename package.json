@@ -3,8 +3,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && wrangler pages deploy out --project-name=kapil-app",
-    "build-only": "next build",
+    "build": "next build",
+    "build-deploy": "next build && wrangler pages deploy out --project-name=kapil-app",
     "start": "next start",
     "setup": "node ./setup.mjs"
   },
