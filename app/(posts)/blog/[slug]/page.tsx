@@ -1,10 +1,6 @@
 import { formatDate } from 'app/components/helpers/format-date';
-import { increment } from 'app/db/actions';
 import { getBlogPosts, getPost } from 'app/db/blog';
-import { getViewsCount } from 'app/db/queries';
-import { unstable_noStore } from 'next/cache';
 import { notFound } from 'next/navigation';
-import { cache } from 'react';
 import ViewCounter from '../view-counter';
 type Props = {
   params: Promise<{ slug: string }>;
@@ -44,7 +40,7 @@ export default async function BlogPost(props: Props) {
             <p className="text-sm text-neutral-500">
               {formatDate(metadata.created)}
             </p>
-            <Views slug={`musing,${metadata.slug}`} />
+            <ViewCounter slug={`musing,${metadata.slug}`} trackView={true} />
           </div>
         </header>
         <div className="mt-8 prose prose-neutral dark:prose-invert max-w-none  prose-headings:font-semibold prose-headings:tracking-tighter prose-h1:text-3xl prose-a:text-blue-600 dark:prose-a:text-blue-400 prose-code:text-pink-600 prose-img:rounded-xl">
@@ -55,17 +51,4 @@ export default async function BlogPost(props: Props) {
   } catch (e) {
     notFound();
   }
-}
-
-let incrementViews = cache(increment);
-async function Views({ slug }: { slug: string }) {
-  unstable_noStore();
-  let views = await getViewsCount(slug);
-  incrementViews(slug);
-  return (
-    <>
-      <ViewCounter slug={slug} trackView={true} />
-      <p className="text-sm text-neutral-500 animate-flip-up">{views} views</p>
-    </>
-  );
 }

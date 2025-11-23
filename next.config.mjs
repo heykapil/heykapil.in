@@ -1,10 +1,10 @@
 const nextConfig = {
-  // output: 'export',
+  output: 'export',
   experimental: {
     // ppr: true,
-    serverActions: {
-      allowedOrigins: ['api.kapil.app', 'api2.kapil.app'],
-    },
+    // serverActions: {
+    //   allowedOrigins: ['api.kapil.app', 'api2.kapil.app'],
+    // },
   },
   logging: {
     fetches: {

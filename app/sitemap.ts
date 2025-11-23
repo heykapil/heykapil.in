@@ -5,7 +5,7 @@ import {
   getQuotes,
   getSnippetPosts,
 } from './db/blog';
-export const dynamic = 'force-static'; // <--- Add this line
+export const dynamic = 'force-static';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const allPosts = getBlogPosts();

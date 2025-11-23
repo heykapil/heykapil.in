@@ -1,11 +1,7 @@
 import ViewCounter from 'app/(posts)/blog/view-counter';
 import { formatDate } from 'app/components/helpers/format-date';
-import { increment } from 'app/db/actions';
 import { getPost, getSnippetPosts } from 'app/db/blog';
-import { getViewsCount } from 'app/db/queries';
-import { unstable_noStore } from 'next/cache';
 import { notFound } from 'next/navigation';
-import { cache } from 'react';
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -45,7 +41,7 @@ export default async function SnippetPost(props: Props) {
             <p className="text-sm text-neutral-500">
               {formatDate(metadata.created)}
             </p>
-            <Views slug={`snippet,${metadata.slug}`} />
+            <ViewCounter slug={`snippet,${metadata.slug}`} trackView={true} />
           </div>
         </header>
         <div className="prose prose-neutral dark:prose-invert mt-8 w-full max-w-none">
@@ -56,17 +52,4 @@ export default async function SnippetPost(props: Props) {
   } catch (e) {
     notFound();
   }
-}
-
-let incrementViews = cache(increment);
-async function Views({ slug }: { slug: string }) {
-  unstable_noStore();
-  let views = await getViewsCount(slug);
-  incrementViews(slug);
-  return (
-    <>
-      <ViewCounter slug={slug} trackView={true} />
-      <p className="text-sm text-neutral-500 animate-flip-up">{views} views</p>
-    </>
-  );
 }
