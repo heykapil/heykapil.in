@@ -1,14 +1,14 @@
-import './global.css';
-import type { Metadata } from 'next';
-import { Navbar } from './components/nav';
 import ToastProvider from 'app/components/toast-provider';
-import { Bebas_Neue, Figtree, Proza_Libre } from "next/font/google";
-
+import type { Metadata } from 'next';
+import { Figtree, Proza_Libre } from 'next/font/google';
+import Script from 'next/script';
+import { Navbar } from './components/nav';
+import './global.css';
 
 const newsreader = Proza_Libre({
-  variable: "--font-newsreader",
-  subsets: ["latin"],
-  weight: ["400"],
+  variable: '--font-newsreader',
+  subsets: ['latin'],
+  weight: ['400'],
 });
 
 export const metadata: Metadata = {
@@ -141,8 +141,15 @@ export default function RootLayout({
         font.className,
       )}
     >
-      <body className={`antialiased max-w-2xl mb-40 flex flex-col md:flex-row mx-4 mt-8 lg:mx-auto + 
-        ${newsreader.variable}`}>
+      <body
+        className={`antialiased max-w-2xl mb-40 flex flex-col md:flex-row mx-4 mt-8 lg:mx-auto +
+        ${newsreader.variable}`}
+      >
+        <Script
+          defer
+          src="https://analytics.kapil.app/script.js"
+          data-website-id="eed82a85-bdd7-4035-8866-205c25b5fd51"
+        />
         <ToastProvider>
           <main className="flex-auto min-w-0 mt-6 flex flex-col px-2 md:px-0">
             <Navbar />
