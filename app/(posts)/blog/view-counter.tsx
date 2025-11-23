@@ -16,7 +16,7 @@ export default function ViewCounter({
     `https://kv.kapil.app/kv?key=pageviews,${slug}`,
     fetcher
   );
-  const views = data?.value?.value || 0;
+  const views = data?.value?.value || '';
 
   useEffect(() => {
     if (trackView) {
