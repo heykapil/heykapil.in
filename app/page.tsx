@@ -30,8 +30,8 @@ export default function Page() {
             <a
               className="flex items-center hover:text-neutral-800 dark:hover:text-neutral-100 transition-all"
               rel="noopener noreferrer"
-              // target="_blank"
-              href={'https://kapil.app/signin?callback=/admin'}
+              target="_blank"
+              href={'https://auth.kapil.app/admin'}
             >
               <ArrowIcon />
               <p className="h-7 ml-2">admin</p>
@@ -66,7 +66,7 @@ export default function Page() {
               className="flex items-center hover:text-neutral-800 dark:hover:text-neutral-100 transition-all"
               rel="noopener noreferrer"
               target="_blank"
-              href="https://gallary.kapil.app"
+              href="https://ritul.ch"
             >
               <ArrowIcon />
               <p className="h-7 ml-2">gallary</p>

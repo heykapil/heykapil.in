@@ -13,6 +13,7 @@ const nextConfig = {
   },
   transpilePackages: ['next-mdx-remote'],
   images: {
+    unoptimized: true,
     remotePatterns: [
       { hostname: 'kapil.gumlet.io' },
       { hostname: 's3.tebi.io' },

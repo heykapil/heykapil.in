@@ -3,7 +3,6 @@ import fs from 'fs';
 import matter from 'gray-matter';
 import { compileMDX } from 'next-mdx-remote/rsc';
 import path from 'path';
-// Define the base path to your content inside the app directory
 const BASE_PATH = path.join(process.cwd(), 'content');
 
 export type Metadata = {
@@ -17,15 +16,12 @@ export type Metadata = {
   image?: string;
 };
 
-// 1. Helper to read a directory
 function getMDXFiles(dir: string) {
   const dirPath = path.join(BASE_PATH, dir);
   if (!fs.existsSync(dirPath)) return [];
   return fs.readdirSync(dirPath).filter(file => path.extname(file) === '.md');
 }
 
-// 2. Get a List of Posts (Lightweight - used for listing pages)
-// Only reads frontmatter, doesn't compile MDX
 export function getMDXData(dir: string) {
   let mdxFiles = getMDXFiles(dir);
 
@@ -40,8 +36,6 @@ export function getMDXData(dir: string) {
   });
 }
 
-// 3. Get a Single Post (Heavyweight - used for the [slug] page)
-// Returns the compiled React Component + Metadata
 export async function getPost(dir: string, slug: string) {
   const filePath = path.join(BASE_PATH, dir, `${slug}.md`);
 
@@ -50,14 +44,6 @@ export async function getPost(dir: string, slug: string) {
   }
 
   const source = fs.readFileSync(filePath, 'utf-8');
-
-  // const options = {
-  //   theme: 'one-dark-pro',
-  //   defaultLang: 'plaintext',
-  //   keepBackground: false,
-  // };
-
-  // compileMDX parses frontmatter AND turns markdown into React
   const { content, frontmatter } = await compileMDX<Metadata>({
     source,
     options: {
@@ -83,7 +69,6 @@ export function getQuotes() {
   return getMDXData('quotes');
 }
 
-// Helper to get a specific snippet by slug directly
 export async function getSnippet(slug: string) {
   return getPost('snippets', slug);
 }
