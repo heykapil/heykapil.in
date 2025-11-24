@@ -142,7 +142,7 @@ export default function RootLayout({
       )}
     >
       <body
-        className={`antialiased max-w-4xl mb-40 flex flex-col md:flex-row mx-4 lg:mx-auto ${newsreader.variable}`}
+        className={`antialiased max-w-4xl flex flex-col md:flex-row mx-4 lg:mx-auto ${newsreader.variable}`}
       >
         <Script
           defer

@@ -71,7 +71,7 @@ export function Navbar() {
 
   return (
     <aside className="md:h-screen md:sticky md:top-0 -ml-[6px] md:-ml-0 tracking-tight md:w-[150px] shrink-0">
-      <div className="h-full md:border-r-2 md:border-neutral-100 dark:border-neutral-900 md:py-8">
+      <div className="h-full md:border-r-1 md:border-neutral-50 dark:border-neutral-900 md:pt-8">
         <nav
           id="nav"
           onMouseEnter={handleMouseEnter}
@@ -142,7 +142,7 @@ export function Navbar() {
                     <circle cx="12" cy="12" r="10" />
                     <path d="m9 12 2 2 4-4" />
                   </svg>
-                  <span className="text-xs hidden md:block">Auto-hide On</span>
+                  <span className="text-sm hidden md:block">Auto-hide On</span>
                 </div>
               ) : (
                 <div className="hidden md:flex items-center gap-2">
@@ -158,7 +158,7 @@ export function Navbar() {
                   >
                     <circle cx="12" cy="12" r="10" />
                   </svg>
-                  <span className="text-xs hidden md:block">Auto-hide Off</span>
+                  <span className="text-sm hidden md:block">Auto-hide Off</span>
                 </div>
               )}
             </button>

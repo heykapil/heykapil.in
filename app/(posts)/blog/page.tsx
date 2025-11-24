@@ -33,7 +33,7 @@ export default function BlogPage() {
             .map(([year, posts]) => (
               <div key={year} className="flex flex-col">
                 <div className="flex flex-col md:flex-row">
-                  <div className="w-24 py-4 shrink-0">
+                  <div className="hidden md:block w-24 py-4 shrink-0">
                     <span className="text-neutral-500 dark:text-neutral-400">
                       {year}
                     </span>
