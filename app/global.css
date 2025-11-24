@@ -36,6 +36,11 @@ html {
   -moz-osx-font-smoothing: grayscale;
 }
 
+
+.font-newsreader {
+  font-family: var(--font-newsreader);
+}
+
 h1,
 h2 {
   font-family: var(--font-newsreader);
@@ -63,7 +68,7 @@ h2 {
   content: '#';
 }
 
-.prose *:hover > .anchor {
+.prose *:hover>.anchor {
   @apply visible;
 }
 
@@ -100,7 +105,7 @@ h4 {
   @apply font-medium;
 }
 
-.prose > :first-child {
+.prose> :first-child {
   /* Override removing top margin, causing layout shift */
   margin-top: 1.25em;
   margin-bottom: 1.25em;
@@ -127,8 +132,8 @@ h4 {
 }
 
 /* Added !important to win the specificity war against Tailwind Dark Mode */
-.prose ul > li::marker,
-.prose ol > li::marker {
+.prose ul>li::marker,
+.prose ol>li::marker {
   color: var(--primary) !important;
   font-weight: bold;
 }
@@ -164,7 +169,7 @@ table {
   white-space: nowrap;
 }
 
-.prose .callout > p {
+.prose .callout>p {
   margin: 0;
 }
 
@@ -194,7 +199,7 @@ summary:before {
 }
 
 /* THE MAGIC 🧙‍♀️ */
-details[open] > summary:before {
+details[open]>summary:before {
   transform: rotate(90deg);
 }
 
@@ -202,7 +207,7 @@ details summary::-webkit-details-marker {
   display: none;
 }
 
-details > ul {
+details>ul {
   padding-bottom: 1rem;
   margin-bottom: 0;
 }

@@ -90,7 +90,6 @@ export function formatShortDate(date: string) {
   let fullDate = targetDate.toLocaleString("en-us", {
     month: "short",
     day: "numeric",
-    year: "numeric",
   });
 
   return `${fullDate}`;

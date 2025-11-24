@@ -38,7 +38,7 @@ export default async function SnippetPost(props: Props) {
             {metadata.title}
           </h1>
           <div className="flex flex-row justify-between">
-            <p className="text-sm text-neutral-500">
+            <p className="text-sm text-neutral-600 dark:text-neutral-400">
               {formatDate(metadata.created)}
             </p>
             <ViewCounter slug={`snippet,${metadata.slug}`} trackView={true} />
