@@ -13,12 +13,17 @@ export default function ViewCounter({
   trackView?: boolean;
 }) {
   const storageKey = `view-count-${slug}`;
-  const initial = typeof window !== 'undefined'
-    ? Number(sessionStorage.getItem(storageKey)) || null
-    : null;
 
-  const { data, mutate } = useSWR(
-    initial === null ? `https://kv.kapil.app/kv?key=pageviews,${slug}` : null,
+  const sessionValue =
+    typeof window !== 'undefined'
+      ? Number(sessionStorage.getItem(storageKey)) || null
+      : null;
+
+  // If we have no session cache, fetch. If we DO have it, never fetch.
+  const shouldFetch = sessionValue === null;
+
+  const { data } = useSWR(
+    shouldFetch ? `https://kv.kapil.app/kv?key=pageviews,${slug}` : null,
     fetcher,
     {
       revalidateOnMount: false,
@@ -28,30 +33,37 @@ export default function ViewCounter({
     }
   );
 
-  const [views, setViews] = useState<number | null>(initial);
+  const [views, setViews] = useState<number | null>(sessionValue);
 
+  // Handle first-time fetch and increments
   useEffect(() => {
-    let stored = initial;
+    let current = sessionValue;
 
-    // 1️⃣ First-time visit in this session: fetch → cache
-    if (stored === null && data?.value?.value !== undefined) {
-      stored = data.value.value;
-      sessionStorage.setItem(storageKey, String(stored));
-      setViews(stored);
+    async function run() {
+      // 1️⃣ First visit: fetch from API
+      if (current === null && data?.value?.value != null) {
+        current = data.value.value;
+        sessionStorage.setItem(storageKey, String(current));
+        setViews(current);
+      }
+
+      // If still null, data not loaded yet → wait for next render
+      if (current === null) return;
+
+      // 2️⃣ Always increment on visit/refresh
+      if (trackView) {
+        await fetch(
+          `https://kv.kapil.app/kv/sum?key=pageviews,${slug}&value=1`,
+          { method: 'POST', body: JSON.stringify(10) }
+        );
+
+        const updated = current + 1;
+        sessionStorage.setItem(storageKey, String(updated));
+        setViews(updated);
+      }
     }
 
-    // 2️⃣ Increment on every visit (including refresh)
-    if (trackView && stored !== null) {
-      fetch(`https://kv.kapil.app/kv/sum?key=pageviews,${slug}&value=1`, {
-        method: 'POST',
-        body: JSON.stringify(10),
-      }).then(() => {
-        const newValue = stored! + 1;
-        sessionStorage.setItem(storageKey, String(newValue));
-        setViews(newValue);
-        mutate({ value: { value: newValue } }, false); // Sync SWR cache without refetch
-      });
-    }
+    run();
   }, [data, slug, trackView]);
 
   return (
