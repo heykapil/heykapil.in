@@ -15,16 +15,37 @@ export default function ViewCounter({
   const { data, mutate } = useSWR(
     `https://kv.kapil.app/kv?key=pageviews,${slug}`,
     fetcher,
+    { revalidateOnMount: false }
   );
   const views = data?.value?.value || '+1';
 
   useEffect(() => {
+    const storageKey = `view-count-${slug}`;
+    const cachedViews = typeof window !== 'undefined' && sessionStorage.getItem(storageKey);
+
+    if (cachedViews) {
+      mutate({ value: { value: parseInt(cachedViews) } }, false);
+    } else {
+      mutate();
+    }
+
     if (trackView) {
       fetch(`https://kv.kapil.app/kv/sum?key=pageviews,${slug}&value=1`, {
         method: 'POST',
         body: JSON.stringify(10),
-      }).then(() => {
-        mutate();
+      }).then(async (res) => {
+        const result = await res.json();
+        const currentViews = cachedViews ? parseInt(cachedViews) : (data?.value?.value ? parseInt(data.value.value) : 0);
+        const newViews = currentViews + 1;
+
+        if (!isNaN(newViews)) {
+          mutate({ value: { value: newViews } }, false);
+          if (typeof window !== 'undefined') {
+            sessionStorage.setItem(storageKey, newViews.toString());
+          }
+        } else {
+          mutate();
+        }
       });
     }
   }, [slug, trackView, mutate]);
