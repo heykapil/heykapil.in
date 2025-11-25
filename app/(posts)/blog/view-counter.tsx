@@ -1,58 +1,62 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import useSWR from 'swr';
 
 const fetcher = (url: string) => fetch(url).then(res => res.json());
 
 export default function ViewCounter({
   slug,
-  trackView,
+  trackView = true,
 }: {
   slug: string;
   trackView?: boolean;
 }) {
+  const storageKey = `view-count-${slug}`;
+  const initial = typeof window !== 'undefined'
+    ? Number(sessionStorage.getItem(storageKey)) || null
+    : null;
+
   const { data, mutate } = useSWR(
-    `https://kv.kapil.app/kv?key=pageviews,${slug}`,
+    initial === null ? `https://kv.kapil.app/kv?key=pageviews,${slug}` : null,
     fetcher,
-    { revalidateOnMount: false }
+    {
+      revalidateOnMount: false,
+      revalidateIfStale: false,
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
+    }
   );
-  const views = data?.value?.value || '+1';
+
+  const [views, setViews] = useState<number | null>(initial);
 
   useEffect(() => {
-    const storageKey = `view-count-${slug}`;
-    const cachedViews = typeof window !== 'undefined' && sessionStorage.getItem(storageKey);
+    let stored = initial;
 
-    if (cachedViews) {
-      mutate({ value: { value: parseInt(cachedViews) } }, false);
-    } else {
-      mutate();
+    // 1️⃣ First-time visit in this session: fetch → cache
+    if (stored === null && data?.value?.value !== undefined) {
+      stored = data.value.value;
+      sessionStorage.setItem(storageKey, String(stored));
+      setViews(stored);
     }
 
-    if (trackView) {
+    // 2️⃣ Increment on every visit (including refresh)
+    if (trackView && stored !== null) {
       fetch(`https://kv.kapil.app/kv/sum?key=pageviews,${slug}&value=1`, {
         method: 'POST',
         body: JSON.stringify(10),
-      }).then(async (res) => {
-        const result = await res.json();
-        const currentViews = cachedViews ? parseInt(cachedViews) : (data?.value?.value ? parseInt(data.value.value) : 0);
-        const newViews = currentViews + 1;
-
-        if (!isNaN(newViews)) {
-          mutate({ value: { value: newViews } }, false);
-          if (typeof window !== 'undefined') {
-            sessionStorage.setItem(storageKey, newViews.toString());
-          }
-        } else {
-          mutate();
-        }
+      }).then(() => {
+        const newValue = stored! + 1;
+        sessionStorage.setItem(storageKey, String(newValue));
+        setViews(newValue);
+        mutate({ value: { value: newValue } }, false); // Sync SWR cache without refetch
       });
     }
-  }, [slug, trackView, mutate]);
+  }, [data, slug, trackView]);
 
   return (
     <span className="text-sm text-neutral-500 animate-flip-up">
-      {views} views
+      {views ?? '...'} views
     </span>
   );
 }
