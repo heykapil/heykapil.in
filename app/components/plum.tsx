@@ -107,6 +107,13 @@ export default function Plum() {
         const start = () => {
             if (rafId.current) cancelAnimationFrame(rafId.current);
 
+            // Check visibility before starting
+            const isVisible = localStorage.getItem('plumVisible') !== 'false';
+            if (!isVisible) {
+                ctx.clearRect(0, 0, width, height);
+                return;
+            }
+
             initCanvas();
             ctx.clearRect(0, 0, width, height);
             ctx.lineWidth = 1;
@@ -134,11 +141,17 @@ export default function Plum() {
             start();
         };
 
+        const onToggle = () => {
+            start();
+        };
+
         window.addEventListener('resize', onResize);
+        window.addEventListener('plum:toggle', onToggle);
 
         return () => {
             if (rafId.current) cancelAnimationFrame(rafId.current);
             window.removeEventListener('resize', onResize);
+            window.removeEventListener('plum:toggle', onToggle);
         };
     }, []);
 

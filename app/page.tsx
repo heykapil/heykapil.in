@@ -1,10 +1,12 @@
 import HomeStats from 'app/components/home-stats';
+import AnimatedLogo from './components/logo/animated';
+import BrandLogo from './components/logo/brand';
 
 export default function Page() {
   return (
     <section>
-      <h1 className="font-medium text-2xl mb-8 tracking-tighter animate-fade-right">
-        hey, I'm kapil 👋
+      <h1 className="font-medium flex flex-row space-x-2 gap-2 text-2xl mb-8 tracking-tighter animate-fade-right">
+        hey, I'm Kapil!
       </h1>
       <HomeStats />
       <div className="prose prose-neutral dark:prose-invert">

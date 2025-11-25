@@ -19,12 +19,18 @@ export function Navbar() {
 
   const [isVisible, setIsVisible] = useState(true);
   const [autoHideEnabled, setAutoHideEnabled] = useState(true);
+  const [plumVisible, setPlumVisible] = useState(true);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    const stored = localStorage.getItem('autoHideNavbar');
-    if (stored !== null) {
-      setAutoHideEnabled(JSON.parse(stored));
+    const storedAutoHide = localStorage.getItem('autoHideNavbar');
+    if (storedAutoHide !== null) {
+      setAutoHideEnabled(JSON.parse(storedAutoHide));
+    }
+
+    const storedPlum = localStorage.getItem('plumVisible');
+    if (storedPlum !== null) {
+      setPlumVisible(storedPlum !== 'false');
     }
   }, []);
 
@@ -67,6 +73,13 @@ export function Navbar() {
     if (!newValue) {
       setIsVisible(true);
     }
+  };
+
+  const togglePlum = () => {
+    const newValue = !plumVisible;
+    setPlumVisible(newValue);
+    localStorage.setItem('plumVisible', JSON.stringify(newValue));
+    window.dispatchEvent(new Event('plum:toggle'));
   };
 
   return (
@@ -159,6 +172,48 @@ export function Navbar() {
                     <circle cx="12" cy="12" r="10" />
                   </svg>
                   <span className="text-sm hidden md:block">Auto-hide Off</span>
+                </div>
+              )}
+            </button>
+            <button
+              onClick={togglePlum}
+              className={`relative flex px-2 py-1 align-middle transition-all hover:text-neutral-800 dark:hover:text-neutral-200 text-neutral-600 dark:text-neutral-400`}
+              title={
+                plumVisible ? 'Disable background animation' : 'Enable background animation'
+              }
+            >
+              {plumVisible ? (
+                <div className="hidden md:flex items-center gap-2">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="w-4 h-4 text-green-600"
+                  >
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="m9 12 2 2 4-4" />
+                  </svg>
+                  <span className="text-sm hidden md:block">Background On</span>
+                </div>
+              ) : (
+                <div className="hidden md:flex items-center gap-2">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="w-4 h-4 text-neutral-400"
+                  >
+                    <circle cx="12" cy="12" r="10" />
+                  </svg>
+                  <span className="text-sm hidden md:block">Background Off</span>
                 </div>
               )}
             </button>

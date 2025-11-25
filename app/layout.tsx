@@ -1,4 +1,3 @@
-import ToastProvider from 'app/components/toast-provider';
 import type { Metadata } from 'next';
 import { Figtree, Newsreader, Proza_Libre } from 'next/font/google';
 import Script from 'next/script';
@@ -138,7 +137,7 @@ export default function RootLayout({
     <html
       lang="en"
       className={cx(
-        'text-black bg-white dark:text-white dark:bg-[#111010]',
+        'text-black bg-[#faf9f6] dark:text-white dark:bg-[#111010]',
         font.className,
       )}
     >
@@ -151,12 +150,10 @@ export default function RootLayout({
           src="https://analytics.kapil.app/script.js"
           data-website-id="eed82a85-bdd7-4035-8866-205c25b5fd51"
         />
-        <ToastProvider>
-          <Navbar />
-          <main className="flex-auto my-10 md:mt-8 max-w-2xl min-w-0 flex flex-col px-0 md:pl-10">
-            {children}
-          </main>
-        </ToastProvider>
+        <Navbar />
+        <main className="flex-auto my-10 md:mt-8 max-w-2xl min-w-0 flex flex-col px-0 md:pl-10">
+          {children}
+        </main>
       </body>
     </html>
   );
