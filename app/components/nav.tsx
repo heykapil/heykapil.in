@@ -71,7 +71,7 @@ export function Navbar() {
 
   return (
     <aside className="md:h-screen md:sticky md:top-0 -ml-[6px] md:-ml-0 tracking-tight md:w-[150px] shrink-0">
-      <div className="h-full md:border-r-1 md:border-neutral-50 dark:border-neutral-900 md:pt-8">
+      <div className="h-full md:pt-8">
         <nav
           id="nav"
           onMouseEnter={handleMouseEnter}

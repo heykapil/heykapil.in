@@ -88,8 +88,8 @@ export default function ViewCounter({
   }, [data, shouldFetch, trackView, slug]);
 
   return (
-    <span className="text-sm text-neutral-500 animate-flip-up">
-      {views ? `${views.toLocaleString()} views` : '...'}
+    <span className="text-sm text-neutral-600 dark:text-neutral-400 animate-flip-up">
+      {views ? `${views.toLocaleString()} views` : ''}
     </span>
   );
 }

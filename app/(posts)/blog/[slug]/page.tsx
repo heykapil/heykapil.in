@@ -31,12 +31,14 @@ export default async function BlogPost(props: Props) {
     const { content, metadata } = await getPost('blog', params.slug);
 
     return (
-      <article className="mt-0">
-        <header>
-          <h1 className="animate-fade-right mb-8 text-2xl font-medium tracking-tighter">
+      <article className="mt-0 relative">
+        <div className="sticky top-0 z-50 -mx-6 px-6 backdrop-blur-lg bg-white/80 border-b border-neutral-100 dark:border-neutral-900 dark:bg-[#111010]/80 mb-8 pt-4 pb-4 transition-all">
+          <h1 className="animate-fade-right text-2xl font-medium tracking-tighter">
             {metadata.title}
           </h1>
-          <div className="flex flex-row justify-between">
+        </div>
+        <header>
+          <div className="flex flex-row justify-between mt-4">
             <p className="text-sm text-neutral-600 dark:text-neutral-400">
               {formatDate(metadata.created)}
             </p>

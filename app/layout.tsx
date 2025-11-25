@@ -151,7 +151,7 @@ export default function RootLayout({
         />
         <ToastProvider>
           <Navbar />
-          <main className="flex-auto  my-10 md:mt-8 max-w-2xl min-w-0 flex flex-col px-0 md:pl-10">
+          <main className="flex-auto my-10 md:mt-8 max-w-2xl min-w-0 flex flex-col px-0 md:pl-10">
             {children}
           </main>
         </ToastProvider>
