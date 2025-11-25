@@ -4,6 +4,7 @@ import { Figtree, Newsreader, Proza_Libre } from 'next/font/google';
 import Script from 'next/script';
 import { Navbar } from './components/nav';
 import './global.css';
+import Plum from './components/plum';
 
 const newsreader = Newsreader({
   variable: '--font-newsreader',
@@ -144,6 +145,7 @@ export default function RootLayout({
       <body
         className={`antialiased max-w-5xl flex flex-col md:flex-row mx-4 lg:mx-auto ${newsreader.variable}`}
       >
+        <Plum />
         <Script
           defer
           src="https://analytics.kapil.app/script.js"

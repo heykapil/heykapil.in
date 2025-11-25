@@ -76,7 +76,7 @@ export function Navbar() {
           id="nav"
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
-          className={`fade relative flex scroll-pr-6 flex-row md:flex-col items-start px-0 pb-0 md:relative md:overflow-auto backdrop-blur-md bg-white/50 dark:bg-[#111010]/50 transition-all duration-700 ease-in-out md:h-full ${isVisible
+          className={`fade relative flex scroll-pr-6 flex-row md:flex-col items-start px-0 pb-0 md:relative md:overflow-auto transition-all duration-700 ease-in-out md:h-full ${isVisible
             ? 'opacity-100 translate-x-0 blur-0'
             : 'opacity-100 md:opacity-20 md:-translate-x-4 md:blur-sm'
             }`}
