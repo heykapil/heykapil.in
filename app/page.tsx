@@ -2,7 +2,7 @@ import AnimatedLogo from './components/logo/animated';
 
 export default function Page() {
   return (
-    <section className="max-w-2xl mx-auto px-4 font-sans">
+    <section className="max-w-2xl mx-auto font-sans">
       {/* Header / Intro */}
       <header className="mb-12">
         <AnimatedLogo className="w-20 h-20" />
