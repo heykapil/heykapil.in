@@ -1,5 +1,6 @@
 const nextConfig = {
   output: 'export',
+  trailingSlash: true,
   experimental: {
     // ppr: true,
     // serverActions: {

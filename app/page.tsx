@@ -1,15 +1,24 @@
-import HomeStats from 'app/components/home-stats';
 import AnimatedLogo from './components/logo/animated';
-import BrandLogo from './components/logo/brand';
 
 export default function Page() {
   return (
-    <section>
-      <h1 className="font-medium flex flex-row space-x-2 gap-2 text-2xl mb-8 tracking-tighter animate-fade-right">
-        hey, I'm Kapil!
-      </h1>
-      <HomeStats />
-      <div className="prose prose-neutral dark:prose-invert">
+    <section className="max-w-2xl mx-auto px-4 font-sans">
+      {/* Header / Intro */}
+      <header className="mb-12">
+        <AnimatedLogo className="w-20 h-20" />
+        <p className="text-neutral-600 dark:text-neutral-400 mb-6">
+          Research Scholar at Gujarat University & Self-taught Developer.
+        </p>
+      </header>
+
+      {/* Bio */}
+      <div className="prose prose-neutral dark:prose-invert mb-12">
+        <p>
+          I'm a research scholar at Gujarat University, currently working as a
+          Senior Research Fellow in the area of fractional-order dynamical
+          systems and epidemiology. My supervisor is Dr. Nita H. Shah. I am
+          being funded by CSIR-HRDG.
+        </p>
         <p>
           On the tech side, I'm a dedicated self-taught developer, crafting
           interactive and dynamic web applications for fun. My expertise extends
@@ -17,75 +26,106 @@ export default function Page() {
           and PostgreSQL.
         </p>
       </div>
-      <div className="my-8 flex flex-col sm:flex-row space-x-0 sm:space-x-4 space-y-4 sm:space-y-0 w-full"></div>
-      <div className="prose prose-neutral dark:prose-invert">
-        <p>
-          Thank you for visiting, and I hope you enjoy your time exploring the
-          diverse facets of my interests. Happy browsing! Follow me on social
-          media for the latest updates on my projects, research, and insights.
-          Don't miss out to checkout the guestbook!
-        </p>
+
+      {/* Research Section */}
+      <div className="mb-12">
+        <h2 className="font-medium text-xl tracking-tighter mb-4">Research</h2>
+        <ul className="flex flex-col space-y-2 text-neutral-600 dark:text-neutral-400">
+          <li>
+            <a
+              href="#"
+              className="flex items-center hover:text-neutral-800 dark:hover:text-neutral-200 transition-all"
+            >
+              <ArrowIcon />
+              <span className="ml-2">
+                Thesis (
+                <a
+                  href="https://latex.kapil.app/read/rgrjpkrrrcgb#e685b2"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Source
+                </a>
+                )
+              </span>
+            </a>
+          </li>
+          <li>
+            <a
+              href="#"
+              className="flex items-center hover:text-neutral-800 dark:hover:text-neutral-200 transition-all"
+            >
+              <ArrowIcon />
+              <span className="ml-2">Papers (Coming Soon)</span>
+            </a>
+          </li>
+          <li>
+            <a
+              href="#"
+              className="flex items-center hover:text-neutral-800 dark:hover:text-neutral-200 transition-all"
+            >
+              <ArrowIcon />
+              <span className="ml-2">Google Scholar Profile (Coming Soon)</span>
+            </a>
+          </li>
+        </ul>
       </div>
-      <div className="flex justify-between">
-        <ul className="flex flex-col md:flex-row mt-8 space-x-0 md:space-x-4 space-y-2 md:space-y-0 font-sm text-neutral-600 dark:text-neutral-300">
-          <li>
-            <a
-              className="flex items-center hover:text-neutral-800 dark:hover:text-neutral-100 transition-all"
-              rel="noopener noreferrer"
-              target="_blank"
-              href={'https://auth.kapil.app/admin'}
-            >
-              <ArrowIcon />
-              <p className="h-7 ml-2">admin</p>
-            </a>
-          </li>
-          <li>
-            <a
-              className="flex items-center hover:text-neutral-800 dark:hover:text-neutral-100 transition-all"
-              rel="noopener noreferrer"
-              target="_blank"
-              href="https://notes.kapil.app"
-            >
-              <ArrowIcon />
-              <p className="h-7 ml-2">notes</p>
-            </a>
-          </li>
-          <li>
-            <a
-              className="flex items-center hover:text-neutral-800 dark:hover:text-neutral-100 transition-all"
-              rel="noopener noreferrer"
-              target="_blank"
-              href="mailto:hi@kapil.app"
-            >
-              <ArrowIcon />
-              <p className="h-7 ml-2">email</p>
-            </a>
-          </li>
-        </ul>
-        <ul className="flex flex-col md:flex-row mt-8 space-x-0 md:space-x-4 space-y-2 md:space-y-0 font-sm text-neutral-600 dark:text-neutral-300">
-          <li className="md:hidden">
-            <a
-              className="flex items-center hover:text-neutral-800 dark:hover:text-neutral-100 transition-all"
-              rel="noopener noreferrer"
-              target="_blank"
-              href="https://ritul.ch"
-            >
-              <ArrowIcon />
-              <p className="h-7 ml-2">gallary</p>
-            </a>
-          </li>
-          <li className="md:hidden">
-            <a
-              className="flex items-center hover:text-neutral-800 dark:hover:text-neutral-100 transition-all"
-              rel="noopener noreferrer"
-              target="_blank"
-              href="https://x.com/kapiljch"
-            >
-              <ArrowIcon />
-              <p className="h-7 ml-2">twitter</p>
-            </a>
-          </li>
-        </ul>
+
+      {/* Connect / Links Section */}
+      <div>
+        <h2 className="font-medium text-xl tracking-tighter mb-4">Connect</h2>
+        <div className="flex flex-wrap gap-4 text-neutral-600 dark:text-neutral-400">
+          <a
+            href="mailto:hi@kapil.app"
+            className="flex items-center hover:text-neutral-800 dark:hover:text-neutral-200 transition-all"
+          >
+            <ArrowIcon />
+            <span className="ml-2">Email</span>
+          </a>
+          <a
+            href="https://x.com/kapiljch"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center hover:text-neutral-800 dark:hover:text-neutral-200 transition-all"
+          >
+            <ArrowIcon />
+            <span className="ml-2">Twitter</span>
+          </a>
+          <a
+            href="https://ritul.ch"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center hover:text-neutral-800 dark:hover:text-neutral-200 transition-all"
+          >
+            <ArrowIcon />
+            <span className="ml-2">Gallery</span>
+          </a>
+          <a
+            href="https://notes.kapil.app"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center hover:text-neutral-800 dark:hover:text-neutral-200 transition-all"
+          >
+            <ArrowIcon />
+            <span className="ml-2">Notes</span>
+          </a>
+          <a
+            href="https://auth.kapil.app/admin"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center hover:text-neutral-800 dark:hover:text-neutral-200 transition-all"
+          >
+            <ArrowIcon />
+            <span className="ml-2">Admin</span>
+          </a>
+        </div>
+      </div>
+
+      <div className="prose prose-neutral dark:prose-invert mt-12 text-sm text-neutral-500">
+        <p>
+          Thank you for visiting. Happy browsing! Don't miss out to checkout the
+          guestbook!
+        </p>
       </div>
     </section>
   );
