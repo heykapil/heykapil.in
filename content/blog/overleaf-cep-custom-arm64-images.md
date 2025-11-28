@@ -5,7 +5,7 @@ created: 2025-11-28T00:00:00Z
 updated: 2025-11-28T00:00:00Z
 ---
 
-If you're trying to run this on **ARM64 hardware** (Raspberry Pi, Apple Silicon, Oracle Ampere etc.), You can build the arm64 images yourself using GitHub actions (which now supports arm on linux and windows, earlier have to use `QEMU` for virtualization of arm devices) or can use already built `heykapil/overleaf:latest` by me (`ext-ce` branch) .
+If you're trying to run this on **ARM64 hardware** (Raspberry Pi, Apple Silicon, Oracle Ampere etc.), You can build the arm64 images yourself using GitHub actions (which now supports arm on linux and windows, earlier have to use `QEMU` for virtualization of arm devices) or can use already built `heykapil/overleaf:latest` by me (`ext-ce` branch). We are using `yu-i-i/overleaf-cep` version which extends the community edition version with extra features.
 
 ### Build the Base Image
       -  Use `Dockerfile-base` to build the heavy dependency base image containing `texlive` installation.

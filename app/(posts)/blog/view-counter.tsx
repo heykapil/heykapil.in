@@ -22,7 +22,7 @@ export default function ViewCounter({
       revalidateIfStale: false,
       revalidateOnFocus: false,
       revalidateOnReconnect: false,
-    }
+    },
   );
 
   useEffect(() => {
@@ -38,13 +38,13 @@ export default function ViewCounter({
           setViews(cachedVal);
 
           if (trackView) {
-            // Increment
+            // Increment in background if cached
             await fetch(
               `https://kv.kapil.app/kv/sum?key=pageviews,${slug}&value=1`,
               {
                 method: 'POST',
                 body: JSON.stringify(10),
-              }
+              },
             );
             const newVal = cachedVal + 1;
             setViews(newVal);
@@ -62,8 +62,25 @@ export default function ViewCounter({
   }, [slug, trackView]);
 
   useEffect(() => {
-    if (data?.value?.value != null && shouldFetch) {
-      const fetchedVal = parseInt(data.value.value, 10);
+    // Ensure we have data and were supposed to fetch
+    if (data && shouldFetch) {
+      // FIX: Handle case where key doesn't exist (value is null) -> default to 0
+      // Also handles your existing structure expectation (data.value.value)
+      let fetchedVal = 0;
+
+      if (data.value !== null) {
+        // If data.value is an object with a .value property, use that (legacy/wrapper support)
+        // Otherwise use data.value directly
+        const rawValue =
+          typeof data.value === 'object' &&
+          data.value !== null &&
+          'value' in data.value
+            ? data.value.value
+            : data.value;
+
+        fetchedVal = parseInt(rawValue, 10);
+      }
+
       if (!isNaN(fetchedVal)) {
         const run = async () => {
           let displayVal = fetchedVal;
@@ -74,7 +91,7 @@ export default function ViewCounter({
               {
                 method: 'POST',
                 body: JSON.stringify(10),
-              }
+              },
             );
             displayVal = fetchedVal + 1;
           }
