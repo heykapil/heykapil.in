@@ -1,4 +1,4 @@
-import { formatDate } from 'app/components/helpers/format-date';
+import { FormatDate } from 'app/components/helpers/format-date';
 import { getBlogPosts, getPost } from 'app/db/blog';
 import { notFound } from 'next/navigation';
 import ViewCounter from '../view-counter';
@@ -38,7 +38,7 @@ export default async function BlogPost(props: Props) {
           </h1>
           <div className="flex flex-row justify-between">
             <p className="text-sm text-neutral-600 dark:text-neutral-400">
-              {formatDate(metadata.created)}
+              <FormatDate date={metadata.updated} />
             </p>
             <ViewCounter slug={`musing,${metadata.slug}`} trackView={true} />
           </div>

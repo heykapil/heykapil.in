@@ -1,4 +1,4 @@
-import { formatDate } from 'app/components/helpers/format-date';
+import { FormatDate } from 'app/components/helpers/format-date';
 import { getPost, getQuotes } from 'app/db/blog';
 import { notFound } from 'next/navigation';
 
@@ -37,7 +37,7 @@ export default async function QuotesPost(props: Props) {
             {metadata.title}
           </h1>
           <p className="text-sm text-neutral-500">
-            {formatDate(metadata.created)}
+            <FormatDate date={metadata.created} />
           </p>
         </header>
         <div className="prose prose-neutral dark:prose-invert mt-8 w-full max-w-none">

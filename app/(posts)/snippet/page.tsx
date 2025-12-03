@@ -1,4 +1,4 @@
-import { formatShortDate } from 'app/components/helpers/format-date';
+import { FormatDate } from 'app/components/helpers/format-date';
 import { getSnippetPosts } from 'app/db/blog';
 import Link from 'next/link';
 import { Suspense } from 'react';
@@ -26,14 +26,17 @@ export default function SnippetPage() {
           {Object.entries(
             allSnippets
               .filter(post => post.archived !== 'true')
-              .reduce((acc, post) => {
-                const year = new Date(post.created).getFullYear();
-                if (!acc[year]) {
-                  acc[year] = [];
-                }
-                acc[year].push(post);
-                return acc;
-              }, {} as Record<number, typeof allSnippets>)
+              .reduce(
+                (acc, post) => {
+                  const year = new Date(post.created).getFullYear();
+                  if (!acc[year]) {
+                    acc[year] = [];
+                  }
+                  acc[year].push(post);
+                  return acc;
+                },
+                {} as Record<number, typeof allSnippets>,
+              ),
           )
             .sort(([yearA], [yearB]) => Number(yearB) - Number(yearA))
             .map(([year, posts]) => (
@@ -74,7 +77,7 @@ export default function SnippetPage() {
                               }
                             >
                               <div className="hidden items-center self-center md:inline-flex">
-                                {formatShortDate(post.created)}
+                                <FormatDate date={post.created} short={true} />
                                 <span className="group-hover:animate-fade-left">
                                   <svg
                                     width="1em"

@@ -1,4 +1,4 @@
-import { formatShortDate } from 'app/components/helpers/format-date';
+import { FormatDate } from 'app/components/helpers/format-date';
 import { getBlogPosts } from 'app/db/blog';
 import Link from 'next/link';
 import { Suspense } from 'react';
@@ -20,14 +20,17 @@ export default function BlogPage() {
           {Object.entries(
             allBlogs
               .filter(post => post.archived !== 'true' && post.private !== true)
-              .reduce((acc, post) => {
-                const year = new Date(post.created).getFullYear();
-                if (!acc[year]) {
-                  acc[year] = [];
-                }
-                acc[year].push(post);
-                return acc;
-              }, {} as Record<number, typeof allBlogs>)
+              .reduce(
+                (acc, post) => {
+                  const year = new Date(post.created).getFullYear();
+                  if (!acc[year]) {
+                    acc[year] = [];
+                  }
+                  acc[year].push(post);
+                  return acc;
+                },
+                {} as Record<number, typeof allBlogs>,
+              ),
           )
             .sort(([yearA], [yearB]) => Number(yearB) - Number(yearA))
             .map(([year, posts]) => (
@@ -65,7 +68,10 @@ export default function BlogPage() {
                               }
                             >
                               <div className="hidden items-center self-center md:inline-flex">
-                                {formatShortDate(post.created)}
+                                <FormatDate
+                                  date={Date.parse(post.created)}
+                                  short={true}
+                                />
                                 <span className="group-hover:animate-fade-left">
                                   <svg
                                     width="1em"

@@ -1,5 +1,5 @@
 import ViewCounter from 'app/(posts)/blog/view-counter';
-import { formatDate } from 'app/components/helpers/format-date';
+import { FormatDate } from 'app/components/helpers/format-date';
 import { getPost, getSnippetPosts } from 'app/db/blog';
 import { notFound } from 'next/navigation';
 
@@ -39,7 +39,7 @@ export default async function SnippetPost(props: Props) {
           </h1>
           <div className="flex flex-row justify-between">
             <p className="text-sm text-neutral-600 dark:text-neutral-400">
-              {formatDate(metadata.created)}
+              <FormatDate date={metadata.created} />
             </p>
             <ViewCounter slug={`snippet,${metadata.slug}`} trackView={true} />
           </div>
