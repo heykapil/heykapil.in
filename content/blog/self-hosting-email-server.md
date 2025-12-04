@@ -63,7 +63,7 @@ networks:
 
 - Change the admin password immediately after logging in.
 
-- Edit the network settings at `https://mail.example.com/settings/network/edit`, add the hostname (eg. mail.example.com)
+- Edit the network settings at Settings > Network > Edit, add the hostname (eg. mail.example.com)
 
 - Add the domain `example.com` in the Manage > Directory > Domains. Add the DNS records provided by Stalwart to your domain's DNS settings.
 
