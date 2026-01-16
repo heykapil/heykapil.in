@@ -14,7 +14,7 @@ If, like me, you're broke and don't want to depend on 15-day free trials. I am h
 1. Download the Maple 2021.1 from the following link [https://info.ghg.dk/it/Programmer]()
 2. Use the following license (`Macintosh HD/Library/Frameworks/Maple.framework/Versions/2021/license/license.dat`)
 
-    ```ts
+    ```dat
     FEATURE Maple2021 maplelmg 2100.0101 permanent uncounted \
     HOSTID=INTERNET=*.*.*.* ISSUER=Maplesoft ISSUED=01-April-2011 NOTICE="" \
     SN=H5F5C2TSZCI6XIBD TS_OK SIGN=""
