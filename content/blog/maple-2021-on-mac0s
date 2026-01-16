@@ -1,0 +1,61 @@
+---
+id: 891dd6f4-0bb7-47f8-a3d5-4e9db6d99b4c
+title: Full Maple 2021 Macos
+created: 2026-01-16T11:56:21Z
+updated: 2026-01-16T12:59:54Z
+tags: [mac,maple]
+---
+We will install and activate Maple on MacOS in this guide. If you have the funds, I strongly advise you to buy a license. Additionally, Maple provides a 15-day free trial.
+If, like me, you're broke and don't want to depend on 15-day free trials. I am here to help but you need to do some work so that Maple doesn't complain about license.
+
+⚠️ Proceed at your own risk! 
+
+1. Download the Maple 2021.1 from the following link [https://info.ghg.dk/it/Programmer]()
+2. Use the following license (`Macintosh HD/Library/Frameworks/Maple.framework/Versions/2021/license/license.dat`)
+
+    ```dat
+    FEATURE Maple2021 maplelmg 2100.0101 permanent uncounted \
+    HOSTID=INTERNET=*.*.*.* ISSUER=Maplesoft ISSUED=01-April-2011 NOTICE="" \
+    SN=H5F5C2TSZCI6XIBD TS_OK SIGN=""
+    FEATURE Maple2021Excel maplelmg 2100.0101 permanent uncounted \
+    HOSTID=INTERNET=*.*.*.* ISSUER=Maplesoft ISSUED=01-April-2011 NOTICE="" \
+    SN=H5F5C2TSZCI6XIBD TS_OK SIGN=""
+    FEATURE MaplePlayer2021 maplelmg 2100.0101 permanent uncounted \
+    HOSTID=INTERNET=*.*.*.* ISSUER=Maplesoft ISSUED=01-April-2011 NOTICE="" \
+    SN=H5F5C2TSZCI6XIBD TS_OK SIGN=""
+    FEATURE MapleReader2021 maplelmg 2100.0101 permanent uncounted \
+    HOSTID=INTERNET=*.*.*.* ISSUER=Maplesoft ISSUED=01-April-2011 NOTICE="" \
+    SN=H5F5C2TSZCI6XIBD TS_OK SIGN=""
+    FEATURE Grid2021 maplelmg 2100.0101 permanent uncounted \
+    HOSTID=INTERNET=*.*.*.* ISSUER=Maplesoft ISSUED=01-April-2011 NOTICE="" \
+    SN=H5F5C2TSZCI6XIBD TS_OK SIGN=""
+    ```
+
+
+**Note:**  Just replace "INTERNET\=\*.\*.\*.\*" by your en0 ether address. or try to change "INTERNET\=\*.\*.\*.\*" by "USER\=yourmacname"
+
+**PS:**  One can use `ifconfig en0 | grep ether | awk '{print \$2}'` to get the en0 ether address on macos.
+
+3. Install `hex fiend` and search and replace the following bits in `libmaple.dylib` (usually found in the `Macintosh HD/Library/Frameworks/Maple.framework/Versions/2021/bin.APPLE_UNIVERSAL_OSX`)
+
+    `0F47C348 81C4B800 00005D5B 415F415E`
+    to
+    `90909048 81C4B800 00005D5B 415F415E`
+
+    and
+    `554889E5 534881EC B8010000 8B452044`
+    to
+    `4831C0C3 534881EC B8010000 8B452044`
+4. For the arm 2023.2 version:
+
+    The license tags of version year `2021` with the `Maple2021, Maple2021Excel, MaplePlayer2021, MapleReader2021, Grid2021` can be replaced by respective`2023` year tags. Further, change in the hex-fiend:
+
+    change
+    `c0 03 5f d6 7d fd 08 94 fc 6f ba a9 fa 67 01 a9`
+
+    to
+    `C0 03 5F D6 7D FD 08 94 C0 03 5F D6 FA 67 01 A9`
+
+    after the change, I also add to codesign the library again. Just create a code signing certificate (system located) and use the "codesign -fs cert file" command.
+
+**Credits/References**: This guide is taken from [this thread](https://macbb.org/threads/maple-2020-mac-crack-found-and-available-to-download.139312/) on the macbb.
