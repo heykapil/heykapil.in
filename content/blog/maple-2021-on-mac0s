@@ -5,6 +5,7 @@ created: 2026-01-16T11:56:21Z
 updated: 2026-01-16T12:59:54Z
 tags: [mac,maple]
 ---
+
 We will install and activate Maple on MacOS in this guide. If you have the funds, I strongly advise you to buy a license. Additionally, Maple provides a 15-day free trial.
 If, like me, you're broke and don't want to depend on 15-day free trials. I am here to help but you need to do some work so that Maple doesn't complain about license.
 
@@ -13,7 +14,7 @@ If, like me, you're broke and don't want to depend on 15-day free trials. I am h
 1. Download the Maple 2021.1 from the following link [https://info.ghg.dk/it/Programmer]()
 2. Use the following license (`Macintosh HD/Library/Frameworks/Maple.framework/Versions/2021/license/license.dat`)
 
-    ```dat
+    ```ts
     FEATURE Maple2021 maplelmg 2100.0101 permanent uncounted \
     HOSTID=INTERNET=*.*.*.* ISSUER=Maplesoft ISSUED=01-April-2011 NOTICE="" \
     SN=H5F5C2TSZCI6XIBD TS_OK SIGN=""
