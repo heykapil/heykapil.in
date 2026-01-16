@@ -11,8 +11,8 @@ If, like me, you're broke and don't want to depend on 15-day free trials. I am h
 
 ⚠️ Proceed at your own risk! 
 
-1. Download the Maple 2021.1 from the following link [https://info.ghg.dk/it/Programmer]()
-2. Use the following license (`Macintosh HD/Library/Frameworks/Maple.framework/Versions/2021/license/license.dat`)
+1. Download the Maple 2021.1 from the following [link](https://info.ghg.dk/it/Programmer/)
+2. Use the following license (Macintosh HD > Library > Frameworks > Maple.framework > Versions > 2021 > license > license.dat)
 
     ```dat
     FEATURE Maple2021 maplelmg 2100.0101 permanent uncounted \
@@ -33,11 +33,11 @@ If, like me, you're broke and don't want to depend on 15-day free trials. I am h
     ```
 
 
-**Note:**  Just replace "INTERNET\=\*.\*.\*.\*" by your en0 ether address. or try to change "INTERNET\=\*.\*.\*.\*" by "USER\=yourmacname"
+**Note:**  Just replace `INTERNET\=\*.\*.\*.\*` by your en0 ether address. or try to change `INTERNET\=\*.\*.\*.\*` by `USER\=yourmacname`
 
 **PS:**  One can use `ifconfig en0 | grep ether | awk '{print \$2}'` to get the en0 ether address on macos.
 
-3. Install `hex fiend` and search and replace the following bits in `libmaple.dylib` (usually found in the `Macintosh HD/Library/Frameworks/Maple.framework/Versions/2021/bin.APPLE_UNIVERSAL_OSX`)
+3. Install `hex fiend` and search and replace the following bits in `libmaple.dylib` (usually found in the Macintosh HD > Library > Frameworks > Maple.framework > Versions > 2021 > bin.APPLE_UNIVERSAL_OSX)
 
     `0F47C348 81C4B800 00005D5B 415F415E`
     to
@@ -53,7 +53,6 @@ If, like me, you're broke and don't want to depend on 15-day free trials. I am h
 
     change
     `c0 03 5f d6 7d fd 08 94 fc 6f ba a9 fa 67 01 a9`
-
     to
     `C0 03 5F D6 7D FD 08 94 C0 03 5F D6 FA 67 01 A9`
 
