@@ -13,7 +13,7 @@
     "@tabler/icons-react": "^3.35.0",
     "@tailwindcss/postcss": "^4.1.17",
     "@tailwindcss/typography": "^0.5.19",
-    "@types/node": "^24.10.1",
+    "@types/node": "^25.3.5",
     "@types/react": "^19.2.6",
     "@types/react-dom": "^19.2.3",
     "autoprefixer": "^10.4.22",
