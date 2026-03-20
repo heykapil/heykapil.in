@@ -41,7 +41,7 @@
     "singleQuote": true
   },
   "devDependencies": {
-    "eslint": "^9.39.1",
+    "eslint": "^10.1.0",
     "eslint-config-next": "^16.0.3"
   }
 }
