@@ -110,7 +110,7 @@ export default function Page() {
             <span className="ml-2">Notes</span>
           </a>
           <a
-            href="https://auth.kapil.app/admin"
+            href="https://auth.kapil.app"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center hover:text-neutral-800 dark:hover:text-neutral-200 transition-all"

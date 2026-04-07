@@ -1,15 +1,10 @@
 import type { Metadata } from 'next';
-import { Figtree, Newsreader, Proza_Libre } from 'next/font/google';
+import { Figtree, Montserrat, Newsreader, Nunito, Playfair_Display, Proza_Libre } from 'next/font/google';
 import Script from 'next/script';
 import { Navbar } from './components/nav';
 import './global.css';
 import Plum from './components/plum';
 
-const newsreader = Newsreader({
-  variable: '--font-newsreader',
-  subsets: ['latin'],
-  weight: ['400'],
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://kapil.app'),
@@ -126,8 +121,12 @@ export const metadata: Metadata = {
 };
 
 const cx = (...classes) => classes.filter(Boolean).join(' ');
-const font = Figtree({ subsets: ['latin'], display: 'swap' });
-
+const font = Nunito({ subsets: ['latin'], display: 'swap' });
+const montserrat = Montserrat({
+  weight: ['400', '600', '800', '900'],
+  subsets: ['latin'],
+  variable: '--font-montserrat'
+})
 export default function RootLayout({
   children,
 }: {
@@ -142,7 +141,7 @@ export default function RootLayout({
       )}
     >
       <body
-        className={`antialiased max-w-5xl flex flex-col md:flex-row mx-4 lg:mx-auto ${newsreader.variable}`}
+        className={`antialiased max-w-5xl flex flex-col md:flex-row mx-4 lg:mx-auto`}
       >
         <Plum />
         <Script
@@ -151,7 +150,7 @@ export default function RootLayout({
           data-website-id="eed82a85-bdd7-4035-8866-205c25b5fd51"
         />
         <Navbar />
-        <main className="flex-auto my-10 md:mt-8 max-w-2xl min-w-0 flex flex-col px-0 md:pl-10">
+        <main className={`flex-auto my-10 md:mt-8 max-w-2xl min-w-0 flex flex-col px-0 md:pl-10 ${montserrat.variable}`}>
           {children}
         </main>
       </body>
