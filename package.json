@@ -35,7 +35,7 @@
     "tailwind-merge": "^3.4.0",
     "tailwindcss": "latest",
     "tailwindcss-animated": "^2.0.0",
-    "typescript": "^5.9.3"
+    "typescript": "^6.0.2"
   },
   "prettier": {
     "singleQuote": true
